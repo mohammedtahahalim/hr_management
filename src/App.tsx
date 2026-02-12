@@ -1,9 +1,5 @@
 function App() {
-  return (
-    <div>
-      <div style={{ width: "150px", height: "50px" }}></div>
-    </div>
-  );
+  return <div>App</div>;
 }
 
 export default App;
