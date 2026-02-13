@@ -6,7 +6,7 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Auth />}>
+        <Route element={<Auth guard="notRequired" />}>
           {authRoutes.map((route) => {
             return (
               <Route
@@ -16,6 +16,8 @@ export default function Router() {
               />
             );
           })}
+        </Route>
+        <Route element={<Auth guard="required" />}>
           {mainRoutes.map((route) => {
             return (
               <Route

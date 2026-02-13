@@ -8,17 +8,20 @@ import App from "./App.tsx";
 import ThemeProvider from "./features/themes/ThemeProvider.tsx";
 import LanguageProvider from "./features/languages/LanguageProvider.tsx";
 import Loader from "./shared/ui/Loader.tsx";
+import ErrorBoundary from "./shared/ui/ErrorBoundaries.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Suspense fallback={<Loader />}>
+    <ErrorBoundary>
       <Provider store={HRStore}>
         <ThemeProvider>
           <LanguageProvider>
-            <App />
+            <Suspense fallback={<Loader />}>
+              <App />
+            </Suspense>
           </LanguageProvider>
         </ThemeProvider>
       </Provider>
-    </Suspense>
+    </ErrorBoundary>
   </StrictMode>,
 );

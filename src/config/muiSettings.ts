@@ -62,55 +62,45 @@ export const lightPalette: PaletteOptions = {
 
 export const darkPalette: PaletteOptions = {
   primary: {
-    main: "#7aa2e8",
-    contrastText: "#0b0f19",
+    main: "#3f7ae0",
+    contrastText: "#0e1117",
   },
   secondary: {
-    main: "#9ab8ea",
-    contrastText: "#0b0f19",
+    main: "#7aa7e6",
+    contrastText: "#0e1117",
   },
-
   background: {
-    default: "#0e1118",
-    paper: "#161b26",
+    default: "#0f1724",
+    paper: "#1a2233",
   },
-
-  divider: "#2a3142",
-
+  divider: "rgba(255,255,255,0.12)",
   info: {
-    main: "#1f2b45",
+    main: "#3f7ae0",
   },
-
   error: {
-    main: "#3a1f2b",
+    main: "#e57373",
   },
-
   success: {
-    main: "#2d6a3a",
+    main: "#4fdc72",
   },
-
   warning: {
-    main: "#6a4a2d",
+    main: "#ffb86b",
   },
-
   first: {
-    main: "#6ddf8a",
-    light: "#1f3a2a",
+    main: "#22c55e",
+    light: "#143622",
   },
-
   second: {
     main: "#ffb86b",
     light: "#3a2a1a",
   },
-
   third: {
-    main: "#7aa2ff",
-    light: "#1b2a44",
+    main: "#4c8df0",
+    light: "#14263f",
   },
-
   fourth: {
-    main: "#a58bff",
-    light: "#241a44",
+    main: "#6c4dff",
+    light: "#1f1a3d",
   },
 };
 
