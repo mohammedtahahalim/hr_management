@@ -26,9 +26,10 @@ export default function Auth({ guard }: AuthProps) {
     };
   }, [dispatch]);
 
-  if (status === "idle" || status === "loading") return <Loader />;
+  if (status === "idle" || status === "loading" || authState === "unknown")
+    return <Loader />;
 
-  // if (systemState === "error") throw new Error();
+  if (systemState === "error") throw new Error();
 
   if (systemState === "down" && authState === "notAuthenticated")
     return <Maintenance />;
@@ -42,8 +43,6 @@ export default function Auth({ guard }: AuthProps) {
 
   if (guard === "required" && authState !== "authenticated")
     return <Navigate to={"/login"} replace />;
-
-  // if (authState === "unknown") return <Loader />;
 
   return (
     <AuthContext.Provider value={{ whoIs }}>
