@@ -92,21 +92,19 @@ const authSlice = createSlice({
               state.networkState = "";
               break;
             case "ABORT":
-              state.authState = "unknown";
               state.systemState = "ok";
               state.networkState = "ABORT";
               break;
             case "SYSTEM":
               state.systemState = "error";
-              state.authState = "unknown";
               state.networkState = "";
+              state.authState = "notAuthenticated";
               break;
-            default:
+            case "DOWN":
               state.systemState = "down";
-              state.authState = "unknown";
               state.networkState = "";
+              state.authState = "notAuthenticated";
               break;
-            //
           }
         },
       )

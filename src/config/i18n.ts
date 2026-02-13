@@ -13,7 +13,7 @@ i18n
     fallbackLng: "en",
     defaultNS: "common",
     backend: {
-      loadPath: "/public/locales/{{lng}}/{{ns}}.json",
+      loadPath: "/locales/{{lng}}/{{ns}}.json",
     },
     saveMissing: true,
     missingKeyHandler: () => "Missing Language Key",

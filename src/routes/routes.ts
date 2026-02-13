@@ -27,6 +27,10 @@ export const authRoutes: IRoute[] = [
 
 export const mainRoutes: IRoute[] = [
   {
+    path: "/",
+    component: Dashboard,
+  },
+  {
     path: "/dashboard",
     component: Dashboard,
   },
@@ -43,7 +47,7 @@ export const mainRoutes: IRoute[] = [
     component: Applicants,
   },
   {
-    path: "employees",
+    path: "/employees",
     component: Employees,
   },
   {
