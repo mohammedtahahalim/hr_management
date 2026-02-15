@@ -1,6 +1,7 @@
 import { lazy } from "react";
 const Login = lazy(() => import("../pages/auth/Login"));
 const Signup = lazy(() => import("../pages/auth/Signup"));
+const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
 const Dashboard = lazy(() => import("../pages/guard/Dashboard"));
 const Vacancies = lazy(() => import("../pages/guard/Vacancies"));
 const Applicants = lazy(() => import("../pages/guard/Applicants"));
@@ -22,6 +23,10 @@ export const authRoutes: IRoute[] = [
   {
     path: "signup",
     component: Signup,
+  },
+  {
+    path: "/forgotPassword",
+    component: ForgotPassword,
   },
 ];
 

@@ -1,3 +1,304 @@
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormLabel,
+  IconButton,
+  styled,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Theme from "../../features/themes/Theme";
+import Language from "../../features/languages/Language";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
+import Line from "../../shared/ui/Line";
+import { useState } from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useTranslation } from "react-i18next";
+
+interface ILoginForm {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+}
+
+const LoginWrapper = styled(Box)(({ theme }) => ({
+  width: "100%",
+  height: "100%",
+  backgroundColor: theme.palette.primary.main,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  position: "relative",
+  padding: "10px",
+}));
+
+const FormWrapper = styled(Box)(({ theme }) => ({
+  width: "100%",
+  maxWidth: "550px",
+  minHeight: "550px",
+  backgroundColor: theme.palette.background.default,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  borderRadius: "25px",
+  padding: "10px",
+}));
+
+const LoginForm = styled("form")({
+  width: "100%",
+  height: "100%",
+  maxWidth: "450px",
+  padding: "20px 10px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "1.2rem",
+});
+
+const Title = styled(Typography)({
+  fontWeight: "bold",
+  fontFamily: "system-ui",
+  alignSelf: "center",
+});
+
+const Subtitle = styled(Typography)({
+  fontStyle: "italic",
+  fontFamily: "system-ui",
+  alignSelf: "center",
+});
+
+const ThemeWrapper = styled(Box)({
+  position: "absolute",
+  top: "10px",
+  left: "10px",
+});
+
+const LanguageWrapper = styled(Box)({
+  position: "absolute",
+  top: "10px",
+  right: "10px",
+});
+
+const Label = styled(FormLabel)({
+  fontSize: "1rem",
+  fontFamily: "system-ui",
+  color: "inherit",
+});
+
+const FieldInput = styled(Box)({
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  gap: "2px",
+  position: "relative",
+});
+
+const Input = styled(TextField)({
+  fontFamily: "system-ui",
+  color: "inherit",
+  fontSize: "0.9rem",
+});
+
+const Error = styled(Typography)({
+  fontFamily: "system-ui",
+  textTransform: "capitalize",
+});
+
+const PasswordOption = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== "isArabic" && prop !== "hasError",
+})<{ isArabic: boolean; hasError: boolean }>(({ isArabic, hasError }) => ({
+  position: "absolute",
+  bottom: "0px",
+  ...(isArabic ? { left: "0px" } : { right: "0px" }),
+  zIndex: 999,
+  transform: hasError ? "translateY(-80%)" : "translateY(-5%)",
+  cursor: "pointer",
+}));
+
+const Options = styled(Box)({
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+const Forgot = styled(Link)({
+  textDecoration: "none",
+  fontFamily: "system-ui",
+  color: "inherit",
+});
+
+const SignIn = styled(Button)({
+  borderRadius: "50px",
+  width: "90%",
+  alignSelf: "center",
+  textTransform: "capitalize",
+  fontFamily: "system-ui",
+});
+
+const Divider = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+const SocialLogin = styled(Box)({
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: "25px",
+});
+
+const SocialButton = styled(Button)({
+  flex: 1,
+  borderRadius: "25px",
+  textTransform: "capitalize",
+});
+
+const SignUp = styled(Box)({
+  display: "flex",
+  width: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "7px",
+});
+
+const SignUpLink = styled(Link)(({ theme }) => ({
+  textDecoration: "none",
+  fontFamily: "system-ui",
+  color: theme.palette.primary.main,
+  fontStyle: "italic",
+}));
+
 export default function Login() {
-  return <div>Login</div>;
+  const [hidePassword, setHidePassword] = useState<boolean>(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILoginForm>();
+  const { t, i18n } = useTranslation("login");
+
+  const submitLogin: SubmitHandler<ILoginForm> = (data) => {
+    console.log("Submit: ", data);
+  };
+
+  return (
+    <LoginWrapper>
+      <ThemeWrapper>
+        <Theme />
+      </ThemeWrapper>
+      <LanguageWrapper>
+        <Language isFree={true} />
+      </LanguageWrapper>
+      <FormWrapper>
+        <LoginForm
+          onSubmit={handleSubmit(submitLogin)}
+          id="loginForm"
+          autoComplete="on"
+        >
+          <Title variant="h4">{t("signIn")}</Title>
+          <Subtitle variant="subtitle2">{t("subSignIn")}</Subtitle>
+          <FieldInput>
+            <Label htmlFor="email">{t("email")}</Label>
+            <Input
+              placeholder="example@email.com"
+              size="small"
+              id="email"
+              error={!!errors.email}
+              {...register("email", {
+                required: true,
+                pattern: {
+                  value:
+                    /^(?!.*[_.-][_.-])(?![_.-].*)[a-zA-Z0-9_.-]+(?<![_.-])@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/,
+                  message: "emailError",
+                },
+              })}
+              autoComplete="email"
+            />
+            {errors.email && (
+              <Error color="error" role="alert" aria-live="assertive">
+                {t("emailError")}
+              </Error>
+            )}
+          </FieldInput>
+          <FieldInput>
+            <Label htmlFor="password">{t("password")}</Label>
+            <Input
+              placeholder={t("passwordPlaceholder")}
+              size="small"
+              id="password"
+              error={!!errors.password}
+              type={hidePassword ? "password" : "text"}
+              {...register("password", {
+                required: true,
+                pattern: {
+                  value:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_=+\\[\]{}\\|;:'",<>\\/?-])[a-zA-Z0-9!@#$%^&*()_=+\\[\]{}\\|;:'",<>\\/?-]{4,30}$/,
+                  message: "passwordError",
+                },
+              })}
+              autoComplete="current-password"
+            />
+            {errors.password && (
+              <Error color="error" role="alert" aria-live="assertive">
+                {t("passwordError")}
+              </Error>
+            )}
+            <PasswordOption
+              isArabic={i18n.language === "ar"}
+              hasError={Boolean(errors.email || errors.password)}
+              onClick={() => setHidePassword((hidePassword) => !hidePassword)}
+              aria-label={hidePassword ? t("hidePassword") : t("showPassword")}
+            >
+              {hidePassword ? (
+                <VisibilityIcon fontSize="small" />
+              ) : (
+                <VisibilityOffIcon fontSize="small" />
+              )}
+            </PasswordOption>
+          </FieldInput>
+          <Options>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  defaultChecked
+                  {...register("rememberMe")}
+                  id="rememberMe"
+                />
+              }
+              label={<Label htmlFor="rememberMe">{t("rememberMe")}</Label>}
+            />
+            <Forgot to={"/forgotPassword"}>{t("forgotPassword")}</Forgot>
+          </Options>
+          <SignIn variant="contained" size="large" type="submit">
+            {t("signIn")}
+          </SignIn>
+          <Divider>
+            <Line dir="h" w={"45%"} h={""} />
+            <Typography variant="body2" fontFamily={"system-ui"}>
+              {t("or")}
+            </Typography>
+            <Line dir="h" w={"45%"} h={""} />
+          </Divider>
+          <SocialLogin>
+            <SocialButton variant="contained" color="info" size="large">
+              {t("google")}
+            </SocialButton>
+            <SocialButton variant="contained" color="info" size="large">
+              {t("facebook")}
+            </SocialButton>
+          </SocialLogin>
+          <SignUp>
+            <Subtitle variant="subtitle1">{t("haveAccount")}</Subtitle>
+            <SignUpLink to={"/signup"}>{t("signUp")}</SignUpLink>
+          </SignUp>
+        </LoginForm>
+      </FormWrapper>
+    </LoginWrapper>
+  );
 }

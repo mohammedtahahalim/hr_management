@@ -1,0 +1,18 @@
+{
+  "signIn": "Se connecter",
+  "subSignIn": "Bienvenue! Veuillez saisir vos informations",
+  "email": "Adresse e-mail",
+  "emailPlaceholder": "exemple@email.com",
+  "emailError": "Veuillez saisir une adresse e-mail valide",
+  "password": "Mot de passe",
+  "passwordPlaceholder": "Saisissez votre mot de passe",
+  "passwordError": "Veuillez saisir un mot de passe sécurisé",
+  "rememberMe": "Se souvenir de moi",
+  "forgotPassword": "Mot de passe oublié",
+  "google": "Google",
+  "facebook": "Facebook",
+  "haveAccount": "Vous avez déjà un compte : ",
+  "signUp": "S'inscrire",
+  "hidePassword": "Masquer le mot de passe",
+  "showPassword": "Afficher le mot de passe"
+}

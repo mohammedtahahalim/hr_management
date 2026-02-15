@@ -1,0 +1,18 @@
+{
+  "signIn": "サインイン",
+  "subSignIn": "ようこそ！詳細を入力してください",
+  "email": "メールアドレス",
+  "emailPlaceholder": "example@email.com",
+  "emailError": "有効なメールアドレスを入力してください",
+  "password": "パスワード",
+  "passwordPlaceholder": "パスワードを入力してください",
+  "passwordError": "安全なパスワードを入力してください",
+  "rememberMe": "ログイン情報を記憶する",
+  "forgotPassword": "パスワードを忘れた",
+  "google": "Google",
+  "facebook": "Facebook",
+  "haveAccount": "既にアカウントをお持ちの場合: ",
+  "signUp": "サインアップ",
+  "hidePassword": "パスワードを非表示",
+  "showPassword": "パスワードを表示"
+}
