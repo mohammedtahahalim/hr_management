@@ -1,0 +1,18 @@
+{
+  "signIn": "Sign In",
+  "subSignIn": "Welcome back! Please enter your details",
+  "email": "Email",
+  "emailPlaceholder": "example@email.com",
+  "emailError": "Please insert a valid email address",
+  "password": "Password",
+  "passwordPlaceholder": "Enter your password",
+  "passwordError": "Please Insert a secure password",
+  "rememberMe": "Remember Me",
+  "forgotPassword": "Forgot Password",
+  "google": "Google",
+  "facebook": "Facebook",
+  "haveAccount": "Already have an account: ",
+  "signUp": "Sign Up",
+  "hidePassword": "Hide Password",
+  "showPassword": "Show Password"
+}

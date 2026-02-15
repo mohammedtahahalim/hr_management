@@ -1,0 +1,18 @@
+{
+  "signIn": "تسجيل الدخول",
+  "subSignIn": "أهلاً بعودتك! يرجى إدخال بياناتك",
+  "email": "بريد إلكتروني",
+  "emailPlaceholder": "example@email.com",
+  "emailError": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+  "password": "كلمة المرور",
+  "passwordPlaceholder": "أدخل كلمة المرور الخاصة بك",
+  "passwordError": "يرجى إدخال كلمة مرور آمنة",
+  "rememberMe": "تذكرنى",
+  "forgotPassword": "هل نسيت كلمة السر",
+  "google": "جوجل",
+  "facebook": "فيسبوك",
+  "haveAccount": "هل لديك حساب بالفعل؟",
+  "signUp": "اشتراك",
+  "hidePassword": "إخفاء كلمة المرور",
+  "showPassword": "إظهار كلمة المرور"
+}

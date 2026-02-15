@@ -18,30 +18,18 @@ declare module "@mui/material/styles" {
 
 export const lightPalette: PaletteOptions = {
   primary: {
-    main: "#2863c2",
+    main: "#347be3",
     contrastText: "#f4f5f7",
   },
   secondary: {
-    main: "#6192d4",
+    main: "#5433cf",
     contrastText: "#ffffff",
   },
   background: {
     default: "#ffffff",
-    paper: "#f3effc",
+    paper: "#f7f7f7",
   },
-  divider: "",
-  info: {
-    main: "#eff4fd",
-  },
-  error: {
-    main: "#f3effc",
-  },
-  success: {
-    main: "#b1fdbf",
-  },
-  warning: {
-    main: "#fdefde",
-  },
+  divider: "#f0f2f5",
   first: {
     main: "#1bae41",
     light: "#defbe3",
@@ -58,49 +46,43 @@ export const lightPalette: PaletteOptions = {
     main: "#5433cf",
     light: "#f3effc",
   },
+  info: {
+    main: "#eff4fd",
+  },
 };
 
 export const darkPalette: PaletteOptions = {
   primary: {
-    main: "#3f7ae0",
-    contrastText: "#0e1117",
+    main: "#4f8ff0",
+    contrastText: "#000000",
   },
   secondary: {
-    main: "#7aa7e6",
-    contrastText: "#0e1117",
+    main: "#6c4dff",
+    contrastText: "#000000",
   },
   background: {
-    default: "#0f1724",
-    paper: "#1a2233",
+    default: "#0f1115",
+    paper: "#171a21",
   },
-  divider: "rgba(255,255,255,0.12)",
-  info: {
-    main: "#3f7ae0",
-  },
-  error: {
-    main: "#e57373",
-  },
-  success: {
-    main: "#4fdc72",
-  },
-  warning: {
-    main: "#ffb86b",
-  },
+  divider: "#2a2f3a",
   first: {
-    main: "#22c55e",
-    light: "#143622",
+    main: "#27c15a",
+    light: "#12301d",
   },
   second: {
     main: "#ffb86b",
-    light: "#3a2a1a",
+    light: "#2e2114",
   },
   third: {
-    main: "#4c8df0",
-    light: "#14263f",
+    main: "#4f8ff0",
+    light: "#142033",
   },
   fourth: {
-    main: "#6c4dff",
-    light: "#1f1a3d",
+    main: "#7a5cff",
+    light: "#1d1633",
+  },
+  info: {
+    main: "#142033",
   },
 };
 
