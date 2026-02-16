@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     const { id, hashed_pass, active } = doesEmailExists[0];
     const isValidPass = await bcrypt.compare(password, hashed_pass);
     if (!isValidPass)
-      return res.status(401).json({ message: "invalidCredentials" });
+      return res.status(403).json({ message: "invalidCredentials" });
     if (!active) return res.status(403).json({ message: "forbidden" });
     const detailsQuery = `select firstName, lastName, role from infos where userId = ?`;
     const [userInfo] = await connection.query(detailsQuery, [id]);
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
         secure: true,
       }),
     );
-    return res.status(401).json({ message: "success" });
+    return res.status(200).json({ message: "success" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Internal Server Error ..." });
