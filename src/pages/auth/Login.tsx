@@ -12,12 +12,15 @@ import {
 import Theme from "../../features/themes/Theme";
 import Language from "../../features/languages/Language";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Line from "../../shared/ui/Line";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useTranslation } from "react-i18next";
+import Toast from "../../shared/ui/Toast";
+
+type TSubmitState = "idle" | "submitting" | "error" | "success";
 
 interface ILoginForm {
   email: string;
@@ -102,7 +105,7 @@ const Input = styled(TextField)({
   fontSize: "0.9rem",
 });
 
-const Error = styled(Typography)({
+const ErrorMessage = styled(Typography)({
   fontFamily: "system-ui",
   textTransform: "capitalize",
 });
@@ -132,8 +135,8 @@ const Forgot = styled(Link)({
 });
 
 const SignIn = styled(Button)({
-  borderRadius: "50px",
   width: "90%",
+  borderRadius: "50px",
   alignSelf: "center",
   textTransform: "capitalize",
   fontFamily: "system-ui",
@@ -155,8 +158,10 @@ const SocialLogin = styled(Box)({
 
 const SocialButton = styled(Button)({
   flex: 1,
-  borderRadius: "25px",
+  borderRadius: "50px",
+  alignSelf: "center",
   textTransform: "capitalize",
+  fontFamily: "system-ui",
 });
 
 const SignUp = styled(Box)({
@@ -176,15 +181,41 @@ const SignUpLink = styled(Link)(({ theme }) => ({
 
 export default function Login() {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
+  const [submitState, handleSubmitState] = useState<TSubmitState>("idle");
+  const [submitError, handleSubmitError] = useState<string>("");
+  const [submitSuccess, handleSubmitSuccess] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ILoginForm>();
   const { t, i18n } = useTranslation("login");
+  const controller = useRef<AbortController | null>(null);
 
-  const submitLogin: SubmitHandler<ILoginForm> = (data) => {
-    console.log("Submit: ", data);
+  if (submitSuccess) return <Navigate to={"/"} replace />;
+
+  const submitLogin: SubmitHandler<ILoginForm> = async (data) => {
+    try {
+      if (!controller.current) controller.current = new AbortController();
+      handleSubmitState("submitting");
+      const fullURL: string = `${import.meta.env.VITE_API_URL}/api/login`;
+      const fullOptions: RequestInit = {
+        method: "POST",
+        body: JSON.stringify(data),
+        signal: controller.current?.signal,
+      };
+      const response = await fetch(fullURL, fullOptions);
+      if (!response.ok) throw new Error(response.status.toString());
+      handleSubmitSuccess(true);
+      handleSubmitState("success");
+    } catch (err) {
+      handleSubmitError("error");
+      handleSubmitState("error");
+      console.log(err);
+    }
+    return () => {
+      controller.current?.abort();
+    };
   };
 
   return (
@@ -206,7 +237,7 @@ export default function Login() {
           <FieldInput>
             <Label htmlFor="email">{t("email")}</Label>
             <Input
-              placeholder="example@email.com"
+              placeholder={t("emailPlaceholder")}
               size="small"
               id="email"
               error={!!errors.email}
@@ -221,9 +252,9 @@ export default function Login() {
               autoComplete="email"
             />
             {errors.email && (
-              <Error color="error" role="alert" aria-live="assertive">
+              <ErrorMessage color="error" role="alert" aria-live="assertive">
                 {t("emailError")}
-              </Error>
+              </ErrorMessage>
             )}
           </FieldInput>
           <FieldInput>
@@ -245,9 +276,9 @@ export default function Login() {
               autoComplete="current-password"
             />
             {errors.password && (
-              <Error color="error" role="alert" aria-live="assertive">
+              <ErrorMessage color="error" role="alert" aria-live="assertive">
                 {t("passwordError")}
-              </Error>
+              </ErrorMessage>
             )}
             <PasswordOption
               isArabic={i18n.language === "ar"}
@@ -275,7 +306,12 @@ export default function Login() {
             />
             <Forgot to={"/forgotPassword"}>{t("forgotPassword")}</Forgot>
           </Options>
-          <SignIn variant="contained" size="large" type="submit">
+          <SignIn
+            variant="contained"
+            size="large"
+            type="submit"
+            disabled={submitState === "submitting"}
+          >
             {t("signIn")}
           </SignIn>
           <Divider>
@@ -299,6 +335,7 @@ export default function Login() {
           </SignUp>
         </LoginForm>
       </FormWrapper>
+      {submitState === "error" && <Toast type="error" message={submitError} />}
     </LoginWrapper>
   );
 }
