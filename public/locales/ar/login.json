@@ -2,7 +2,7 @@
   "signIn": "تسجيل الدخول",
   "subSignIn": "أهلاً بعودتك! يرجى إدخال بياناتك",
   "email": "بريد إلكتروني",
-  "emailPlaceholder": "example@email.com",
+  "emailPlaceholder": "بريد إلكتروني",
   "emailError": "يرجى إدخال عنوان بريد إلكتروني صحيح",
   "password": "كلمة المرور",
   "passwordPlaceholder": "أدخل كلمة المرور الخاصة بك",
