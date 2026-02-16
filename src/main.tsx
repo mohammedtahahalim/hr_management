@@ -9,6 +9,7 @@ import ThemeProvider from "./features/themes/ThemeProvider.tsx";
 import LanguageProvider from "./features/languages/LanguageProvider.tsx";
 import Loader from "./shared/ui/Loader.tsx";
 import ErrorBoundary from "./shared/ui/ErrorBoundaries.tsx";
+import Toast from "./features/toast/Toast.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")!).render(
         <ThemeProvider>
           <LanguageProvider>
             <Suspense fallback={<Loader />}>
+              <Toast />
               <App />
             </Suspense>
           </LanguageProvider>

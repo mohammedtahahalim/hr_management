@@ -18,7 +18,9 @@ import { useRef, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useTranslation } from "react-i18next";
-import Toast from "../../shared/ui/Toast";
+import { enqueueToast } from "../../features/toast/toastSlice";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../config/store";
 
 type TSubmitState = "idle" | "submitting" | "error" | "success";
 
@@ -31,7 +33,7 @@ interface ILoginForm {
 const LoginWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.secondary.main,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -41,7 +43,7 @@ const LoginWrapper = styled(Box)(({ theme }) => ({
 
 const FormWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
-  maxWidth: "550px",
+  maxWidth: "525px",
   minHeight: "550px",
   backgroundColor: theme.palette.background.default,
   display: "flex",
@@ -140,6 +142,7 @@ const SignIn = styled(Button)({
   alignSelf: "center",
   textTransform: "capitalize",
   fontFamily: "system-ui",
+  color: "whitesmoke",
 });
 
 const Divider = styled(Box)({
@@ -182,13 +185,13 @@ const SignUpLink = styled(Link)(({ theme }) => ({
 export default function Login() {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
   const [submitState, handleSubmitState] = useState<TSubmitState>("idle");
-  const [submitError, handleSubmitError] = useState<string>("");
   const [submitSuccess, handleSubmitSuccess] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ILoginForm>();
+  const dispatch = useDispatch<AppDispatch>();
   const { t, i18n } = useTranslation("login");
   const controller = useRef<AbortController | null>(null);
 
@@ -209,9 +212,10 @@ export default function Login() {
       handleSubmitSuccess(true);
       handleSubmitState("success");
     } catch (err) {
-      handleSubmitError("error");
       handleSubmitState("error");
-      console.log(err);
+      if (err instanceof Error) {
+        dispatch(enqueueToast({ type: "error", message: err.message }));
+      }
     }
     return () => {
       controller.current?.abort();
@@ -311,6 +315,7 @@ export default function Login() {
             size="large"
             type="submit"
             disabled={submitState === "submitting"}
+            color="secondary"
           >
             {t("signIn")}
           </SignIn>
@@ -322,10 +327,10 @@ export default function Login() {
             <Line dir="h" w={"45%"} h={""} />
           </Divider>
           <SocialLogin>
-            <SocialButton variant="contained" color="info" size="large">
+            <SocialButton variant="contained" color="primary" size="large">
               {t("google")}
             </SocialButton>
-            <SocialButton variant="contained" color="info" size="large">
+            <SocialButton variant="contained" color="primary" size="large">
               {t("facebook")}
             </SocialButton>
           </SocialLogin>
@@ -335,7 +340,6 @@ export default function Login() {
           </SignUp>
         </LoginForm>
       </FormWrapper>
-      {submitState === "error" && <Toast type="error" message={submitError} />}
     </LoginWrapper>
   );
 }
