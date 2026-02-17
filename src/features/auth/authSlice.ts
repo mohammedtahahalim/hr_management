@@ -41,7 +41,9 @@ export const checkAuth = createAsyncThunk<
     const response = await fetch(fullURL, fullOptions);
     if (!response.ok) throw new Error(response.status.toString());
     const data = await response.json();
-    const { whoIs } = data;
+    const { isAuthenticated, whoIs, isAllowed } = data;
+    if (!isAuthenticated) throw new Error("401");
+    if (!isAllowed) throw new Error("403");
     return whoIs as User;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") {
@@ -67,7 +69,22 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: "auth/slice",
   initialState,
-  reducers: {},
+  reducers: {
+    setAuthenticated: (state, action: PayloadAction<User>) => {
+      state.status = "success";
+      state.authState = "authenticated";
+      state.systemState = "ok";
+      state.networkState = "";
+      state.whoIs = action.payload;
+    },
+    setNotAuthenticated: (state) => {
+      state.status = "success";
+      state.authState = "notAuthenticated";
+      state.systemState = "ok";
+      state.networkState = "";
+      state.whoIs = null;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(checkAuth.pending, (state) => {
@@ -95,6 +112,7 @@ const authSlice = createSlice({
             case "ABORT":
               state.systemState = "ok";
               state.networkState = "ABORT";
+              state.authState = "unknown";
               break;
             case "SYSTEM":
               state.systemState = "error";
@@ -119,3 +137,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+export const { setAuthenticated, setNotAuthenticated } = authSlice.actions;

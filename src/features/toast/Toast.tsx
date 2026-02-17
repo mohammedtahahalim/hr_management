@@ -103,6 +103,7 @@ const ToastIcon = styled(Box, {
   alignItems: "center",
   color: "inherit",
   position: "relative",
+  ...(isArabic ? { paddingLeft: "5px" } : { paddingRight: "5px" }),
   "&::before": {
     content: "''",
     position: "absolute",
