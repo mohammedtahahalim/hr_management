@@ -34,9 +34,9 @@ export default function Theme() {
       aria-label={t("theme")}
     >
       {currentTheme === "light" ? (
-        <DarkModeIcon fontSize="medium" color="info" />
+        <DarkModeIcon fontSize="medium" color="inherit" />
       ) : (
-        <LightModeIcon fontSize="medium" color="info" />
+        <LightModeIcon fontSize="medium" color="inherit" />
       )}
     </ThemeWrapper>
   );

@@ -18,7 +18,7 @@ import { useRef, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useTranslation } from "react-i18next";
-import { enqueueToast } from "../../features/toast/toastSlice";
+import { addToast } from "../../features/toast/toastSlice";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../config/store";
 
@@ -215,7 +215,7 @@ export default function Login() {
     } catch (err) {
       handleSubmitState("error");
       if (err instanceof Error) {
-        dispatch(enqueueToast({ type: "error", message: err.message }));
+        dispatch(addToast({ type: "warning", message: err.message }));
       }
     }
     return () => {

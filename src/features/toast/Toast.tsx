@@ -5,8 +5,8 @@ import {
   type AlertProps,
   type SvgIconProps,
 } from "@mui/material";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../config/store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../config/store";
 import { createPortal } from "react-dom";
 import { HTTPErrors, type HTTPBackendErrors } from "../../shared/lib/constants";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,8 @@ import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
+import { useEffect, useRef } from "react";
+import { removeToast } from "./toastSlice";
 
 interface ToastProps {
   toastPosition?:
@@ -66,7 +68,7 @@ const ToastCoordinate = (toastPosition: ToastProps["toastPosition"]) => {
 const ToastWrapper = styled(Box, {
   shouldForwardProp: (prop) => prop !== "toastPosition",
 })<ToastProps>(({ toastPosition }) => ({
-  position: "absolute",
+  position: "fixed",
   width: "fit-content",
   maxWidth: "500px",
   ...ToastCoordinate(toastPosition),
@@ -81,7 +83,7 @@ const ToastItem = styled(Box)(({ theme }) => ({
   minWidth: "350px",
   height: "60px",
   borderRadius: "4px",
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: theme.palette.background.paper,
   display: "flex",
   gap: "2px",
   alignItems: "center",
@@ -136,6 +138,24 @@ const MotionToast = motion.create(ToastItem);
 export default function Toast({ toastPosition = "topRight" }: ToastProps) {
   const { items } = useSelector((state: RootState) => state.toast);
   const { i18n } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
+  const activeTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(
+    new Map(),
+  );
+
+  useEffect(() => {
+    items.forEach((item) => {
+      if (!activeTimers.current.has(item.id)) {
+        activeTimers.current.set(
+          item.id,
+          setTimeout(() => {
+            dispatch(removeToast(item.id));
+            activeTimers.current.delete(item.id);
+          }, item.expireAt - Date.now()),
+        );
+      }
+    });
+  }, [items, dispatch]);
 
   return createPortal(
     <ToastWrapper toastPosition={toastPosition}>
@@ -147,10 +167,10 @@ export default function Toast({ toastPosition = "topRight" }: ToastProps) {
               key={item.id}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.75, ease: "easeInOut" }}
               role="alert"
-              aria-live="assertive"
+              aria-live={item.type === "error" ? "assertive" : "polite"}
             >
               <ToastIcon type={item.type}>
                 {<Icon fontSize="large" color={item.type} />}
