@@ -46,9 +46,6 @@ export const lightPalette: PaletteOptions = {
     main: "#5433cf",
     light: "#f3effc",
   },
-  info: {
-    main: "#eff4fd",
-  },
 };
 
 export const darkPalette: PaletteOptions = {
@@ -80,9 +77,6 @@ export const darkPalette: PaletteOptions = {
   fourth: {
     main: "#7a5cff",
     light: "#1d1633",
-  },
-  info: {
-    main: "#142033",
   },
 };
 
