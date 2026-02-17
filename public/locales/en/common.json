@@ -3,5 +3,11 @@
     "title": "Something went wrong...",
     "message": "An unexpected error occurred while loading this Section of the application. You can try again, or refresh the page if the problem persists.",
     "tryAgain": "Try Again"
+  },
+  "toast": {
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info",
+    "success": "Success"
   }
 }

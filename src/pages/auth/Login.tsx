@@ -215,7 +215,15 @@ export default function Login() {
     } catch (err) {
       handleSubmitState("error");
       if (err instanceof Error) {
-        dispatch(addToast({ type: "warning", message: err.message }));
+        if (err.message === "403") {
+          dispatch(addToast({ type: "warning", message: err.message }));
+          return;
+        }
+        if (err.message === "522") {
+          dispatch(addToast({ type: "info", message: err.message }));
+          return;
+        }
+        dispatch(addToast({ type: "error", message: err.message }));
       }
     }
     return () => {

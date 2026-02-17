@@ -90,11 +90,14 @@ const ToastItem = styled(Box)(({ theme }) => ({
   overflow: "hidden",
 }));
 
-const ToastIcon = styled(Box)<{
+const ToastIcon = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "isArabic",
+})<{
   type: Exclude<AlertProps["color"], undefined>;
-}>(({ type, theme }) => ({
+  isArabic: boolean;
+}>(({ type, theme, isArabic }) => ({
   height: "100%",
-  paddingLeft: "10px",
+  ...(isArabic ? { paddingRight: "10px" } : { paddingLeft: "10px" }),
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -104,7 +107,7 @@ const ToastIcon = styled(Box)<{
     content: "''",
     position: "absolute",
     top: "0",
-    left: "0",
+    ...(isArabic ? { right: "0" } : { left: "0" }),
     width: "7px",
     height: "100%",
     backgroundColor: theme.palette[type].main,
@@ -118,6 +121,7 @@ const ToastContent = styled(Box)({
   justifyContent: "center",
   padding: "0px 5px",
   color: "inherit",
+  overflow: "hidden",
 });
 
 const ToastTitle = styled(Typography)({
@@ -131,13 +135,15 @@ const ToastMessage = styled(Typography)({
   fontFamily: "system-ui",
   fontSize: "0.9rem",
   fontStyle: "italic",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
 });
 
 const MotionToast = motion.create(ToastItem);
 
 export default function Toast({ toastPosition = "topRight" }: ToastProps) {
   const { items } = useSelector((state: RootState) => state.toast);
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation("common");
   const dispatch = useDispatch<AppDispatch>();
   const activeTimers = useRef<Map<string, ReturnType<typeof setTimeout>>>(
     new Map(),
@@ -172,11 +178,11 @@ export default function Toast({ toastPosition = "topRight" }: ToastProps) {
               role="alert"
               aria-live={item.type === "error" ? "assertive" : "polite"}
             >
-              <ToastIcon type={item.type}>
+              <ToastIcon type={item.type} isArabic={i18n.language === "ar"}>
                 {<Icon fontSize="large" color={item.type} />}
               </ToastIcon>
               <ToastContent>
-                <ToastTitle variant="h6">{item.type}</ToastTitle>
+                <ToastTitle variant="h6">{t(`toast.${item.type}`)}</ToastTitle>
                 <ToastMessage variant="subtitle1">
                   {item.message in HTTPErrors
                     ? HTTPErrors[item.message as HTTPBackendErrors][
