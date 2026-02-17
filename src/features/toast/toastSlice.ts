@@ -5,7 +5,7 @@ import type { AppDispatch } from "../../config/store";
 interface ToastItem {
   id: string;
   message: string;
-  type: AlertProps["color"];
+  type: Exclude<AlertProps["color"], undefined>;
 }
 
 interface ToastShape {

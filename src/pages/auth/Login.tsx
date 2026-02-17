@@ -165,6 +165,7 @@ const SocialButton = styled(Button)({
   alignSelf: "center",
   textTransform: "capitalize",
   fontFamily: "system-ui",
+  color: "whitesmoke",
 });
 
 const SignUp = styled(Box)({
