@@ -1,9 +1,9 @@
+import { serialize } from "cookie";
 import bcrypt from "bcrypt";
 import database from "../helpers/database.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import path from "path";
-import { serialize } from "cookie";
 
 dotenv.config({ path: path.resolve(process.cwd(), "config", ".env") });
 
@@ -22,13 +22,21 @@ export default async function handler(req, res) {
       [email],
     );
     if (!doesEmailExists.length)
-      return res.status(401).json({ message: "invalidCredentials" });
+      return res
+        .status(200)
+        .json({ isAuthenticated: false, isBanned: false, whoIs: null });
 
     const { id, hashed_pass, active } = doesEmailExists[0];
     const isValidPass = await bcrypt.compare(password, hashed_pass);
     if (!isValidPass)
-      return res.status(401).json({ message: "invalidCredentials" });
-    if (!active) return res.status(403).json({ message: "forbidden" });
+      return res
+        .status(200)
+        .json({ isAuthenticated: false, isBanned: false, whoIs: null });
+    if (!active)
+      return res
+        .status(200)
+        .json({ isAuthenticated: true, isBanned: true, whoIs: null });
+
     const detailsQuery = `select firstName, lastName, role from infos where userId = ?`;
     const [userInfo] = await connection.query(detailsQuery, [id]);
     const { firstName, lastName, role } = userInfo[0];
@@ -46,7 +54,11 @@ export default async function handler(req, res) {
         secure: true,
       }),
     );
-    return res.status(200).json({ message: "success" });
+    return res.status(200).json({
+      isAuthenticated: true,
+      isBanned: false,
+      whoIs: { id, firstName, lastName, email, role },
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Internal Server Error ..." });
