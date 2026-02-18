@@ -1,4 +1,5 @@
 import type { TLanguage } from "../../config/i18n";
+import type { TRole } from "../../features/auth/authSlice";
 
 export type HTTPBackendErrors = "400" | "401" | "403" | "500" | "522";
 
@@ -36,4 +37,10 @@ export const HTTPErrors: Record<
     fr: "Le système est en maintenance. Veuillez réessayer plus tard.",
     ja: "現在メンテナンス中です。しばらくしてから再試行してください。",
   },
+};
+
+export const routesWithPermissions: Record<string, TRole[]> = {
+  "add-vacancy": ["admin", "hr"],
+  "add-employee": ["admin", "hr"],
+  payroll: ["admin", "hr"],
 };

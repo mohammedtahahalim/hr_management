@@ -1,4 +1,5 @@
 import {
+  alpha,
   Box,
   Button,
   Checkbox,
@@ -23,7 +24,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../config/store";
 import z from "zod";
 import { flushSync } from "react-dom";
-import { setAuthenticated } from "../../features/auth/authSlice";
+import { checkAuth } from "../../features/auth/authSlice";
 
 type TSubmitState = "idle" | "submitting" | "error" | "success";
 
@@ -52,7 +53,7 @@ type ResponseData = z.infer<typeof responseSchema>;
 const LoginWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
-  backgroundColor: theme.palette.secondary.main,
+  backgroundImage: `linear-gradient(${theme.palette.secondary.main}, ${alpha(theme.palette.secondary.main, 0.8)})`,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -237,7 +238,7 @@ export default function Login() {
       if (!isAuthenticated) throw new Error("401");
       if (isBanned) throw new Error("403");
       if (!whoIs) throw new Error("400");
-      dispatch(setAuthenticated(whoIs));
+      dispatch(checkAuth());
       handleSubmitState("success");
     } catch (err) {
       if (err instanceof Error) {
@@ -290,6 +291,7 @@ export default function Login() {
                 },
               })}
               autoComplete="email"
+              defaultValue={"test@test.com"}
             />
             {errors.email && (
               <ErrorMessage color="error" role="alert" aria-live="assertive">
@@ -309,17 +311,19 @@ export default function Login() {
                 required: true,
                 pattern: {
                   value:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_=+\\[\]{}\\|;:'",<>\\/?-])[a-zA-Z0-9!@#$%^&*()_=+\\[\]{}\\|;:'",<>\\/?-]{4,30}$/,
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_=+[\]{}\\|;:'",.<>?-])[a-zA-Z0-9!@#$%^&*()_=+[\]{}\\|;:'.",<>?-]{4,30}$/,
                   message: "passwordError",
                 },
               })}
               autoComplete="current-password"
+              defaultValue={"Test@Test.001"}
             />
             {errors.password && (
               <ErrorMessage color="error" role="alert" aria-live="assertive">
                 {t("passwordError")}
               </ErrorMessage>
             )}
+            {/* TODO: Fix the eye position */}
             <PasswordOption
               isArabic={i18n.language === "ar"}
               hasError={Boolean(errors.email || errors.password)}

@@ -6,7 +6,7 @@ import {
 
 type Status = "idle" | "loading" | "failure" | "success";
 
-type TRole = "admin" | "manager" | "hr" | "employee" | "candidat";
+export type TRole = "admin" | "manager" | "hr" | "employee" | "candidat";
 
 type AuthReject = "UNAUTHENTICATED" | "FORBIDDEN" | "SYSTEM" | "ABORT" | "DOWN";
 
@@ -69,22 +69,7 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: "auth/slice",
   initialState,
-  reducers: {
-    setAuthenticated: (state, action: PayloadAction<User>) => {
-      state.status = "success";
-      state.authState = "authenticated";
-      state.systemState = "ok";
-      state.networkState = "";
-      state.whoIs = action.payload;
-    },
-    setNotAuthenticated: (state) => {
-      state.status = "success";
-      state.authState = "notAuthenticated";
-      state.systemState = "ok";
-      state.networkState = "";
-      state.whoIs = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) =>
     builder
       .addCase(checkAuth.pending, (state) => {
@@ -117,12 +102,12 @@ const authSlice = createSlice({
             case "SYSTEM":
               state.systemState = "error";
               state.networkState = "";
-              state.authState = "notAuthenticated";
+              state.authState = "unknown";
               break;
             case "DOWN":
               state.systemState = "down";
               state.networkState = "";
-              state.authState = "notAuthenticated";
+              state.authState = "unknown";
               break;
           }
         },
@@ -137,4 +122,3 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { setAuthenticated, setNotAuthenticated } = authSlice.actions;

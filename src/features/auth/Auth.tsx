@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../config/store";
@@ -8,6 +8,7 @@ import Loader from "../../shared/ui/Loader";
 import Network from "../../pages/Network";
 import Forbidden from "../../pages/Forbidden";
 import Maintenance from "../../pages/Maintenance";
+import { canAccessRoute } from "../../shared/lib/helpers";
 
 interface AuthProps {
   guard: "required" | "notRequired";
@@ -18,6 +19,7 @@ export default function Auth({ guard }: AuthProps) {
     (state: RootState) => state.auth,
   );
   const dispatch = useDispatch<AppDispatch>();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const authRequest = dispatch(checkAuth());
@@ -31,8 +33,7 @@ export default function Auth({ guard }: AuthProps) {
 
   if (systemState === "error") throw new Error();
 
-  if (systemState === "down" && authState === "notAuthenticated")
-    return <Maintenance />;
+  if (systemState === "down") return <Maintenance />;
 
   if (networkState === "ABORT") return <Network />;
 
@@ -43,6 +44,9 @@ export default function Auth({ guard }: AuthProps) {
 
   if (guard === "required" && authState !== "authenticated")
     return <Navigate to={"/login"} replace />;
+
+  if (whoIs && !canAccessRoute(pathname, whoIs))
+    return <Navigate to={"/"} replace />;
 
   return (
     <AuthContext.Provider value={{ whoIs }}>
