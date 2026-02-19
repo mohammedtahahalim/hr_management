@@ -1,10 +1,10 @@
 import { Box, styled } from "@mui/material";
-import { useContext } from "react";
-import { ThemeContext } from "../../features/themes/ThemeContext";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const LogoWrapper = styled(Box)({
-  width: "100%",
+  width: "80%",
+  maxHeight: "80px",
 });
 
 const Image = styled("img")({
@@ -14,18 +14,12 @@ const Image = styled("img")({
 });
 
 export default function Logo() {
-  const { currentTheme } = useContext(ThemeContext);
   const { t } = useTranslation("a11y");
   return (
     <LogoWrapper>
-      <Image
-        src={
-          currentTheme === "light"
-            ? "/img/logo_light.webp"
-            : "/img/logo_dark.webp"
-        }
-        alt={t("logo_label")}
-      />
+      <Link to={"/"}>
+        <Image src={"/img/logo.webp"} alt={t("logo_label")} />
+      </Link>
     </LogoWrapper>
   );
 }

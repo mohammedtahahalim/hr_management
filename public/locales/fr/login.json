@@ -14,5 +14,6 @@
   "haveAccount": "Vous avez déjà un compte : ",
   "signUp": "S'inscrire",
   "hidePassword": "Masquer le mot de passe",
-  "showPassword": "Afficher le mot de passe"
+  "showPassword": "Afficher le mot de passe",
+  "logout": "Déconnexion"
 }

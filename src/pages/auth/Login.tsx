@@ -53,7 +53,7 @@ type ResponseData = z.infer<typeof responseSchema>;
 const LoginWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
-  backgroundImage: `linear-gradient(${theme.palette.secondary.main}, ${alpha(theme.palette.secondary.main, 0.8)})`,
+  backgroundImage: `linear-gradient(${theme.palette.second.main}, ${alpha(theme.palette.second.main, 0.95)})`,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -156,14 +156,15 @@ const Forgot = styled(Link)({
   color: "inherit",
 });
 
-const SignIn = styled(Button)({
+const SignIn = styled(Button)(({ theme }) => ({
   width: "90%",
   borderRadius: "50px",
   alignSelf: "center",
   textTransform: "capitalize",
   fontFamily: "system-ui",
-  color: "whitesmoke",
-});
+  backgroundColor: theme.palette.second.main,
+  color: theme.palette.second.contrastText,
+}));
 
 const Divider = styled(Box)({
   display: "flex",
@@ -179,14 +180,15 @@ const SocialLogin = styled(Box)({
   gap: "25px",
 });
 
-const SocialButton = styled(Button)({
+const SocialButton = styled(Button)(({ theme }) => ({
   flex: 1,
   borderRadius: "50px",
   alignSelf: "center",
   textTransform: "capitalize",
   fontFamily: "system-ui",
-  color: "whitesmoke",
-});
+  backgroundColor: theme.palette.first.main,
+  color: theme.palette.first.contrastText,
+}));
 
 const SignUp = styled(Box)({
   display: "flex",
@@ -355,7 +357,6 @@ export default function Login() {
             size="large"
             type="submit"
             disabled={submitState === "submitting"}
-            color="secondary"
           >
             {t("signIn")}
           </SignIn>
@@ -367,10 +368,10 @@ export default function Login() {
             <Line dir="h" w={"45%"} h={""} />
           </Divider>
           <SocialLogin>
-            <SocialButton variant="contained" color="primary" size="large">
+            <SocialButton variant="contained" color="first" size="large">
               {t("google")}
             </SocialButton>
-            <SocialButton variant="contained" color="primary" size="large">
+            <SocialButton variant="contained" color="first" size="large">
               {t("facebook")}
             </SocialButton>
           </SocialLogin>

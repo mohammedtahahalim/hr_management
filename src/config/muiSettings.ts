@@ -6,7 +6,6 @@ declare module "@mui/material/styles" {
     second: Palette["primary"];
     third: Palette["primary"];
     fourth: Palette["primary"];
-    highlight: Palette["primary"];
   }
 
   interface PaletteOptions {
@@ -14,75 +13,62 @@ declare module "@mui/material/styles" {
     second?: PaletteOptions["primary"];
     third?: PaletteOptions["primary"];
     fourth?: PaletteOptions["primary"];
-    highlight?: PaletteOptions["primary"];
   }
 }
 
 export const lightPalette: PaletteOptions = {
-  primary: {
-    main: "#347be3",
-    contrastText: "#f4f5f7",
-  },
-  secondary: {
-    main: "#5433cf",
-    contrastText: "#ffffff",
-  },
   background: {
     default: "#ffffff",
-    paper: "#f7f7f7",
+    paper: "#f3effc",
   },
-  divider: "#f0f2f5",
+  divider: "#e8ebef",
   first: {
-    main: "#1bae41",
-    light: "#defbe3",
+    main: "#347be3",
+    contrastText: "#eff4fd",
+    light: "#6192d4",
   },
   second: {
-    main: "#f7a854",
-    light: "#fdefde",
+    main: "#5433cf",
+    contrastText: "#f3effc",
+    light: "#decdf8",
   },
   third: {
-    main: "#347be3",
-    light: "#eff4fd",
+    main: "#f7a854",
+    contrastText: "#fdefde",
+    light: "#f6d6b1",
   },
   fourth: {
-    main: "#5433cf",
-    light: "#f3effc",
-  },
-  highlight: {
-    main: "#b1fdbf",
-    contrastText: "#23272b",
+    main: "#1bae41",
+    contrastText: "#defbe3",
+    light: "#b1fdbf",
   },
 };
 
 export const darkPalette: PaletteOptions = {
-  primary: {
-    main: "#4f8ff0",
-    contrastText: "#000000",
-  },
-  secondary: {
-    main: "#6c4dff",
-    contrastText: "#000000",
-  },
   background: {
-    default: "#0f1115",
-    paper: "#171a21",
+    default: "#0f1117",
+    paper: "#171a23",
   },
   divider: "#2a2f3a",
   first: {
-    main: "#27c15a",
-    light: "#12301d",
+    main: "#6aa4ff",
+    contrastText: "#0b1020",
+    light: "#8bb9ff",
   },
   second: {
-    main: "#ffb86b",
-    light: "#2e2114",
+    main: "#8f7bff",
+    contrastText: "#120c2a",
+    light: "#b2a4ff",
   },
   third: {
-    main: "#4f8ff0",
-    light: "#142033",
+    main: "#ffb66d",
+    contrastText: "#2a1600",
+    light: "#ffd2a0",
   },
   fourth: {
-    main: "#7a5cff",
-    light: "#1d1633",
+    main: "#45d36e",
+    contrastText: "#062012",
+    light: "#7af2a0",
   },
 };
 
