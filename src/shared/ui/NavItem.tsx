@@ -8,11 +8,9 @@ const NavLinkButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== "isActive",
 })<ButtonProps & { to: string; isActive: boolean }>(({ theme, isActive }) => ({
   backgroundColor: isActive ? theme.palette.fourth.light : "transparent",
-  width: "75%",
+  width: "85%",
   borderRadius: "50px",
-  color: isActive
-    ? theme.palette.second.main
-    : theme.palette.fourth.contrastText,
+  color: isActive ? theme.palette.second.main : "whitesmoke",
   textTransform: "capitalize",
   fontFamily: "system-ui",
   fontWeight: "bold",
@@ -20,20 +18,21 @@ const NavLinkButton = styled(Button, {
   fontSize: "1rem",
   justifyContent: "flex-start",
   padding: "8px 35px",
+  transition: "all 0.25s ease-in-out",
 }));
 
 export default function NavItem({ item, link }: INavItem) {
   const { pathname } = useLocation();
-
+  const isActive = pathname === link;
   const Icon = link in navIcons ? navIcons[link] : AbcIcon;
 
   return (
     <NavLinkButton
-      variant="text"
+      variant={"text"}
       component={NavLink}
       to={link}
-      isActive={pathname === link}
-      startIcon={<Icon />}
+      isActive={isActive}
+      startIcon={<Icon fontSize="large" />}
     >
       {item}
     </NavLinkButton>

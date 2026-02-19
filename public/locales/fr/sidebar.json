@@ -1,11 +1,11 @@
 {
   "navMenu": [
     {
-      "item": "Tableau de bord",
+      "item": "Tableau",
       "link": "/dashboard"
     },
     {
-      "item": "Offres d'emploi",
+      "item": "Offres",
       "link": "/vacancies"
     },
     {

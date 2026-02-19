@@ -13,7 +13,7 @@ const NavMenuWrapper = styled(Box)({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "20px",
+  gap: "15px",
 });
 
 export default function NavMenu() {

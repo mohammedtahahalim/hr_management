@@ -40,7 +40,7 @@ export const lightPalette: PaletteOptions = {
   fourth: {
     main: "#1bae41",
     contrastText: "#defbe3",
-    light: "#b1fdbf",
+    light: "#defbe3",
   },
 };
 
@@ -51,24 +51,27 @@ export const darkPalette: PaletteOptions = {
   },
   divider: "#2a2f3a",
   first: {
-    main: "#5b9cff",
-    contrastText: "#0f1115",
-    light: "#3f78cc",
+    main: "#5b8dff",
+    light: "#82a7ff",
+    contrastText: "#e9f0ff",
   },
+
   second: {
-    main: "#8b6bff",
-    contrastText: "#0f1115",
-    light: "#6a4fd1",
+    main: "#8b6cff",
+    light: "#a896ff",
+    contrastText: "#f1ecff",
   },
+
   third: {
-    main: "#ffb86b",
-    contrastText: "#1a1a1a",
-    light: "#cc8a45",
+    main: "#f7b267",
+    light: "#ffd2a1",
+    contrastText: "#2b1a05",
   },
+
   fourth: {
-    main: "#3fd06a",
-    contrastText: "#0f1115",
-    light: "#2aa24f",
+    main: "#4fd37a",
+    light: "#7ee3a0",
+    contrastText: "#062012",
   },
 };
 
