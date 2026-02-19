@@ -1,0 +1,29 @@
+{
+  "navMenu": [
+    {
+      "item": "Dashboard",
+      "link": "/dashboard"
+    },
+    {
+      "item": "Vacancies",
+      "link": "/vacancies"
+    },
+    {
+      "item": "applicants",
+      "link": "/applicants"
+    },
+    {
+      "item": "employees",
+      "link": "/employees"
+    },
+    {
+      "item": "payroll",
+      "link": "/payroll"
+    },
+    {
+      "item": "calendar",
+      "link": "/calendar"
+    }
+  ],
+  "logout": "Logout"
+}

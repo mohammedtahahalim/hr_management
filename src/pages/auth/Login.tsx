@@ -368,10 +368,10 @@ export default function Login() {
             <Line dir="h" w={"45%"} h={""} />
           </Divider>
           <SocialLogin>
-            <SocialButton variant="contained" color="first" size="large">
+            <SocialButton variant="contained" size="large">
               {t("google")}
             </SocialButton>
-            <SocialButton variant="contained" color="first" size="large">
+            <SocialButton variant="contained" size="large">
               {t("facebook")}
             </SocialButton>
           </SocialLogin>

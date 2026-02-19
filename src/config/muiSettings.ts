@@ -46,29 +46,29 @@ export const lightPalette: PaletteOptions = {
 
 export const darkPalette: PaletteOptions = {
   background: {
-    default: "#0f1117",
-    paper: "#171a23",
+    default: "#0f1115",
+    paper: "#161a22",
   },
   divider: "#2a2f3a",
   first: {
-    main: "#6aa4ff",
-    contrastText: "#0b1020",
-    light: "#8bb9ff",
+    main: "#5b9cff",
+    contrastText: "#0f1115",
+    light: "#3f78cc",
   },
   second: {
-    main: "#8f7bff",
-    contrastText: "#120c2a",
-    light: "#b2a4ff",
+    main: "#8b6bff",
+    contrastText: "#0f1115",
+    light: "#6a4fd1",
   },
   third: {
-    main: "#ffb66d",
-    contrastText: "#2a1600",
-    light: "#ffd2a0",
+    main: "#ffb86b",
+    contrastText: "#1a1a1a",
+    light: "#cc8a45",
   },
   fourth: {
-    main: "#45d36e",
-    contrastText: "#062012",
-    light: "#7af2a0",
+    main: "#3fd06a",
+    contrastText: "#0f1115",
+    light: "#2aa24f",
   },
 };
 

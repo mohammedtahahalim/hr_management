@@ -11,9 +11,10 @@
   "forgotPassword": "パスワードを忘れた",
   "google": "Google",
   "facebook": "Facebook",
-  "haveAccount": "既にアカウントをお持ちの場合: ",
+  "haveAccount": "アカウントをお持ちではありませんか？",
   "signUp": "サインアップ",
   "hidePassword": "パスワードを非表示",
   "showPassword": "パスワードを表示",
+  "or": "または",
   "logout": "ログアウト"
 }

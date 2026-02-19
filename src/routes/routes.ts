@@ -50,11 +50,11 @@ export const mainRoutes: IRoute[] = [
     component: Vacancy,
   },
   {
-    path: "add-vacancy",
+    path: "/add-vacancy",
     component: AddVacancy,
   },
   {
-    path: "add-employee",
+    path: "/add-employee",
     component: AddEmployee,
   },
   {

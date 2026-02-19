@@ -1,5 +1,17 @@
+import type { OverridableComponent } from "@mui/material/OverridableComponent";
 import type { TLanguage } from "../../config/i18n";
 import type { TRole } from "../../features/auth/authSlice";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import PersonIcon from "@mui/icons-material/Person";
+import GroupsIcon from "@mui/icons-material/Groups";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import type { SvgIconTypeMap } from "@mui/material";
+
+type MuiIcon = OverridableComponent<SvgIconTypeMap<object, "svg">> & {
+  muiName: string;
+};
 
 export type HTTPBackendErrors = "400" | "401" | "403" | "500" | "522";
 
@@ -43,4 +55,13 @@ export const routesWithPermissions: Record<string, TRole[]> = {
   "add-vacancy": ["admin", "hr"],
   "add-employee": ["admin", "hr"],
   payroll: ["admin", "hr"],
+};
+
+export const navIcons: Record<string, MuiIcon> = {
+  "/dashboard": DashboardIcon,
+  "/vacancies": BusinessCenterIcon,
+  "/applicants": PersonIcon,
+  "/employees": GroupsIcon,
+  "/payroll": ReceiptIcon,
+  "/calendar": CalendarMonthIcon,
 };

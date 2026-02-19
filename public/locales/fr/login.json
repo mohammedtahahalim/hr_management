@@ -11,9 +11,10 @@
   "forgotPassword": "Mot de passe oublié",
   "google": "Google",
   "facebook": "Facebook",
-  "haveAccount": "Vous avez déjà un compte : ",
+  "haveAccount": "Vous n'avez pas de compte ?",
   "signUp": "S'inscrire",
   "hidePassword": "Masquer le mot de passe",
   "showPassword": "Afficher le mot de passe",
+  "or": "Ou",
   "logout": "Déconnexion"
 }

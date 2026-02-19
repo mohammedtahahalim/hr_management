@@ -1,0 +1,29 @@
+{
+  "navMenu": [
+    {
+      "item": "ダッシュボード",
+      "link": "/dashboard"
+    },
+    {
+      "item": "求人情報",
+      "link": "/vacancies"
+    },
+    {
+      "item": "応募者",
+      "link": "/applicants"
+    },
+    {
+      "item": "従業員",
+      "link": "/employees"
+    },
+    {
+      "item": "給与計算",
+      "link": "/payroll"
+    },
+    {
+      "item": "カレンダー",
+      "link": "/calendar"
+    }
+  ],
+  "logout": "ログアウト"
+}

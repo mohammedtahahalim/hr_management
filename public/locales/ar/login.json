@@ -11,9 +11,10 @@
   "forgotPassword": "هل نسيت كلمة السر",
   "google": "جوجل",
   "facebook": "فيسبوك",
-  "haveAccount": "هل لديك حساب بالفعل؟",
+  "haveAccount": "ليس لديك حساب؟",
   "signUp": "اشتراك",
   "hidePassword": "إخفاء كلمة المرور",
   "showPassword": "إظهار كلمة المرور",
+  "or": "أو",
   "logout": "تسجيل الخروج"
 }
