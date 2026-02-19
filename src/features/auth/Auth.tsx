@@ -45,8 +45,7 @@ export default function Auth({ guard }: AuthProps) {
   if (guard === "required" && authState !== "authenticated")
     return <Navigate to={"/login"} replace />;
 
-  if (whoIs && !canAccessRoute(pathname, whoIs))
-    return <Navigate to={"/"} replace />;
+  if (whoIs && !canAccessRoute(pathname, whoIs)) return <Forbidden />;
 
   return (
     <AuthContext.Provider value={{ whoIs }}>

@@ -1,0 +1,29 @@
+{
+  "navMenu": [
+    {
+      "item": "لوحة التحكم",
+      "link": "/dashboard"
+    },
+    {
+      "item": "الوظائف",
+      "link": "/vacancies"
+    },
+    {
+      "item": "المتقدمين",
+      "link": "/applicants"
+    },
+    {
+      "item": "موظفين",
+      "link": "/employees"
+    },
+    {
+      "item": "جدول الرواتب",
+      "link": "/payroll"
+    },
+    {
+      "item": "تقويم",
+      "link": "/calendar"
+    }
+  ],
+  "logout": "تسجيل الخروج"
+}

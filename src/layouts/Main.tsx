@@ -13,7 +13,7 @@ const SidebarWrapper = styled(Box)(({ theme }) => ({
   width: "275px",
   height: "100%",
   padding: "25px 10px",
-  backgroundImage: `linear-gradient(to bottom, ${theme.palette.second.main}, ${alpha(theme.palette.second.main, 0.95)})`,
+  backgroundImage: `linear-gradient(to bottom, ${alpha(theme.palette.second.main, 0.9)},${theme.palette.second.main})`,
   [theme.breakpoints.down("lg")]: {
     display: "none",
   },

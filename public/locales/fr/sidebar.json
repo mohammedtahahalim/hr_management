@@ -1,0 +1,29 @@
+{
+  "navMenu": [
+    {
+      "item": "Tableau de bord",
+      "link": "/dashboard"
+    },
+    {
+      "item": "Offres d'emploi",
+      "link": "/vacancies"
+    },
+    {
+      "item": "candidates",
+      "link": "/applicants"
+    },
+    {
+      "item": "employées",
+      "link": "/employees"
+    },
+    {
+      "item": "paie",
+      "link": "/payroll"
+    },
+    {
+      "item": "calendrier",
+      "link": "/calendar"
+    }
+  ],
+  "logout": "Déconnexion"
+}
