@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { authRoutes, mainRoutes } from "./routes";
 import Auth from "../features/auth/Auth";
+import Main from "../layouts/Main";
 
 export default function Router() {
   return (
@@ -18,15 +19,17 @@ export default function Router() {
           })}
         </Route>
         <Route element={<Auth guard="required" />}>
-          {mainRoutes.map((route) => {
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={<route.component />}
-              />
-            );
-          })}
+          <Route element={<Main />}>
+            {mainRoutes.map((route) => {
+              return (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={<route.component />}
+                />
+              );
+            })}
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

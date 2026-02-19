@@ -6,6 +6,7 @@ declare module "@mui/material/styles" {
     second: Palette["primary"];
     third: Palette["primary"];
     fourth: Palette["primary"];
+    highlight: Palette["primary"];
   }
 
   interface PaletteOptions {
@@ -13,6 +14,7 @@ declare module "@mui/material/styles" {
     second?: PaletteOptions["primary"];
     third?: PaletteOptions["primary"];
     fourth?: PaletteOptions["primary"];
+    highlight?: PaletteOptions["primary"];
   }
 }
 
@@ -45,6 +47,10 @@ export const lightPalette: PaletteOptions = {
   fourth: {
     main: "#5433cf",
     light: "#f3effc",
+  },
+  highlight: {
+    main: "#b1fdbf",
+    contrastText: "#23272b",
   },
 };
 

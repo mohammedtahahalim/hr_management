@@ -71,7 +71,7 @@ const Message = styled(Typography)({
 });
 
 export default function Maintenance() {
-  const { t } = useTranslation("maintenance");
+  const { t } = useTranslation("a11y");
   const { currentTheme } = useContext(ThemeContext);
   return (
     <MaintenanceWrapper>
