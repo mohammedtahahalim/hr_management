@@ -14,5 +14,6 @@
   "haveAccount": "既にアカウントをお持ちの場合: ",
   "signUp": "サインアップ",
   "hidePassword": "パスワードを非表示",
-  "showPassword": "パスワードを表示"
+  "showPassword": "パスワードを表示",
+  "logout": "ログアウト"
 }

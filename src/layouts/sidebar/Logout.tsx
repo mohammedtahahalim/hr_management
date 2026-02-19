@@ -14,22 +14,23 @@ const LogoutWrapper = styled(Box)({
   justifyContent: "center",
 });
 
-const LogoutButton = styled(Button)({
+const LogoutButton = styled(Button)(({ theme }) => ({
   width: "100%",
-  maxWidth: "200px",
+  maxWidth: "175px",
   borderRadius: "50px",
-  padding: "8px 0px",
+  padding: "6px 0px",
   textTransform: "capitalize",
   fontFamily: "system-ui",
-  fontSize: "1.1rem",
-  fontWeight: "bold",
-});
+  fontSize: "1rem",
+  backgroundColor: theme.palette.fourth.light,
+  color: "black",
+}));
 
 export default function Logout() {
   const [submitStatus, setSubmitStatus] = useState<Status>("idle");
   const dispatch = useDispatch<AppDispatch>();
   const controller = useRef<AbortController | null>(new AbortController());
-  const { t } = useTranslation();
+  const { t } = useTranslation("login");
 
   const handleLogout = async () => {
     setSubmitStatus("submitting");

@@ -3,6 +3,8 @@ import Logo from "../../shared/ui/Logo";
 import UserProfile from "../../features/user/UserProfile";
 import NavMenu from "./NavMenu";
 import Logout from "./Logout";
+import Theme from "../../features/themes/Theme";
+import Language from "../../features/languages/Language";
 
 const SidebarWrapper = styled(Box)({
   width: "100%",
@@ -20,6 +22,8 @@ export default function Sidebar() {
       <UserProfile />
       <NavMenu />
       <Logout />
+      <Theme />
+      <Language />
     </SidebarWrapper>
   );
 }

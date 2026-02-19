@@ -1,4 +1,4 @@
-import { Box, Container, styled } from "@mui/material";
+import { alpha, Box, Container, styled } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./sidebar/Sidebar";
 import Header from "./Header";
@@ -13,7 +13,7 @@ const SidebarWrapper = styled(Box)(({ theme }) => ({
   width: "275px",
   height: "100%",
   padding: "25px 10px",
-  backgroundColor: theme.palette.secondary.main,
+  backgroundImage: `linear-gradient(to bottom, ${theme.palette.second.main}, ${alpha(theme.palette.second.main, 0.95)})`,
   [theme.breakpoints.down("lg")]: {
     display: "none",
   },

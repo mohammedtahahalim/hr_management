@@ -14,5 +14,6 @@
   "haveAccount": "هل لديك حساب بالفعل؟",
   "signUp": "اشتراك",
   "hidePassword": "إخفاء كلمة المرور",
-  "showPassword": "إظهار كلمة المرور"
+  "showPassword": "إظهار كلمة المرور",
+  "logout": "تسجيل الخروج"
 }
