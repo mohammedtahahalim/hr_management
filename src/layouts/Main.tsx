@@ -1,7 +1,11 @@
 import { alpha, Box, Container, styled } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./sidebar/Sidebar";
-import Header from "./Header";
+import Header from "./header/Header";
+import { useContext } from "react";
+import { AuthContext } from "../features/auth/AuthContext";
+import { canAccessRoute } from "../shared/lib/helpers";
+import Forbidden from "../pages/Forbidden";
 
 const MainWrapper = styled(Box)({
   width: "100%",
@@ -41,6 +45,9 @@ const OutletWrapper = styled(Container)({
 });
 
 export default function Main() {
+  const { pathname } = useLocation();
+  const { whoIs } = useContext(AuthContext);
+
   return (
     <MainWrapper>
       <SidebarWrapper>
@@ -51,7 +58,11 @@ export default function Main() {
           <Header />
         </HeaderWrapper>
         <OutletWrapper maxWidth="lg">
-          <Outlet />
+          {whoIs && canAccessRoute(pathname, whoIs) ? (
+            <Outlet />
+          ) : (
+            <Forbidden />
+          )}
         </OutletWrapper>
       </BodyWrapper>
     </MainWrapper>
