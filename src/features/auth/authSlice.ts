@@ -16,6 +16,7 @@ export interface User {
   lastName: string;
   role: TRole;
   email: string;
+  profilePic: string;
 }
 
 interface AuthState {

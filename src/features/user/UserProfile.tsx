@@ -1,6 +1,7 @@
 import { Box, styled, Typography } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../auth/AuthContext";
+import { useTranslation } from "react-i18next";
 
 const UserProfileWrapper = styled(Box)({
   width: "100%",
@@ -54,15 +55,18 @@ const Email = styled(Typography)({
 });
 
 export default function UserProfile() {
-  const { firstName, lastName, email } = useContext(AuthContext).whoIs ?? {
-    firstName: "",
-    lastName: "",
-    email: "",
+  const { firstName, lastName, email, profilePic } = useContext(AuthContext)
+    .whoIs ?? {
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@email.com",
+    profilePic: "https://i.postimg.cc/SNgrLf66/icons8-profile-100.png",
   };
+  const { t } = useTranslation("a11y");
   return (
     <UserProfileWrapper>
       <PictureWrapper>
-        <Picture src="https://avatar.iran.liara.run/public" alt="Name" />
+        <Picture src={profilePic} alt={`${t("profile_label")}`} />
       </PictureWrapper>
       <Info>
         <Name variant="subtitle1">{`${firstName} ${lastName}`}</Name>

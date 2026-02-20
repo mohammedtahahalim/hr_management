@@ -37,11 +37,11 @@ export default async function handler(req, res) {
         .status(200)
         .json({ isAuthenticated: true, isBanned: true, whoIs: null });
 
-    const detailsQuery = `select firstName, lastName, role from infos where userId = ?`;
+    const detailsQuery = `select firstName, lastName, role, profilePic from infos where userId = ?`;
     const [userInfo] = await connection.query(detailsQuery, [id]);
-    const { firstName, lastName, role } = userInfo[0];
+    const { firstName, lastName, role, profilePic } = userInfo[0];
     const token = jwt.sign(
-      { id, firstName, lastName, email, role },
+      { id, firstName, lastName, email, role, profilePic },
       process.env.SECRET_KEY,
     );
     res.setHeader(
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       isAuthenticated: true,
       isBanned: false,
-      whoIs: { id, firstName, lastName, email, role },
+      whoIs: { id, firstName, lastName, email, role, profilePic },
     });
   } catch (err) {
     console.log(err);

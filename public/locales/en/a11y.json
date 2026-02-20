@@ -1,5 +1,6 @@
 {
   "theme": "Change Theme",
   "language": "Change Language",
-  "logo_label": "HR Management Logo"
+  "logo_label": "HR Management Logo",
+  "profile_label": "Profile Image"
 }

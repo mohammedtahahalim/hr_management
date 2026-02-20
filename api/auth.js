@@ -25,12 +25,12 @@ export default async function handler(req, res) {
 
     try {
       const isValidToken = jwt.verify(token, SECRET_KEY);
-      const { id, firstName, lastName, email, role } = isValidToken;
+      const { id, firstName, lastName, email, role, profilePic } = isValidToken;
 
       return res.status(200).json({
         isAuthenticated: true,
         isAllowed: true,
-        whoIs: { id, firstName, lastName, email, role },
+        whoIs: { id, firstName, lastName, email, role, profilePic },
       });
     } catch (err) {
       res.setHeader(
