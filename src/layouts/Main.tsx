@@ -34,8 +34,7 @@ const BodyWrapper = styled(Box)({
 const HeaderWrapper = styled(Box)({
   width: "100%",
   height: "75px",
-  padding: "10px 25px",
-  border: "1px solid black",
+  padding: "12px 25px",
 });
 
 const OutletWrapper = styled(Container)({

@@ -17,7 +17,7 @@ export default function Logo() {
   const { t } = useTranslation("a11y");
   return (
     <LogoWrapper>
-      <Link to={"/"}>
+      <Link to={"/dashboard"}>
         <Image src={"/img/logo.webp"} alt={t("logo_label")} />
       </Link>
     </LogoWrapper>

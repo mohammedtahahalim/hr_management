@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { ThemeContext } from "./ThemeContext";
 import { useTranslation } from "react-i18next";
 
-const ThemeWrapper = styled(Box)({
+const ThemeWrapper = styled(Box)(({ theme }) => ({
   height: "fit-content",
   maxHeight: "40px",
   aspectRatio: "1",
@@ -13,7 +13,8 @@ const ThemeWrapper = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   cursor: "pointer",
-});
+  color: theme.palette.icon.main,
+}));
 
 export default function Theme() {
   const { currentTheme, changeTheme } = useContext(ThemeContext);
