@@ -7,6 +7,7 @@ import Notifications from "../../features/notifications/Notifications";
 import Settings from "./Settings";
 import Time from "./Time";
 import Sandwitch from "./Sandwitch";
+import PopUp from "../../shared/ui/PopUp";
 
 const HeaderWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -15,7 +16,6 @@ const HeaderWrapper = styled(Box)(({ theme }) => ({
   borderRadius: "8px",
   display: "flex",
   justifyContent: "space-between",
-  gap: "5px",
   alignItems: "center",
 }));
 
@@ -78,7 +78,7 @@ const ControlArea = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100%",
+    height: "90%",
     aspectRatio: "1",
   },
   [theme.breakpoints.down("sm")]: {
@@ -87,12 +87,12 @@ const ControlArea = styled(Box)(({ theme }) => ({
 }));
 
 const ThemeWrapper = styled(Box)({
-  height: "100%",
+  height: "90%",
   aspectRatio: "1",
 });
 
 const LanguageWrapper = styled(Box)({
-  height: "100%",
+  height: "90%",
   aspectRatio: "1",
   display: "flex",
   justifyContent: "center",
@@ -130,8 +130,12 @@ export default function Header() {
         <ThemeWrapper>
           <Theme />
         </ThemeWrapper>
-        <Notifications />
-        <Settings />
+        <PopUp trigger={<Notifications />}>
+          <div>Notifications</div>
+        </PopUp>
+        <PopUp trigger={<Settings />}>
+          <div>Settings</div>
+        </PopUp>
         <LanguageWrapper>
           <Language />
         </LanguageWrapper>

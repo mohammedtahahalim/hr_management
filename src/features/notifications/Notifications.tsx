@@ -5,6 +5,11 @@ const NotificationsWrapper = styled(Box)(({ theme }) => ({
   color: theme.palette.icon.main,
   cursor: "pointer",
   position: "relative",
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 }));
 
 const UnReadCount = styled(Box)(({ theme }) => ({
