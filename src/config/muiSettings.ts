@@ -6,6 +6,7 @@ declare module "@mui/material/styles" {
     second: Palette["primary"];
     third: Palette["primary"];
     fourth: Palette["primary"];
+    icon: Palette["primary"];
   }
 
   interface PaletteOptions {
@@ -13,6 +14,7 @@ declare module "@mui/material/styles" {
     second?: PaletteOptions["primary"];
     third?: PaletteOptions["primary"];
     fourth?: PaletteOptions["primary"];
+    icon?: PaletteOptions["primary"];
   }
 }
 
@@ -41,6 +43,9 @@ export const lightPalette: PaletteOptions = {
     main: "#1bae41",
     contrastText: "#defbe3",
     light: "#defbe3",
+  },
+  icon: {
+    main: "#afb4bc",
   },
 };
 
@@ -73,6 +78,22 @@ export const darkPalette: PaletteOptions = {
     light: "#7ee3a0",
     contrastText: "#062012",
   },
+  icon: {
+    main: "#42474f",
+  },
 };
 
-export const HRComponents: Theme["components"] = {};
+export const HRComponents: Theme["components"] = {
+  MuiCssBaseline: {
+    styleOverrides: (theme) => ({
+      "html, body": {
+        transition: "background-color 200ms ease, color 200ms ease",
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+      },
+      "#root": {
+        transition: "background-color 200ms ease, color 200ms ease",
+      },
+    }),
+  },
+};

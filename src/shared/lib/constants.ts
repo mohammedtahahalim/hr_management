@@ -65,3 +65,24 @@ export const navIcons: Record<string, MuiIcon> = {
   "/payroll": ReceiptIcon,
   "/calendar": CalendarMonthIcon,
 };
+
+export const formateDateToLong = (date: Date, lang: TLanguage): string => {
+  const usFormatter = new Intl.DateTimeFormat(lang, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  return usFormatter.format(date);
+};
+
+export const formateDate = (date: Date, lang: TLanguage): string => {
+  const usFormatter = new Intl.DateTimeFormat(lang, {
+    weekday: "short",
+    year: "2-digit",
+    month: "2-digit",
+  });
+  return usFormatter.format(date);
+};

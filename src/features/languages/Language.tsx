@@ -10,13 +10,13 @@ interface LanguageProps {
 
 const LanguageWrapper = styled(Box)({
   height: "100%",
-  maxHeight: "30px",
   width: "fit-content",
 });
 
 const LanguageSelect = styled(Select, {
   shouldForwardProp: (prop) => prop !== "isFree",
 })<LanguageProps>(({ isFree, theme }) => ({
+  height: "100%",
   textTransform: "uppercase",
   border: "none",
   "& fieldset": {

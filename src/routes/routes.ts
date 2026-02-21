@@ -3,6 +3,7 @@ const Login = lazy(() => import("../pages/auth/Login"));
 const Signup = lazy(() => import("../pages/auth/Signup"));
 const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
 const Dashboard = lazy(() => import("../pages/guard/Dashboard"));
+const Redirect = lazy(() => import("../pages/Redirect"));
 const Vacancies = lazy(() => import("../pages/guard/Vacancies"));
 const Vacancy = lazy(() => import("../pages/guard/Vacancy"));
 const AddVacancy = lazy(() => import("../pages/guard/AddVacancy"));
@@ -35,7 +36,7 @@ export const authRoutes: IRoute[] = [
 export const mainRoutes: IRoute[] = [
   {
     path: "/",
-    component: Dashboard,
+    component: Redirect,
   },
   {
     path: "/dashboard",
