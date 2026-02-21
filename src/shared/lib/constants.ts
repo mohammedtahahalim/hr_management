@@ -68,9 +68,9 @@ export const navIcons: Record<string, MuiIcon> = {
 
 export const formateDateToLong = (date: Date, lang: TLanguage): string => {
   const usFormatter = new Intl.DateTimeFormat(lang, {
-    weekday: "long",
+    weekday: "short",
     year: "numeric",
-    month: "long",
+    month: "short",
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",

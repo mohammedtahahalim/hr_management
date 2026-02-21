@@ -8,7 +8,7 @@ const SettingsWrapper = styled(Box)(({ theme }) => ({
 
 export default function Settings() {
   return (
-    <SettingsWrapper>
+    <SettingsWrapper tabIndex={0}>
       <SettingsIcon fontSize="medium" color="inherit" />
     </SettingsWrapper>
   );

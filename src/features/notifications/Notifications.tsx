@@ -24,7 +24,7 @@ const UnReadCount = styled(Box)(({ theme }) => ({
 
 export default function Notifications() {
   return (
-    <NotificationsWrapper>
+    <NotificationsWrapper tabIndex={0}>
       <UnReadCount>u</UnReadCount>
       <NotificationsIcon fontSize="medium" color="inherit" />
     </NotificationsWrapper>
