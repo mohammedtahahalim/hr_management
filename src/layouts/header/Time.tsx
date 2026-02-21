@@ -5,7 +5,7 @@ import { formateDate, formateDateToLong } from "../../shared/lib/constants";
 import type { TLanguage } from "../../config/i18n";
 
 const TimeContainer = styled(Box)(({ theme }) => ({
-  padding: "0px 15px",
+  padding: "5px 10px",
   color: theme.palette.icon.main,
   [theme.breakpoints.down("sm")]: {
     display: "none",
