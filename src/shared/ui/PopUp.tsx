@@ -19,9 +19,6 @@ const ChildrenWrapper = styled(Box)(({ theme }) => ({
   position: "absolute",
   top: "calc(100% + 5px)",
   right: "0",
-  minWidth: "200px",
-  minHeight: "100px",
-  border: "1px solid black",
   [theme.breakpoints.down("sm")]: {
     right: "-50%",
   },
@@ -75,9 +72,9 @@ export default function PopUp({ trigger, children }: PopUpProps) {
           {isOpen && (
             <MotionWrapper
               ref={childrenRef}
-              initial={{ opacity: 0, width: 0 }}
-              animate={{ opacity: 1, width: "auto" }}
-              exit={{ opacity: 0, width: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
               aria-haspopup={isOpen}
             >

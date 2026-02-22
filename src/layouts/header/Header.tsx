@@ -3,11 +3,13 @@ import { useTranslation } from "react-i18next";
 import SearchIcon from "@mui/icons-material/Search";
 import Theme from "../../features/themes/Theme";
 import Language from "../../features/languages/Language";
-import Notifications from "../../features/notifications/Notifications";
-import Settings from "./Settings";
+import NotificationsTrigger from "../../features/notifications/NotificationsTrigger";
+import SettingsTrigger from "./SettingsTrigger";
 import Time from "./Time";
 import Sandwitch from "./Sandwitch";
 import PopUp from "../../shared/ui/PopUp";
+import Settings from "./Settings";
+import Notifications from "../../features/notifications/Notifications";
 
 const HeaderWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -130,11 +132,11 @@ export default function Header() {
         <ThemeWrapper>
           <Theme />
         </ThemeWrapper>
-        <PopUp trigger={<Notifications />}>
-          <div>Notifications</div>
+        <PopUp trigger={<NotificationsTrigger />}>
+          <Notifications />
         </PopUp>
-        <PopUp trigger={<Settings />}>
-          <div>Settings</div>
+        <PopUp trigger={<SettingsTrigger />}>
+          <Settings />
         </PopUp>
         <LanguageWrapper>
           <Language />

@@ -1,3 +1,30 @@
 {
-  "search": "Search by name, position"
+  "search": "Search by name, position",
+  "settings": [
+    {
+      "element": "Profile",
+      "path": "/profile",
+      "icon": "PersonOutline"
+    },
+    {
+      "element": "Security",
+      "path": "/security",
+      "icon": "Security"
+    },
+    {
+      "element": "Notification",
+      "path": "/notifications",
+      "icon": "NotificationsNone"
+    },
+    {
+      "element": "Integrations",
+      "path": "/intergation",
+      "icon": "Extension"
+    },
+    {
+      "element": "Advanced",
+      "path": "/advanced",
+      "icon": "Settings"
+    }
+  ]
 }

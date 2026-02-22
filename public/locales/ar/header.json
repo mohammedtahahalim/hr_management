@@ -1,3 +1,30 @@
 {
-  "search": "البحث بالاسم والموقع"
+  "search": "البحث بالاسم والموقع",
+  "settings": [
+    {
+      "element": "حساب تعريفي",
+      "path": "/profile",
+      "icon": "PersonOutline"
+    },
+    {
+      "element": "حماية",
+      "path": "/security",
+      "icon": "Security"
+    },
+    {
+      "element": "إشعار",
+      "path": "/notifications",
+      "icon": "NotificationsNone"
+    },
+    {
+      "element": "التكاملات",
+      "path": "/intergation",
+      "icon": "Extension"
+    },
+    {
+      "element": "متقدم",
+      "path": "/advanced",
+      "icon": "Settings"
+    }
+  ]
 }
