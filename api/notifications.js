@@ -4,9 +4,9 @@ export default async function handler(req, res) {
   try {
     const { unread, ...rest } = req.query;
     if (unread === "true") {
-      return res.status(200).json({ unreadCount: 7 });
+      return res.status(200).json({ unreadCount: 0 });
     }
-    return res.status(401).json({ message: "Forbidden" });
+    return res.status(403).json({ message: "Forbidden" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Internal server error ..." });

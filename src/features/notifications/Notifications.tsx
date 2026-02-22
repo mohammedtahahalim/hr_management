@@ -52,7 +52,7 @@ const Loader = styled(Box)(({ theme }) => ({
 }));
 
 const Failure = styled(Typography)({
-  padding: "10px",
+  padding: "10px 20px",
   fontFamily: "system-ui",
   fontStyle: "italic",
   minWidth: "250px",
@@ -62,7 +62,7 @@ export default function Notifications() {
   const { status, notifications, error } = useSelector(
     (state: RootState) => state.notifications,
   );
-  const { t } = useTranslation("notifications");
+  const { t } = useTranslation();
 
   return (
     <NotificatioWrapper>
@@ -72,7 +72,7 @@ export default function Notifications() {
         </Loader>
       )}
       {status === "failure" && (
-        <Failure variant="body1">{t(`${error}`)}</Failure>
+        <Failure variant="body1">{t(`notifications.${error}`)}</Failure>
       )}
       {status === "succeeded" &&
         notifications.map((n) => {
