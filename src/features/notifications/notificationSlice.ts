@@ -16,6 +16,7 @@ export type NError =
   | "";
 
 const notificationSchema = z.object({
+  id: z.number(),
   title: z.string(),
   read: z.boolean(),
   readAt: z.string().or(z.null()),

@@ -4,31 +4,39 @@ import { NavLink } from "react-router-dom";
 import type { RootState } from "../../config/store";
 import { LinearProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
+import { ThemeContext } from "../themes/ThemeContext";
 
 const NotificatioWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
-  minHeight: "25px",
-  minWidth: "175px",
+  overflowY: "scroll",
+  scrollbarWidth: "none",
   display: "flex",
   flexDirection: "column",
   backgroundColor: theme.palette.divider,
   borderRadius: "8px",
-  overflow: "hidden",
+  maxWidth: "275px",
+  maxHeight: "300px",
 }));
 
-const NotificationNavElement = styled(NavLink)(({ theme }) => ({
-  width: "100%",
-  minWidth: "175px",
-  padding: "9px 15px",
+const NotificationNavElement = styled(NavLink, {
+  shouldForwardProp: (prop) => prop !== "isRead" && prop !== "isLight",
+})<{ isRead: boolean; isLight: boolean }>(({ theme, isRead, isLight }) => ({
+  width: "225px",
+  minHeight: "40px",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  padding: "8px 12px",
   textDecoration: "none",
   borderBottom: `1px solid ${theme.palette.background.default}`,
   color: "inherit",
-  display: "flex",
   gap: "8px",
+  display: "flex",
   alignItems: "center",
   fontFamily: "system-ui",
-  fontSize: "0.9rem",
+  fontSize: "0.8rem",
   transition: "all 0.2s ease-in-out",
   "&:last-child": {
     border: "none",
@@ -36,6 +44,11 @@ const NotificationNavElement = styled(NavLink)(({ theme }) => ({
   "&:hover": {
     backgroundColor: theme.palette.icon.main,
   },
+  backgroundColor: isRead
+    ? isLight
+      ? theme.palette.warning.main
+      : theme.palette.error.main
+    : "transparent",
 }));
 
 const Loader = styled(Box)(({ theme }) => ({
@@ -51,6 +64,14 @@ const Loader = styled(Box)(({ theme }) => ({
   },
 }));
 
+const NotificationText = styled("span")({
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  minWidth: 0,
+  flex: 1,
+});
+
 const Failure = styled(Typography)({
   padding: "10px 20px",
   fontFamily: "system-ui",
@@ -63,6 +84,7 @@ export default function Notifications() {
     (state: RootState) => state.notifications,
   );
   const { t } = useTranslation();
+  const { currentTheme } = useContext(ThemeContext);
 
   return (
     <NotificatioWrapper>
@@ -77,8 +99,13 @@ export default function Notifications() {
       {status === "succeeded" &&
         notifications.map((n) => {
           return (
-            <NotificationNavElement to={"/"} key={n.title}>
-              {n.title}
+            <NotificationNavElement
+              to={`/notifications/${n.id}`}
+              key={n.id}
+              isRead={n.read}
+              isLight={currentTheme === "light"}
+            >
+              <NotificationText>{n.title}</NotificationText>
             </NotificationNavElement>
           );
         })}

@@ -20,7 +20,7 @@ const ChildrenWrapper = styled(Box)(({ theme }) => ({
   top: "calc(100% + 5px)",
   right: "0",
   [theme.breakpoints.down("sm")]: {
-    right: "-50%",
+    right: "-75%",
   },
 }));
 
