@@ -1,6 +1,7 @@
 import { Box, styled } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { useFocusTrap } from "../lib/useFocusTrap";
 
 interface PopUpProps {
   trigger: React.ReactNode;
@@ -33,6 +34,8 @@ export default function PopUp({ trigger, children }: PopUpProps) {
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const childrenRef = useRef<HTMLDivElement | null>(null);
 
+  useFocusTrap(triggerRef, isOpen);
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!triggerRef.current || !childrenRef.current) return;
@@ -44,15 +47,29 @@ export default function PopUp({ trigger, children }: PopUpProps) {
         setIsOpen(false);
       }
     };
+    const handleEscapeKey = (e: KeyboardEvent) => {
+      if (isOpen && e.key === "Escape") setIsOpen(false);
+    };
     window.addEventListener("click", handleClickOutside);
+    window.addEventListener("keydown", handleEscapeKey);
     return () => {
       window.removeEventListener("click", handleClickOutside);
+      window.removeEventListener("keydown", handleEscapeKey);
     };
-  }, []);
+  }, [isOpen]);
+
+  const handleKeyOpen = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") setIsOpen(true);
+  };
 
   return (
     <>
-      <TriggerWrapper ref={triggerRef} onClick={() => setIsOpen(true)}>
+      <TriggerWrapper
+        ref={triggerRef}
+        onClick={() => setIsOpen(true)}
+        onKeyDown={handleKeyOpen}
+        tabIndex={0}
+      >
         {trigger}
         <AnimatePresence>
           {isOpen && (
@@ -62,6 +79,7 @@ export default function PopUp({ trigger, children }: PopUpProps) {
               animate={{ opacity: 1, width: "auto" }}
               exit={{ opacity: 0, width: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
+              aria-haspopup={isOpen}
             >
               {children}
             </MotionWrapper>

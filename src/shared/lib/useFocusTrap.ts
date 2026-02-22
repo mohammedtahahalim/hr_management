@@ -25,9 +25,10 @@ export function useFocusTrap(
     if (!enabled || !containerRef.current) return;
     const container = containerRef.current;
     if (!container) return;
+    const focusables = getFocusable(container);
+    focusables[0].focus();
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Tab") return;
-      const focusables = getFocusable(container);
       if (focusables.length < 2) return;
       const first = focusables[0];
       const last = focusables[focusables.length - 1];
