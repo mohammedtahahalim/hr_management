@@ -1,3 +1,30 @@
 {
-  "search": "名前、役職で検索"
+  "search": "名前、役職で検索",
+  "settings": [
+    {
+      "element": "プロフィール",
+      "path": "/profile",
+      "icon": "PersonOutline"
+    },
+    {
+      "element": "安全",
+      "path": "/security",
+      "icon": "Security"
+    },
+    {
+      "element": "通知",
+      "path": "/notifications",
+      "icon": "NotificationsNone"
+    },
+    {
+      "element": "統合",
+      "path": "/intergation",
+      "icon": "Extension"
+    },
+    {
+      "element": "高度な",
+      "path": "/advanced",
+      "icon": "Settings"
+    }
+  ]
 }

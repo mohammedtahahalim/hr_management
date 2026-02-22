@@ -1,13 +1,18 @@
 import type { OverridableComponent } from "@mui/material/OverridableComponent";
 import type { TLanguage } from "../../config/i18n";
 import type { TRole } from "../../features/auth/authSlice";
+import type { SvgIconTypeMap } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import type { SvgIconTypeMap } from "@mui/material";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import SecurityIcon from "@mui/icons-material/Security";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import ExtensionIcon from "@mui/icons-material/Extension";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 type MuiIcon = OverridableComponent<SvgIconTypeMap<object, "svg">> & {
   muiName: string;
@@ -85,4 +90,12 @@ export const formateDate = (date: Date, lang: TLanguage): string => {
     month: "2-digit",
   });
   return usFormatter.format(date);
+};
+
+export const settingIcons: Record<string, MuiIcon> = {
+  PersonOutline: PersonOutlineIcon,
+  Security: SecurityIcon,
+  NotificationsNone: NotificationsNoneIcon,
+  Extension: ExtensionIcon,
+  Settings: AdminPanelSettingsIcon,
 };
