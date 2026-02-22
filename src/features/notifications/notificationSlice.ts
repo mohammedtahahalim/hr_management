@@ -7,7 +7,7 @@ import z from "zod";
 
 type Status = "idle" | "loading" | "failure" | "succeeded";
 
-type NError =
+export type NError =
   | "SYSTEM"
   | "NETWORK"
   | "DOWN"
@@ -21,7 +21,7 @@ const notificationSchema = z.object({
   readAt: z.string().or(z.null()),
 });
 
-type NotificationItem = z.infer<typeof notificationSchema>;
+export type NotificationItem = z.infer<typeof notificationSchema>;
 
 interface NotificationState {
   status: Status;
@@ -62,26 +62,31 @@ export const fetchNotifications = createAsyncThunk<
   }
 });
 
-export const fetchNotificationsUnreadCount = createAsyncThunk<number, void>(
-  "unreadCount/thunk",
-  async (_, { signal, rejectWithValue }) => {
-    try {
-      const fullURL: string = `${import.meta.env.VITE_API_URL}/api/notifications?unread=true`;
-      const fullOptions: RequestInit = {
-        method: "GET",
-        credentials: "include",
-        signal,
-      };
-      const response = await fetch(fullURL, fullOptions);
-      if (!response.ok) throw new Error(response.status.toString());
-      const data = await response.json();
-      const { unreadCount } = data;
-      return unreadCount as number;
-    } catch (err) {
-      return rejectWithValue(err);
+export const fetchNotificationsUnreadCount = createAsyncThunk<
+  number,
+  void,
+  { rejectValue: string }
+>("unreadCount/thunk", async (_, { signal, rejectWithValue }) => {
+  try {
+    const fullURL: string = `${import.meta.env.VITE_API_URL}/api/notifications?unread=true`;
+    const fullOptions: RequestInit = {
+      method: "GET",
+      credentials: "include",
+      signal,
+    };
+    const response = await fetch(fullURL, fullOptions);
+    if (!response.ok) throw new Error(response.status.toString());
+    const data = await response.json();
+    const { unreadCount } = data;
+    return unreadCount as number;
+  } catch (err) {
+    console.log(err);
+    if (err instanceof Error) {
+      return rejectWithValue(err.message);
     }
-  },
-);
+    return rejectWithValue("UNKNOWN");
+  }
+});
 
 const initialState: NotificationState = {
   status: "idle",
