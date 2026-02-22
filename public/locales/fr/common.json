@@ -9,5 +9,13 @@
     "warning": "Avertissement",
     "info": "Info",
     "success": "Succès"
+  },
+  "notifications": {
+    "NETWORK": "Impossible de charger les notifications. Veuillez vérifier votre connexion et réessayer.",
+    "SYSTEM": "Une erreur s'est produite lors du chargement de vos notifications.",
+    "DOWN": "Les notifications sont temporairement indisponibles.",
+    "EMPTY": "Vous êtes à jour.",
+    "UNAUTHENTICATED": "Vous devez être connecté pour accéder aux notifications.",
+    "FORBIDDEN": "Vous n'avez pas accès à cette ressource."
   }
 }

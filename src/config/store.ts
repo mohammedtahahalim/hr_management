@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "../features/auth/authSlice";
 import toastSlice from "../features/toast/toastSlice";
+import notificationSlice from "../features/notifications/notificationSlice";
 
 export const HRStore = configureStore({
   reducer: {
     auth: authSlice,
     toast: toastSlice,
+    notifications: notificationSlice,
   },
 });
 
