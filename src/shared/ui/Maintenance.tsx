@@ -1,9 +1,9 @@
 import { Box, styled, Typography } from "@mui/material";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { ThemeContext } from "../features/themes/ThemeContext";
-import Theme from "../features/themes/Theme";
-import Language from "../features/languages/Language";
+import { ThemeContext } from "../../features/themes/ThemeContext";
+import Theme from "../../features/themes/Theme";
+import Language from "../../features/languages/Language";
 
 const MaintenanceWrapper = styled(Box)(({ theme }) => ({
   width: "100%",

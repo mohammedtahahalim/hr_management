@@ -6,6 +6,7 @@ import { LinearProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useContext } from "react";
 import { ThemeContext } from "../themes/ThemeContext";
+import type { TLanguage } from "../../config/i18n";
 
 const NotificatioWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -83,8 +84,12 @@ export default function Notifications() {
   const { status, notifications, error } = useSelector(
     (state: RootState) => state.notifications,
   );
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { currentTheme } = useContext(ThemeContext);
+
+  const langNotifitcations = notifications
+    ? (notifications[i18n.language as TLanguage] ?? [])
+    : [];
 
   return (
     <NotificatioWrapper>
@@ -97,7 +102,8 @@ export default function Notifications() {
         <Failure variant="body1">{t(`notifications.${error}`)}</Failure>
       )}
       {status === "succeeded" &&
-        notifications.map((n) => {
+        notifications &&
+        langNotifitcations.map((n) => {
           return (
             <NotificationNavElement
               to={`/notifications/${n.id}`}
@@ -109,7 +115,7 @@ export default function Notifications() {
             </NotificationNavElement>
           );
         })}
-      {status === "succeeded" && notifications.length === 0 && (
+      {status === "succeeded" && langNotifitcations.length === 0 && (
         <div>nothing to show</div>
       )}
     </NotificatioWrapper>

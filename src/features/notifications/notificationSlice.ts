@@ -4,6 +4,7 @@ import {
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import z from "zod";
+import type { TLanguage } from "../../config/i18n";
 
 type Status = "idle" | "loading" | "failure" | "succeeded";
 
@@ -24,15 +25,17 @@ const notificationSchema = z.object({
 
 export type NotificationItem = z.infer<typeof notificationSchema>;
 
+export type NotificationSample = Record<TLanguage, NotificationItem[]>;
+
 interface NotificationState {
   status: Status;
   error: NError;
   unreadCount: number;
-  notifications: NotificationItem[];
+  notifications: NotificationSample | null;
 }
 
 export const fetchNotifications = createAsyncThunk<
-  NotificationItem[],
+  NotificationSample,
   void,
   { rejectValue: NError }
 >("notifications/thunk", async (_, { rejectWithValue, signal }) => {
@@ -47,9 +50,20 @@ export const fetchNotifications = createAsyncThunk<
     if (!response.ok) throw new Error(response.status.toString());
     const data = await response.json();
     const { notifications } = data;
-    return (notifications as NotificationItem[]).filter(
-      (n) => notificationSchema.safeParse(n).success,
+    const derivedNotifications = Object.entries(notifications).reduce(
+      (acc: NotificationSample, val: [string, unknown]) => {
+        const [language, sample] = [
+          val[0] as TLanguage,
+          val[1] as NotificationItem[],
+        ];
+        acc[language] = sample.filter(
+          (n) => notificationSchema.safeParse(n).success,
+        );
+        return acc;
+      },
+      {} as NotificationSample,
     );
+    return derivedNotifications as NotificationSample;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") {
       return rejectWithValue("NETWORK");
@@ -93,7 +107,7 @@ const initialState: NotificationState = {
   status: "idle",
   error: "",
   unreadCount: 0,
-  notifications: [],
+  notifications: null,
 };
 
 const notificationSlice = createSlice({
@@ -115,10 +129,9 @@ const notificationSlice = createSlice({
       )
       .addCase(
         fetchNotifications.fulfilled,
-        (state, action: PayloadAction<NotificationItem[]>) => {
+        (state, action: PayloadAction<NotificationSample>) => {
           state.status = "succeeded";
           state.notifications = action.payload;
-          state.unreadCount = action.payload.filter((n) => !n.read).length;
         },
       )
       .addCase(

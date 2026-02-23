@@ -5,7 +5,7 @@ import Header from "./header/Header";
 import { useContext } from "react";
 import { AuthContext } from "../features/auth/AuthContext";
 import { canAccessRoute } from "../shared/lib/helpers";
-import Forbidden from "../pages/Forbidden";
+import Forbidden from "../shared/ui/Forbidden";
 
 const MainWrapper = styled(Box)({
   width: "100%",
@@ -40,7 +40,8 @@ const HeaderWrapper = styled(Box)({
 const OutletWrapper = styled(Container)({
   width: "100%",
   flex: "1",
-  border: "1px solid black",
+  overflowY: "scroll",
+  scrollbarWidth: "none",
 });
 
 export default function Main() {
