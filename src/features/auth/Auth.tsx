@@ -5,9 +5,9 @@ import type { AppDispatch, RootState } from "../../config/store";
 import { useEffect } from "react";
 import { checkAuth } from "./authSlice";
 import Loader from "../../shared/ui/Loader";
-import Network from "../../pages/Network";
-import Forbidden from "../../pages/Forbidden";
-import Maintenance from "../../pages/Maintenance";
+import Network from "../../shared/ui/Network";
+import Forbidden from "../../shared/ui/Forbidden";
+import Maintenance from "../../shared/ui/Maintenance";
 
 interface AuthProps {
   guard: "required" | "notRequired";
