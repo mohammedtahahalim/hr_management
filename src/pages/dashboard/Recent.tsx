@@ -1,10 +1,8 @@
 import { Box, styled } from "@mui/material";
 
 const RecentWrapper = styled(Box)({
-  flex: 1.25,
-  display: "flex",
-  border: "1px solid black",
-  minHeight: "300px",
+  width: "100%",
+  height: "100%",
 });
 
 export default function Recent() {

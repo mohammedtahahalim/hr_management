@@ -2,7 +2,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Box, styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../config/store";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   fetchNotifications,
   fetchNotificationsUnreadCount,
@@ -42,6 +42,7 @@ export default function NotificationsTrigger() {
     (state: RootState) => state.notifications,
   );
   const dispatch = useDispatch<AppDispatch>();
+  const hasFetched = useRef<boolean>(false);
 
   useEffect(() => {
     dispatch(fetchNotificationsUnreadCount());
@@ -53,7 +54,11 @@ export default function NotificationsTrigger() {
       <NotificationsIcon
         fontSize="medium"
         color="inherit"
-        onClick={() => dispatch(fetchNotifications())}
+        onClick={() => {
+          if (hasFetched.current) return;
+          dispatch(fetchNotifications());
+          hasFetched.current = true;
+        }}
       />
     </NotificationsWrapper>
   );
