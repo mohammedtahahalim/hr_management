@@ -57,7 +57,7 @@ export default function Main() {
         <HeaderWrapper>
           <Header />
         </HeaderWrapper>
-        <OutletWrapper maxWidth="lg">
+        <OutletWrapper maxWidth="xl">
           {whoIs && canAccessRoute(pathname, whoIs) ? (
             <Outlet />
           ) : (
