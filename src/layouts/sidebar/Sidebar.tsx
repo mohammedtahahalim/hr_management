@@ -11,6 +11,8 @@ const SidebarWrapper = styled(Box)({
   flexDirection: "column",
   alignItems: "center",
   gap: "20px",
+  overflowY: "scroll",
+  scrollbarWidth: "none",
 });
 
 export default function Sidebar() {

@@ -22,6 +22,7 @@ const ChildrenWrapper = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     right: "-75%",
   },
+  zIndex: 99,
 }));
 
 const MotionWrapper = motion.create(ChildrenWrapper);
