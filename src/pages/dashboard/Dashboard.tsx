@@ -1,10 +1,11 @@
 import { Box, styled } from "@mui/material";
-import Candidate from "./Candidate";
+import Candidate from "./candidate/Candidate";
 import Department from "./Department";
 import Distribution from "./Distribution";
 import Recent from "./Recent";
 import Collection from "./Collection";
 import Activity from "./Activity";
+import WithSkeleton from "../../shared/ui/WithSkeleton";
 
 const DashboardWrapper = styled(Box)({
   width: "100%",
@@ -12,7 +13,7 @@ const DashboardWrapper = styled(Box)({
   padding: "5px",
   display: "flex",
   flexDirection: "column",
-  gap: "5px",
+  gap: "10px",
 });
 
 const Informations = styled(Box)(({ theme }) => ({
@@ -25,21 +26,25 @@ const Informations = styled(Box)(({ theme }) => ({
   },
 }));
 
-const CandidateWrapper = styled(Box)({
+const CandidateWrapper = styled(Box)(({ theme }) => ({
   minHeight: "300px",
-  border: "1px solid black",
   flex: 1,
-});
+  overflow: "hidden",
+  borderRadius: "18px",
+  border: `1px solid ${theme.palette.divider}`,
+}));
 
 const DepartmentWrapper = styled(Box)({
   minHeight: "300px",
-  border: "1px solid black",
   flex: 1,
+  overflow: "hidden",
+  borderRadius: "18px",
 });
 
 const DistributionWrapper = styled(Box)({
   minHeight: "300px",
-  border: "1px solid black",
+  overflow: "hidden",
+  borderRadius: "18px",
   flex: 1,
 });
 
@@ -56,7 +61,8 @@ const Stats = styled(Box)(({ theme }) => ({
 const RecentWrapper = styled(Box)({
   flex: 2,
   minHeight: "300px",
-  border: "1px solid black",
+  overflow: "hidden",
+  borderRadius: "18px",
 });
 
 const ResourcesWrapper = styled(Box)(({ theme }) => ({
@@ -76,12 +82,14 @@ const ResourcesWrapper = styled(Box)(({ theme }) => ({
 
 const CollectionWrapper = styled(Box)({
   flex: 1,
-  border: "1px solid black",
+  overflow: "hidden",
+  borderRadius: "18px",
 });
 
 const ActivityWrapper = styled(Box)({
   flex: 1,
-  border: "1px solid black",
+  overflow: "hidden",
+  borderRadius: "18px",
 });
 
 export default function Dashboard() {
@@ -89,25 +97,37 @@ export default function Dashboard() {
     <DashboardWrapper>
       <Informations>
         <CandidateWrapper>
-          <Candidate />
+          <WithSkeleton loading={false}>
+            <Candidate />
+          </WithSkeleton>
         </CandidateWrapper>
         <DepartmentWrapper>
-          <Department />
+          <WithSkeleton loading={true}>
+            <Department />
+          </WithSkeleton>
         </DepartmentWrapper>
         <DistributionWrapper>
-          <Distribution />
+          <WithSkeleton loading={true}>
+            <Distribution />
+          </WithSkeleton>
         </DistributionWrapper>
       </Informations>
       <Stats>
         <RecentWrapper>
-          <Recent />
+          <WithSkeleton loading={true}>
+            <Recent />
+          </WithSkeleton>
         </RecentWrapper>
         <ResourcesWrapper>
           <CollectionWrapper>
-            <Collection />
+            <WithSkeleton loading>
+              <Collection />
+            </WithSkeleton>
           </CollectionWrapper>
           <ActivityWrapper>
-            <Activity />
+            <WithSkeleton loading>
+              <Activity />
+            </WithSkeleton>
           </ActivityWrapper>
         </ResourcesWrapper>
       </Stats>
