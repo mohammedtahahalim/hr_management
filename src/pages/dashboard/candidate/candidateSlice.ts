@@ -64,6 +64,10 @@ const initialState: CandidateState = {
 
 export const selectAllCandidates = (state: RootState) => state.candidate.data;
 
+export const selectStatus = (state: RootState) => state.candidate.status;
+
+export const selectError = (state: RootState) => state.candidate.error;
+
 export const selectAcceptedCandidates = createSelector(
   [selectAllCandidates],
   (data) => data.filter((c) => c.offerState === "OFFER"),
@@ -83,10 +87,6 @@ export const selectPendingCandidates = createSelector(
   [selectAllCandidates],
   (data) => data.filter((c) => c.offerState === "PENDING"),
 );
-
-export const selectStatus = (state: RootState) => state.candidate.status;
-
-export const selectError = (state: RootState) => state.candidate.error;
 
 const candidateSlice = createSlice({
   name: "candidate/slice",
