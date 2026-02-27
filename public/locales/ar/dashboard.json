@@ -1,1 +1,11 @@
-{}
+{
+  "candidate": {
+    "status": {
+      "title": "حالة المرشح",
+      "employers": "أصحاب العمل",
+      "total": "مفتوح",
+      "shortlisted": "القائمة المختصرة",
+      "rejected": "مرفوض"
+    }
+  }
+}

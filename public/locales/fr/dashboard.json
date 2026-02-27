@@ -1,1 +1,11 @@
-{}
+{
+  "candidate": {
+    "status": {
+      "title": "Statut du candidat",
+      "employers": "Employeurs",
+      "total": "ouvert",
+      "shortlisted": "présélectionné",
+      "rejected": "rejetée"
+    }
+  }
+}
