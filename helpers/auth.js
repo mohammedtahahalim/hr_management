@@ -9,7 +9,7 @@ const { SECRET_KEY } = process.env;
 
 if (!SECRET_KEY) throw new Error("missingKey");
 
-export default function auth(req, res) {
+export default async function auth(req, res) {
   try {
     const cookies = parse(req.headers.cookie || "");
     const { token } = cookies;

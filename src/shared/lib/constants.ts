@@ -1,6 +1,6 @@
 import type { OverridableComponent } from "@mui/material/OverridableComponent";
 import type { TLanguage } from "../../config/i18n";
-import type { TRole } from "../../features/auth/authSlice";
+import type { TRole } from "./types";
 import type { SvgIconTypeMap } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
@@ -98,4 +98,12 @@ export const settingIcons: Record<string, MuiIcon> = {
   NotificationsNone: NotificationsNoneIcon,
   Extension: ExtensionIcon,
   Settings: AdminPanelSettingsIcon,
+};
+
+export const calculatePercentage = (
+  total: number,
+  fraction: number,
+): number => {
+  if (!fraction || !total) return 0;
+  return Math.floor((fraction * 100) / total);
 };

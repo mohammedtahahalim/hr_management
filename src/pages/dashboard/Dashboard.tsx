@@ -6,6 +6,11 @@ import Recent from "./Recent";
 import Collection from "./Collection";
 import Activity from "./Activity";
 import WithSkeleton from "../../shared/ui/WithSkeleton";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCandidates, selectStatus } from "./candidate/candidateSlice";
+import type { AppDispatch } from "../../config/store";
+import { useEffect } from "react";
+import { isLoading } from "../../shared/lib/helpers";
 
 const DashboardWrapper = styled(Box)({
   width: "100%",
@@ -93,11 +98,21 @@ const ActivityWrapper = styled(Box)({
 });
 
 export default function Dashboard() {
+  const candidateStatus = useSelector(selectStatus);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const candidateRequest = dispatch(fetchCandidates());
+    return () => {
+      candidateRequest.abort();
+    };
+  }, [dispatch]);
+
   return (
     <DashboardWrapper>
       <Informations>
         <CandidateWrapper>
-          <WithSkeleton loading={false}>
+          <WithSkeleton loading={isLoading(candidateStatus)}>
             <Candidate />
           </WithSkeleton>
         </CandidateWrapper>
