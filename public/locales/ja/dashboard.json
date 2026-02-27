@@ -1,1 +1,11 @@
-{}
+{
+  "candidate": {
+    "status": {
+      "title": "候補者ステータス",
+      "employers": "雇用主",
+      "total": "募集中",
+      "shortlisted": "最終選考通過",
+      "rejected": "不採用"
+    }
+  }
+}
