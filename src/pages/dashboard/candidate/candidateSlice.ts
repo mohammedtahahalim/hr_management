@@ -1,6 +1,7 @@
 import {
   createAsyncThunk,
   createSlice,
+  createSelector,
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import z from "zod";
@@ -61,19 +62,27 @@ const initialState: CandidateState = {
   data: [],
 };
 
-export const selectAcceptedCandidates = (state: RootState) =>
-  state.candidate.data.filter((c) => c.offerState === "OFFER");
-
-export const selectRejectedCandidates = (state: RootState) =>
-  state.candidate.data.filter((c) => c.offerState === "REJECT");
-
-export const selectShortlistedCandidates = (state: RootState) =>
-  state.candidate.data.filter((c) => c.offerState === "SHORTLIST");
-
-export const selectPendingCandidates = (state: RootState) =>
-  state.candidate.data.filter((c) => c.offerState === "PENDING");
-
 export const selectAllCandidates = (state: RootState) => state.candidate.data;
+
+export const selectAcceptedCandidates = createSelector(
+  [selectAllCandidates],
+  (data) => data.filter((c) => c.offerState === "OFFER"),
+);
+
+export const selectRejectedCandidates = createSelector(
+  [selectAllCandidates],
+  (data) => data.filter((c) => c.offerState === "REJECT"),
+);
+
+export const selectShortlistedCandidates = createSelector(
+  [selectAllCandidates],
+  (data) => data.filter((c) => c.offerState === "SHORTLIST"),
+);
+
+export const selectPendingCandidates = createSelector(
+  [selectAllCandidates],
+  (data) => data.filter((c) => c.offerState === "PENDING"),
+);
 
 export const selectStatus = (state: RootState) => state.candidate.status;
 
