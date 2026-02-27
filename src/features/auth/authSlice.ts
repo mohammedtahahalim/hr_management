@@ -3,12 +3,7 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-
-type Status = "idle" | "loading" | "failure" | "success";
-
-export type TRole = "admin" | "manager" | "hr" | "employee" | "candidat";
-
-type AuthReject = "UNAUTHENTICATED" | "FORBIDDEN" | "SYSTEM" | "ABORT" | "DOWN";
+import type { Status, TRole, Reject } from "../../shared/lib/types";
 
 export interface User {
   id: number;
@@ -27,37 +22,36 @@ interface AuthState {
   whoIs: User | null;
 }
 
-export const checkAuth = createAsyncThunk<
-  User,
-  void,
-  { rejectValue: AuthReject }
->("check/auth", async (_, { rejectWithValue, signal }) => {
-  try {
-    const fullURL: string = `${import.meta.env.VITE_API_URL}/api/auth`;
-    const fullOptions: RequestInit = {
-      method: "GET",
-      credentials: "include",
-      signal,
-    };
-    const response = await fetch(fullURL, fullOptions);
-    if (!response.ok) throw new Error(response.status.toString());
-    const data = await response.json();
-    const { isAuthenticated, whoIs, isAllowed } = data;
-    if (!isAuthenticated) throw new Error("401");
-    if (!isAllowed) throw new Error("403");
-    return whoIs as User;
-  } catch (err) {
-    if (err instanceof DOMException && err.name === "AbortError") {
-      return rejectWithValue("ABORT");
+export const checkAuth = createAsyncThunk<User, void, { rejectValue: Reject }>(
+  "check/auth",
+  async (_, { rejectWithValue, signal }) => {
+    try {
+      const fullURL: string = `${import.meta.env.VITE_API_URL}/api/auth`;
+      const fullOptions: RequestInit = {
+        method: "GET",
+        credentials: "include",
+        signal,
+      };
+      const response = await fetch(fullURL, fullOptions);
+      if (!response.ok) throw new Error(response.status.toString());
+      const data = await response.json();
+      const { isAuthenticated, whoIs, isAllowed } = data;
+      if (!isAuthenticated) throw new Error("401");
+      if (!isAllowed) throw new Error("403");
+      return whoIs as User;
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") {
+        return rejectWithValue("ABORT");
+      }
+      if (err instanceof Error) {
+        if (err.message === "401") return rejectWithValue("UNAUTHENTICATED");
+        if (err.message === "403") return rejectWithValue("FORBIDDEN");
+        if (err.message === "500") return rejectWithValue("SYSTEM");
+      }
+      return rejectWithValue("DOWN");
     }
-    if (err instanceof Error) {
-      if (err.message === "401") return rejectWithValue("UNAUTHENTICATED");
-      if (err.message === "403") return rejectWithValue("FORBIDDEN");
-      if (err.message === "500") return rejectWithValue("SYSTEM");
-    }
-    return rejectWithValue("DOWN");
-  }
-});
+  },
+);
 
 const initialState: AuthState = {
   status: "idle",
@@ -81,7 +75,7 @@ const authSlice = createSlice({
       })
       .addCase(
         checkAuth.rejected,
-        (state, action: PayloadAction<AuthReject | undefined>) => {
+        (state, action: PayloadAction<Reject | undefined>) => {
           state.status = "failure";
           state.whoIs = null;
           switch (action.payload) {
