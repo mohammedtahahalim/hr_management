@@ -7,8 +7,6 @@ const CandidateWrapper = styled(Box)(({ theme }) => ({
   height: "fit-content",
   maxHeight: "400px",
   overflowX: "hidden",
-  overflowY: "scroll",
-  scrollbarWidth: "none",
   display: "flex",
   flexDirection: "column",
   gap: "5px",

@@ -1,6 +1,6 @@
 import type { OverridableComponent } from "@mui/material/OverridableComponent";
 import type { TLanguage } from "../../config/i18n";
-import type { TRole } from "./types";
+import type { MuiColors, Offer, TRole } from "./types";
 import type { SvgIconTypeMap } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
@@ -106,4 +106,17 @@ export const calculatePercentage = (
 ): number => {
   if (!fraction || !total) return 0;
   return Math.floor((fraction * 100) / total);
+};
+
+export const offerColors = (offer: Offer): MuiColors => {
+  switch (offer) {
+    case "OFFER":
+      return "success";
+    case "SHORTLIST":
+      return "info";
+    case "PENDING":
+      return "warning";
+    case "REJECT":
+      return "error";
+  }
 };

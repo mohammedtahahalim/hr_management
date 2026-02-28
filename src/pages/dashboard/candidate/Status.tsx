@@ -10,7 +10,7 @@ import { calculatePercentage } from "../../../shared/lib/constants";
 
 const StatusWrapper = styled(Box)({
   flex: 1,
-  minHeight: "210px",
+  height: "210px",
   padding: "20px",
   display: "flex",
   flexDirection: "column",
@@ -57,7 +57,7 @@ const Stat = styled(Box, {
 }));
 
 const Bar = styled(Box, {
-  shouldForwardProp: (prop) => prop !== "dir",
+  shouldForwardProp: (prop) => prop !== "dir" && prop !== "isArabic",
 })<{ dir: "left" | "right" | "middle"; isArabic: boolean }>(
   ({ theme, dir, isArabic }) => ({
     width: "100%",
