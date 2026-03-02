@@ -1,4 +1,7 @@
 import { Box, styled } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectStatus } from "./departmentSlice";
+import WithSkeleton from "../../../shared/ui/WithSkeleton";
 
 const DepartmentWrapper = styled(Box)({
   width: "100%",
@@ -10,5 +13,10 @@ const DepartmentWrapper = styled(Box)({
 });
 
 export default function Department() {
-  return <DepartmentWrapper>Department</DepartmentWrapper>;
+  const status = useSelector(selectStatus);
+  return (
+    <WithSkeleton loading={status === "loading"}>
+      <DepartmentWrapper>Department</DepartmentWrapper>
+    </WithSkeleton>
+  );
 }

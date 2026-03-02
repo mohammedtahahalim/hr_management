@@ -100,9 +100,7 @@ export default function Dashboard() {
           <Candidate />
         </CandidateWrapper>
         <DepartmentWrapper>
-          <WithSkeleton loading={false}>
-            <Department />
-          </WithSkeleton>
+          <Department />
         </DepartmentWrapper>
         <DistributionWrapper>
           <WithSkeleton loading={true}>
