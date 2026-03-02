@@ -1,6 +1,12 @@
 import { Box, styled } from "@mui/material";
 import Status from "./Status";
 import RecentApps from "./RecentApps";
+import WithSkeleton from "../../../shared/ui/WithSkeleton";
+import { useDispatch, useSelector } from "react-redux";
+import { isLoading } from "../../../shared/lib/helpers";
+import { fetchCandidates, selectStatus } from "./candidateSlice";
+import { useEffect } from "react";
+import type { AppDispatch } from "../../../config/store";
 
 const CandidateWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -19,10 +25,22 @@ const CandidateWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export default function Candidate() {
+  const candidateStatus = useSelector(selectStatus);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const candidateRequest = dispatch(fetchCandidates());
+    return () => {
+      candidateRequest.abort();
+    };
+  }, [dispatch]);
+
   return (
-    <CandidateWrapper>
-      <Status />
-      <RecentApps />
-    </CandidateWrapper>
+    <WithSkeleton loading={isLoading(candidateStatus)}>
+      <CandidateWrapper>
+        <Status />
+        <RecentApps />
+      </CandidateWrapper>
+    </WithSkeleton>
   );
 }

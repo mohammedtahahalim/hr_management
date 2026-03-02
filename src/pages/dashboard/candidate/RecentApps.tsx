@@ -75,7 +75,6 @@ const Offer = styled(Box, {
   fontSize: "0.8rem",
   textTransform: "uppercase",
   height: "30px",
-  width: "75px",
   backgroundColor: theme.palette[isColor].main,
   display: "flex",
   alignItems: "center",
@@ -97,7 +96,7 @@ const RecentApps = memo(() => {
             <Line key={c.id}>
               <Profile>
                 <Picture
-                  src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${c.name.split(" ")[0]}`}
+                  src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${c.name}`}
                   alt={`${c.name} picture`}
                   loading="lazy"
                 />

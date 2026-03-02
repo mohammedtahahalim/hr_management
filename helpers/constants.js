@@ -44,10 +44,22 @@ const positions = [
     fr: "Développeur Frontend",
   },
   {
+    en: "Frontend Engineer",
+    ja: "フロントエンドエンジニア",
+    ar: "مهندس الواجهة الأمامية",
+    fr: "Ingénieur Frontend",
+  },
+  {
     en: "Backend Engineer",
     ja: "バックエンドエンジニア",
     ar: "مهندس خلفية",
     fr: "Ingénieur Backend",
+  },
+  {
+    en: "Backend Developer",
+    ja: "バックエンド開発者",
+    ar: "مطور الواجهة الخلفية",
+    fr: "Développeur Backend",
   },
   {
     en: "Product Manager",
@@ -67,11 +79,19 @@ const positions = [
     ar: "مهندس ديف أوبس",
     fr: "Ingénieur DevOps",
   },
+  {
+    en: "Data Manager",
+    ja: "データマネージャー",
+    ar: "مدير البيانات",
+    fr: "Gestionnaire de données",
+  },
 ];
 
 const offerStates = ["OFFER", "SHORTLIST", "REJECT", "PENDING"];
 
-export const generateCandidates = (count = 318) =>
+export const generateCandidates = (
+  count = Math.floor(Math.random() * 100) + 300,
+) =>
   Array.from({ length: count }, (_, i) => ({
     id: i,
     name: names[Math.floor(Math.random() * names.length)],
