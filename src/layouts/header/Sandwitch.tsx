@@ -1,4 +1,4 @@
-import { Box, styled, alpha } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { createPortal } from "react-dom";
@@ -21,7 +21,7 @@ const SidebarWrapper = styled(Box, {
   width: "275px",
   height: "100%",
   padding: "25px 10px",
-  backgroundImage: `linear-gradient(to bottom, ${alpha(theme.palette.second.main, 0.9)},${theme.palette.second.main})`,
+  backgroundColor: theme.palette.second.main,
   position: "absolute",
   top: "0",
   ...(isArabic ? { right: "0" } : { left: "0" }),

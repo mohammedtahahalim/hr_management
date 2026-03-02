@@ -20,9 +20,9 @@ export default function WithSkeleton({ loading, children }: OnSkeletonProps) {
       {loading ? (
         <MotionSkeleton
           variant="rectangular"
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 25 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeInOut" }}
+          transition={{ duration: 0.75, ease: "easeInOut" }}
         />
       ) : (
         children

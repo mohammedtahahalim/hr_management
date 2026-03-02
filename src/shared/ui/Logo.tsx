@@ -18,7 +18,14 @@ export default function Logo() {
   return (
     <LogoWrapper>
       <Link to={"/dashboard"}>
-        <Image src={"/img/logo.avif"} alt={t("logo_label")} />
+        <Image
+          src={
+            "https://res.cloudinary.com/dkoixkbyl/image/upload/v1772450545/logo_tfrdvd.avif"
+          }
+          alt={t("logo_label")}
+          fetchPriority="high"
+          decoding="async"
+        />
       </Link>
     </LogoWrapper>
   );

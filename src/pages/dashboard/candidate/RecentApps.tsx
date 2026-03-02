@@ -24,7 +24,7 @@ const Line = styled(Box)(({ theme }) => ({
   minHeight: "42px",
   display: "flex",
   justifyContent: "space-between",
-  gap: "10px",
+  gap: "15px",
   alignItems: "center",
   padding: "0px 5px",
   borderBottom: `1px solid ${theme.palette.divider}`,
@@ -36,13 +36,17 @@ const Profile = styled(Box)({
   display: "flex",
   gap: "5px",
   alignItems: "center",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
 });
 
-const Picture = styled("img")({
+const Picture = styled("img")(({ theme }) => ({
   height: "35px",
   aspectRatio: "1",
   borderRadius: "50px",
-});
+  border: `1px solid ${theme.palette.primary.main}`,
+}));
 
 const Name = styled(Typography)({
   overflow: "hidden",
@@ -54,7 +58,8 @@ const Name = styled(Typography)({
 });
 
 const Position = styled(Typography)({
-  flex: 1.25,
+  flex: 1,
+  height: "100%",
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
@@ -69,14 +74,13 @@ const Offer = styled(Box, {
   borderRadius: "50px",
   fontSize: "0.8rem",
   textTransform: "uppercase",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  whiteSpace: "nowrap",
   height: "30px",
   backgroundColor: theme.palette[isColor].main,
   display: "flex",
   alignItems: "center",
+  justifyContent: "center",
   padding: "0px 5px",
+  overflow: "hidden",
 }));
 
 const RecentApps = memo(() => {
@@ -91,7 +95,11 @@ const RecentApps = memo(() => {
           <>
             <Line key={c.id}>
               <Profile>
-                <Picture src="https://i.postimg.cc/SNgrLf66/icons8-profile-100.png" />
+                <Picture
+                  src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${c.name}`}
+                  alt={`${c.name} picture`}
+                  loading="lazy"
+                />
                 <Name variant="body1">{c.name}</Name>
               </Profile>
               <Position variant="body1">
