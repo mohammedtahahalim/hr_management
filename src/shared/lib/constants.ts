@@ -1,6 +1,6 @@
 import type { OverridableComponent } from "@mui/material/OverridableComponent";
 import type { TLanguage } from "../../config/i18n";
-import type { MuiColors, Offer, TRole } from "./types";
+import type { Offer, OfferState, PaletteColorKey, TRole } from "./types";
 import type { SvgIconTypeMap } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
@@ -108,7 +108,7 @@ export const calculatePercentage = (
   return Math.floor((fraction * 100) / total);
 };
 
-export const offerColors = (offer: Offer): MuiColors => {
+export const offerColors = (offer: Offer): PaletteColorKey => {
   switch (offer) {
     case "OFFER":
       return "success";
@@ -119,4 +119,25 @@ export const offerColors = (offer: Offer): MuiColors => {
     case "REJECT":
       return "error";
   }
+};
+
+const offerPositionsMap: Record<string, Record<TLanguage, string>> = {
+  OFFER: {
+    en: "OFFER",
+    ar: "عرض",
+    ja: "オファー",
+    fr: "OFFRE",
+  },
+  SHORTLIST: {
+    en: "SHORTLIST",
+    ar: "المختصرة",
+    ja: "ショートリスト",
+    fr: "PRÉSÉLECTION",
+  },
+  REJECT: { en: "REJECT", ar: "رفض", ja: "拒否する", fr: "REJETÉE" },
+  PENDING: { en: "PENDING", ar: "قيد الانتظار", ja: "保留中", fr: "ATTENTE" },
+};
+
+export const offerState = (position: OfferState, lng: TLanguage): string => {
+  return offerPositionsMap[position][lng];
 };

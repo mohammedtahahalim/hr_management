@@ -1,4 +1,10 @@
-import type { ButtonProps } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
+import type { ICandidat } from "../../pages/dashboard/candidate/candidateSlice";
+
+export type PaletteColorKey = keyof Pick<
+  Theme["palette"],
+  "primary" | "secondary" | "success" | "error" | "info" | "warning"
+>;
 
 export type Status = "idle" | "loading" | "failure" | "success";
 export type Offer = "OFFER" | "SHORTLIST" | "REJECT" | "PENDING";
@@ -9,4 +15,5 @@ export type Reject =
   | "SYSTEM"
   | "ABORT"
   | "DOWN";
-export type MuiColors = ButtonProps["color"];
+
+export type OfferState = ICandidat["offerState"];

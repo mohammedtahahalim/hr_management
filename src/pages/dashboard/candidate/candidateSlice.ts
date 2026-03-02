@@ -11,11 +11,16 @@ import type { RootState } from "../../../config/store";
 const candidateSchema = z.object({
   id: z.number().nonnegative(),
   name: z.string(),
-  position: z.string(),
+  position: z.object({
+    en: z.string(),
+    ja: z.string(),
+    ar: z.string(),
+    fr: z.string(),
+  }),
   offerState: z.enum(["OFFER", "SHORTLIST", "REJECT", "PENDING"]),
 });
 
-type ICandidat = z.infer<typeof candidateSchema>;
+export type ICandidat = z.infer<typeof candidateSchema>;
 
 interface CandidateState {
   status: Status;
