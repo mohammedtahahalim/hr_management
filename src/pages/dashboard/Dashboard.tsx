@@ -1,6 +1,6 @@
 import { Box, styled } from "@mui/material";
 import Candidate from "./candidate/Candidate";
-import Department from "./Department";
+import Department from "./departments/Department";
 import Distribution from "./Distribution";
 import Recent from "./Recent";
 import Collection from "./Collection";
@@ -117,7 +117,7 @@ export default function Dashboard() {
           </WithSkeleton>
         </CandidateWrapper>
         <DepartmentWrapper>
-          <WithSkeleton loading={true}>
+          <WithSkeleton loading={false}>
             <Department />
           </WithSkeleton>
         </DepartmentWrapper>
