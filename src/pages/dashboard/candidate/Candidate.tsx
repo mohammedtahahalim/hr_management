@@ -3,7 +3,6 @@ import Status from "./Status";
 import RecentApps from "./RecentApps";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { isLoading } from "../../../shared/lib/helpers";
 import { fetchCandidates, selectStatus } from "./candidateSlice";
 import { useEffect } from "react";
 import type { AppDispatch } from "../../../config/store";
@@ -36,7 +35,7 @@ export default function Candidate() {
   }, [dispatch]);
 
   return (
-    <WithSkeleton loading={isLoading(candidateStatus)}>
+    <WithSkeleton loading={candidateStatus === "loading"}>
       <CandidateWrapper>
         <Status />
         <RecentApps />
