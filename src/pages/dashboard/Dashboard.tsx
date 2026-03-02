@@ -98,8 +98,8 @@ const ActivityWrapper = styled(Box)({
 });
 
 export default function Dashboard() {
-  const candidateStatus = useSelector(selectStatus);
   const dispatch = useDispatch<AppDispatch>();
+  const candidateStatus = useSelector(selectStatus);
 
   useEffect(() => {
     const candidateRequest = dispatch(fetchCandidates());

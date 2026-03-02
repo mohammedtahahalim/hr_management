@@ -10,7 +10,7 @@ import { calculatePercentage } from "../../../shared/lib/constants";
 
 const StatusWrapper = styled(Box)({
   flex: 1,
-  minHeight: "210px",
+  height: "210px",
   padding: "20px",
   display: "flex",
   flexDirection: "column",
@@ -57,51 +57,69 @@ const Stat = styled(Box, {
 }));
 
 const Bar = styled(Box, {
-  shouldForwardProp: (prop) => prop !== "dir",
-})<{ dir: "left" | "right" | "middle" }>(({ theme, dir }) => ({
-  width: "100%",
-  minHeight: "15px",
-  overflow: "hidden",
-  position: "relative",
-  ...(dir === "left"
-    ? {
-        borderRadius: "8px",
-        backgroundColor: theme.palette.first.main,
-      }
-    : dir === "right"
+  shouldForwardProp: (prop) => prop !== "dir" && prop !== "isArabic",
+})<{ dir: "left" | "right" | "middle"; isArabic: boolean }>(
+  ({ theme, dir, isArabic }) => ({
+    width: "100%",
+    minHeight: "15px",
+    overflow: "hidden",
+    position: "relative",
+    ...(dir === "left"
       ? {
-          borderTopRightRadius: "8px",
-          borderBottomRightRadius: "8px",
-          backgroundColor: theme.palette.fourth.main,
-          "&::before": {
-            content: "''",
-            height: "100%",
-            aspectRatio: "1",
-            position: "absolute",
-            top: "0",
-            left: "0",
-            translate: "-50% 0%",
-            borderRadius: "50%",
-            backgroundColor: theme.palette.background.default,
-          },
+          borderRadius: "8px",
+          backgroundColor: theme.palette.first.main,
         }
-      : {
-          borderTopRightRadius: "8px",
-          borderBottomRightRadius: "8px",
-          backgroundColor: theme.palette.third.main,
-          "&::before": {
-            content: "''",
-            height: "100%",
-            aspectRatio: "1",
-            position: "absolute",
-            top: "0",
-            left: "0",
-            translate: "-50% 0%",
-            borderRadius: "50%",
-            backgroundColor: theme.palette.background.default,
-          },
-        }),
-}));
+      : dir === "right"
+        ? {
+            ...(isArabic
+              ? {
+                  borderTopLeftRadius: "8px",
+                  borderBottomLeftRadius: "8px",
+                }
+              : {
+                  borderTopRightRadius: "8px",
+                  borderBottomRightRadius: "8px",
+                }),
+            backgroundColor: theme.palette.fourth.main,
+            "&::before": {
+              content: "''",
+              height: "100%",
+              aspectRatio: "1",
+              position: "absolute",
+              top: "0",
+              ...(isArabic
+                ? { right: "0", translate: "50% 0%" }
+                : { left: "0", translate: "-50% 0%" }),
+              borderRadius: "50%",
+              backgroundColor: theme.palette.background.default,
+            },
+          }
+        : {
+            ...(isArabic
+              ? {
+                  borderTopLeftRadius: "8px",
+                  borderBottomLeftRadius: "8px",
+                }
+              : {
+                  borderTopRightRadius: "8px",
+                  borderBottomRightRadius: "8px",
+                }),
+            backgroundColor: theme.palette.third.main,
+            "&::before": {
+              content: "''",
+              height: "100%",
+              aspectRatio: "1",
+              position: "absolute",
+              top: "0",
+              ...(isArabic
+                ? { right: "0", translate: "50% 0%" }
+                : { left: "0", translate: "-50% 0%" }),
+              borderRadius: "50%",
+              backgroundColor: theme.palette.background.default,
+            },
+          }),
+  }),
+);
 
 const Percentage = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -128,7 +146,7 @@ const Text = styled(Typography)({
 });
 
 export default function Status() {
-  const { t } = useTranslation("dashboard");
+  const { t, i18n } = useTranslation("dashboard");
   const allCandidates = useSelector(selectAllCandidates).length;
   const shortlisted = calculatePercentage(
     allCandidates,
@@ -139,6 +157,7 @@ export default function Status() {
     useSelector(selectRejectedCandidates).length,
   );
   const rest = 100 - shortlisted - rejected;
+  const isArabic = i18n.language === "ar";
 
   return (
     <StatusWrapper>
@@ -150,21 +169,21 @@ export default function Status() {
       </Employers>
       <ApplicantPercentage>
         <Stat percentage={rest}>
-          <Bar dir="left" />
+          <Bar dir="left" isArabic={isArabic} />
           <Percentage>
             <Percent variant="body1">{rest}%</Percent>
             <Text variant="subtitle1">{t("candidate.status.total")}</Text>
           </Percentage>
         </Stat>
         <Stat percentage={shortlisted}>
-          <Bar dir="middle" />
+          <Bar dir="middle" isArabic={isArabic} />
           <Percentage>
             <Percent variant="body1">{shortlisted}%</Percent>
             <Text variant="subtitle1">{t("candidate.status.shortlisted")}</Text>
           </Percentage>
         </Stat>
         <Stat percentage={rejected}>
-          <Bar dir="right" />
+          <Bar dir="right" isArabic={isArabic} />
           <Percentage>
             <Percent variant="body1">{rejected}%</Percent>
             <Text variant="subtitle1">{t("candidate.status.rejected")}</Text>

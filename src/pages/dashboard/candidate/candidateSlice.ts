@@ -11,11 +11,16 @@ import type { RootState } from "../../../config/store";
 const candidateSchema = z.object({
   id: z.number().nonnegative(),
   name: z.string(),
-  position: z.string(),
+  position: z.object({
+    en: z.string(),
+    ja: z.string(),
+    ar: z.string(),
+    fr: z.string(),
+  }),
   offerState: z.enum(["OFFER", "SHORTLIST", "REJECT", "PENDING"]),
 });
 
-type ICandidat = z.infer<typeof candidateSchema>;
+export type ICandidat = z.infer<typeof candidateSchema>;
 
 interface CandidateState {
   status: Status;
@@ -64,6 +69,10 @@ const initialState: CandidateState = {
 
 export const selectAllCandidates = (state: RootState) => state.candidate.data;
 
+export const selectStatus = (state: RootState) => state.candidate.status;
+
+export const selectError = (state: RootState) => state.candidate.error;
+
 export const selectAcceptedCandidates = createSelector(
   [selectAllCandidates],
   (data) => data.filter((c) => c.offerState === "OFFER"),
@@ -83,10 +92,6 @@ export const selectPendingCandidates = createSelector(
   [selectAllCandidates],
   (data) => data.filter((c) => c.offerState === "PENDING"),
 );
-
-export const selectStatus = (state: RootState) => state.candidate.status;
-
-export const selectError = (state: RootState) => state.candidate.error;
 
 const candidateSlice = createSlice({
   name: "candidate/slice",

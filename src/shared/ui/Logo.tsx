@@ -18,7 +18,7 @@ export default function Logo() {
   return (
     <LogoWrapper>
       <Link to={"/dashboard"}>
-        <Image src={"/img/logo.webp"} alt={t("logo_label")} />
+        <Image src={"/img/logo.avif"} alt={t("logo_label")} />
       </Link>
     </LogoWrapper>
   );
