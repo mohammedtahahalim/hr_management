@@ -19,6 +19,7 @@ export type Reject =
   | "FORBIDDEN"
   | "SYSTEM"
   | "ABORT"
-  | "DOWN";
+  | "DOWN"
+  | "MISMATCH";
 
 export type OfferState = ICandidat["offerState"];

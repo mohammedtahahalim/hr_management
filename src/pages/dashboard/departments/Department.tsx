@@ -52,8 +52,6 @@ export default function Department() {
     };
   }, [dispatch]);
 
-  console.log(status);
-
   return (
     <WithSkeleton loading={status === "loading"}>
       <DepartmentWrapper>
