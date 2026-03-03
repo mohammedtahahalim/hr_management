@@ -15,7 +15,9 @@
       "sales": "Sales & Marketing",
       "management": "Project Management",
       "analytics": "Analytics & Data",
-      "finance": "Finance"
+      "finance": "Finance",
+      "hr": "HR",
+      "data": "Data Manager"
     },
     "new": "New"
   }

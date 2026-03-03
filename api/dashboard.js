@@ -1,5 +1,9 @@
 import auth from "../helpers/auth.js";
-import { allowedQueries, generateCandidates } from "../helpers/constants.js";
+import {
+  allowedQueries,
+  generateCandidates,
+  generateDepartments,
+} from "../helpers/constants.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET")
@@ -17,6 +21,7 @@ export default async function handler(req, res) {
         return res.status(200).json({ candidates: generateCandidates() });
         break;
       case "departments":
+        return res.status(200).json({ data: generateDepartments() });
         break;
       case "distribution":
         break;

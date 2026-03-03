@@ -6,6 +6,11 @@ export type PaletteColorKey = keyof Pick<
   "primary" | "secondary" | "success" | "error" | "info" | "warning"
 >;
 
+export type DeptColor = keyof Pick<
+  Theme["palette"],
+  "first" | "second" | "third" | "fourth" | "secondary"
+>;
+
 export type Status = "idle" | "loading" | "failure" | "success";
 export type Offer = "OFFER" | "SHORTLIST" | "REJECT" | "PENDING";
 export type TRole = "admin" | "manager" | "hr" | "employee" | "candidat";
@@ -14,6 +19,7 @@ export type Reject =
   | "FORBIDDEN"
   | "SYSTEM"
   | "ABORT"
-  | "DOWN";
+  | "DOWN"
+  | "MISMATCH";
 
 export type OfferState = ICandidat["offerState"];
