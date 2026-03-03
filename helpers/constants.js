@@ -100,7 +100,7 @@ export const generateCandidates = (
   }));
 
 export const generateRandomImage = () => {
-  return `https://api.dicebear.com/7.x/adventurer/svg?seed=${names[Math.floor(Math.random() * names.length)]}`;
+  return `https://api.dicebear.com/9.x/avataaars/svg?seed=${names[Math.floor(Math.random() * names.length)]}`;
 };
 
 export const generateDepartments = () => {

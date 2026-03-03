@@ -60,9 +60,10 @@ export default function UserProfile() {
     firstName: "John",
     lastName: "Doe",
     email: "john.doe@email.com",
-    profilePic: "https://i.postimg.cc/SNgrLf66/icons8-profile-100.png",
+    profilePic: "https://thispersondoesnotexist.com/",
   };
   const { t } = useTranslation("a11y");
+
   return (
     <UserProfileWrapper>
       <PictureWrapper>

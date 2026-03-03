@@ -25,6 +25,7 @@ const SidebarWrapper = styled(Box, {
   position: "absolute",
   top: "0",
   ...(isArabic ? { right: "0" } : { left: "0" }),
+  zIndex: 9999,
 }));
 
 const SidebarMotion = motion.create(SidebarWrapper);
