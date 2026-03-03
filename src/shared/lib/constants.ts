@@ -1,6 +1,12 @@
 import type { OverridableComponent } from "@mui/material/OverridableComponent";
 import type { TLanguage } from "../../config/i18n";
-import type { Offer, OfferState, PaletteColorKey, TRole } from "./types";
+import type {
+  DeptColor,
+  Offer,
+  OfferState,
+  PaletteColorKey,
+  TRole,
+} from "./types";
 import type { SvgIconTypeMap } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
@@ -13,6 +19,7 @@ import SecurityIcon from "@mui/icons-material/Security";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import ExtensionIcon from "@mui/icons-material/Extension";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import type { DeptName } from "../../pages/dashboard/departments/departmentSlice";
 
 type MuiIcon = OverridableComponent<SvgIconTypeMap<object, "svg">> & {
   muiName: string;
@@ -140,4 +147,23 @@ const offerPositionsMap: Record<string, Record<TLanguage, string>> = {
 
 export const offerState = (position: OfferState, lng: TLanguage): string => {
   return offerPositionsMap[position][lng];
+};
+
+export const departmentColor = (deptName: DeptName): DeptColor => {
+  switch (deptName) {
+    case "analytics":
+      return "first";
+    case "development":
+      return "second";
+    case "finance":
+      return "third";
+    case "management":
+      return "fourth";
+    case "data":
+      return "second";
+    case "hr":
+      return "first";
+    default:
+      return "secondary";
+  }
 };

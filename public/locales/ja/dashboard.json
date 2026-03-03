@@ -15,7 +15,9 @@
       "sales": "販売",
       "management": "管理",
       "analytics": "分析",
-      "finance": "ファイナンス"
+      "finance": "ファイナンス",
+      "hr": "人事",
+      "data": "データマネージャー"
     },
     "new": "新"
   }

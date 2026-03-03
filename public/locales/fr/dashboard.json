@@ -15,7 +15,9 @@
       "sales": "Ventes et marketing",
       "management": "Gestion de projet",
       "analytics": "Analyse et données",
-      "finance": "Finance"
+      "finance": "Finance",
+      "hr": "HR",
+      "data": "Gestionnaire de données"
     },
     "new": "New"
   }

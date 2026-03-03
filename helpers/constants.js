@@ -98,3 +98,47 @@ export const generateCandidates = (
     position: positions[Math.floor(Math.random() * positions.length)],
     offerState: offerStates[Math.floor(Math.random() * offerStates.length)],
   }));
+
+export const generateRandomImage = () => {
+  return `https://api.dicebear.com/7.x/adventurer/svg?seed=${names[Math.floor(Math.random() * names.length)]}`;
+};
+
+export const generateDepartments = () => {
+  return [
+    {
+      departmentName: "development",
+      data: Array.from({ length: 4 }, () => generateRandomImage()),
+      newApps: 2,
+    },
+    {
+      departmentName: "sales",
+      data: Array.from({ length: 4 }, () => generateRandomImage()),
+      newApps: 0,
+    },
+    {
+      departmentName: "management",
+      data: Array.from({ length: 4 }, () => generateRandomImage()),
+      newApps: 3,
+    },
+    {
+      departmentName: "analytics",
+      data: Array.from({ length: 4 }, () => generateRandomImage()),
+      newApps: 4,
+    },
+    {
+      departmentName: "finance",
+      data: Array.from({ length: 4 }, () => generateRandomImage()),
+      newApps: 0,
+    },
+    {
+      departmentName: "data",
+      data: Array.from({ length: 4 }, () => generateRandomImage()),
+      newApps: 1,
+    },
+    {
+      departmentName: "hr",
+      data: Array.from({ length: 4 }, () => generateRandomImage()),
+      newApps: 1,
+    },
+  ];
+};
