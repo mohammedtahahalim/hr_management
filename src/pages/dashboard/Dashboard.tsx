@@ -27,22 +27,28 @@ const Informations = styled(Box)(({ theme }) => ({
 }));
 
 const CandidateWrapper = styled(Box)(({ theme }) => ({
-  minHeight: "300px",
+  height: "400px",
   flex: 1,
   overflow: "hidden",
   borderRadius: "18px",
   border: `1px solid ${theme.palette.divider}`,
+  [theme.breakpoints.down("md")]: {
+    minHeight: "425px",
+  },
 }));
 
-const DepartmentWrapper = styled(Box)({
-  minHeight: "300px",
+const DepartmentWrapper = styled(Box)(({ theme }) => ({
+  height: "400px",
   flex: 1,
   overflow: "hidden",
   borderRadius: "18px",
-});
+  [theme.breakpoints.down("md")]: {
+    minHeight: "425px",
+  },
+}));
 
 const DistributionWrapper = styled(Box)({
-  minHeight: "300px",
+  height: "400px",
   overflow: "hidden",
   borderRadius: "18px",
   flex: 1,
@@ -100,9 +106,7 @@ export default function Dashboard() {
           <Candidate />
         </CandidateWrapper>
         <DepartmentWrapper>
-          <WithSkeleton loading={false}>
-            <Department />
-          </WithSkeleton>
+          <Department />
         </DepartmentWrapper>
         <DistributionWrapper>
           <WithSkeleton loading={true}>
