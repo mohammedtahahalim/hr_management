@@ -7,5 +7,16 @@
       "shortlisted": "最終選考通過",
       "rejected": "不採用"
     }
+  },
+  "departments": {
+    "title": "部門",
+    "departmentsName": {
+      "development": "発達",
+      "sales": "販売",
+      "management": "管理",
+      "analytics": "分析",
+      "finance": "ファイナンス"
+    },
+    "new": "新"
   }
 }

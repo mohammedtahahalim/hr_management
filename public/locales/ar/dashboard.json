@@ -7,5 +7,16 @@
       "shortlisted": "القائمة المختصرة",
       "rejected": "مرفوض"
     }
+  },
+  "departments": {
+    "title": "الأقسام",
+    "departmentsName": {
+      "development": "تطوير",
+      "sales": "المبيعات والتسويق",
+      "management": "إدارة المشاريع",
+      "analytics": "التحليلات والبيانات",
+      "finance": "تمويل"
+    },
+    "new": "جديد"
   }
 }

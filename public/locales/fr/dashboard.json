@@ -7,5 +7,16 @@
       "shortlisted": "présélectionné",
       "rejected": "rejetée"
     }
+  },
+  "departments": {
+    "title": "Départements",
+    "departmentsName": {
+      "development": "Développement",
+      "sales": "Ventes et marketing",
+      "management": "Gestion de projet",
+      "analytics": "Analyse et données",
+      "finance": "Finance"
+    },
+    "new": "New"
   }
 }
