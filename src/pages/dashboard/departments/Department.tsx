@@ -1,15 +1,21 @@
 import { Box, styled, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { selectDepartmentData, selectStatus } from "./departmentSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchDepartments,
+  selectDepartmentData,
+  selectStatus,
+} from "./departmentSlice";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import { Virtuoso } from "react-virtuoso";
 import Line from "./Line";
 import { useTranslation } from "react-i18next";
+import type { AppDispatch } from "../../../config/store";
+import { useEffect } from "react";
 
 const DepartmentWrapper = styled(Box)({
   width: "100%",
   height: "100%",
-  padding: "20px",
+  padding: "15px",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
@@ -37,6 +43,16 @@ export default function Department() {
   const status = useSelector(selectStatus);
   const data = useSelector(selectDepartmentData);
   const { t } = useTranslation("dashboard");
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const deptRequest = dispatch(fetchDepartments());
+    return () => {
+      deptRequest.abort();
+    };
+  }, [dispatch]);
+
+  console.log(status);
 
   return (
     <WithSkeleton loading={status === "loading"}>
@@ -45,11 +61,11 @@ export default function Department() {
         <Content>
           <Virtuoso
             data={data}
-            itemContent={(idx, _) => {
-              return <Line key={idx} />;
+            itemContent={(idx, d) => {
+              return <Line key={idx} {...d} />;
             }}
             style={{
-              height: "400px",
+              maxHeight: "400px",
               scrollbarWidth: "none",
               display: "flex",
               flexDirection: "column",

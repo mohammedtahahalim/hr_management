@@ -3,15 +3,23 @@ import type { Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 import z from "zod";
 
-export const departmentSchema = z.record(
-  z.enum(["development", "sales", "management", "analytics", "finance"]),
-  z.object({
-    profiles: z.array(z.string()),
-    new: z.number().nonnegative(),
-  }),
-);
+export const departmentSchema = z.object({
+  departmentName: z.enum([
+    "development",
+    "sales",
+    "management",
+    "analytics",
+    "finance",
+    "data",
+    "hr",
+  ]),
+  data: z.array(z.string()),
+  newApps: z.number().nonnegative(),
+});
 
-type DepartmentData = z.infer<typeof departmentSchema>;
+export type DepartmentData = z.infer<typeof departmentSchema>;
+
+export type DeptName = DepartmentData["departmentName"];
 
 interface DepartmentState {
   status: Status;
@@ -27,7 +35,7 @@ export const fetchDepartments = createAsyncThunk(
 const initialState: DepartmentState = {
   status: "idle",
   error: "",
-  data: Array.from({ length: 1000 }),
+  data: [],
 };
 
 export const selectStatus = (state: RootState) => state.department.status;
@@ -42,7 +50,10 @@ const departmentSlice = createSlice({
   reducers: {},
   extraReducers: (builder) =>
     builder
-      .addCase(fetchDepartments.pending, () => {})
+      .addCase(fetchDepartments.pending, (state) => {
+        state.status = "loading";
+        state.error = "";
+      })
       .addCase(fetchDepartments.rejected, () => {})
       .addCase(fetchDepartments.fulfilled, () => {}),
 });

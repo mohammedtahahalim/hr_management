@@ -1,25 +1,24 @@
 import { Box, styled, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import type { DeptColor } from "../../../shared/lib/types";
+import { departmentColor } from "../../../shared/lib/constants";
+import type { DepartmentData, DeptName } from "./departmentSlice";
 
-const randomNumber = () => Math.floor(Math.random() * 5);
-
-const randomDepartment = () => {
-  const all = ["development", "sales", "management", "analytics", "finance"];
-  return all[Math.floor(Math.random() * all.length)];
-};
-
-const LineWrapper = styled(Box)(({ theme }) => ({
+const LineWrapper = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "deptColor",
+})<{ deptColor: DeptColor }>(({ theme, deptColor }) => ({
   width: "100%",
-  minHeight: "55px",
+  height: "55px",
   borderRadius: "10px",
   margin: "5px 0px",
   overflow: "hidden",
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  backgroundColor: theme.palette.fourth.contrastText,
-  padding: "0px 8px",
-  color: theme.palette.fourth.main,
+  gap: "5px",
+  backgroundColor: theme.palette[deptColor].main,
+  padding: "0px 10px",
+  color: theme.palette[deptColor].contrastText,
 }));
 
 const Title = styled(Typography)({
@@ -80,31 +79,28 @@ const New = styled(Box)(({ theme }) => ({
   color: "whitesmoke",
 }));
 
-export default function Line() {
+export default function Line(props: DepartmentData) {
   const { t } = useTranslation("dashboard");
-  const num = randomNumber();
-  const dep = randomDepartment();
+  const { data, departmentName, newApps } = props;
+
   return (
-    <LineWrapper>
-      <Title variant="body1">{t(`departments.departmentsName.${dep}`)}</Title>
+    <LineWrapper deptColor={departmentColor(departmentName as DeptName)}>
+      <Title variant="body1">
+        {t(`departments.departmentsName.${departmentName}`)}
+      </Title>
       <Applications>
         <ProfileSnippet>
-          <Profile>
-            <Image src="https://api.dicebear.com/7.x/adventurer/svg?seed=Taha" />
-          </Profile>
-          <Profile>
-            <Image src="https://api.dicebear.com/7.x/adventurer/svg?seed=John" />
-          </Profile>
-          <Profile>
-            <Image src="https://api.dicebear.com/7.x/adventurer/svg?seed=Imane" />
-          </Profile>
-          <Profile>
-            <Image src="https://api.dicebear.com/7.x/adventurer/svg?seed=Guillermo" />
-          </Profile>
+          {data.map((p) => {
+            return (
+              <Profile>
+                <Image src={p} />
+              </Profile>
+            );
+          })}
         </ProfileSnippet>
-        {!!num && (
+        {!!newApps && (
           <New>
-            {num}+ {t("departments.new")}
+            {newApps}+ {t("departments.new")}
           </New>
         )}
       </Applications>
