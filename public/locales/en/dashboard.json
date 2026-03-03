@@ -7,5 +7,16 @@
       "shortlisted": "Shortlisted",
       "rejected": "rejected"
     }
+  },
+  "departments": {
+    "title": "Departments",
+    "departmentsName": {
+      "development": "Development",
+      "sales": "Sales & Marketing",
+      "management": "Project Management",
+      "analytics": "Analytics & Data",
+      "finance": "Finance"
+    },
+    "new": "New"
   }
 }

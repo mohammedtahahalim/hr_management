@@ -84,13 +84,13 @@ const Offer = styled(Box, {
 }));
 
 const RecentApps = memo(() => {
-  const allCandidates = useSelector(selectAllCandidates);
+  const data = useSelector(selectAllCandidates);
   const { i18n } = useTranslation();
 
   return (
     <RecentWrapper>
       <Virtuoso
-        data={allCandidates}
+        data={data}
         itemContent={(_, c) => (
           <>
             <Line key={c.id}>
