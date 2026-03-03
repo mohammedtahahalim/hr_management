@@ -90,9 +90,9 @@ export default function Line(props: DepartmentData) {
       </Title>
       <Applications>
         <ProfileSnippet>
-          {data.map((p) => {
+          {data.map((p, idx) => {
             return (
-              <Profile>
+              <Profile key={`${p}.${idx}`}>
                 <Image src={p} />
               </Profile>
             );
