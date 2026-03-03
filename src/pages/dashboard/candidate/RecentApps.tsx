@@ -96,7 +96,7 @@ const RecentApps = memo(() => {
             <Line key={c.id}>
               <Profile>
                 <Picture
-                  src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${c.name}`}
+                  src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${c.name}`}
                   alt={`${c.name} picture`}
                   loading="lazy"
                 />

@@ -49,6 +49,7 @@ const Profile = styled(Box)({
   borderRadius: "50%",
   zIndex: 4,
   backgroundColor: "#d8d8d8",
+  overflow: "hidden",
   "&:first-of-type": {
     translate: "150% 0%",
     zIndex: 1,

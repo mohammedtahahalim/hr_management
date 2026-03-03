@@ -1,7 +1,7 @@
 import { Box, styled } from "@mui/material";
 import Candidate from "./candidate/Candidate";
 import Department from "./departments/Department";
-import Distribution from "./Distribution";
+import Distribution from "./distribution/Distribution";
 import Recent from "./Recent";
 import Collection from "./Collection";
 import Activity from "./Activity";
