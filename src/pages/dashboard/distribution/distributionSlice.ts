@@ -3,11 +3,7 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import type {
-  DistributionWeek,
-  Reject,
-  Status,
-} from "../../../shared/lib/types";
+import type { Reject, Status } from "../../../shared/lib/types";
 import z from "zod";
 import { extractCurrentWeek } from "../../../shared/lib/helpers";
 import type { RootState } from "../../../config/store";
@@ -39,7 +35,7 @@ interface DistributionState {
 }
 
 interface DistributionProps {
-  week: DistributionWeek;
+  week: string;
 }
 
 export const fetchDistributions = createAsyncThunk<
@@ -48,7 +44,7 @@ export const fetchDistributions = createAsyncThunk<
   { rejectValue: Reject }
 >("distributions/fetch", async (args, { rejectWithValue, signal }) => {
   try {
-    const { week } = args ?? { week: extractCurrentWeek };
+    const { week } = args ?? { week: extractCurrentWeek() };
     const base = import.meta.env.VITE_API_URL;
     const fullURL = new URL("/api/dashboard", base);
     fullURL.searchParams.set("block", "distribution");
@@ -58,6 +54,7 @@ export const fetchDistributions = createAsyncThunk<
       signal,
       credentials: "include",
     };
+    console.log(fullURL);
     const response = await fetch(fullURL, fullOptions);
     if (response.status === 401) return rejectWithValue("UNAUTHENTICATED");
     if (response.status === 403) return rejectWithValue("FORBIDDEN");

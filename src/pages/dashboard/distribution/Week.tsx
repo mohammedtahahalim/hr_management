@@ -1,11 +1,8 @@
 import { Box, MenuItem, Select, styled } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import type { DistributionWeek } from "../../../shared/lib/types";
+import { useMemo } from "react";
 import { extractCurrentWeek } from "../../../shared/lib/helpers";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../../../config/store";
-import { fetchDistributions } from "./distributionSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const WeekWrapper = styled(Box)(({ theme }) => ({
   alignSelf: "center",
@@ -28,9 +25,10 @@ const Option = styled(MenuItem)({
 });
 
 export default function Week() {
-  const [week, setWeek] = useState<DistributionWeek>(extractCurrentWeek);
+  const { search } = useLocation();
+  const week = new URLSearchParams(search).get("week") ?? extractCurrentWeek();
+  const navigate = useNavigate();
   const { i18n } = useTranslation();
-  const dispatch = useDispatch<AppDispatch>();
 
   const getMonth = useMemo(() => {
     const date = new Date();
@@ -38,21 +36,12 @@ export default function Week() {
     return date.toLocaleString(i18n.language, { month: "short" });
   }, [i18n.language]);
 
-  /*
-  useEffect(() => {
-    const distributionRequest = dispatch(fetchDistributions({ week }));
-    return () => {
-      distributionRequest.abort();
-    };
-  }, [week, dispatch]);
-  */
-
   return (
     <WeekWrapper>
       <SelectWrapper
         size="small"
         value={week}
-        onChange={(e) => setWeek(e.target.value as DistributionWeek)}
+        onChange={(e) => navigate(`?week=${e.target.value}`)}
         renderValue={(val) => `${getMonth}.${val}`}
       >
         <Option value={"01-07"}>01-07</Option>

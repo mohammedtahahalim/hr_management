@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         return res.status(200).json({ data: generateDepartments() });
         break;
       case "distribution":
-        return res.status(401).json({ message: "unautentitacted" });
+        return res.status(403).json({ message: "unautentitacted" });
         break;
       case "recent":
         break;
