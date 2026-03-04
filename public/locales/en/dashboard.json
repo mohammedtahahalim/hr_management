@@ -20,5 +20,10 @@
       "data": "Data Manager"
     },
     "new": "New"
+  },
+  "distributions": {
+    "title": "Distribution by departments",
+    "all": "All Employees",
+    "total": "Total Applications"
   }
 }

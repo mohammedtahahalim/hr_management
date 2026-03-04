@@ -17,16 +17,7 @@ const MotionSkeleton = motion.create(SkeletonLoader);
 export default function WithSkeleton({ loading, children }: OnSkeletonProps) {
   return (
     <AnimatePresence>
-      {loading ? (
-        <MotionSkeleton
-          variant="rectangular"
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, ease: "easeInOut" }}
-        />
-      ) : (
-        children
-      )}
+      {loading ? <MotionSkeleton variant="rectangular" /> : children}
     </AnimatePresence>
   );
 }

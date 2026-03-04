@@ -4,6 +4,7 @@ import toastSlice from "../features/toast/toastSlice";
 import notificationSlice from "../features/notifications/notificationSlice";
 import candidateSlice from "../pages/dashboard/candidate/candidateSlice";
 import departmentSlice from "../pages/dashboard/departments/departmentSlice";
+import distributionSlice from "../pages/dashboard/distribution/distributionSlice";
 
 export const HRStore = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const HRStore = configureStore({
     notifications: notificationSlice,
     candidate: candidateSlice,
     department: departmentSlice,
+    distribution: distributionSlice,
   },
 });
 

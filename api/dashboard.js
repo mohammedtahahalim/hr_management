@@ -3,13 +3,14 @@ import {
   allowedQueries,
   generateCandidates,
   generateDepartments,
+  generateDistributions,
 } from "../helpers/constants.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET")
     return res.status(405).json({ message: "Method not allowed ..." });
   try {
-    await auth(req, res);
+    // await auth(req, res);
     if (res.headersSent || res.writableEnded) {
       return;
     }
@@ -19,12 +20,11 @@ export default async function handler(req, res) {
     switch (block) {
       case "candidate":
         return res.status(200).json({ candidates: generateCandidates() });
-        break;
       case "departments":
         return res.status(200).json({ data: generateDepartments() });
-        break;
       case "distribution":
-        break;
+        const { week } = rest;
+        return res.status(200).json({ data: generateDistributions() });
       case "recent":
         break;
       case "collection":

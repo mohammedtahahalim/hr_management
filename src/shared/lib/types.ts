@@ -8,7 +8,7 @@ export type PaletteColorKey = keyof Pick<
 
 export type DeptColor = keyof Pick<
   Theme["palette"],
-  "first" | "second" | "third" | "fourth" | "secondary"
+  "first" | "second" | "third" | "fourth" | "icon"
 >;
 
 export type Status = "idle" | "loading" | "failure" | "success";
@@ -23,3 +23,5 @@ export type Reject =
   | "MISMATCH";
 
 export type OfferState = ICandidat["offerState"];
+
+export type DistributionWeek = "01-07" | "07-14" | "14-21" | "21-28";

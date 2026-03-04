@@ -142,3 +142,37 @@ export const generateDepartments = () => {
     },
   ];
 };
+
+export const generateDistributions = () => ({
+  total: Math.floor(Math.random() * 100) + 300,
+  distributions: [
+    {
+      deptName: "development",
+      percentage: 35,
+    },
+    {
+      deptName: "sales",
+      percentage: 5,
+    },
+    {
+      deptName: "management",
+      percentage: 7,
+    },
+    {
+      deptName: "analytics",
+      percentage: 13,
+    },
+    {
+      deptName: "finance",
+      percentage: 2,
+    },
+    {
+      deptName: "data",
+      percentage: 20,
+    },
+    {
+      deptName: "hr",
+      percentage: 18,
+    },
+  ],
+});

@@ -16,9 +16,9 @@ const LineWrapper = styled(Box, {
   justifyContent: "space-between",
   alignItems: "center",
   gap: "5px",
-  backgroundColor: theme.palette[deptColor].main,
+  backgroundColor: theme.palette[deptColor].contrastText,
   padding: "0px 10px",
-  color: theme.palette[deptColor].contrastText,
+  color: theme.palette[deptColor].main,
 }));
 
 const Title = styled(Typography)({
@@ -43,7 +43,9 @@ const ProfileSnippet = styled(Box)({
   overflow: "hidden",
 });
 
-const Profile = styled(Box)({
+const Profile = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "isArabic",
+})<{ isArabic: boolean }>(({ isArabic }) => ({
   height: "35px",
   aspectRatio: "1",
   borderRadius: "50%",
@@ -51,18 +53,18 @@ const Profile = styled(Box)({
   backgroundColor: "#d8d8d8",
   overflow: "hidden",
   "&:first-of-type": {
-    translate: "150% 0%",
+    translate: `${isArabic ? "-" : ""}150% 0%`,
     zIndex: 1,
   },
   "&:nth-of-type(2)": {
-    translate: "100% 0%",
+    translate: `${isArabic ? "-" : ""}100% 0%`,
     zIndex: 2,
   },
   "&:nth-of-type(3)": {
-    translate: "50% 0%",
+    translate: `${isArabic ? "-" : ""}50% 0%`,
     zIndex: 3,
   },
-});
+}));
 
 const Image = styled("img")({
   width: "100%",
@@ -81,8 +83,9 @@ const New = styled(Box)(({ theme }) => ({
 }));
 
 export default function Line(props: DepartmentData) {
-  const { t } = useTranslation("dashboard");
+  const { t, i18n } = useTranslation("dashboard");
   const { data, departmentName, newApps } = props;
+  const isArabic = i18n.language === "ar";
 
   return (
     <LineWrapper deptColor={departmentColor(departmentName as DeptName)}>
@@ -93,7 +96,7 @@ export default function Line(props: DepartmentData) {
         <ProfileSnippet>
           {data.map((p, idx) => {
             return (
-              <Profile key={`${p}.${idx}`}>
+              <Profile key={`${p}.${idx}`} isArabic={isArabic}>
                 <Image src={p} />
               </Profile>
             );
