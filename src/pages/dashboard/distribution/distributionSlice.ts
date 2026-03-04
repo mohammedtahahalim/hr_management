@@ -54,12 +54,11 @@ export const fetchDistributions = createAsyncThunk<
       signal,
       credentials: "include",
     };
-    console.log(fullURL);
     const response = await fetch(fullURL, fullOptions);
     if (response.status === 401) return rejectWithValue("UNAUTHENTICATED");
     if (response.status === 403) return rejectWithValue("FORBIDDEN");
     if (response.status >= 500) return rejectWithValue("DOWN");
-    const dataFromServer = response.json() as unknown;
+    const dataFromServer = (await response.json()) as unknown;
     if (
       !dataFromServer ||
       typeof dataFromServer !== "object" ||
@@ -117,5 +116,10 @@ export const selectDistributionError = (state: RootState) =>
 
 export const selectDistributionData = (state: RootState) =>
   state.distribution.data;
+
+export const selectTotal = (state: RootState) => state.distribution.data?.total;
+
+export const selectDistributions = (state: RootState) =>
+  state.distribution.data?.distributions;
 
 export default distributionSlice.reducer;
