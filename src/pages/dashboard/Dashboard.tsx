@@ -109,9 +109,7 @@ export default function Dashboard() {
           <Department />
         </DepartmentWrapper>
         <DistributionWrapper>
-          <WithSkeleton loading={true}>
-            <Distribution />
-          </WithSkeleton>
+          <Distribution />
         </DistributionWrapper>
       </Informations>
       <Stats>

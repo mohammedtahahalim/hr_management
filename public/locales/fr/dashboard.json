@@ -20,5 +20,9 @@
       "data": "Gestionnaire de données"
     },
     "new": "New"
+  },
+  "distributions": {
+    "title": "Répartition par départements",
+    "all": "Tous les employés"
   }
 }

@@ -164,6 +164,6 @@ export const departmentColor = (deptName: DeptName): DeptColor => {
     case "hr":
       return "first";
     default:
-      return "secondary";
+      return "third";
   }
 };
