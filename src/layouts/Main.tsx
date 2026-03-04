@@ -25,7 +25,7 @@ const SidebarWrapper = styled(Box)(({ theme }) => ({
 
 const BodyWrapper = styled(Box)({
   flex: "1",
-  height: "100%",
+  minHeight: "100%",
   display: "flex",
   flexDirection: "column",
   gap: "10px",

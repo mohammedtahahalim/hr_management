@@ -1,0 +1,124 @@
+import {
+  createAsyncThunk,
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
+import type {
+  DistributionWeek,
+  Reject,
+  Status,
+} from "../../../shared/lib/types";
+import z from "zod";
+import { extractCurrentWeek } from "../../../shared/lib/helpers";
+import type { RootState } from "../../../config/store";
+
+const distributionSchema = z.object({
+  total: z.number().nonnegative(),
+  distributions: z.array(
+    z.object({
+      deptName: z.enum([
+        "development",
+        "sales",
+        "management",
+        "analytics",
+        "finance",
+        "data",
+        "hr",
+      ]),
+      percentage: z.number().nonnegative().max(100),
+    }),
+  ),
+});
+
+export type DistrubtionData = z.infer<typeof distributionSchema>;
+
+interface DistributionState {
+  status: Status;
+  error: Reject | null;
+  data: DistrubtionData | null;
+}
+
+interface DistributionProps {
+  week: DistributionWeek;
+}
+
+export const fetchDistributions = createAsyncThunk<
+  DistrubtionData,
+  DistributionProps | void,
+  { rejectValue: Reject }
+>("distributions/fetch", async (args, { rejectWithValue, signal }) => {
+  try {
+    const { week } = args ?? { week: extractCurrentWeek };
+    const base = import.meta.env.VITE_API_URL;
+    const fullURL = new URL("/api/dashboard", base);
+    fullURL.searchParams.set("block", "distribution");
+    fullURL.searchParams.set("week", week as string);
+    const fullOptions: RequestInit = {
+      method: "GET",
+      signal,
+      credentials: "include",
+    };
+    const response = await fetch(fullURL, fullOptions);
+    if (response.status === 401) return rejectWithValue("UNAUTHENTICATED");
+    if (response.status === 403) return rejectWithValue("FORBIDDEN");
+    if (response.status >= 500) return rejectWithValue("DOWN");
+    const dataFromServer = response.json() as unknown;
+    if (
+      !dataFromServer ||
+      typeof dataFromServer !== "object" ||
+      !("data" in dataFromServer)
+    )
+      return rejectWithValue("MISMATCH");
+    const { data } = dataFromServer;
+    const isValidData = distributionSchema.safeParse(data).success;
+    if (!isValidData) return rejectWithValue("MISMATCH");
+    return data as DistrubtionData;
+  } catch (err) {
+    if (err instanceof DOMException && err.name === "AbortError")
+      return rejectWithValue("ABORT");
+    return rejectWithValue("SYSTEM");
+  }
+});
+
+const initialState: DistributionState = {
+  status: "idle",
+  error: null,
+  data: null,
+};
+
+const distributionSlice = createSlice({
+  name: "dashboard/distribution",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) =>
+    builder
+      .addCase(fetchDistributions.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(
+        fetchDistributions.rejected,
+        (state, action: PayloadAction<Reject | undefined>) => {
+          state.status = "failure";
+          state.error = action.payload ?? "SYSTEM";
+        },
+      )
+      .addCase(
+        fetchDistributions.fulfilled,
+        (state, action: PayloadAction<DistrubtionData>) => {
+          state.status = "success";
+          state.data = action.payload;
+        },
+      ),
+});
+
+export const selectDistributionStatus = (state: RootState) =>
+  state.distribution.status;
+
+export const selectDistributionError = (state: RootState) =>
+  state.distribution.error;
+
+export const selectDistributionData = (state: RootState) =>
+  state.distribution.data;
+
+export default distributionSlice.reducer;

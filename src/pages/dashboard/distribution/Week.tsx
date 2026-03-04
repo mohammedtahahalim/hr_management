@@ -3,6 +3,9 @@ import { useEffect, useMemo, useState } from "react";
 import type { DistributionWeek } from "../../../shared/lib/types";
 import { extractCurrentWeek } from "../../../shared/lib/helpers";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../config/store";
+import { fetchDistributions } from "./distributionSlice";
 
 const WeekWrapper = styled(Box)(({ theme }) => ({
   alignSelf: "center",
@@ -25,8 +28,9 @@ const Option = styled(MenuItem)({
 });
 
 export default function Week() {
-  const [date, setDate] = useState<DistributionWeek>(extractCurrentWeek);
+  const [week, setWeek] = useState<DistributionWeek>(extractCurrentWeek);
   const { i18n } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
 
   const getMonth = useMemo(() => {
     const date = new Date();
@@ -34,16 +38,21 @@ export default function Week() {
     return date.toLocaleString(i18n.language, { month: "short" });
   }, [i18n.language]);
 
+  /*
   useEffect(() => {
-    console.log(date);
-  }, [date]);
+    const distributionRequest = dispatch(fetchDistributions({ week }));
+    return () => {
+      distributionRequest.abort();
+    };
+  }, [week, dispatch]);
+  */
 
   return (
     <WeekWrapper>
       <SelectWrapper
         size="small"
-        value={date}
-        onChange={(e) => setDate(e.target.value as DistributionWeek)}
+        value={week}
+        onChange={(e) => setWeek(e.target.value as DistributionWeek)}
         renderValue={(val) => `${getMonth}.${val}`}
       >
         <Option value={"01-07"}>01-07</Option>

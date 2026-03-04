@@ -3,6 +3,8 @@ import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import Title from "./Title";
 import Week from "./Week";
 import Stats from "./Stats";
+import { useSelector } from "react-redux";
+import { selectDistributionStatus } from "./distributionSlice";
 
 const DistributionWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -32,8 +34,9 @@ const ContentWrapper = styled(Box)({
 });
 
 export default function Distribution() {
+  const status = useSelector(selectDistributionStatus);
   return (
-    <WithSkeleton loading={false}>
+    <WithSkeleton loading={status === "loading"}>
       <DistributionWrapper>
         <ControlWrapper>
           <Title />
