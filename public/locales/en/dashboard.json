@@ -23,6 +23,7 @@
   },
   "distributions": {
     "title": "Distribution by departments",
-    "all": "All Employees"
+    "all": "All Employees",
+    "total": "Total Applications"
   }
 }

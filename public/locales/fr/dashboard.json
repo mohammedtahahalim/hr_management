@@ -23,6 +23,7 @@
   },
   "distributions": {
     "title": "Répartition par départements",
-    "all": "Tous les employés"
+    "all": "Tous les employés",
+    "total": "Applications totales"
   }
 }

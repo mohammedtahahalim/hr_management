@@ -37,7 +37,6 @@ const ControlWrapper = styled(Box)(({ theme }) => ({
 const ContentWrapper = styled(Box)({
   width: "100%",
   flex: 1,
-  border: "1px solid black",
 });
 
 export default function Distribution() {
