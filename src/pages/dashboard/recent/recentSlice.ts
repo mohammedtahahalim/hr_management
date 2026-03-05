@@ -9,13 +9,13 @@ import type { RootState } from "../../../config/store";
 
 const recentJobsSchema = z.object({
   id: z.number().nonnegative(),
-  jobTitle: z.string().nonempty(),
-  location: z.string().min(2).max(2).or(z.null()),
+  jobTitle: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().nonempty()),
+  location: z.string().min(1).max(2),
   totalApps: z.number().nonnegative(),
   trend: z.array(z.number().nonnegative()),
 });
 
-type RecentJobs = z.infer<typeof recentJobsSchema>;
+export type RecentJobs = z.infer<typeof recentJobsSchema>;
 
 interface RecentJobsState {
   status: Status;
@@ -30,7 +30,7 @@ export const fetchRecentJobs = createAsyncThunk<
 >("recentJobs", async (_, { signal, rejectWithValue }) => {
   try {
     const base: string = import.meta.env.VITE_API_URL;
-    const fullURL: URL = new URL("/dashboard", base);
+    const fullURL: URL = new URL("/api/dashboard", base);
     fullURL.searchParams.set("block", "recent");
     const fullOptions: RequestInit = {
       method: "GET",
@@ -51,10 +51,12 @@ export const fetchRecentJobs = createAsyncThunk<
     )
       return rejectWithValue("MISMATCH");
     const { data } = dataFromServer;
+    console.log(data);
     if (!Array.isArray(data)) return rejectWithValue("MISMATCH");
     const validEntries = data.filter(
       (d) => recentJobsSchema.safeParse(d).success,
     );
+    console.log(validEntries);
     return validEntries as RecentJobs[];
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError")

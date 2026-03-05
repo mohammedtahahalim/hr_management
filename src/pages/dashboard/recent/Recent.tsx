@@ -10,7 +10,8 @@ import { useEffect } from "react";
 const RecentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
-  maxHeight: "500px",
+  minHeight: "500px",
+  maxHeight: "600px",
   padding: "20px",
   display: "flex",
   flexDirection: "column",
@@ -33,6 +34,8 @@ const Content = styled("table")({
   flex: 1,
   overflow: "hidden",
   borderCollapse: "collapse",
+  overflowY: "scroll",
+  scrollbarWidth: "none",
 });
 
 const HeadRow = styled("tr")(({ theme }) => ({
@@ -40,9 +43,8 @@ const HeadRow = styled("tr")(({ theme }) => ({
   fontWeight: "bold",
   fontFamily: "system-ui",
   minHeight: "32px",
-  borderBottom: "10px solid transparent",
   "&>td": {
-    padding: "8px 12px",
+    padding: "10px 12px",
     "&:first-of-type": {
       borderTopLeftRadius: "20px",
       borderBottomLeftRadius: "40px",
