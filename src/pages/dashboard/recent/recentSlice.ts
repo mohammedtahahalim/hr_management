@@ -51,12 +51,10 @@ export const fetchRecentJobs = createAsyncThunk<
     )
       return rejectWithValue("MISMATCH");
     const { data } = dataFromServer;
-    console.log(data);
     if (!Array.isArray(data)) return rejectWithValue("MISMATCH");
     const validEntries = data.filter(
       (d) => recentJobsSchema.safeParse(d).success,
     );
-    console.log(validEntries);
     return validEntries as RecentJobs[];
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError")

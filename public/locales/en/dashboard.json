@@ -31,6 +31,7 @@
     "jobTitle": "Job Title",
     "location": "Location",
     "appNum": "Applications",
-    "chart": "Chart"
+    "chart": "Chart",
+    "remote": "Remote"
   }
 }

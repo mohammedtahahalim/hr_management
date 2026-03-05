@@ -39,7 +39,7 @@ export default function JobRow({
   totalApps,
   trend,
 }: RecentJobs) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation("dashboard");
 
   return (
     <JobRowWrapper>
@@ -50,7 +50,7 @@ export default function JobRow({
         ) : (
           <LocationOnIcon fontSize="small" color="success" />
         )}
-        {location}
+        {location === "R" ? t("recent.remote") : location}
       </Col>
       <Col>{totalApps}</Col>
       <Col>{trend.length}</Col>
