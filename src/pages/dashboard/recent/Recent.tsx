@@ -10,15 +10,12 @@ import { useEffect } from "react";
 const RecentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
-  minHeight: "500px",
   maxHeight: "600px",
   padding: "20px",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
-  overflowX: "hidden",
-  overflowY: "scroll",
-  scrollbarWidth: "none",
+  overflow: "hidden",
   backgroundColor: theme.palette.background.paper,
 }));
 
@@ -29,13 +26,21 @@ const Title = styled(Typography)({
   fontWeight: "bold",
 });
 
+const TableScroll = styled(Box)({
+  flex: 1,
+  minHeight: 0,
+  maxHeight: "300px",
+  overflowY: "scroll",
+  overflowX: "hidden",
+  scrollbarWidth: "none",
+});
+
 const Content = styled("table")({
   width: "100%",
   flex: 1,
   overflow: "hidden",
   borderCollapse: "collapse",
-  overflowY: "scroll",
-  scrollbarWidth: "none",
+  overflowY: "auto",
 });
 
 const HeadRow = styled("tr", {
@@ -45,7 +50,11 @@ const HeadRow = styled("tr", {
   fontWeight: "bold",
   fontFamily: "system-ui",
   minHeight: "32px",
+  position: "sticky",
+  top: 0,
   "&>td": {
+    position: "sticky",
+    top: 0,
     padding: "10px 12px",
     "&:first-of-type": {
       ...(isArabic
@@ -91,21 +100,23 @@ export default function Recent() {
     <WithSkeleton loading={status === "loading"}>
       <RecentWrapper>
         <Title variant="h6">{t("recent.title")}</Title>
-        <Content>
-          <thead>
-            <HeadRow isArabic={isArabic}>
-              <Col>{t("recent.jobTitle")}</Col>
-              <Col>{t("recent.location")}</Col>
-              <Col>{t("recent.appNum")}</Col>
-              <Col>{t("recent.chart")}</Col>
-            </HeadRow>
-          </thead>
-          <tbody>
-            {data.map((d) => {
-              return <JobRow key={d.id} {...d} />;
-            })}
-          </tbody>
-        </Content>
+        <TableScroll>
+          <Content>
+            <thead>
+              <HeadRow isArabic={isArabic}>
+                <Col>{t("recent.jobTitle")}</Col>
+                <Col>{t("recent.location")}</Col>
+                <Col>{t("recent.appNum")}</Col>
+                <Col>{t("recent.chart")}</Col>
+              </HeadRow>
+            </thead>
+            <tbody>
+              {data.map((d) => {
+                return <JobRow key={d.id} {...d} />;
+              })}
+            </tbody>
+          </Content>
+        </TableScroll>
       </RecentWrapper>
     </WithSkeleton>
   );
