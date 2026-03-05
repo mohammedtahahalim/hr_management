@@ -25,5 +25,13 @@
     "title": "Distribution by departments",
     "all": "All Employees",
     "total": "Total Applications"
+  },
+  "recent": {
+    "title": "Recent Vacancies",
+    "jobTitle": "Job Title",
+    "location": "Location",
+    "appNum": "Applications",
+    "chart": "Chart",
+    "remote": "Remote"
   }
 }

@@ -67,11 +67,14 @@ const initialState: CandidateState = {
   data: [],
 };
 
-export const selectAllCandidates = (state: RootState) => state.candidate.data;
+export const selectAllCandidates = (state: RootState) =>
+  state.dashboard.candidate.data;
 
-export const selectStatus = (state: RootState) => state.candidate.status;
+export const selectStatus = (state: RootState) =>
+  state.dashboard.candidate.status;
 
-export const selectError = (state: RootState) => state.candidate.error;
+export const selectError = (state: RootState) =>
+  state.dashboard.candidate.error;
 
 export const selectAcceptedCandidates = createSelector(
   [selectAllCandidates],

@@ -25,5 +25,13 @@
     "title": "Répartition par départements",
     "all": "Tous les employés",
     "total": "Applications totales"
+  },
+  "recent": {
+    "title": "Offres récentes",
+    "jobTitle": "Titre d'emploi",
+    "location": "Emplacement",
+    "appNum": "Applications",
+    "chart": "Carte",
+    "remote": "télé"
   }
 }

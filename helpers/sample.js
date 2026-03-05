@@ -1093,3 +1093,90 @@ export const candidates = [
     offerState: "REJECT",
   },
 ];
+
+export const recentJobs = [
+  {
+    id: 1,
+    jobTitle: {
+      en: "UX Designer",
+      ja: "UXデザイナー",
+      ar: "مصمم تجربة",
+      fr: "Concepteur UX",
+    },
+    location: "DT",
+    totalApps: 122,
+    trend: [12, 18, 15, 14, 16, 22, 19, 17],
+  },
+  {
+    id: 2,
+    jobTitle: {
+      en: "iOS App Developer",
+      ja: "iOS開発者",
+      ar: "مطور iOS",
+      fr: "Développeur iOS",
+    },
+    location: "R",
+    totalApps: 34,
+    trend: [8, 7, 6, 9, 11, 10, 13, 14],
+  },
+  {
+    id: 3,
+    jobTitle: {
+      en: "Network Administrator",
+      ja: "ネットワーク管理者",
+      ar: "مسؤول الشبكة",
+      fr: "Administrateur réseau",
+    },
+    location: "PH",
+    totalApps: 45,
+    trend: [10, 9, 8, 11, 12, 10, 9, 9],
+  },
+  {
+    id: 4,
+    jobTitle: {
+      en: "React Developer",
+      ja: "React開発者",
+      ar: "مطور React",
+      fr: "Développeur React",
+    },
+    location: "R",
+    totalApps: 57,
+    trend: [6, 7, 7, 10, 8, 11, 9, 10],
+  },
+  {
+    id: 5,
+    jobTitle: {
+      en: "Node Developer",
+      ja: "ノード開発者",
+      ar: "مطور Node",
+      fr: "Développeur Node",
+    },
+    location: "JP",
+    totalApps: 38,
+    trend: [15, 8, 3, 2, 1, 4, 7, 1],
+  },
+  {
+    id: 6,
+    jobTitle: {
+      en: "Graphic Designer",
+      ja: "グラフィックデザイナー",
+      ar: "مصمم جرافيك",
+      fr: "graphiste",
+    },
+    location: "GB",
+    totalApps: 74,
+    trend: [9, 10, 13, 11, 12, 14, 13, 14],
+  },
+  {
+    id: 7,
+    jobTitle: {
+      en: "Python Developer",
+      ja: "Python開発者",
+      ar: "مطور بايثون",
+      fr: "Développeur Python",
+    },
+    location: "R",
+    totalApps: 44,
+    trend: [7, 8, 7, 9, 8, 7, 7, 8],
+  },
+];

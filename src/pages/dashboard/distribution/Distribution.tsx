@@ -25,7 +25,7 @@ const DistributionWrapper = styled(Box)(({ theme }) => ({
 
 const ControlWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
-  minHeight: "50px",
+  minHeight: "fit-content",
   display: "flex",
   justifyContent: "space-between",
   gap: "5px",

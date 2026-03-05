@@ -2,7 +2,7 @@ import { Box, styled } from "@mui/material";
 import Candidate from "./candidate/Candidate";
 import Department from "./departments/Department";
 import Distribution from "./distribution/Distribution";
-import Recent from "./Recent";
+import Recent from "./recent/Recent";
 import Collection from "./Collection";
 import Activity from "./Activity";
 import WithSkeleton from "../../shared/ui/WithSkeleton";
@@ -108,9 +108,7 @@ export default function Dashboard() {
       </Informations>
       <Stats>
         <RecentWrapper>
-          <WithSkeleton loading={true}>
-            <Recent />
-          </WithSkeleton>
+          <Recent />
         </RecentWrapper>
         <ResourcesWrapper>
           <CollectionWrapper>

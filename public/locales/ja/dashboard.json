@@ -25,5 +25,13 @@
     "title": "部門別分布",
     "all": "全従業員",
     "total": "総申請数"
+  },
+  "recent": {
+    "title": "最近の求人",
+    "jobTitle": "役職",
+    "location": "位置",
+    "appNum": "アプリ",
+    "chart": "図表",
+    "remote": "リモート"
   }
 }

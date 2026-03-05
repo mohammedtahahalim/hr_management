@@ -2,18 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "../features/auth/authSlice";
 import toastSlice from "../features/toast/toastSlice";
 import notificationSlice from "../features/notifications/notificationSlice";
-import candidateSlice from "../pages/dashboard/candidate/candidateSlice";
-import departmentSlice from "../pages/dashboard/departments/departmentSlice";
-import distributionSlice from "../pages/dashboard/distribution/distributionSlice";
+import { dashboardReducer } from "../pages/dashboard/dashboardReducer";
 
 export const HRStore = configureStore({
   reducer: {
     auth: authSlice,
     toast: toastSlice,
     notifications: notificationSlice,
-    candidate: candidateSlice,
-    department: departmentSlice,
-    distribution: distributionSlice,
+    dashboard: dashboardReducer,
   },
 });
 
