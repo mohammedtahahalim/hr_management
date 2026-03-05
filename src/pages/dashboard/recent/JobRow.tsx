@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../config/i18n";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import Graph from "./Graph";
 
 const JobRowWrapper = styled("tr")(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.background.default}`,
@@ -53,7 +54,9 @@ export default function JobRow({
         {location === "R" ? t("recent.remote") : location}
       </Col>
       <Col>{totalApps}</Col>
-      <Col>{trend.length}</Col>
+      <Col>
+        <Graph trend={trend} />
+      </Col>
     </JobRowWrapper>
   );
 }

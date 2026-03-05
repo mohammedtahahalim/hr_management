@@ -38,7 +38,9 @@ const Content = styled("table")({
   scrollbarWidth: "none",
 });
 
-const HeadRow = styled("tr")(({ theme }) => ({
+const HeadRow = styled("tr", {
+  shouldForwardProp: (prop) => prop !== "isArabic",
+})<{ isArabic: boolean }>(({ theme, isArabic }) => ({
   backgroundColor: theme.palette.background.default,
   fontWeight: "bold",
   fontFamily: "system-ui",
@@ -46,12 +48,14 @@ const HeadRow = styled("tr")(({ theme }) => ({
   "&>td": {
     padding: "10px 12px",
     "&:first-of-type": {
-      borderTopLeftRadius: "20px",
-      borderBottomLeftRadius: "40px",
+      ...(isArabic
+        ? { borderTopRightRadius: "20px", borderBottomRightRadius: "40px" }
+        : { borderTopLeftRadius: "20px", borderBottomLeftRadius: "40px" }),
     },
     "&:last-of-type": {
-      borderTopRightRadius: "20px",
-      borderBottomRightRadius: "40px",
+      ...(isArabic
+        ? { borderTopLeftRadius: "20px", borderBottomLeftRadius: "40px" }
+        : { borderTopRightRadius: "20px", borderBottomRightRadius: "40px" }),
     },
   },
 }));
@@ -73,7 +77,8 @@ export default function Recent() {
   const status = useSelector(recentStatus);
   const data = useSelector(recentData);
   const dispatch = useDispatch<AppDispatch>();
-  const { t } = useTranslation("dashboard");
+  const { t, i18n } = useTranslation("dashboard");
+  const isArabic = i18n.language === "ar";
 
   useEffect(() => {
     const recentRequest = dispatch(fetchRecentJobs());
@@ -88,7 +93,7 @@ export default function Recent() {
         <Title variant="h6">{t("recent.title")}</Title>
         <Content>
           <thead>
-            <HeadRow>
+            <HeadRow isArabic={isArabic}>
               <Col>{t("recent.jobTitle")}</Col>
               <Col>{t("recent.location")}</Col>
               <Col>{t("recent.appNum")}</Col>
