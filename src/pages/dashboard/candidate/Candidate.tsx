@@ -20,7 +20,7 @@ const CandidateWrapper = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down("sm")]: {
     flexDirection: "column",
-    maxHeight: "600px",
+    maxHeight: "450px",
   },
 }));
 

@@ -12,14 +12,17 @@ import { useTranslation } from "react-i18next";
 import type { AppDispatch } from "../../../config/store";
 import { useEffect } from "react";
 
-const DepartmentWrapper = styled(Box)({
+const DepartmentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
   padding: "15px",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
-});
+  [theme.breakpoints.down("sm")]: {
+    maxHeight: "450px",
+  },
+}));
 
 const Title = styled(Typography)({
   width: "100%",

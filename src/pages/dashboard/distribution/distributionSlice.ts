@@ -109,17 +109,18 @@ const distributionSlice = createSlice({
 });
 
 export const selectDistributionStatus = (state: RootState) =>
-  state.distribution.status;
+  state.dashboard.distribution.status;
 
 export const selectDistributionError = (state: RootState) =>
-  state.distribution.error;
+  state.dashboard.distribution.error;
 
 export const selectDistributionData = (state: RootState) =>
-  state.distribution.data;
+  state.dashboard.distribution.data;
 
-export const selectTotal = (state: RootState) => state.distribution.data?.total;
+export const selectTotal = (state: RootState) =>
+  state.dashboard.distribution.data?.total;
 
 export const selectDistributions = (state: RootState) =>
-  state.distribution.data?.distributions;
+  state.dashboard.distribution.data?.distributions;
 
 export default distributionSlice.reducer;

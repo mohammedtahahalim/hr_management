@@ -79,11 +79,14 @@ const initialState: DepartmentState = {
   data: [],
 };
 
-export const selectStatus = (state: RootState) => state.department.status;
+export const selectStatus = (state: RootState) =>
+  state.dashboard.department.status;
 
-export const selectError = (state: RootState) => state.department.error;
+export const selectError = (state: RootState) =>
+  state.dashboard.department.error;
 
-export const selectDepartmentData = (state: RootState) => state.department.data;
+export const selectDepartmentData = (state: RootState) =>
+  state.dashboard.department.data;
 
 const departmentSlice = createSlice({
   name: "departments",

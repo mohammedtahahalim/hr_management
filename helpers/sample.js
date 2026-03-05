@@ -1093,3 +1093,54 @@ export const candidates = [
     offerState: "REJECT",
   },
 ];
+
+export const recentJobs = [
+  {
+    id: 1,
+    title: "UX Designer",
+    location: "Dayton",
+    count: 122,
+    new: 33,
+    trend: [12, 18, 15, 14, 16, 22, 19, 17],
+  },
+  {
+    id: 2,
+    title: "iOS App Developer",
+    location: "Remote",
+    count: 34,
+    new: 5,
+    trend: [8, 7, 6, 9, 11, 10, 13, 14],
+  },
+  {
+    id: 3,
+    title: "Network Administrator",
+    location: "Phoenix",
+    count: 45,
+    new: 13,
+    trend: [10, 9, 8, 11, 12, 10, 9, 9],
+  },
+  {
+    id: 4,
+    title: "JavaScript Developer",
+    location: "Remote",
+    count: 57,
+    new: 5,
+    trend: [6, 7, 7, 10, 8, 11, 9, 10],
+  },
+  {
+    id: 5,
+    title: "Graphic Designer",
+    location: "Gothenburg",
+    count: 74,
+    new: 22,
+    trend: [9, 10, 13, 11, 12, 14, 13, 14],
+  },
+  {
+    id: 6,
+    title: "Python Django Developer",
+    location: "Remote",
+    count: 44,
+    new: 12,
+    trend: [7, 8, 7, 9, 8, 7, 7, 8],
+  },
+];

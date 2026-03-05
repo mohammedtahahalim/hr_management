@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { departmentColor } from "../../../shared/lib/constants";
 import type { DeptColor } from "../../../shared/lib/types";
 
-const StatsWrapper = styled(Box)(({ theme }) => ({
+const StatsWrapper = styled(Box)({
   width: "100%",
   height: "100%",
   display: "flex",
@@ -16,10 +16,7 @@ const StatsWrapper = styled(Box)(({ theme }) => ({
   scrollbarWidth: "none",
   maxHeight: "300px",
   padding: "10px",
-  [theme.breakpoints.down("sm")]: {
-    maxHeight: "400px",
-  },
-}));
+});
 
 const All = styled(Typography)({
   fontFamily: "system-ui",
