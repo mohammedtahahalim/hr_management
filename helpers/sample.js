@@ -1255,11 +1255,11 @@ export const recentJobs = [
 
 export const collections = {
   insource: Array.from(
-    { length: 13 },
-    () => Math.floor(Math.random() * 100) + 1,
+    { length: 10 },
+    () => Math.floor(Math.random() * 50) + 20,
   ),
   outsource: Array.from(
-    { length: 13 },
-    () => Math.floor(Math.random() * 100) + 1,
+    { length: 10 },
+    () => Math.floor(Math.random() * 50) + 20,
   ),
 };
