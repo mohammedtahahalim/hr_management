@@ -1,3 +1,6 @@
+@import "swiper/css";
+@import "swiper/css/pagination";
+
 * {
   margin: 0;
   padding: 0;
@@ -11,4 +14,11 @@ body {
 #root {
   width: 100%;
   height: 100%;
+}
+.swiper-pagination-progressbar {
+  top: auto !important;
+  bottom: 0 !important;
+}
+.swiper-pagination-bullet {
+  background: #ffffff;
 }

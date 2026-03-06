@@ -5,7 +5,7 @@ import {
   generateDepartments,
   generateDistributions,
 } from "../helpers/constants.js";
-import { collections, recentJobs } from "../helpers/sample.js";
+import { activities, collections, recentJobs } from "../helpers/sample.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET")
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       case "collection":
         return res.status(200).json({ data: collections });
       case "activity":
-        break;
+        return res.status(200).json({ data: activities });
       default:
         return res.status(400).json({ message: "Bad format ..." });
     }

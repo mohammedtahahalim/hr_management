@@ -4,8 +4,7 @@ import Department from "./departments/Department";
 import Distribution from "./distribution/Distribution";
 import Recent from "./recent/Recent";
 import Collection from "./collection/Collection";
-import Activity from "./Activity";
-import WithSkeleton from "../../shared/ui/WithSkeleton";
+import Activity from "./activity/Activity";
 
 const DashboardWrapper = styled(Box)({
   width: "100%",
@@ -89,11 +88,13 @@ const CollectionWrapper = styled(Box)(({ theme }) => ({
   borderRadius: "18px",
 }));
 
-const ActivityWrapper = styled(Box)({
+const ActivityWrapper = styled(Box)(({ theme }) => ({
   flex: 1,
   overflow: "hidden",
   borderRadius: "18px",
-});
+  backgroundColor: theme.palette.first.main,
+  color: "whitesmoke",
+}));
 
 export default function Dashboard() {
   return (
@@ -118,9 +119,7 @@ export default function Dashboard() {
             <Collection />
           </CollectionWrapper>
           <ActivityWrapper>
-            <WithSkeleton loading>
-              <Activity />
-            </WithSkeleton>
+            <Activity />
           </ActivityWrapper>
         </ResourcesWrapper>
       </Stats>

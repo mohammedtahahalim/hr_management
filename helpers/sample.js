@@ -1263,3 +1263,76 @@ export const collections = {
     () => Math.floor(Math.random() * 50) + 20,
   ),
 };
+
+export const activities = [
+  {
+    id: 4821,
+    time: "2026-02-12T09:30:00Z",
+    content: {
+      en: "Morning stand-up meeting with the development team to review sprint progress.",
+      ja: "開発チームと朝のスタンドアップミーティングを行い、スプリントの進捗を確認しました。",
+      ar: "اجتماع صباحي سريع مع فريق التطوير لمراجعة تقدم السبرينت.",
+      fr: "Réunion quotidienne du matin avec l’équipe de développement pour examiner l’avancement du sprint.",
+    },
+  },
+  {
+    id: 7354,
+    time: "2026-02-14T13:15:00Z",
+    content: {
+      en: "Reviewed pull requests and provided feedback on code quality and structure.",
+      ja: "プルリクエストを確認し、コードの品質と構造についてフィードバックを提供しました。",
+      ar: "مراجعة طلبات السحب وتقديم ملاحظات حول جودة الكود وبنيته.",
+      fr: "Revue des pull requests et commentaires sur la qualité et la structure du code.",
+    },
+  },
+  {
+    id: 1193,
+    time: "2026-02-16T10:00:00Z",
+    content: {
+      en: "Worked on implementing pagination for the activity timeline component.",
+      ja: "アクティビティタイムラインコンポーネントのページネーション機能を実装しました。",
+      ar: "العمل على تنفيذ خاصية الترقيم الصفحي لمكوّن الخط الزمني للأنشطة.",
+      fr: "Travail sur l’implémentation de la pagination pour le composant de chronologie des activités.",
+    },
+  },
+  {
+    id: 9047,
+    time: "2026-02-18T15:45:00Z",
+    content: {
+      en: "Debugged an issue related to Redux selectors and derived state.",
+      ja: "Reduxセレクターと派生ステートに関連する問題をデバッグしました。",
+      ar: "تصحيح خطأ متعلق بمحددات Redux والحالة المشتقة.",
+      fr: "Correction d’un problème lié aux sélecteurs Redux et à l’état dérivé.",
+    },
+  },
+  {
+    id: 5628,
+    time: "2026-02-20T11:20:00Z",
+    content: {
+      en: "Prepared documentation for API endpoints used by the mobile application.",
+      ja: "モバイルアプリケーションで使用されるAPIエンドポイントのドキュメントを準備しました。",
+      ar: "إعداد توثيق لنقاط نهاية واجهة برمجة التطبيقات المستخدمة في تطبيق الهاتف.",
+      fr: "Préparation de la documentation des endpoints API utilisés par l’application mobile.",
+    },
+  },
+  {
+    id: 3476,
+    time: "2026-02-22T16:10:00Z",
+    content: {
+      en: "Discussed architecture improvements for handling server state with TanStack Query.",
+      ja: "TanStack Queryでサーバーステートを扱うためのアーキテクチャ改善について議論しました。",
+      ar: "مناقشة تحسينات معمارية للتعامل مع حالة الخادم باستخدام TanStack Query.",
+      fr: "Discussion sur les améliorations d’architecture pour gérer l’état serveur avec TanStack Query.",
+    },
+  },
+  {
+    id: 8812,
+    time: "2026-02-24T08:50:00Z",
+    content: {
+      en: "Refactored several React components to improve performance and readability.",
+      ja: "パフォーマンスと可読性を向上させるため、いくつかのReactコンポーネントをリファクタリングしました。",
+      ar: "إعادة هيكلة عدة مكونات React لتحسين الأداء وقابلية القراءة.",
+      fr: "Refactorisation de plusieurs composants React pour améliorer les performances et la lisibilité.",
+    },
+  },
+];
