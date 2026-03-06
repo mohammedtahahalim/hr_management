@@ -5,7 +5,7 @@ import {
   generateDepartments,
   generateDistributions,
 } from "../helpers/constants.js";
-import { recentJobs } from "../helpers/sample.js";
+import { collections, recentJobs } from "../helpers/sample.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET")
@@ -15,6 +15,7 @@ export default async function handler(req, res) {
     if (res.headersSent || res.writableEnded) {
       return;
     }
+    await new Promise((res) => setTimeout(() => res(), 1000));
     const { block, ...rest } = req.query;
     if (!allowedQueries["dashboard"].includes(block))
       return res.status(400).json({ message: "Bad format ..." });
@@ -29,7 +30,7 @@ export default async function handler(req, res) {
       case "recent":
         return res.status(200).json({ data: recentJobs });
       case "collection":
-        break;
+        return res.status(200).json({ data: collections });
       case "activity":
         break;
       default:

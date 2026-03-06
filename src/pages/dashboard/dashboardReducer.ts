@@ -2,6 +2,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import candidateSlice from "./candidate/candidateSlice";
 import departmentSlice from "./departments/departmentSlice";
 import distributionSlice from "./distribution/distributionSlice";
+import collectionSlice from "./collection/collectionSlice";
 import recentSlice from "./recent/recentSlice";
 
 export const dashboardReducer = combineReducers({
@@ -9,4 +10,5 @@ export const dashboardReducer = combineReducers({
   department: departmentSlice,
   distribution: distributionSlice,
   recent: recentSlice,
+  collection: collectionSlice,
 });

@@ -3,7 +3,7 @@ import Candidate from "./candidate/Candidate";
 import Department from "./departments/Department";
 import Distribution from "./distribution/Distribution";
 import Recent from "./recent/Recent";
-import Collection from "./Collection";
+import Collection from "./collection/Collection";
 import Activity from "./Activity";
 import WithSkeleton from "../../shared/ui/WithSkeleton";
 
@@ -70,21 +70,24 @@ const ResourcesWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "10px",
-  minHeight: "350px",
+  minHeight: "300px",
   [theme.breakpoints.down("lg")]: {
     flexDirection: "row",
     justifyContent: "space-evenly",
+    maxHeight: "400px",
   },
   [theme.breakpoints.down("sm")]: {
     flexDirection: "column",
+    minHeight: "500px",
   },
 }));
 
-const CollectionWrapper = styled(Box)({
+const CollectionWrapper = styled(Box)(({ theme }) => ({
   flex: 1,
   overflow: "hidden",
+  border: `1px solid ${theme.palette.divider}`,
   borderRadius: "18px",
-});
+}));
 
 const ActivityWrapper = styled(Box)({
   flex: 1,
@@ -112,9 +115,7 @@ export default function Dashboard() {
         </RecentWrapper>
         <ResourcesWrapper>
           <CollectionWrapper>
-            <WithSkeleton loading>
-              <Collection />
-            </WithSkeleton>
+            <Collection />
           </CollectionWrapper>
           <ActivityWrapper>
             <WithSkeleton loading>
