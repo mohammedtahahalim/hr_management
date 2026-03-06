@@ -33,5 +33,10 @@
     "appNum": "Applications",
     "chart": "Chart",
     "remote": "Remote"
+  },
+  "collection": {
+    "title": "Resource Collection",
+    "insource": "Insource",
+    "outsource": "Outsource"
   }
 }

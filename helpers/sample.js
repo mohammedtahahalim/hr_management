@@ -1252,3 +1252,14 @@ export const recentJobs = [
     trend: [3, 4, 5, 6, 5, 6, 7, 7],
   },
 ];
+
+export const collections = {
+  insource: Array.from(
+    { length: 13 },
+    () => Math.floor(Math.random() * 100) + 1,
+  ),
+  outsource: Array.from(
+    { length: 13 },
+    () => Math.floor(Math.random() * 100) + 1,
+  ),
+};
