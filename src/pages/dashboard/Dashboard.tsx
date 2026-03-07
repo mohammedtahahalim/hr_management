@@ -70,6 +70,7 @@ const ResourcesWrapper = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   gap: "10px",
   minHeight: "300px",
+  overflow: "hidden",
   [theme.breakpoints.down("lg")]: {
     flexDirection: "row",
     justifyContent: "space-evenly",

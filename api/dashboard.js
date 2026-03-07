@@ -15,7 +15,6 @@ export default async function handler(req, res) {
     if (res.headersSent || res.writableEnded) {
       return;
     }
-    await new Promise((res) => setTimeout(() => res(), 1000));
     const { block, ...rest } = req.query;
     if (!allowedQueries["dashboard"].includes(block))
       return res.status(400).json({ message: "Bad format ..." });
