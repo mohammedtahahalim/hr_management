@@ -23,11 +23,16 @@ const Title = styled(Typography)({
   padding: "2px",
 });
 
-const Content = styled(Box)({
+const Content = styled(Box)(({ theme }) => ({
   width: "100%",
   flex: 1,
   overflow: "hidden",
-});
+  display: "flex",
+  justifyContent: "center",
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: "360px",
+  },
+}));
 
 export default function Collection() {
   const { t } = useTranslation("dashboard");

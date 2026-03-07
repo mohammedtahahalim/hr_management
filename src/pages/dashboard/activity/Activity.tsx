@@ -24,11 +24,14 @@ const Title = styled(Box)({
   padding: "5px",
 });
 
-const ActivitySlider = styled(Box)({
+const ActivitySlider = styled(Box)(({ theme }) => ({
   flex: 1,
   overflow: "hidden",
-  maxWidth: "475px",
-});
+  border: "1px solid black",
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: "360px",
+  },
+}));
 
 export default function Activity() {
   const dispatch = useDispatch<AppDispatch>();
