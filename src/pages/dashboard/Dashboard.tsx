@@ -3,8 +3,6 @@ import Candidate from "./candidate/Candidate";
 import Department from "./departments/Department";
 import Distribution from "./distribution/Distribution";
 import Recent from "./recent/Recent";
-import Collection from "./collection/Collection";
-import Activity from "./activity/Activity";
 
 const DashboardWrapper = styled(Box)({
   width: "100%",
@@ -47,55 +45,20 @@ const DistributionWrapper = styled(Box)({
   borderRadius: "18px",
 });
 
-const Stats = styled(Box)(({ theme }) => ({
+const Stats = styled(Box)({
   width: "100%",
   flex: 1,
   display: "flex",
   gap: "10px",
-  [theme.breakpoints.down("lg")]: {
-    flexDirection: "column",
-  },
-}));
+  flexDirection: "column",
+});
 
 const RecentWrapper = styled(Box)({
-  flex: 2,
+  flex: 1,
   minHeight: "400px",
   overflow: "hidden",
   borderRadius: "18px",
 });
-
-const ResourcesWrapper = styled(Box)(({ theme }) => ({
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  gap: "10px",
-  minHeight: "300px",
-  overflow: "hidden",
-  [theme.breakpoints.down("lg")]: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    maxHeight: "400px",
-  },
-  [theme.breakpoints.down("sm")]: {
-    flexDirection: "column",
-    minHeight: "500px",
-  },
-}));
-
-const CollectionWrapper = styled(Box)(({ theme }) => ({
-  flex: 1,
-  overflow: "hidden",
-  border: `1px solid ${theme.palette.divider}`,
-  borderRadius: "18px",
-}));
-
-const ActivityWrapper = styled(Box)(({ theme }) => ({
-  flex: 1,
-  overflow: "hidden",
-  borderRadius: "18px",
-  backgroundColor: theme.palette.first.main,
-  color: "whitesmoke",
-}));
 
 export default function Dashboard() {
   return (
@@ -115,14 +78,6 @@ export default function Dashboard() {
         <RecentWrapper>
           <Recent />
         </RecentWrapper>
-        <ResourcesWrapper>
-          <CollectionWrapper>
-            <Collection />
-          </CollectionWrapper>
-          <ActivityWrapper>
-            <Activity />
-          </ActivityWrapper>
-        </ResourcesWrapper>
       </Stats>
     </DashboardWrapper>
   );
