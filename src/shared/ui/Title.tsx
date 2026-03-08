@@ -12,5 +12,5 @@ const TitleWrapper = styled(Typography)({
 });
 
 export default function Title({ children }: TitleProps) {
-  return <TitleWrapper variant="h6">{children}</TitleWrapper>;
+  return <TitleWrapper variant="h6">{children} :</TitleWrapper>;
 }

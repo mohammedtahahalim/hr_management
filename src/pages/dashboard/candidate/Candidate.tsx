@@ -15,6 +15,7 @@ const CandidateWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "5px",
+  padding: "10px",
   [theme.breakpoints.down("lg")]: {
     flexDirection: "row",
   },

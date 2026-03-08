@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import JobRow from "./JobRow";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,25 +6,19 @@ import { fetchRecentJobs, recentData, recentStatus } from "./recentSlice";
 import { useTranslation } from "react-i18next";
 import type { AppDispatch } from "../../../config/store";
 import { useEffect } from "react";
+import Title from "../../../shared/ui/Title";
 
 const RecentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
   maxHeight: "600px",
-  padding: "20px",
+  padding: "10px",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
   overflow: "hidden",
   backgroundColor: theme.palette.background.paper,
 }));
-
-const Title = styled(Typography)({
-  width: "100%",
-  height: "50px",
-  fontFamily: "system-ui",
-  fontWeight: "bold",
-});
 
 const TableScroll = styled(Box)({
   flex: 1,
@@ -99,7 +93,7 @@ export default function Recent() {
   return (
     <WithSkeleton loading={status === "loading"}>
       <RecentWrapper>
-        <Title variant="h6">{t("recent.title")}</Title>
+        <Title>{t("recent.title")}</Title>
         <TableScroll>
           <Content>
             <thead>

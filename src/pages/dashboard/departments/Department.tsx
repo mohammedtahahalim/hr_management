@@ -1,4 +1,4 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchDepartments,
@@ -11,11 +11,12 @@ import Line from "./Line";
 import { useTranslation } from "react-i18next";
 import type { AppDispatch } from "../../../config/store";
 import { useEffect } from "react";
+import Title from "../../../shared/ui/Title";
 
 const DepartmentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
-  padding: "15px",
+  padding: "10px",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
@@ -23,14 +24,6 @@ const DepartmentWrapper = styled(Box)(({ theme }) => ({
     maxHeight: "450px",
   },
 }));
-
-const Title = styled(Typography)({
-  width: "100%",
-  fontFamily: "system-ui",
-  fontWeight: "bold",
-  fontSize: "1.5rem",
-  padding: "8px 0px",
-});
 
 const Content = styled(Box)({
   width: "100%",
@@ -58,7 +51,7 @@ export default function Department() {
   return (
     <WithSkeleton loading={status === "loading"}>
       <DepartmentWrapper>
-        <Title variant="h5">{t("departments.title")} :</Title>
+        <Title>{t("departments.title")}</Title>
         <Content>
           <Virtuoso
             data={data}

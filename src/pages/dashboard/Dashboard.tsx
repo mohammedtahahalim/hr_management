@@ -3,6 +3,7 @@ import Candidate from "./candidate/Candidate";
 import Department from "./departments/Department";
 import Distribution from "./distribution/Distribution";
 import Recent from "./recent/Recent";
+import Activity from "./activity/Activity";
 
 const DashboardWrapper = styled(Box)({
   width: "100%",
@@ -45,17 +46,25 @@ const DistributionWrapper = styled(Box)({
   borderRadius: "18px",
 });
 
-const Stats = styled(Box)({
+const Stats = styled(Box)(({ theme }) => ({
   width: "100%",
   flex: 1,
   display: "flex",
   gap: "10px",
-  flexDirection: "column",
-});
+  [theme.breakpoints.down("lg")]: {
+    flexDirection: "column",
+  },
+}));
 
 const RecentWrapper = styled(Box)({
-  flex: 1,
+  flex: 2,
   minHeight: "400px",
+  overflow: "hidden",
+  borderRadius: "18px",
+});
+
+const ActivityWrapper = styled(Box)({
+  flex: 1,
   overflow: "hidden",
   borderRadius: "18px",
 });
@@ -78,6 +87,9 @@ export default function Dashboard() {
         <RecentWrapper>
           <Recent />
         </RecentWrapper>
+        <ActivityWrapper>
+          <Activity />
+        </ActivityWrapper>
       </Stats>
     </DashboardWrapper>
   );

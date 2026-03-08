@@ -77,7 +77,7 @@ const New = styled(Box)(({ theme }) => ({
   padding: "1px 3px",
   fontFamily: "system-ui",
   fontSize: "0.8rem",
-  minWidth: "50px",
+  minWidth: "fit-content",
   backgroundColor: theme.palette.fourth.main,
   color: "whitesmoke",
 }));

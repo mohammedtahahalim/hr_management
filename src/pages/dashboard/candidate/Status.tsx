@@ -7,19 +7,14 @@ import {
   selectShortlistedCandidates,
 } from "./candidateSlice";
 import { calculatePercentage } from "../../../shared/lib/constants";
+import Title from "../../../shared/ui/Title";
 
 const StatusWrapper = styled(Box)({
   flex: 1,
   height: "210px",
-  padding: "20px",
   display: "flex",
   flexDirection: "column",
   gap: "5px",
-});
-
-const Title = styled(Typography)({
-  fontFamily: "system-ui",
-  fontWeight: "bold",
 });
 
 const Employers = styled(Typography)({
@@ -161,7 +156,7 @@ export default function Status() {
 
   return (
     <StatusWrapper>
-      <Title variant="h6">{t("candidate.status.title")}</Title>
+      <Title>{t("candidate.status.title")}</Title>
       <Employers variant="subtitle1">
         <Number>{allCandidates}</Number>
         {"  "}

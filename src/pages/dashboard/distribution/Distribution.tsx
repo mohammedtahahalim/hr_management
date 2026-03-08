@@ -1,6 +1,5 @@
 import { Box, styled } from "@mui/material";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
-import Title from "./Title";
 import Week from "./Week";
 import Stats from "./Stats";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,12 +11,14 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import type { AppDispatch } from "../../../config/store";
 import { extractCurrentWeek } from "../../../shared/lib/helpers";
+import { useTranslation } from "react-i18next";
+import Title from "../../../shared/ui/Title";
 
 const DistributionWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
   backgroundColor: theme.palette.background.paper,
-  padding: "20px",
+  padding: "10px",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
@@ -44,6 +45,7 @@ export default function Distribution() {
   const { search } = useLocation();
   const week = new URLSearchParams(search).get("week") ?? extractCurrentWeek();
   const dispatch = useDispatch<AppDispatch>();
+  const { t } = useTranslation("dashboard");
 
   useEffect(() => {
     const distributionRequest = dispatch(fetchDistributions({ week }));
@@ -56,7 +58,7 @@ export default function Distribution() {
     <WithSkeleton loading={status === "loading"}>
       <DistributionWrapper>
         <ControlWrapper>
-          <Title />
+          <Title>{t("distributions.title")}</Title>
           <Week />
         </ControlWrapper>
         <ContentWrapper>
