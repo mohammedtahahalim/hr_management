@@ -58,6 +58,7 @@ const Stats = styled(Box)(({ theme }) => ({
 
 const RecentWrapper = styled(Box)(({ theme }) => ({
   flex: 2,
+  minWidth: 0,
   height: "100%",
   overflow: "hidden",
   borderRadius: "18px",
@@ -68,6 +69,7 @@ const RecentWrapper = styled(Box)(({ theme }) => ({
 
 const ActivityWrapper = styled(Box)({
   flex: 1,
+  minWidth: 0,
   height: "100%",
   overflow: "hidden",
   borderRadius: "18px",

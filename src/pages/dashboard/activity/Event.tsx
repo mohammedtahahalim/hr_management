@@ -1,4 +1,7 @@
 import { Box, styled, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { fetchMonth } from "../../../shared/lib/helpers";
+import type { TLanguage } from "../../../config/i18n";
 
 interface EventProps {
   date: string;
@@ -43,6 +46,7 @@ const EventDetails = styled(Box)({
   justifyContent: "center",
   gap: "2px",
   color: "whitesmoke",
+  minWidth: 0,
 });
 
 const EventTitle = styled(Typography)({
@@ -65,16 +69,18 @@ const EventContent = styled(Typography)({
 });
 
 export default function Event({ date, title, content }: EventProps) {
-  const [day, month] = date.split(" ");
+  const { i18n } = useTranslation();
+  const [day, month] = date.split("-");
+  const formattedDate = fetchMonth(Number(month), i18n.language as TLanguage);
   return (
     <EventWrapper>
       <DateWrapper>
         <Day variant="h6">{day}</Day>
-        <Month variant="subtitle1">{month}</Month>
+        <Month variant="subtitle1">{formattedDate}</Month>
       </DateWrapper>
       <EventDetails>
-        <EventTitle variant="h6">{title.substring(0, 45)}</EventTitle>
-        <EventContent variant="body1">{content.substring(0, 45)}</EventContent>
+        <EventTitle variant="h6">{title}</EventTitle>
+        <EventContent variant="body1">{content}</EventContent>
       </EventDetails>
     </EventWrapper>
   );

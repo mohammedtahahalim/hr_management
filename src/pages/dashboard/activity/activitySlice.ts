@@ -9,7 +9,7 @@ import type { RootState } from "../../../config/store";
 
 const activitySchema = z.object({
   id: z.number().nonnegative(),
-  date: z.string().regex(/\d{2} [a-zA-Z]{3}/), // 12 Mar
+  date: z.string().regex(/\d{2}-\d{2}/), // 12 Mar
   title: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string().nonempty()),
   content: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string().nonempty()),
 });
