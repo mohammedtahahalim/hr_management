@@ -56,15 +56,19 @@ const Stats = styled(Box)(({ theme }) => ({
   },
 }));
 
-const RecentWrapper = styled(Box)({
+const RecentWrapper = styled(Box)(({ theme }) => ({
   flex: 2,
-  minHeight: "400px",
+  height: "100%",
   overflow: "hidden",
   borderRadius: "18px",
-});
+  [theme.breakpoints.down("lg")]: {
+    maxHeight: "425px",
+  },
+}));
 
 const ActivityWrapper = styled(Box)({
   flex: 1,
+  height: "100%",
   overflow: "hidden",
   borderRadius: "18px",
 });

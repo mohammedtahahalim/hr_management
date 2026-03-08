@@ -34,9 +34,7 @@
     "chart": "Chart",
     "remote": "Remote"
   },
-  "collection": {
-    "title": "Resource Collection",
-    "insource": "Insource",
-    "outsource": "Outsource"
+  "activity": {
+    "title": "News & Events"
   }
 }
