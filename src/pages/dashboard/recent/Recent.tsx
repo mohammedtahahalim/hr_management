@@ -11,7 +11,7 @@ import Title from "../../../shared/ui/Title";
 const RecentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
-  maxHeight: "600px",
+  maxHeight: "425px",
   padding: "10px",
   display: "flex",
   flexDirection: "column",
@@ -23,7 +23,6 @@ const RecentWrapper = styled(Box)(({ theme }) => ({
 const TableScroll = styled(Box)({
   flex: 1,
   minHeight: 0,
-  maxHeight: "300px",
   overflowY: "scroll",
   overflowX: "hidden",
   scrollbarWidth: "none",

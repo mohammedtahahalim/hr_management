@@ -34,9 +34,7 @@
     "chart": "図表",
     "remote": "リモート"
   },
-  "collection": {
-    "title": "リソース収集",
-    "insource": "インソース",
-    "outsource": "アウトソース"
+  "activity": {
+    "title": "ニュースとイベント"
   }
 }

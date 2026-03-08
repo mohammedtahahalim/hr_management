@@ -25,6 +25,10 @@ const Title = styled(Typography)({
   fontWeight: "bold",
   fontFamily: "system-ui",
   color: "inherit",
+  maxWidth: "33%",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
 });
 
 const Applications = styled(Box)({

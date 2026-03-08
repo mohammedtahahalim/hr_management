@@ -34,9 +34,7 @@
     "chart": "Carte",
     "remote": "télé"
   },
-  "collection": {
-    "title": "Collection de ressources",
-    "insource": "Internalisation",
-    "outsource": "Externalisation"
+  "activity": {
+    "title": "Actualités et événements"
   }
 }

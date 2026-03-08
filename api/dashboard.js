@@ -28,8 +28,6 @@ export default async function handler(req, res) {
         return res.status(200).json({ data: generateDistributions() });
       case "recent":
         return res.status(200).json({ data: recentJobs });
-      case "collection":
-        return res.status(200).json({ data: collections });
       case "activity":
         return res.status(200).json({ data: activities });
       default:
