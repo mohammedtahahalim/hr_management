@@ -44,8 +44,10 @@ export default function JobRow({
 
   return (
     <JobRowWrapper>
-      <Col>{jobTitle[i18n.language as TLanguage]}</Col>
-      <Col>
+      <Col aria-describedby="job-title" tabIndex={0}>
+        {jobTitle[i18n.language as TLanguage]}
+      </Col>
+      <Col aria-describedby="job-location" tabIndex={0}>
         {location === "R" ? (
           <LanguageIcon fontSize="small" color="warning" />
         ) : (
@@ -53,8 +55,10 @@ export default function JobRow({
         )}
         {location === "R" ? t("recent.remote") : location}
       </Col>
-      <Col>{totalApps}</Col>
-      <Col>
+      <Col aria-describedby="application-count" tabIndex={0}>
+        {totalApps}
+      </Col>
+      <Col aria-describedby="application-chart">
         <Graph trend={trend} />
       </Col>
     </JobRowWrapper>

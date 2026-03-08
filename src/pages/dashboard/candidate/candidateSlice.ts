@@ -44,7 +44,7 @@ export const fetchCandidates = createAsyncThunk<
     if (!response.ok) {
       if (response.status === 401) return rejectWithValue("UNAUTHENTICATED");
       if (response.status === 403) return rejectWithValue("FORBIDDEN");
-      if (response.status === 522) return rejectWithValue("DOWN");
+      if (response.status >= 500) return rejectWithValue("DOWN");
       return rejectWithValue("SYSTEM");
     }
     const data = await response.json();
@@ -70,10 +70,10 @@ const initialState: CandidateState = {
 export const selectAllCandidates = (state: RootState) =>
   state.dashboard.candidate.data;
 
-export const selectStatus = (state: RootState) =>
+export const selectCandidateStatus = (state: RootState) =>
   state.dashboard.candidate.status;
 
-export const selectError = (state: RootState) =>
+export const selectCandidateError = (state: RootState) =>
   state.dashboard.candidate.error;
 
 export const selectAcceptedCandidates = createSelector(

@@ -5,6 +5,7 @@ import Stats from "./Stats";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchDistributions,
+  selectDistributionError,
   selectDistributionStatus,
 } from "./distributionSlice";
 import { useLocation } from "react-router-dom";
@@ -13,6 +14,7 @@ import type { AppDispatch } from "../../../config/store";
 import { extractCurrentWeek } from "../../../shared/lib/helpers";
 import { useTranslation } from "react-i18next";
 import Title from "../../../shared/ui/Title";
+import Reload from "../../../shared/ui/Reload";
 
 const DistributionWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -42,6 +44,7 @@ const ContentWrapper = styled(Box)({
 
 export default function Distribution() {
   const status = useSelector(selectDistributionStatus);
+  const error = useSelector(selectDistributionError);
   const { search } = useLocation();
   const week = new URLSearchParams(search).get("week") ?? extractCurrentWeek();
   const dispatch = useDispatch<AppDispatch>();
@@ -56,15 +59,23 @@ export default function Distribution() {
 
   return (
     <WithSkeleton loading={status === "loading"}>
-      <DistributionWrapper>
-        <ControlWrapper>
-          <Title>{t("distributions.title")}</Title>
-          <Week />
-        </ControlWrapper>
-        <ContentWrapper>
-          <Stats />
-        </ContentWrapper>
-      </DistributionWrapper>
+      {status === "success" && (
+        <DistributionWrapper>
+          <ControlWrapper>
+            <Title>{t("distributions.title")}</Title>
+            <Week />
+          </ControlWrapper>
+          <ContentWrapper>
+            <Stats />
+          </ContentWrapper>
+        </DistributionWrapper>
+      )}
+      {status === "failure" && (
+        <Reload
+          error={error}
+          dispatchThunk={() => dispatch(fetchDistributions({ week }))}
+        />
+      )}
     </WithSkeleton>
   );
 }

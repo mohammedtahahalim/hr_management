@@ -24,7 +24,8 @@
   "distributions": {
     "title": "Distribution by departments",
     "all": "All Employees",
-    "total": "Total Applications"
+    "total": "Total Applications",
+    "week": "Week"
   },
   "recent": {
     "title": "Recent Vacancies",
@@ -36,5 +37,14 @@
   },
   "activity": {
     "title": "News & Events"
-  }
+  },
+  "errors": {
+    "UNAUTHENTICATED": "You must be signed in to perform this action.",
+    "FORBIDDEN": "You do not have permission to perform this action.",
+    "SYSTEM": "A system error occurred. Please try again later.",
+    "ABORT": "The operation was cancelled.",
+    "DOWN": "The service is currently unavailable. Please try again later.",
+    "MISMATCH": "The provided information does not match the expected values."
+  },
+  "refetch": "Re-request Resource"
 }

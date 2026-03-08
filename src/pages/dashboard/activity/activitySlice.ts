@@ -68,13 +68,14 @@ const initialState: ActivityState = {
   data: [],
 };
 
-export const activityStatus = (state: RootState) =>
+export const selectActivityStatus = (state: RootState) =>
   state.dashboard.activity.status;
 
-export const activityError = (state: RootState) =>
+export const selectActivityError = (state: RootState) =>
   state.dashboard.activity.error;
 
-export const activityData = (state: RootState) => state.dashboard.activity.data;
+export const selectActivityData = (state: RootState) =>
+  state.dashboard.activity.data;
 
 const activitySlice = createSlice({
   name: "activity",

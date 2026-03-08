@@ -24,7 +24,8 @@
   "distributions": {
     "title": "Répartition par départements",
     "all": "Tous les employés",
-    "total": "Applications totales"
+    "total": "Applications totales",
+    "week": "Semaine"
   },
   "recent": {
     "title": "Offres récentes",
@@ -36,5 +37,14 @@
   },
   "activity": {
     "title": "Actualités et événements"
-  }
+  },
+  "errors": {
+    "UNAUTHENTICATED": "Vous devez être connecté pour effectuer cette action.",
+    "FORBIDDEN": "Vous n’avez pas l’autorisation d’effectuer cette action.",
+    "SYSTEM": "Une erreur système est survenue. Veuillez réessayer plus tard.",
+    "ABORT": "L’opération a été annulée.",
+    "DOWN": "Le service est actuellement indisponible. Veuillez réessayer plus tard.",
+    "MISMATCH": "Les informations fournies ne correspondent pas."
+  },
+  "refetch": "Re-demande de ressource"
 }
