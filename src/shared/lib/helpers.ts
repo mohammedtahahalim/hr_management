@@ -1,3 +1,4 @@
+import type { TLanguage } from "../../config/i18n";
 import type { User } from "../../features/auth/authSlice";
 import { routesWithPermissions } from "./constants";
 import type { DistributionWeek, Status } from "./types";
@@ -19,4 +20,12 @@ export const extractCurrentWeek = (): DistributionWeek => {
   if (date <= 14) return "07-14";
   if (date <= 21) return "14-21";
   return "21-28";
+};
+
+export const fetchMonth = (month: number, lang: TLanguage): string => {
+  const date = new Date(2024, month);
+  const formatMonth = new Intl.DateTimeFormat(lang, { month: "short" }).format(
+    date,
+  );
+  return formatMonth;
 };
