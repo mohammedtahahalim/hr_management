@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchDepartments,
   selectDepartmentData,
-  selectStatus,
+  selectDepartmentError,
+  selectDepartmentStatus,
 } from "./departmentSlice";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import { Virtuoso } from "react-virtuoso";
@@ -12,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import type { AppDispatch } from "../../../config/store";
 import { useEffect } from "react";
 import Title from "../../../shared/ui/Title";
+import Reload from "../../../shared/ui/Reload";
 
 const DepartmentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -36,7 +38,8 @@ const Content = styled(Box)({
 });
 
 export default function Department() {
-  const status = useSelector(selectStatus);
+  const status = useSelector(selectDepartmentStatus);
+  const error = useSelector(selectDepartmentError);
   const data = useSelector(selectDepartmentData);
   const { t } = useTranslation("dashboard");
   const dispatch = useDispatch<AppDispatch>();
@@ -50,24 +53,32 @@ export default function Department() {
 
   return (
     <WithSkeleton loading={status === "loading"}>
-      <DepartmentWrapper>
-        <Title>{t("departments.title")}</Title>
-        <Content>
-          <Virtuoso
-            data={data}
-            itemContent={(idx, d) => {
-              return <Line key={idx} {...d} />;
-            }}
-            style={{
-              maxHeight: "400px",
-              scrollbarWidth: "none",
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-            }}
-          />
-        </Content>
-      </DepartmentWrapper>
+      {status === "success" && (
+        <DepartmentWrapper>
+          <Title>{t("departments.title")}</Title>
+          <Content>
+            <Virtuoso
+              data={data}
+              itemContent={(idx, d) => {
+                return <Line key={idx} {...d} />;
+              }}
+              style={{
+                maxHeight: "400px",
+                scrollbarWidth: "none",
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+              }}
+            />
+          </Content>
+        </DepartmentWrapper>
+      )}
+      {status === "failure" && (
+        <Reload
+          error={error}
+          dispatchThunk={() => dispatch(fetchDepartments())}
+        />
+      )}
     </WithSkeleton>
   );
 }

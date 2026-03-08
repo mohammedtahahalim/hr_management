@@ -2,11 +2,17 @@ import { Box, styled } from "@mui/material";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import JobRow from "./JobRow";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecentJobs, recentData, recentStatus } from "./recentSlice";
+import {
+  fetchRecentJobs,
+  selectRecentData,
+  selectRecentError,
+  selectRecentStatus,
+} from "./recentSlice";
 import { useTranslation } from "react-i18next";
 import type { AppDispatch } from "../../../config/store";
 import { useEffect } from "react";
 import Title from "../../../shared/ui/Title";
+import Reload from "../../../shared/ui/Reload";
 
 const RecentWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -76,8 +82,9 @@ const Col = styled("td")(({ theme }) => ({
 }));
 
 export default function Recent() {
-  const status = useSelector(recentStatus);
-  const data = useSelector(recentData);
+  const status = useSelector(selectRecentStatus);
+  const error = useSelector(selectRecentError);
+  const data = useSelector(selectRecentData);
   const dispatch = useDispatch<AppDispatch>();
   const { t, i18n } = useTranslation("dashboard");
   const isArabic = i18n.language === "ar";
@@ -91,26 +98,34 @@ export default function Recent() {
 
   return (
     <WithSkeleton loading={status === "loading"}>
-      <RecentWrapper>
-        <Title>{t("recent.title")}</Title>
-        <TableScroll>
-          <Content>
-            <thead>
-              <HeadRow isArabic={isArabic}>
-                <Col>{t("recent.jobTitle")}</Col>
-                <Col>{t("recent.location")}</Col>
-                <Col>{t("recent.appNum")}</Col>
-                <Col>{t("recent.chart")}</Col>
-              </HeadRow>
-            </thead>
-            <tbody>
-              {data.map((d) => {
-                return <JobRow key={d.id} {...d} />;
-              })}
-            </tbody>
-          </Content>
-        </TableScroll>
-      </RecentWrapper>
+      {status === "success" && (
+        <RecentWrapper>
+          <Title>{t("recent.title")}</Title>
+          <TableScroll>
+            <Content>
+              <thead>
+                <HeadRow isArabic={isArabic}>
+                  <Col id="job-title">{t("recent.jobTitle")}</Col>
+                  <Col id="job-location">{t("recent.location")}</Col>
+                  <Col id="application-count">{t("recent.appNum")}</Col>
+                  <Col id="application-chart">{t("recent.chart")}</Col>
+                </HeadRow>
+              </thead>
+              <tbody>
+                {data.map((d) => {
+                  return <JobRow key={d.id} {...d} />;
+                })}
+              </tbody>
+            </Content>
+          </TableScroll>
+        </RecentWrapper>
+      )}
+      {status === "failure" && (
+        <Reload
+          error={error}
+          dispatchThunk={() => dispatch(fetchRecentJobs())}
+        />
+      )}
     </WithSkeleton>
   );
 }

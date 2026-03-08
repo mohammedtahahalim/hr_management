@@ -4,10 +4,16 @@ import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import Event from "./Event";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { activityData, activityStatus, fetchActivities } from "./activitySlice";
+import {
+  fetchActivities,
+  selectActivityData,
+  selectActivityError,
+  selectActivityStatus,
+} from "./activitySlice";
 import type { TLanguage } from "../../../config/i18n";
 import type { AppDispatch } from "../../../config/store";
 import { useEffect } from "react";
+import Reload from "../../../shared/ui/Reload";
 
 const ActivityWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -34,8 +40,9 @@ const EventsWrapper = styled(Box)({
 
 export default function Activity() {
   const { t, i18n } = useTranslation("dashboard");
-  const status = useSelector(activityStatus);
-  const data = useSelector(activityData);
+  const status = useSelector(selectActivityStatus);
+  const error = useSelector(selectActivityError);
+  const data = useSelector(selectActivityData);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -47,21 +54,29 @@ export default function Activity() {
 
   return (
     <WithSkeleton loading={status === "loading"}>
-      <ActivityWrapper>
-        <Title isColorDiff="whitesmoke">{t("activity.title")}</Title>
-        <EventsWrapper>
-          {data.map((d) => {
-            return (
-              <Event
-                key={d.id}
-                title={d.title[i18n.language as TLanguage]}
-                content={d.content[i18n.language as TLanguage]}
-                date={d.date}
-              />
-            );
-          })}
-        </EventsWrapper>
-      </ActivityWrapper>
+      {status === "success" && (
+        <ActivityWrapper>
+          <Title isColorDiff="whitesmoke">{t("activity.title")}</Title>
+          <EventsWrapper>
+            {data.map((d) => {
+              return (
+                <Event
+                  key={d.id}
+                  title={d.title[i18n.language as TLanguage]}
+                  content={d.content[i18n.language as TLanguage]}
+                  date={d.date}
+                />
+              );
+            })}
+          </EventsWrapper>
+        </ActivityWrapper>
+      )}
+      {status === "failure" && (
+        <Reload
+          error={error}
+          dispatchThunk={() => dispatch(fetchActivities())}
+        />
+      )}
     </WithSkeleton>
   );
 }

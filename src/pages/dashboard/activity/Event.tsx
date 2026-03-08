@@ -73,14 +73,18 @@ export default function Event({ date, title, content }: EventProps) {
   const [day, month] = date.split("-");
   const formattedDate = fetchMonth(Number(month), i18n.language as TLanguage);
   return (
-    <EventWrapper>
+    <EventWrapper tabIndex={0} aria-describedby="event-title event-content">
       <DateWrapper>
         <Day variant="h6">{day}</Day>
         <Month variant="subtitle1">{formattedDate}</Month>
       </DateWrapper>
       <EventDetails>
-        <EventTitle variant="h6">{title}</EventTitle>
-        <EventContent variant="body1">{content}</EventContent>
+        <EventTitle variant="h6" id="event-title">
+          {title}
+        </EventTitle>
+        <EventContent variant="body1" id="event-content">
+          {content}
+        </EventContent>
       </EventDetails>
     </EventWrapper>
   );

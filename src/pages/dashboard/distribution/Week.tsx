@@ -1,4 +1,11 @@
-import { Box, MenuItem, Select, styled } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  styled,
+} from "@mui/material";
 import { useMemo } from "react";
 import { extractCurrentWeek } from "../../../shared/lib/helpers";
 import { useTranslation } from "react-i18next";
@@ -28,9 +35,9 @@ export default function Week() {
   const { search } = useLocation();
   const week = new URLSearchParams(search).get("week") ?? extractCurrentWeek();
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation("dashboard");
 
-  const getMonth = useMemo(() => {
+  const month = useMemo(() => {
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
     return date.toLocaleString(i18n.language, { month: "short" });
@@ -38,17 +45,24 @@ export default function Week() {
 
   return (
     <WeekWrapper>
-      <SelectWrapper
-        size="small"
-        value={week}
-        onChange={(e) => navigate(`?week=${e.target.value}`)}
-        renderValue={(val) => `${getMonth}.${val}`}
-      >
-        <Option value={"01-07"}>01-07</Option>
-        <Option value={"07-14"}>07-14</Option>
-        <Option value={"14-21"}>14-21</Option>
-        <Option value={"21-28"}>21-28</Option>
-      </SelectWrapper>
+      <FormControl size="small">
+        <InputLabel id="week-select-label">
+          {t("distributions.week")}
+        </InputLabel>
+        <SelectWrapper
+          id="week-select"
+          labelId="week-select-label"
+          label={t("week", "Week")}
+          value={week}
+          onChange={(e) => navigate(`?week=${e.target.value}`)}
+          renderValue={(val) => `${month}.${val}`}
+        >
+          <Option value="01-07">01-07</Option>
+          <Option value="07-14">07-14</Option>
+          <Option value="14-21">14-21</Option>
+          <Option value="21-28">21-28</Option>
+        </SelectWrapper>
+      </FormControl>
     </WeekWrapper>
   );
 }

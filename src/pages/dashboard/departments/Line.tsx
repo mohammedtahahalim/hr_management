@@ -92,8 +92,12 @@ export default function Line(props: DepartmentData) {
   const isArabic = i18n.language === "ar";
 
   return (
-    <LineWrapper deptColor={departmentColor(departmentName as DeptName)}>
-      <Title variant="body1">
+    <LineWrapper
+      deptColor={departmentColor(departmentName as DeptName)}
+      tabIndex={0}
+      aria-describedby="department-title new-applicant-count"
+    >
+      <Title variant="body1" id="department-title">
         {t(`departments.departmentsName.${departmentName}`)}
       </Title>
       <Applications>
@@ -107,7 +111,7 @@ export default function Line(props: DepartmentData) {
           })}
         </ProfileSnippet>
         {!!newApps && (
-          <New>
+          <New id="new-applicant-count">
             {newApps}+ {t("departments.new")}
           </New>
         )}

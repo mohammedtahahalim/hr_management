@@ -69,11 +69,14 @@ const initialState: RecentJobsState = {
   data: [],
 };
 
-export const recentStatus = (state: RootState) => state.dashboard.recent.status;
+export const selectRecentStatus = (state: RootState) =>
+  state.dashboard.recent.status;
 
-export const recentError = (state: RootState) => state.dashboard.recent.error;
+export const selectRecentError = (state: RootState) =>
+  state.dashboard.recent.error;
 
-export const recentData = (state: RootState) => state.dashboard.recent.data;
+export const selectRecentData = (state: RootState) =>
+  state.dashboard.recent.data;
 
 const recentSlice = createSlice({
   name: "recent/slice",

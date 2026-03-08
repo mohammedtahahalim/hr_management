@@ -3,9 +3,14 @@ import Status from "./Status";
 import RecentApps from "./RecentApps";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCandidates, selectStatus } from "./candidateSlice";
+import {
+  fetchCandidates,
+  selectCandidateError,
+  selectCandidateStatus,
+} from "./candidateSlice";
 import { useEffect } from "react";
 import type { AppDispatch } from "../../../config/store";
+import Reload from "../../../shared/ui/Reload";
 
 const CandidateWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -26,7 +31,8 @@ const CandidateWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export default function Candidate() {
-  const candidateStatus = useSelector(selectStatus);
+  const status = useSelector(selectCandidateStatus);
+  const error = useSelector(selectCandidateError);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -37,11 +43,19 @@ export default function Candidate() {
   }, [dispatch]);
 
   return (
-    <WithSkeleton loading={candidateStatus === "loading"}>
-      <CandidateWrapper>
-        <Status />
-        <RecentApps />
-      </CandidateWrapper>
+    <WithSkeleton loading={status === "loading"}>
+      {status === "success" && (
+        <CandidateWrapper>
+          <Status />
+          <RecentApps />
+        </CandidateWrapper>
+      )}
+      {status === "failure" && (
+        <Reload
+          error={error}
+          dispatchThunk={() => dispatch(fetchCandidates())}
+        />
+      )}
     </WithSkeleton>
   );
 }

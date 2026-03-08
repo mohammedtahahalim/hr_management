@@ -93,19 +93,32 @@ const RecentApps = memo(() => {
         data={data}
         itemContent={(_, c) => (
           <>
-            <Line key={c.id}>
+            <Line
+              key={c.id}
+              tabIndex={0}
+              aria-describedby="applicant-name applied-position offer"
+            >
               <Profile>
                 <Picture
                   src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${c.name}`}
                   alt={`${c.name} picture`}
                   loading="lazy"
                 />
-                <Name variant="body1">{c.name}</Name>
+                <Name variant="body1" id="applicant-name">
+                  {c.name}
+                </Name>
               </Profile>
-              <Position variant="body1">
+              <Position variant="body1" id="applied-position">
                 {c.position[i18n.language as keyof typeof c.position]}
               </Position>
-              <Offer isColor={offerColors(c.offerState)}>
+              <Offer
+                isColor={offerColors(c.offerState)}
+                id="offer"
+                aria-label={offerState(
+                  c.offerState as OfferState,
+                  i18n.language as TLanguage,
+                )}
+              >
                 {offerState(
                   c.offerState as OfferState,
                   i18n.language as TLanguage,

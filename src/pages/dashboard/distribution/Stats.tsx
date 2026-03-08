@@ -78,7 +78,11 @@ export default function Stats() {
       <BarsWrapper>
         {distributions?.map((d) => {
           return (
-            <Bar key={d.deptName}>
+            <Bar
+              key={d.deptName}
+              tabIndex={0}
+              aria-label={`${t(`departments.departmentsName.${d.deptName}`)} ${d.percentage}%`}
+            >
               <BarText>
                 {t(`departments.departmentsName.${d.deptName}`)} {d.percentage}%
               </BarText>

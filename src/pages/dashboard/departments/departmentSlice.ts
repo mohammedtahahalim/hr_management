@@ -49,7 +49,7 @@ export const fetchDepartments = createAsyncThunk<
     if (!request.ok) {
       if (request.status === 401) return rejectWithValue("UNAUTHENTICATED");
       if (request.status === 403) return rejectWithValue("FORBIDDEN");
-      if (request.status === 522) return rejectWithValue("DOWN");
+      if (request.status >= 500) return rejectWithValue("DOWN");
       return rejectWithValue("SYSTEM");
     }
     const dataFromServer = (await request.json()) as unknown;
@@ -79,10 +79,10 @@ const initialState: DepartmentState = {
   data: [],
 };
 
-export const selectStatus = (state: RootState) =>
+export const selectDepartmentStatus = (state: RootState) =>
   state.dashboard.department.status;
 
-export const selectError = (state: RootState) =>
+export const selectDepartmentError = (state: RootState) =>
   state.dashboard.department.error;
 
 export const selectDepartmentData = (state: RootState) =>
