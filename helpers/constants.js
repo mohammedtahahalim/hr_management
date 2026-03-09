@@ -176,3 +176,5 @@ export const generateDistributions = () => ({
     },
   ],
 });
+
+export const allowedFilters = ["open", "completed", "inprogress", "all"];

@@ -29,3 +29,15 @@ export const fetchMonth = (month: number, lang: TLanguage): string => {
   );
   return formatMonth;
 };
+
+export const displayControlPages = (
+  currentPage: number,
+  lastPage: number,
+): number[] => {
+  const min = Math.max(1, Math.min(currentPage - 2, lastPage - 4));
+  const max = Math.min(Math.max(currentPage + 2, 5), lastPage);
+  return Array.from(
+    { length: Math.min(5, max - min + 1) },
+    (_, idx) => min + idx,
+  );
+};
