@@ -1426,3 +1426,90 @@ export const activities = [
     },
   },
 ];
+
+export const generateVacancies = (page, filter) => {
+  return Array.from({ length: page <= 10 ? 8 : 5 }).map((_, i) => {
+    const titles = [
+      {
+        en: "Frontend Developer",
+        fr: "Développeur Frontend",
+        ar: "مطور واجهات أمامية",
+        ja: "フロントエンド開発者",
+      },
+      {
+        en: "Backend Developer",
+        fr: "Développeur Backend",
+        ar: "مطور خلفية",
+        ja: "バックエンド開発者",
+      },
+      {
+        en: "Full Stack Engineer",
+        fr: "Ingénieur Full Stack",
+        ar: "مهندس فل ستاك",
+        ja: "フルスタックエンジニア",
+      },
+      {
+        en: "DevOps Engineer",
+        fr: "Ingénieur DevOps",
+        ar: "مهندس ديف أوبس",
+        ja: "DevOpsエンジニア",
+      },
+      {
+        en: "Cloud Engineer",
+        fr: "Ingénieur Cloud",
+        ar: "مهندس سحابة",
+        ja: "クラウドエンジニア",
+      },
+      {
+        en: "Data Engineer",
+        fr: "Ingénieur Data",
+        ar: "مهندس بيانات",
+        ja: "データエンジニア",
+      },
+      {
+        en: "QA Engineer",
+        fr: "Ingénieur QA",
+        ar: "مهندس ضمان الجودة",
+        ja: "QAエンジニア",
+      },
+      {
+        en: "Mobile Developer",
+        fr: "Développeur Mobile",
+        ar: "مطور تطبيقات موبايل",
+        ja: "モバイル開発者",
+      },
+      {
+        en: "Machine Learning Engineer",
+        fr: "Ingénieur Machine Learning",
+        ar: "مهندس تعلم الآلة",
+        ja: "機械学習エンジニア",
+      },
+      {
+        en: "Site Reliability Engineer",
+        fr: "Ingénieur Fiabilité Site",
+        ar: "مهندس موثوقية الموقع",
+        ja: "サイト信頼性エンジニア",
+      },
+    ];
+    const title = titles[i % titles.length];
+    return {
+      id: i + 1,
+      title,
+      location: ["CA", "NY", "TX", "WA", "FL", "IL", "MA", "R"][i % 8],
+      applicants: 40 + ((i * 13) % 180),
+      new: (i % 6) + 1,
+      status:
+        filter !== "all" ? filter : ["open", "completed", "inprogress"][i % 3],
+      publication: `2026-02-${String((i % 28) + 1).padStart(2, "0")}T10:00:00Z`,
+      trend: [
+        4 + (i % 7),
+        6 + (i % 6),
+        8 + (i % 5),
+        10 + (i % 6),
+        9 + (i % 4),
+        7 + (i % 5),
+        8 + (i % 6),
+      ],
+    };
+  });
+};
