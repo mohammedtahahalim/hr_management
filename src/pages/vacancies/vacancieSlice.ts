@@ -23,14 +23,17 @@ const fetchReturnSchema = z.object({
 
 type VacancieData = z.infer<typeof vacancieSchema>;
 
+export type ViewType = "list" | "card";
+
 interface VacancieState {
   status: Status;
   error: Reject | null;
   data: VacancieData[];
   lastPage: number | null;
+  viewType: ViewType;
 }
 
-export type Filters = VacancieData["status"] | "ALL";
+export type Filters = VacancieData["status"] | "all";
 
 interface FetchProps {
   page: string;
@@ -68,7 +71,6 @@ export const fetchVacancies = createAsyncThunk<
     const isValidResponse = fetchReturnSchema.safeParse(dataFromServer);
     if (!isValidResponse.success) return rejectWithValue("MISMATCH");
     const { data, lastPage } = isValidResponse.data;
-    console.log(data);
     return { data, lastPage };
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") {
@@ -83,6 +85,7 @@ const initialState: VacancieState = {
   error: null,
   data: [],
   lastPage: null,
+  viewType: "list",
 };
 
 export const selectVacancieStatus = (state: RootState) =>
@@ -95,10 +98,17 @@ export const selectVacancieData = (state: RootState) => state.vacancies.data;
 export const selectVacancieLastPage = (state: RootState) =>
   state.vacancies.lastPage;
 
+export const selectVacancieViewType = (state: RootState) =>
+  state.vacancies.viewType;
+
 const vacancieSlice = createSlice({
   name: "vacancies",
   initialState,
-  reducers: {},
+  reducers: {
+    toggleViewType: (state) => {
+      state.viewType = state.viewType === "card" ? "list" : "card";
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(fetchVacancies.pending, (state) => {
@@ -124,3 +134,4 @@ const vacancieSlice = createSlice({
 });
 
 export default vacancieSlice.reducer;
+export const { toggleViewType } = vacancieSlice.actions;
