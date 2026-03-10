@@ -1,4 +1,8 @@
-import { Box, CircularProgress, styled } from "@mui/material";
+import { Box, CircularProgress, styled, type ButtonProps } from "@mui/material";
+
+interface LoaderProps {
+  color?: ButtonProps["color"];
+}
 
 const LoaderWrapper = styled(Box)({
   width: "100%",
@@ -8,10 +12,12 @@ const LoaderWrapper = styled(Box)({
   alignItems: "center",
 });
 
-export default function Loader() {
+export default function Loader(props: LoaderProps | void) {
+  const { color = "primary" } = props ?? {};
+
   return (
     <LoaderWrapper>
-      <CircularProgress color="primary" size={"3rem"} />
+      <CircularProgress color={color} size={"3rem"} />
     </LoaderWrapper>
   );
 }

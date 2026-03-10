@@ -25,3 +25,8 @@ export type Reject =
 export type OfferState = ICandidat["offerState"];
 
 export type DistributionWeek = "01-07" | "07-14" | "14-21" | "21-28";
+
+export type PositionColor = keyof Pick<
+  Theme["palette"],
+  "first" | "success" | "error"
+>;

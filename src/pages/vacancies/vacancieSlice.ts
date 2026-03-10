@@ -21,7 +21,7 @@ const fetchReturnSchema = z.object({
   data: z.array(vacancieSchema),
 });
 
-type VacancieData = z.infer<typeof vacancieSchema>;
+export type VacancieData = z.infer<typeof vacancieSchema>;
 
 export type ViewType = "list" | "card";
 

@@ -27,7 +27,7 @@ const Refetch = styled(Button)({
   textTransform: "capitalize",
 });
 
-export default function Reload({ dispatchThunk, error }: ReloadProps) {
+const Reload = ({ dispatchThunk, error }: ReloadProps) => {
   const { t } = useTranslation("dashboard");
   const errorMessage = t(`errors.${error}`);
 
@@ -41,4 +41,6 @@ export default function Reload({ dispatchThunk, error }: ReloadProps) {
       </Refetch>
     </ReloadWrapper>
   );
-}
+};
+
+export default Reload;

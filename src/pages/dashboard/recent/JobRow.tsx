@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../config/i18n";
 import LanguageIcon from "@mui/icons-material/Language";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Graph from "./Graph";
+import Graph from "../../../shared/ui/Graph";
 
 const JobRowWrapper = styled("tr")(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.background.default}`,
