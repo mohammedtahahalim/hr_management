@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import Graph from "../../../shared/ui/Graph";
 
 const Row = styled("tr")(({ theme }) => ({
-  border: "1px solid black",
   "&>*:nth-of-type(2)": {
     maxWidth: "40px",
   },
@@ -46,18 +45,19 @@ const Cell = styled("td")({
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   minWidth: 0,
+  minHeight: "100px",
 });
 
-const StatusWrapper = styled(Box)<{ posColor: PositionColor }>(
-  ({ theme, posColor }) => ({
-    height: "100%",
-    width: "fit-content",
-    padding: "5px 8px",
-    borderRadius: "50px",
-    color: "whitesmoke",
-    backgroundColor: theme.palette[posColor].main,
-  }),
-);
+const StatusWrapper = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "posColor",
+})<{ posColor: PositionColor }>(({ theme, posColor }) => ({
+  height: "100%",
+  width: "fit-content",
+  padding: "5px 8px",
+  borderRadius: "50px",
+  color: "whitesmoke",
+  backgroundColor: theme.palette[posColor].main,
+}));
 
 export default function Line({
   id,

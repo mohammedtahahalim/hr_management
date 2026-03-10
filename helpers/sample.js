@@ -1428,7 +1428,7 @@ export const activities = [
 ];
 
 export const generateVacancies = (page, filter) => {
-  return Array.from({ length: page <= 10 ? 8 : 5 }).map((_, i) => {
+  return Array.from({ length: page <= 10 ? 12 : 5 }).map((_, i) => {
     const titles = [
       {
         en: "Frontend Developer",

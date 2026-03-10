@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { selectVacancieData } from "../vacancieSlice";
@@ -13,9 +13,13 @@ const headCells: string[] = [
   "trend",
 ];
 
-const TableWrapper = styled("table")({
+const TableWrapper = styled(Box)({
   width: "100%",
   flex: 1,
+});
+
+const TableContent = styled("table")({
+  width: "100%",
   borderCollapse: "separate",
   borderSpacing: 0,
   overflowX: "hidden",
@@ -74,18 +78,20 @@ export default function Table() {
 
   return (
     <TableWrapper>
-      <thead>
-        <Identifier isArabic={isArabic}>
-          {headCells.map((c) => {
-            return <Cell key={c}>{t(`table.head.${c}`)}</Cell>;
+      <TableContent>
+        <thead>
+          <Identifier isArabic={isArabic}>
+            {headCells.map((c) => {
+              return <Cell key={c}>{t(`table.head.${c}`)}</Cell>;
+            })}
+          </Identifier>
+        </thead>
+        <tbody>
+          {data.map((d) => {
+            return <Line {...d} key={d.id} />;
           })}
-        </Identifier>
-      </thead>
-      <tbody>
-        {data.map((d) => {
-          return <Line {...d} key={d.id} />;
-        })}
-      </tbody>
+        </tbody>
+      </TableContent>
     </TableWrapper>
   );
 }
