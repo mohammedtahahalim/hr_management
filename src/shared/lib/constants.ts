@@ -5,6 +5,7 @@ import type {
   Offer,
   OfferState,
   PaletteColorKey,
+  PositionColor,
   TRole,
 } from "./types";
 import type { SvgIconTypeMap } from "@mui/material";
@@ -20,7 +21,10 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import ExtensionIcon from "@mui/icons-material/Extension";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import type { DeptName } from "../../pages/dashboard/departments/departmentSlice";
-import type { Filters } from "../../pages/vacancies/vacancieSlice";
+import type {
+  Filters,
+  VacancieData,
+} from "../../pages/vacancies/vacancieSlice";
 
 type MuiIcon = OverridableComponent<SvgIconTypeMap<object, "svg">> & {
   muiName: string;
@@ -175,3 +179,9 @@ export const filterButtons: Filters[] = [
   "inprogress",
   "open",
 ];
+
+export const positionColor: Record<VacancieData["status"], PositionColor> = {
+  completed: "success",
+  inprogress: "error",
+  open: "first",
+};

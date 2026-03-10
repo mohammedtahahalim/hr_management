@@ -6,5 +6,15 @@
   "completed": "Terminées",
   "cardView": "Vue carte",
   "listView": "Vue Liste",
-  "addVacancy": "Ajouter une offre"
+  "addVacancy": "Ajouter une offre",
+  "table": {
+    "head": {
+      "positionTitle": "Poste",
+      "location": "Lieu",
+      "applicants": "Candidats",
+      "status": "Statut",
+      "publication": "Publication",
+      "trend": "Tendance"
+    }
+  }
 }

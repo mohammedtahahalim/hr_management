@@ -5,12 +5,17 @@ import Control from "./table/Control";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../config/store";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import {
   fetchVacancies,
   selectVacancieStatus,
+  selectVacancieViewType,
+  selectVacanieError,
   type Filters,
 } from "./vacancieSlice";
+import Cards from "./table/Cards";
+import Loader from "../../shared/ui/Loader";
+import Reload from "../../shared/ui/Reload";
 
 const VacanciesWrapper = styled(Box)({
   width: "100%",
@@ -33,12 +38,31 @@ const MainContent = styled(Box)({
   gap: "2px",
 });
 
+const LoaderWrapper = styled(Box)({
+  flex: 1,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
 export default function Vacancies() {
   const { search } = useLocation();
   const dispatch = useDispatch<AppDispatch>();
   const status = useSelector(selectVacancieStatus);
+  const error = useSelector(selectVacanieError);
+  const viewType = useSelector(selectVacancieViewType);
+  const isCard = status === "success" && viewType === "card";
+  const isList = status === "success" && viewType === "list";
 
-  console.log(status);
+  const handleRetry = useCallback(() => {
+    const urlSearchParams = new URLSearchParams(search);
+    const page = urlSearchParams.get("page") ?? "1";
+    const filter = (urlSearchParams.get("filter") ?? "all") as Filters;
+    const vacanciesRequest = dispatch(fetchVacancies({ page, filter }));
+    return () => {
+      vacanciesRequest.abort();
+    };
+  }, [search, dispatch]);
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(search);
@@ -56,7 +80,16 @@ export default function Vacancies() {
         <Headline />
       </HeadlineWrapper>
       <MainContent>
-        <Table />
+        {isCard && <Cards />}
+        {isList && <Table />}
+        {status === "loading" && (
+          <LoaderWrapper>
+            <Loader color="secondary" />
+          </LoaderWrapper>
+        )}
+        {status === "failure" && (
+          <Reload error={error} dispatchThunk={() => handleRetry()} />
+        )}
         <Control />
       </MainContent>
     </VacanciesWrapper>

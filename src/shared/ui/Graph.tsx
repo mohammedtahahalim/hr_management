@@ -19,6 +19,7 @@ const GraphWrapper = styled(Box)({
   height: "100%",
   maxHeight: "42px",
   overflow: "hidden",
+  maxWidth: "75px",
 });
 
 export default function Graph({ trend }: GraphProps) {

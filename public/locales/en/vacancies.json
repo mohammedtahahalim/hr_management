@@ -6,5 +6,15 @@
   "completed": "Completed",
   "cardView": "Card View",
   "listView": "List View",
-  "addVacancy": "Add Vacancy"
+  "addVacancy": "Add Vacancy",
+  "table": {
+    "head": {
+      "positionTitle": "Position",
+      "location": "Location",
+      "applicants": "Applicants",
+      "status": "Status",
+      "publication": "Publication",
+      "trend": "Trend"
+    }
+  }
 }

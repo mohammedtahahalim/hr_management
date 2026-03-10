@@ -6,5 +6,15 @@
   "completed": "مكتمل",
   "cardView": "عرض البطاقة",
   "listView": "عرض القائمة",
-  "addVacancy": "إضافة وظيفة"
+  "addVacancy": "إضافة وظيفة",
+  "table": {
+    "head": {
+      "positionTitle": "موضع",
+      "location": "موقع",
+      "applicants": "المتقدمون",
+      "status": "الحالة",
+      "publication": "منشور",
+      "trend": "اتجاه"
+    }
+  }
 }

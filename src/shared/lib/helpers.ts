@@ -41,3 +41,12 @@ export const displayControlPages = (
     (_, idx) => min + idx,
   );
 };
+
+export const formatDate = (dateString: string, lang: TLanguage): string => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat(lang, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+};
