@@ -41,7 +41,6 @@ const ActiveFilter = styled(Button)({
 
 const Logic = styled(Box)({
   alignSelf: "flex-end",
-  border: "1px solid black",
   flex: 1,
   display: "flex",
   justifyContent: "flex-end",

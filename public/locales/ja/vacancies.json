@@ -6,5 +6,15 @@
   "completed": "完了",
   "cardView": "カードビュー",
   "listView": "リスト表示",
-  "addVacancy": "求人を追加"
+  "addVacancy": "求人を追加",
+  "table": {
+    "head": {
+      "positionTitle": "職種",
+      "location": "所在地",
+      "applicants": "応募者",
+      "status": "ステータス",
+      "publication": "出版物",
+      "trend": "トレンド"
+    }
+  }
 }

@@ -8,9 +8,10 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import {
   fetchVacancies,
-  selectVacancieStatus,
+  selectVacancieViewType,
   type Filters,
 } from "./vacancieSlice";
+import Cards from "./table/Cards";
 
 const VacanciesWrapper = styled(Box)({
   width: "100%",
@@ -36,9 +37,7 @@ const MainContent = styled(Box)({
 export default function Vacancies() {
   const { search } = useLocation();
   const dispatch = useDispatch<AppDispatch>();
-  const status = useSelector(selectVacancieStatus);
-
-  console.log(status);
+  const viewType = useSelector(selectVacancieViewType);
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(search);
@@ -56,7 +55,7 @@ export default function Vacancies() {
         <Headline />
       </HeadlineWrapper>
       <MainContent>
-        <Table />
+        {viewType === "card" ? <Cards /> : <Table />}
         <Control />
       </MainContent>
     </VacanciesWrapper>

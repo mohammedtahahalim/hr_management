@@ -1493,7 +1493,7 @@ export const generateVacancies = (page, filter) => {
     ];
     const title = titles[i % titles.length];
     return {
-      id: i + 1,
+      id: Math.floor(Math.random() * 10000) + 1,
       title,
       location: ["CA", "NY", "TX", "WA", "FL", "IL", "MA", "R"][i % 8],
       applicants: 40 + ((i * 13) % 180),
