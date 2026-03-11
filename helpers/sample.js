@@ -1497,7 +1497,7 @@ export const generateVacancies = (page, filter) => {
       title,
       location: ["CA", "NY", "TX", "WA", "FL", "IL", "MA", "R"][i % 8],
       applicants: 40 + ((i * 13) % 180),
-      new: (i % 6) + 1,
+      newApps: (i % 6) + 1,
       status:
         filter !== "all" ? filter : ["open", "completed", "inprogress"][i % 3],
       publication: `2026-02-${String((i % 28) + 1).padStart(2, "0")}T10:00:00Z`,

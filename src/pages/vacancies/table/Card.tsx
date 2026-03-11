@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../config/i18n";
 import type { PositionColor } from "../../../shared/lib/types";
 import { positionColor } from "../../../shared/lib/constants";
-import { formatDate } from "../../../shared/lib/helpers";
+import { formatDate, generateRandomImage } from "../../../shared/lib/helpers";
 import { useNavigate } from "react-router-dom";
 
 const CardWrapper = styled(Box)(({ theme }) => ({
   minWidth: "325px",
-  aspectRatio: 4 / 3,
+  aspectRatio: 4.5 / 3,
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: "18px",
   overflow: "hidden",
@@ -18,6 +18,7 @@ const CardWrapper = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   gap: "5px",
   alignItems: "center",
+  transition: "all 0.25s ease-in-out",
   "&:hover,&:focus": {
     backgroundColor: theme.palette.background.paper,
     cursor: "pointer",
@@ -36,15 +37,15 @@ const Position = styled(Box)({
   flex: 1,
   padding: "5px",
   display: "flex",
-  justifyContent: "center",
   alignItems: "center",
-  gap: "8px",
+  gap: "12px",
+  paddingLeft: "10px",
 });
 
 const Icon = styled(Box, {
   shouldForwardProp: (prop) => prop !== "posColor",
 })<{ posColor: PositionColor }>(({ theme, posColor }) => ({
-  height: "20px",
+  height: "30px",
   aspectRatio: 1,
   borderRadius: "5px",
   backgroundColor: theme.palette[posColor].main,
@@ -111,25 +112,45 @@ const Bottom = styled(Box)({
 });
 
 const Apps = styled(Box)({
-  flex: 1,
-  border: "1px solid black",
+  width: "fit-content",
   display: "flex",
   alignItems: "center",
 });
 
 const AppsCount = styled(Typography)({
+  paddingLeft: "10px",
   fontFamily: "system-ui",
   fontSize: "1.1rem",
+  "& span": {
+    fontWeight: "bold",
+    fontSize: "1.6rem",
+  },
 });
 
 const Profiles = styled(Box)({
   flex: 1,
-  border: "1px solid black",
+  display: "flex",
+  gap: "2px",
+  justifyContent: "flex-end",
+  alignItems: "center",
 });
 
-const Picture = styled("img")({});
+const Picture = styled("img")({
+  height: "30px",
+  aspectRatio: "1",
+  borderRadius: "50px",
+});
 
-const New = styled(Box)({});
+const New = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "posColor",
+})<{ posColor: PositionColor }>(({ theme, posColor }) => ({
+  width: "fit-content",
+  borderRadius: "50px",
+  fontSize: "0.7rem",
+  padding: "2px 4px",
+  color: "whitesmoke",
+  backgroundColor: theme.palette[posColor].main,
+}));
 
 export default function Card({
   applicants,
@@ -138,6 +159,7 @@ export default function Card({
   publication,
   status,
   title,
+  newApps,
 }: VacancieData) {
   const { i18n, t } = useTranslation(["dashboard", "vacancies"]);
   const navigate = useNavigate();
@@ -182,10 +204,17 @@ export default function Card({
       <Divider />
       <Bottom>
         <Apps id={`position-applicant-${id}`}>
-          <AppsCount variant="body1">{applicants} Apps</AppsCount>
+          <AppsCount variant="body1">
+            <span>{applicants}</span> {t("vacancies:table.apps")}
+          </AppsCount>
         </Apps>
         <Profiles>
-          <New />
+          {Array.from({ length: Math.min(newApps, 3) }).map((_, idx) => {
+            return <Picture key={idx} src={generateRandomImage()} />;
+          })}
+          <New posColor={positionColor[status]}>
+            +{newApps} {t("dashboard:departments.new")}
+          </New>
         </Profiles>
       </Bottom>
     </CardWrapper>

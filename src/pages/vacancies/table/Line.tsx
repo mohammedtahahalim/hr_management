@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Graph from "../../../shared/ui/Graph";
 
 const Row = styled("tr")(({ theme }) => ({
+  transition: "all 0.25s ease-in-out",
   "&>*:nth-of-type(2)": {
     maxWidth: "40px",
   },
@@ -34,7 +35,6 @@ const Row = styled("tr")(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     cursor: "pointer",
   },
-  border: "1px solid black",
 }));
 
 const Cell = styled("td")({

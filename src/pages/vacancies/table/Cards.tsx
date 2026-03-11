@@ -7,7 +7,7 @@ const CardsWrapper = styled(Box)({
   width: "fit-content",
   flex: 1,
   display: "flex",
-  gap: "5px",
+  gap: "15px",
   alignContent: "flex-start",
   flexWrap: "wrap",
   justifyContent: "center",

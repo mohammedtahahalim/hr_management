@@ -15,6 +15,7 @@
       "status": "Status",
       "publication": "Publication",
       "trend": "Trend"
-    }
+    },
+    "apps": "Apps"
   }
 }
