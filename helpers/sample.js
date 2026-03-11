@@ -1504,7 +1504,7 @@ export const generateVacancies = (page, filter) => {
         filter !== "all"
           ? filter
           : ["open", "completed", "inprogress"][Math.floor(Math.random() * 3)],
-      publication: `2026-0${Math.floor(Math.random() * 10) + 1}-${String((Math.floor(Math.random() * 400) % 28) + 1).padStart(2, "0")}T10:00:00Z`,
+      publication: `2026-0${Math.floor(Math.random() * 8) + 1}-${String((Math.floor(Math.random() * 400) % 28) + 1).padStart(2, "0")}T10:00:00Z`,
       trend: [
         4 + (i % 7),
         6 + (i % 6),
