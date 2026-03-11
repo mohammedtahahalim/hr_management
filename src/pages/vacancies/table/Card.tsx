@@ -5,9 +5,10 @@ import type { TLanguage } from "../../../config/i18n";
 import type { PositionColor } from "../../../shared/lib/types";
 import { positionColor } from "../../../shared/lib/constants";
 import { formatDate } from "../../../shared/lib/helpers";
+import { useNavigate } from "react-router-dom";
 
 const CardWrapper = styled(Box)(({ theme }) => ({
-  minWidth: "300px",
+  minWidth: "325px",
   aspectRatio: 4 / 3,
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: "18px",
@@ -17,6 +18,10 @@ const CardWrapper = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   gap: "5px",
   alignItems: "center",
+  "&:hover,&:focus": {
+    backgroundColor: theme.palette.background.paper,
+    cursor: "pointer",
+  },
 }));
 
 const Top = styled(Box)({
@@ -27,9 +32,25 @@ const Top = styled(Box)({
   gap: "2px",
 });
 
-const Position = styled(Typography)({
+const Position = styled(Box)({
   flex: 1,
   padding: "5px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "8px",
+});
+
+const Icon = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "posColor",
+})<{ posColor: PositionColor }>(({ theme, posColor }) => ({
+  height: "20px",
+  aspectRatio: 1,
+  borderRadius: "5px",
+  backgroundColor: theme.palette[posColor].main,
+}));
+
+const PositionTypo = styled(Typography)({
   fontFamily: "system-ui",
   fontWeight: "bold",
   fontSize: "1.2rem",
@@ -37,9 +58,9 @@ const Position = styled(Typography)({
 
 const MetaInfo = styled(Box)({
   flex: 1,
-  padding: "5px",
   display: "flex",
   gap: "5px",
+  padding: "0px 10px",
 });
 
 const LocationAndDate = styled(Box)({
@@ -59,6 +80,13 @@ const Date = styled(Box)({
   fontStyle: "italic",
 });
 
+const Status = styled(Box)({
+  flex: 1,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+});
+
 const StatusWrapper = styled(Box, {
   shouldForwardProp: (prop) => prop !== "posColor",
 })<{ posColor: PositionColor }>(({ theme, posColor }) => ({
@@ -69,13 +97,6 @@ const StatusWrapper = styled(Box, {
   backgroundColor: theme.palette[posColor].main,
 }));
 
-const Status = styled(Box)({
-  flex: 1,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-});
-
 const Divider = styled(Box)(({ theme }) => ({
   width: "90%",
   height: "1px",
@@ -83,12 +104,28 @@ const Divider = styled(Box)(({ theme }) => ({
 }));
 
 const Bottom = styled(Box)({
+  width: "100%",
   flex: 1,
+  display: "flex",
+  gap: "5px",
 });
 
-const Apps = styled(Typography)({});
+const Apps = styled(Box)({
+  flex: 1,
+  border: "1px solid black",
+  display: "flex",
+  alignItems: "center",
+});
 
-const Profiles = styled(Box)({});
+const AppsCount = styled(Typography)({
+  fontFamily: "system-ui",
+  fontSize: "1.1rem",
+});
+
+const Profiles = styled(Box)({
+  flex: 1,
+  border: "1px solid black",
+});
 
 const Picture = styled("img")({});
 
@@ -101,15 +138,30 @@ export default function Card({
   publication,
   status,
   title,
-  trend,
 }: VacancieData) {
   const { i18n, t } = useTranslation(["dashboard", "vacancies"]);
+  const navigate = useNavigate();
   const lang = i18n.language as TLanguage;
 
+  const handleEnter = (e: React.KeyboardEvent, id: number) => {
+    if (e.key !== "Enter") return;
+    navigate(`/vacancy/${id}`);
+  };
+
   return (
-    <CardWrapper>
+    <CardWrapper
+      tabIndex={0}
+      aria-labelledby={`position-title-${id} position-status-${id} position-applicant-${id}`}
+      onClick={() => navigate(`/vacancy/${id}`)}
+      onKeyDown={(e) => handleEnter(e, id)}
+    >
       <Top>
-        <Position>{title[lang]}</Position>
+        <Position>
+          <Icon posColor={positionColor[status]} />
+          <PositionTypo variant="h6" id={`position-title-${id}`}>
+            {title[lang]}
+          </PositionTypo>
+        </Position>
         <MetaInfo>
           <LocationAndDate>
             <Location>
@@ -118,7 +170,10 @@ export default function Card({
             <Date>{formatDate(publication, i18n.language as TLanguage)}</Date>
           </LocationAndDate>
           <Status>
-            <StatusWrapper posColor={positionColor[status]}>
+            <StatusWrapper
+              posColor={positionColor[status]}
+              id={`position-status-${id}`}
+            >
               {t(`vacancies:${status}`)}
             </StatusWrapper>
           </Status>
@@ -126,9 +181,10 @@ export default function Card({
       </Top>
       <Divider />
       <Bottom>
-        <Apps></Apps>
+        <Apps id={`position-applicant-${id}`}>
+          <AppsCount variant="body1">{applicants} Apps</AppsCount>
+        </Apps>
         <Profiles>
-          <Picture />
           <New />
         </Profiles>
       </Bottom>

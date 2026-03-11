@@ -34,6 +34,7 @@ const Row = styled("tr")(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     cursor: "pointer",
   },
+  border: "1px solid black",
 }));
 
 const Cell = styled("td")({
@@ -45,7 +46,6 @@ const Cell = styled("td")({
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   minWidth: 0,
-  minHeight: "100px",
 });
 
 const StatusWrapper = styled(Box, {
