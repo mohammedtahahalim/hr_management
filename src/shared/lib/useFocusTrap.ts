@@ -17,7 +17,7 @@ function getFocusable(container: HTMLElement): HTMLElement[] {
   );
 }
 
-export function useFocusTrap(
+export default function useFocusTrap(
   containerRef: React.RefObject<HTMLElement | null>,
   enabled = true,
 ) {

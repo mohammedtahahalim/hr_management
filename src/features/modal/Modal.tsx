@@ -1,7 +1,93 @@
 import { Box, styled } from "@mui/material";
+import useModal from "./useModal";
+import { AnimatePresence, motion } from "motion/react";
+import { createPortal } from "react-dom";
 
-const ModalWrapper = styled(Box)({});
+interface ModalProps {
+  trigger: React.ReactNode;
+  children: React.ReactNode;
+  trapFocus?: boolean;
+  preventScroll?: boolean;
+  isFullScreen?: boolean;
+  duration?: number;
+}
 
-export default function Modal() {
-  return <ModalWrapper>Modal</ModalWrapper>;
+const TriggerWrapper = styled(Box)({
+  display: "inline-block",
+});
+
+const ChildrenWrapper = styled(Box)({
+  display: "inline-block",
+});
+
+const ChildrenMotion = motion.create(ChildrenWrapper);
+
+const FullScreenLayer = styled(Box)({
+  position: "fixed",
+  width: "100vw",
+  height: "100vh",
+  inset: 0,
+  zIndex: 999,
+});
+
+export default function Modal({
+  trigger,
+  children,
+  trapFocus,
+  preventScroll,
+  isFullScreen = false,
+  duration = 100,
+}: ModalProps) {
+  const { isOpen, openModal, triggerRef, modalRef } = useModal({
+    trapFocus,
+    preventScroll,
+  });
+
+  return (
+    <>
+      <TriggerWrapper ref={triggerRef} onClick={openModal}>
+        {trigger}
+      </TriggerWrapper>
+      {isFullScreen &&
+        createPortal(
+          <AnimatePresence>
+            {isOpen && (
+              <FullScreenLayer>
+                <ChildrenMotion
+                  ref={modalRef}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration }}
+                  exit={{ opacity: 0 }}
+                  role="dialog"
+                  aria-modal="true"
+                >
+                  {children}
+                </ChildrenMotion>
+              </FullScreenLayer>
+            )}
+          </AnimatePresence>,
+          document.body,
+        )}
+      {!isFullScreen && (
+        <AnimatePresence>
+          {isOpen && (
+            <FullScreenLayer>
+              <ChildrenMotion
+                ref={modalRef}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration }}
+                exit={{ opacity: 0 }}
+                role="dialog"
+                aria-modal="true"
+              >
+                {children}
+              </ChildrenMotion>
+            </FullScreenLayer>
+          )}
+        </AnimatePresence>
+      )}
+    </>
+  );
 }
