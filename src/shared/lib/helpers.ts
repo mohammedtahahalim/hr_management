@@ -1,6 +1,6 @@
 import type { TLanguage } from "../../config/i18n";
 import type { User } from "../../features/auth/authSlice";
-import { routesWithPermissions } from "./constants";
+import { names, routesWithPermissions } from "./constants";
 import type { DistributionWeek, Status } from "./types";
 
 export const canAccessRoute = (route: string, whoIs: User): boolean => {
@@ -49,4 +49,8 @@ export const formatDate = (dateString: string, lang: TLanguage): string => {
     month: "long",
     day: "numeric",
   }).format(date);
+};
+
+export const generateRandomImage = () => {
+  return `https://api.dicebear.com/9.x/avataaars/svg?seed=${names[Math.floor(Math.random() * names.length)]}`;
 };

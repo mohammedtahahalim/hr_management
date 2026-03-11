@@ -8,7 +8,7 @@ const vacancieSchema = z.object({
   title: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().min(1)),
   location: z.string().min(1).max(2),
   applicants: z.number().nonnegative(),
-  new: z.number().nonnegative(),
+  newApps: z.number().nonnegative(),
   status: z.enum(["open", "completed", "inprogress"]),
   publication: z.string().nonempty(),
   trend: z.array(z.number().nonnegative()),

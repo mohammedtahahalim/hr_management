@@ -25,10 +25,14 @@ const VacanciesWrapper = styled(Box)({
   gap: "10px",
 });
 
-const HeadlineWrapper = styled(Box)({
+const HeadlineWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   minHeight: "75px",
-});
+  overflow: "hidden",
+  [theme.breakpoints.down("md")]: {
+    minHeight: "150px",
+  },
+}));
 
 const MainContent = styled(Box)({
   width: "100%",
