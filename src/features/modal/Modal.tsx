@@ -8,7 +8,6 @@ interface ModalProps {
   children: React.ReactNode;
   trapFocus?: boolean;
   preventScroll?: boolean;
-  isFullScreen?: boolean;
   duration?: number;
 }
 
@@ -35,7 +34,6 @@ export default function Modal({
   children,
   trapFocus,
   preventScroll,
-  isFullScreen = false,
   duration = 100,
 }: ModalProps) {
   const { isOpen, openModal, triggerRef, modalRef } = useModal({
@@ -48,28 +46,7 @@ export default function Modal({
       <TriggerWrapper ref={triggerRef} onClick={openModal}>
         {trigger}
       </TriggerWrapper>
-      {isFullScreen &&
-        createPortal(
-          <AnimatePresence>
-            {isOpen && (
-              <FullScreenLayer>
-                <ChildrenMotion
-                  ref={modalRef}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration }}
-                  exit={{ opacity: 0 }}
-                  role="dialog"
-                  aria-modal="true"
-                >
-                  {children}
-                </ChildrenMotion>
-              </FullScreenLayer>
-            )}
-          </AnimatePresence>,
-          document.body,
-        )}
-      {!isFullScreen && (
+      {createPortal(
         <AnimatePresence>
           {isOpen && (
             <FullScreenLayer>
@@ -86,7 +63,8 @@ export default function Modal({
               </ChildrenMotion>
             </FullScreenLayer>
           )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body,
       )}
     </>
   );
