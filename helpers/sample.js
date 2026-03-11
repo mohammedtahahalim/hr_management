@@ -1491,16 +1491,20 @@ export const generateVacancies = (page, filter) => {
         ja: "サイト信頼性エンジニア",
       },
     ];
-    const title = titles[i % titles.length];
+    const title = titles[Math.floor(Math.random() * titles.length)];
     return {
       id: Math.floor(Math.random() * 10000) + 1,
       title,
-      location: ["CA", "NY", "TX", "WA", "FL", "IL", "MA", "R"][i % 8],
-      applicants: 40 + ((i * 13) % 180),
-      newApps: (i % 6) + 1,
+      location: ["CA", "NY", "TX", "WA", "FL", "IL", "MA", "R"][
+        Math.floor(Math.random() * 8)
+      ],
+      applicants: Math.floor(Math.random() * 200) + 1,
+      newApps: Math.floor(Math.random() * 6),
       status:
-        filter !== "all" ? filter : ["open", "completed", "inprogress"][i % 3],
-      publication: `2026-02-${String((i % 28) + 1).padStart(2, "0")}T10:00:00Z`,
+        filter !== "all"
+          ? filter
+          : ["open", "completed", "inprogress"][Math.floor(Math.random() * 3)],
+      publication: `2026-0${Math.floor(Math.random() * 10)}-${String((Math.floor(Math.random() * 400) % 28) + 1).padStart(2, "0")}T10:00:00Z`,
       trend: [
         4 + (i % 7),
         6 + (i % 6),
