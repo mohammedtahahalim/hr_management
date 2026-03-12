@@ -1,7 +1,7 @@
 import { Box, styled } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { useFocusTrap } from "../lib/useFocusTrap";
+import useFocusTrap from "../lib/useFocusTrap";
 
 interface PopUpProps {
   trigger: React.ReactNode;

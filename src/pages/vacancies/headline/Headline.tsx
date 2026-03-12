@@ -12,6 +12,7 @@ import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../config/store";
+import Modal from "../../../features/modal/Modal";
 
 const HeadlineWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -116,9 +117,17 @@ export default function Headline() {
             </ViewButton>
           )}
         </ViewTypeWrapper>
-        <AddVacancy variant="contained" color="primary">
-          + {t("addVacancy")}
-        </AddVacancy>
+        <Modal
+          trigger={
+            <AddVacancy variant="contained" color="primary">
+              + {t("addVacancy")}
+            </AddVacancy>
+          }
+          trapFocus={true}
+          preventScroll={true}
+        >
+          <div>Test</div>
+        </Modal>
       </Logic>
     </HeadlineWrapper>
   );

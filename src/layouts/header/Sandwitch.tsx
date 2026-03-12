@@ -4,7 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import Sidebar from "../sidebar/Sidebar";
-import { useFocusTrap } from "../../shared/lib/useFocusTrap";
+import useFocusTrap from "../../shared/lib/useFocusTrap";
 import { useTranslation } from "react-i18next";
 
 const SandwitchWrapper = styled(MenuIcon)(({ theme }) => ({

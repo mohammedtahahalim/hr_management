@@ -17,6 +17,9 @@ const TriggerWrapper = styled(Box)({
 
 const ChildrenWrapper = styled(Box)({
   display: "inline-block",
+  border: "1px solid black",
+  zIndex: 999,
+  color: "black",
 });
 
 const ChildrenMotion = motion.create(ChildrenWrapper);
@@ -26,7 +29,11 @@ const FullScreenLayer = styled(Box)({
   width: "100vw",
   height: "100vh",
   inset: 0,
-  zIndex: 999,
+  zIndex: 12,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  backdropFilter: "blur(10px)",
 });
 
 export default function Modal({
@@ -34,7 +41,7 @@ export default function Modal({
   children,
   trapFocus,
   preventScroll,
-  duration = 100,
+  duration = 0.2,
 }: ModalProps) {
   const { isOpen, openModal, triggerRef, modalRef } = useModal({
     trapFocus,
