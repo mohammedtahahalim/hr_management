@@ -23,7 +23,7 @@ const NavLinkButton = styled(Button, {
 
 export default function NavItem({ item, link }: INavItem) {
   const { pathname } = useLocation();
-  const isActive = pathname === link;
+  const isActive = pathname.split("/")[1] === link.replace("/", "");
   const Icon = link in navIcons ? navIcons[link] : AbcIcon;
 
   return (

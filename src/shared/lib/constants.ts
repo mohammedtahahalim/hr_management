@@ -71,7 +71,7 @@ export const HTTPErrors: Record<
 export const routesWithPermissions: Record<string, TRole[]> = {
   "add-vacancy": ["admin", "hr"],
   "add-employee": ["admin", "hr"],
-  payroll: ["admin", "hr"],
+  payroll: ["admin"],
 };
 
 export const navIcons: Record<string, MuiIcon> = {

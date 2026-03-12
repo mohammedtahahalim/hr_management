@@ -12,7 +12,7 @@ const recentJobsSchema = z.object({
   jobTitle: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().nonempty()),
   location: z.string().min(1).max(2),
   totalApps: z.number().nonnegative(),
-  trend: z.array(z.number().nonnegative()),
+  trend: z.array(z.number()),
 });
 
 export type RecentJobs = z.infer<typeof recentJobsSchema>;

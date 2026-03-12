@@ -60,6 +60,7 @@ export default function useModal<T extends HTMLElement, M extends HTMLElement>(
       (el) => !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden"),
     );
     focusables[0]?.focus();
+    console.log(focusables[0]);
     const handleFocusTrap = (e: KeyboardEvent) => {
       if (e.key !== "Tab" || !trapFocus) return;
       if (focusables.length < 2) return;
