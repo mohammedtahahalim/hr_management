@@ -212,9 +212,11 @@ export default function Card({
           {Array.from({ length: Math.min(newApps, 3) }).map((_, idx) => {
             return <Picture key={idx} src={generateRandomImage()} />;
           })}
-          <New posColor={positionColor[status]}>
-            +{newApps} {t("dashboard:departments.new")}
-          </New>
+          {!!newApps && (
+            <New posColor={positionColor[status]}>
+              +{newApps} {t("dashboard:departments.new")}
+            </New>
+          )}
         </Profiles>
       </Bottom>
     </CardWrapper>

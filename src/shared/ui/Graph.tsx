@@ -19,7 +19,7 @@ const GraphWrapper = styled(Box)({
   height: "100%",
   maxHeight: "42px",
   overflow: "hidden",
-  maxWidth: "75px",
+  maxWidth: "125px",
 });
 
 export default function Graph({ trend }: GraphProps) {
@@ -32,13 +32,14 @@ export default function Graph({ trend }: GraphProps) {
         borderColor: theme.palette.info.main,
         borderWidth: 2,
         pointRadius: 0,
-        tension: 0.4,
+        tension: 0.2,
       },
     ],
   };
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
       tooltip: { enabled: false },
@@ -52,8 +53,6 @@ export default function Graph({ trend }: GraphProps) {
       },
       y: {
         display: false,
-        min: 0,
-        max: 30,
         grid: { display: false },
         ticks: { display: false },
         border: { display: false },

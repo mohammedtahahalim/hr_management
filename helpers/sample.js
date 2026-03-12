@@ -1,3 +1,5 @@
+import { generateSharpRandomSeries } from "./constants.js";
+
 export const enNotifications = [
   {
     id: 1,
@@ -1105,7 +1107,7 @@ export const recentJobs = [
     },
     location: "DT",
     totalApps: 122,
-    trend: [12, 18, 15, 14, 16, 22, 19, 17],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 2,
@@ -1117,7 +1119,7 @@ export const recentJobs = [
     },
     location: "R",
     totalApps: 34,
-    trend: [8, 7, 6, 9, 11, 10, 13, 14],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 3,
@@ -1129,7 +1131,7 @@ export const recentJobs = [
     },
     location: "PH",
     totalApps: 45,
-    trend: [10, 9, 8, 11, 12, 10, 9, 9],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 4,
@@ -1141,7 +1143,7 @@ export const recentJobs = [
     },
     location: "R",
     totalApps: 57,
-    trend: [6, 7, 7, 10, 8, 11, 9, 10],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 5,
@@ -1153,7 +1155,7 @@ export const recentJobs = [
     },
     location: "JP",
     totalApps: 38,
-    trend: [15, 8, 3, 2, 1, 4, 7, 1],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 6,
@@ -1165,7 +1167,7 @@ export const recentJobs = [
     },
     location: "GB",
     totalApps: 74,
-    trend: [9, 10, 13, 11, 12, 14, 13, 14],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 7,
@@ -1177,7 +1179,7 @@ export const recentJobs = [
     },
     location: "R",
     totalApps: 44,
-    trend: [7, 8, 7, 9, 8, 7, 7, 8],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 8,
@@ -1189,7 +1191,7 @@ export const recentJobs = [
     },
     location: "H",
     totalApps: 52,
-    trend: [5, 6, 7, 6, 7, 8, 7, 9],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 9,
@@ -1201,7 +1203,7 @@ export const recentJobs = [
     },
     location: "R",
     totalApps: 38,
-    trend: [4, 5, 6, 6, 7, 6, 5, 6],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 10,
@@ -1213,7 +1215,7 @@ export const recentJobs = [
     },
     location: "H",
     totalApps: 27,
-    trend: [3, 4, 4, 5, 6, 5, 5, 6],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 11,
@@ -1225,7 +1227,7 @@ export const recentJobs = [
     },
     location: "R",
     totalApps: 31,
-    trend: [6, 5, 6, 7, 8, 7, 6, 7],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 12,
@@ -1237,7 +1239,7 @@ export const recentJobs = [
     },
     location: "H",
     totalApps: 19,
-    trend: [2, 3, 4, 4, 5, 4, 5, 6],
+    trend: generateSharpRandomSeries(),
   },
   {
     id: 13,
@@ -1249,7 +1251,7 @@ export const recentJobs = [
     },
     location: "R",
     totalApps: 23,
-    trend: [3, 4, 5, 6, 5, 6, 7, 7],
+    trend: generateSharpRandomSeries(),
   },
 ];
 
@@ -1428,7 +1430,7 @@ export const activities = [
 ];
 
 export const generateVacancies = (page, filter) => {
-  return Array.from({ length: page <= 10 ? 12 : 5 }).map((_, i) => {
+  return Array.from({ length: page < 7 ? 12 : 5 }).map((_, i) => {
     const titles = [
       {
         en: "Frontend Developer",
@@ -1505,15 +1507,7 @@ export const generateVacancies = (page, filter) => {
           ? filter
           : ["open", "completed", "inprogress"][Math.floor(Math.random() * 3)],
       publication: `2026-0${Math.floor(Math.random() * 8) + 1}-${String((Math.floor(Math.random() * 400) % 28) + 1).padStart(2, "0")}T10:00:00Z`,
-      trend: [
-        4 + (i % 7),
-        6 + (i % 6),
-        8 + (i % 5),
-        10 + (i % 6),
-        9 + (i % 4),
-        7 + (i % 5),
-        8 + (i % 6),
-      ],
+      trend: generateSharpRandomSeries(),
     };
   });
 };

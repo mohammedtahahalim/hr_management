@@ -11,7 +11,7 @@ const vacancieSchema = z.object({
   newApps: z.number().nonnegative(),
   status: z.enum(["open", "completed", "inprogress"]),
   publication: z.string().nonempty(),
-  trend: z.array(z.number().nonnegative()),
+  trend: z.array(z.number()),
 });
 
 const fetchReturnSchema = z.object({

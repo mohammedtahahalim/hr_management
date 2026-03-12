@@ -116,7 +116,11 @@ export default function Headline() {
             </ViewButton>
           )}
         </ViewTypeWrapper>
-        <AddVacancy variant="contained" color="primary">
+        <AddVacancy
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("add-vacancy")}
+        >
           + {t("addVacancy")}
         </AddVacancy>
       </Logic>

@@ -178,3 +178,27 @@ export const generateDistributions = () => ({
 });
 
 export const allowedFilters = ["open", "completed", "inprogress", "all"];
+
+export const generateSharpRandomSeries = (
+  length = 12,
+  maxStep = 20,
+  flipProbability = 0.3,
+) => {
+  const result = [];
+
+  let value = 0;
+  let direction = Math.random() > 0.5 ? 1 : -1;
+
+  for (let i = 0; i < length; i++) {
+    if (Math.random() < flipProbability) {
+      direction *= -1;
+    }
+
+    const step = Math.random() * maxStep;
+    value += direction * step;
+
+    result.push(value);
+  }
+
+  return result;
+};

@@ -18,9 +18,9 @@ export default async function handler(req, res) {
     const data = generateVacancies(page, filter);
     return res.status(200).json({
       data,
-      lastPage: 11,
+      lastPage: 7,
       currentPage: page,
-      pageSize: 8,
+      pageSize: 12,
     });
   } catch (err) {
     console.log(err);
