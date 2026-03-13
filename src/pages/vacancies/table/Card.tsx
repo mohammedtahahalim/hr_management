@@ -167,14 +167,14 @@ export default function Card({
 
   const handleEnter = (e: React.KeyboardEvent, id: number) => {
     if (e.key !== "Enter") return;
-    navigate(`/vacancy/${id}`);
+    navigate(`/vacancies/${id}`);
   };
 
   return (
     <CardWrapper
       tabIndex={0}
       aria-labelledby={`position-title-${id} position-status-${id} position-applicant-${id}`}
-      onClick={() => navigate(`/vacancy/${id}`)}
+      onClick={() => navigate(`/vacancies/${id}`)}
       onKeyDown={(e) => handleEnter(e, id)}
     >
       <Top>

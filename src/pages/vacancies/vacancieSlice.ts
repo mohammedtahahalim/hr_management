@@ -89,17 +89,19 @@ const initialState: VacancieState = {
 };
 
 export const selectVacancieStatus = (state: RootState) =>
-  state.vacancies.status;
+  state.vacancies.vacancy.status;
 
-export const selectVacanieError = (state: RootState) => state.vacancies.error;
+export const selectVacanieError = (state: RootState) =>
+  state.vacancies.vacancy.error;
 
-export const selectVacancieData = (state: RootState) => state.vacancies.data;
+export const selectVacancieData = (state: RootState) =>
+  state.vacancies.vacancy.data;
 
 export const selectVacancieLastPage = (state: RootState) =>
-  state.vacancies.lastPage;
+  state.vacancies.vacancy.lastPage;
 
 export const selectVacancieViewType = (state: RootState) =>
-  state.vacancies.viewType;
+  state.vacancies.vacancy.viewType;
 
 const vacancieSlice = createSlice({
   name: "vacancies",

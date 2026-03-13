@@ -6,7 +6,9 @@ const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 const Redirect = lazy(() => import("../shared/ui/Redirect"));
 const Vacancies = lazy(() => import("../pages/vacancies/Vacancies"));
 const Vacancy = lazy(() => import("../pages/vacancies/Vacancy"));
-const AddVacancy = lazy(() => import("../pages/vacancies/AddVacancy"));
+const AddVacancy = lazy(
+  () => import("../pages/vacancies/addVacancy/AddVacancy"),
+);
 const Applicants = lazy(() => import("../pages/applicants/Applicants"));
 const Employees = lazy(() => import("../pages/employees/Employees"));
 const AddEmployee = lazy(() => import("../pages/employees/AddEmployee"));
