@@ -20,6 +20,7 @@ const FormWrapper = styled("form")({
 
 export default function AddVacancy() {
   const dispatch = useDispatch<AppDispatch>();
+  // TODO: Implement the hook form
 
   const onSave = () => {
     dispatch(addNewVacancy());
