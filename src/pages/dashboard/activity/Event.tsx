@@ -19,6 +19,7 @@ const EventWrapper = styled(Box)({
 const DateWrapper = styled(Box)(({ theme }) => ({
   height: "100%",
   aspectRatio: 1,
+  minWidth: "55px",
   backgroundColor: theme.palette.first.light,
   borderRadius: "5px",
   display: "flex",
