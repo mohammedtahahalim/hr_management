@@ -11,11 +11,12 @@ import {
   selectVacancieStatus,
   selectVacancieViewType,
   selectVacanieError,
-  type Filters,
+  type Filters as TFilters,
 } from "./vacancieSlice";
 import Cards from "./table/Cards";
 import Loader from "../../shared/ui/Loader";
 import Reload from "../../shared/ui/Reload";
+import Filters from "./filters/Filters";
 
 const VacanciesWrapper = styled(Box)({
   width: "100%",
@@ -42,6 +43,27 @@ const MainContent = styled(Box)({
   gap: "2px",
 });
 
+const MainWrapper = styled(Box)(({ theme }) => ({
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  gap: "5px",
+  [theme.breakpoints.down("lg")]: {
+    flexDirection: "column-reverse",
+  },
+}));
+
+const FiltersWrapper = styled(Box)(({ theme }) => ({
+  maxWidth: "325px",
+  [theme.breakpoints.down("lg")]: {
+    maxWidth: "100%",
+  },
+}));
+
+const Content = styled(Box)({
+  flex: 1,
+});
+
 const LoaderWrapper = styled(Box)({
   flex: 1,
   display: "flex",
@@ -55,13 +77,13 @@ export default function Vacancies() {
   const status = useSelector(selectVacancieStatus);
   const error = useSelector(selectVacanieError);
   const viewType = useSelector(selectVacancieViewType);
-  const isCard = status === "success" && viewType === "card";
-  const isList = status === "success" && viewType === "list";
+  const isCard = viewType === "card";
+  const isList = viewType === "list";
 
   const handleRetry = useCallback(() => {
     const urlSearchParams = new URLSearchParams(search);
     const page = urlSearchParams.get("page") ?? "1";
-    const filter = (urlSearchParams.get("filter") ?? "all") as Filters;
+    const filter = (urlSearchParams.get("filter") ?? "all") as TFilters;
     const vacanciesRequest = dispatch(fetchVacancies({ page, filter }));
     return () => {
       vacanciesRequest.abort();
@@ -71,7 +93,7 @@ export default function Vacancies() {
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(search);
     const page = urlSearchParams.get("page") ?? "1";
-    const filter = (urlSearchParams.get("filter") ?? "all") as Filters;
+    const filter = (urlSearchParams.get("filter") ?? "all") as TFilters;
     const vacanciesRequest = dispatch(fetchVacancies({ page, filter }));
     return () => {
       vacanciesRequest.abort();
@@ -84,8 +106,17 @@ export default function Vacancies() {
         <Headline />
       </HeadlineWrapper>
       <MainContent>
-        {isCard && <Cards />}
-        {isList && <Table />}
+        {status === "success" && (
+          <MainWrapper>
+            <Content>
+              {isCard && <Cards />}
+              {isList && <Table />}
+            </Content>
+            <FiltersWrapper>
+              <Filters />
+            </FiltersWrapper>
+          </MainWrapper>
+        )}
         {status === "loading" && (
           <LoaderWrapper>
             <Loader color="secondary" />

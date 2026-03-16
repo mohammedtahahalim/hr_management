@@ -17,5 +17,58 @@
       "trend": "Tendance"
     },
     "apps": "Apps"
-  }
+  },
+  "filters": [
+    {
+      "title": "Département",
+      "filterKey": "dept",
+      "data": [
+        { "key": "all", "value": "Tous les départements" },
+        { "key": "dev", "value": "Développement" },
+        { "key": "sales", "value": "Ventes et marketing" },
+        { "key": "manager", "value": "Gestion de projet" },
+        { "key": "supp", "value": "Support" },
+        { "key": "data", "value": "Analyse et données" }
+      ]
+    },
+    {
+      "title": "Type de poste",
+      "filterKey": "posType",
+      "data": [
+        { "key": "all", "value": "Tous les postes" },
+        { "key": "ux_ui", "value": "Designer UX/UI" },
+        { "key": "pm", "value": "Chef de projet" },
+        { "key": "react", "value": "Développeur React" },
+        { "key": "qa", "value": "Assurance qualité" },
+        { "key": "data", "value": "Analyste de données" },
+        { "key": "java", "value": "Développeur Java Backend" },
+        { "key": "devops", "value": "DevOps" },
+        { "key": "django", "value": "Développeur Python Django" }
+      ]
+    },
+    {
+      "title": "Expérience professionnelle",
+      "filterKey": "exp",
+      "data": [
+        { "key": "all", "value": "Toute expérience" },
+        { "key": "junior", "value": "Moins d’un an" },
+        { "key": "juniorPlus", "value": "1–2 ans" },
+        { "key": "mid", "value": "2–3 ans" },
+        { "key": "midPlus", "value": "3–5 ans" },
+        { "key": "senior", "value": "Plus de 5 ans" }
+      ]
+    },
+    {
+      "title": "Localisation",
+      "filterKey": "loc",
+      "data": [
+        { "key": "all", "value": "Tout lieu" },
+        { "key": "us", "value": "États-Unis" },
+        { "key": "jp", "value": "Japon" },
+        { "key": "ar", "value": "Maroc" },
+        { "key": "fr", "value": "France" },
+        { "key": "uk", "value": "Royaume-Uni" }
+      ]
+    }
+  ]
 }
