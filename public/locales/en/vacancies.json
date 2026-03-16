@@ -70,5 +70,40 @@
         { "key": "uk", "value": "United Kingdom" }
       ]
     }
-  ]
+  ],
+  "form": {
+    "basic": {
+      "title": "Job Title",
+      "depts": {
+        "title": "Job Department",
+        "values": {
+          "frontend": "Frontend Developer",
+          "backend": "Backend Developer",
+          "fullStack": "Full Stack Developer",
+          "devOps": "DevOps Engineer",
+          "cloud": "Cloud Engineer",
+          "data": "Data Analyst",
+          "qa": "Q&A",
+          "mobile": "Mobile Engineer",
+          "ml": "Machine Learning",
+          "site": "Site Reliability Engineer"
+        }
+      },
+      "desc": "Description",
+      "empType": "Employment Type",
+      "full": "Full Time",
+      "part": "Part Time",
+      "contract": "Contract",
+      "freelance": "Freelance",
+      "jp": "Japan",
+      "us": "United States",
+      "ma": "Morocco",
+      "fr": "France",
+      "uk": "United Kingdom",
+      "r": "Remote",
+      "multiple": "Multiple Candidates",
+      "yesMultiple": "Yes I am Hiring Multiple Candidates",
+      "loc": "Location"
+    }
+  }
 }

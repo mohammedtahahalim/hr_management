@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const CardWrapper = styled(Box)(({ theme }) => ({
   minWidth: "325px",
-  aspectRatio: 4.5 / 3,
+  aspectRatio: 5 / 3,
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: "18px",
   overflow: "hidden",
@@ -92,10 +92,11 @@ const StatusWrapper = styled(Box, {
   shouldForwardProp: (prop) => prop !== "posColor",
 })<{ posColor: PositionColor }>(({ theme, posColor }) => ({
   width: "fit-content",
-  padding: "5px 8px",
+  padding: "3px 7px",
   borderRadius: "50px",
   color: "whitesmoke",
   backgroundColor: theme.palette[posColor].main,
+  fontSize: "0.85rem",
 }));
 
 const Divider = styled(Box)(({ theme }) => ({
