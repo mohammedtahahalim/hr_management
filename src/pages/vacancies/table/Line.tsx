@@ -10,8 +10,17 @@ import Graph from "../../../shared/ui/Graph";
 
 const Row = styled("tr")(({ theme }) => ({
   transition: "all 0.25s ease-in-out",
+  "&>*:nth-of-type(1)": {
+    maxWidth: "100px",
+  },
   "&>*:nth-of-type(2)": {
-    maxWidth: "40px",
+    maxWidth: "50px",
+  },
+  "&>*:nth-of-type(5)": {
+    maxWidth: "50px",
+  },
+  "&>*:nth-of-type(6)": {
+    maxWidth: "100px",
   },
   [theme.breakpoints.down("lg")]: {
     "&>*:nth-of-type(5)": {

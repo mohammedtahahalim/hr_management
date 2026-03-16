@@ -17,5 +17,58 @@
       "trend": "トレンド"
     },
     "apps": "アプリ"
-  }
+  },
+  "filters": [
+    {
+      "title": "部門",
+      "filterKey": "dept",
+      "data": [
+        { "key": "all", "value": "すべての部門" },
+        { "key": "dev", "value": "開発" },
+        { "key": "sales", "value": "営業・マーケティング" },
+        { "key": "manager", "value": "プロジェクト管理" },
+        { "key": "supp", "value": "サポート" },
+        { "key": "data", "value": "分析・データ" }
+      ]
+    },
+    {
+      "title": "職種タイプ",
+      "filterKey": "posType",
+      "data": [
+        { "key": "all", "value": "すべての職種" },
+        { "key": "ux_ui", "value": "UX/UIデザイナー" },
+        { "key": "pm", "value": "PM" },
+        { "key": "react", "value": "React開発者" },
+        { "key": "qa", "value": "QA" },
+        { "key": "data", "value": "データアナリスト" },
+        { "key": "java", "value": "バックエンドJava開発者" },
+        { "key": "devops", "value": "DevOps" },
+        { "key": "django", "value": "Python Django開発者" }
+      ]
+    },
+    {
+      "title": "職務経験",
+      "filterKey": "exp",
+      "data": [
+        { "key": "all", "value": "経験不問" },
+        { "key": "junior", "value": "1年未満" },
+        { "key": "juniorPlus", "value": "1〜2年" },
+        { "key": "mid", "value": "2〜3年" },
+        { "key": "midPlus", "value": "3〜5年" },
+        { "key": "senior", "value": "5年以上" }
+      ]
+    },
+    {
+      "title": "勤務地",
+      "filterKey": "loc",
+      "data": [
+        { "key": "all", "value": "勤務地不問" },
+        { "key": "us", "value": "アメリカ合衆国" },
+        { "key": "jp", "value": "日本" },
+        { "key": "ar", "value": "モロッコ" },
+        { "key": "fr", "value": "フランス" },
+        { "key": "uk", "value": "イギリス" }
+      ]
+    }
+  ]
 }

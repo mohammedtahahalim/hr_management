@@ -17,5 +17,58 @@
       "trend": "اتجاه"
     },
     "apps": "التطبيقات"
-  }
+  },
+  "filters": [
+    {
+      "title": "القسم",
+      "filterKey": "dept",
+      "data": [
+        { "key": "all", "value": "جميع الأقسام" },
+        { "key": "dev", "value": "التطوير" },
+        { "key": "sales", "value": "المبيعات والتسويق" },
+        { "key": "manager", "value": "إدارة المشاريع" },
+        { "key": "supp", "value": "الدعم" },
+        { "key": "data", "value": "التحليلات والبيانات" }
+      ]
+    },
+    {
+      "title": "نوع الوظيفة",
+      "filterKey": "posType",
+      "data": [
+        { "key": "all", "value": "جميع الوظائف" },
+        { "key": "ux_ui", "value": "مصمم UX/UI" },
+        { "key": "pm", "value": "مدير مشروع" },
+        { "key": "react", "value": "مطور React" },
+        { "key": "qa", "value": "ضمان الجودة" },
+        { "key": "data", "value": "محلل بيانات" },
+        { "key": "java", "value": "مطور جافا للواجهة الخلفية" },
+        { "key": "devops", "value": "DevOps" },
+        { "key": "django", "value": "مطور Python Django" }
+      ]
+    },
+    {
+      "title": "الخبرة العملية",
+      "filterKey": "exp",
+      "data": [
+        { "key": "all", "value": "أي مستوى خبرة" },
+        { "key": "junior", "value": "أقل من سنة" },
+        { "key": "juniorPlus", "value": "1-2 سنوات" },
+        { "key": "mid", "value": "2-3 سنوات" },
+        { "key": "midPlus", "value": "3-5 سنوات" },
+        { "key": "senior", "value": "أكثر من 5 سنوات" }
+      ]
+    },
+    {
+      "title": "الموقع",
+      "filterKey": "loc",
+      "data": [
+        { "key": "all", "value": "أي موقع" },
+        { "key": "us", "value": "الولايات المتحدة" },
+        { "key": "jp", "value": "اليابان" },
+        { "key": "ar", "value": "المغرب" },
+        { "key": "fr", "value": "فرنسا" },
+        { "key": "uk", "value": "المملكة المتحدة" }
+      ]
+    }
+  ]
 }

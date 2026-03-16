@@ -17,5 +17,58 @@
       "trend": "Trend"
     },
     "apps": "Apps"
-  }
+  },
+  "filters": [
+    {
+      "title": "Department",
+      "filterKey": "dept",
+      "data": [
+        { "key": "all", "value": "All Depratments" },
+        { "key": "dev", "value": "Development" },
+        { "key": "sales", "value": "Sales & Marketing" },
+        { "key": "manager", "value": "Project Management" },
+        { "key": "supp", "value": "Support" },
+        { "key": "data", "value": "Analytics & Data" }
+      ]
+    },
+    {
+      "title": "Position Type",
+      "filterKey": "posType",
+      "data": [
+        { "key": "all", "value": "All Positions" },
+        { "key": "ux_ui", "value": "UX/UI Designer" },
+        { "key": "pm", "value": "PM" },
+        { "key": "react", "value": "React Developer" },
+        { "key": "qa", "value": "QA" },
+        { "key": "data", "value": "Data Analyst" },
+        { "key": "java", "value": "Backend Java Developer" },
+        { "key": "devops", "value": "DevOps" },
+        { "key": "django", "value": "Python Django Developer" }
+      ]
+    },
+    {
+      "title": "Work Experience",
+      "filterKey": "exp",
+      "data": [
+        { "key": "all", "value": "Any Experience" },
+        { "key": "junior", "value": "Less Than 1 Year" },
+        { "key": "juniorPlus", "value": "1-2 Years" },
+        { "key": "mid", "value": "2-3 Years" },
+        { "key": "midPlus", "value": "3-5 Years" },
+        { "key": "senior", "value": "More Than 5 Years" }
+      ]
+    },
+    {
+      "title": "Location",
+      "filterKey": "loc",
+      "data": [
+        { "key": "all", "value": "Any Location" },
+        { "key": "us", "value": "United States" },
+        { "key": "jp", "value": "Japan" },
+        { "key": "ar", "value": "Morocco" },
+        { "key": "fr", "value": "France" },
+        { "key": "uk", "value": "United Kingdom" }
+      ]
+    }
+  ]
 }
