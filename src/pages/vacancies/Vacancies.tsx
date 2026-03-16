@@ -106,25 +106,25 @@ export default function Vacancies() {
         <Headline />
       </HeadlineWrapper>
       <MainContent>
-        {status === "success" && (
-          <MainWrapper>
+        <MainWrapper>
+          {status === "loading" && (
+            <LoaderWrapper>
+              <Loader color="secondary" />
+            </LoaderWrapper>
+          )}
+          {status === "failure" && (
+            <Reload error={error} dispatchThunk={() => handleRetry()} />
+          )}
+          {status === "success" && (
             <Content>
               {isCard && <Cards />}
               {isList && <Table />}
             </Content>
-            <FiltersWrapper>
-              <Filters />
-            </FiltersWrapper>
-          </MainWrapper>
-        )}
-        {status === "loading" && (
-          <LoaderWrapper>
-            <Loader color="secondary" />
-          </LoaderWrapper>
-        )}
-        {status === "failure" && (
-          <Reload error={error} dispatchThunk={() => handleRetry()} />
-        )}
+          )}
+          <FiltersWrapper>
+            <Filters />
+          </FiltersWrapper>
+        </MainWrapper>
         <Control />
       </MainContent>
     </VacanciesWrapper>

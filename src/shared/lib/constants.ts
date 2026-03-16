@@ -212,3 +212,16 @@ export const names = [
   "ليلى الزهراء",
   "طارق السعدي",
 ];
+
+export const depts = [
+  "frontend",
+  "backend",
+  "fullStack",
+  "devOps",
+  "cloud",
+  "data",
+  "qa",
+  "mobile",
+  "ml",
+  "site",
+];

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   if (req.method !== "GET")
     return res.status(405).json({ message: "Method not allowed ..." });
   try {
-    // await auth(req, res);
+    await auth(req, res);
     if (res.headersSent || res.writableEnded) {
       return;
     }
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       data,
       lastPage: 7,
       currentPage: page,
-      pageSize: 12,
+      pageSize: 11,
     });
   } catch (err) {
     console.log(err);

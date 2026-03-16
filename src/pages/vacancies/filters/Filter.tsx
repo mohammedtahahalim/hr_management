@@ -25,6 +25,10 @@ const FilterButton = styled(Button)({
   width: "fit-content",
   textTransform: "capitalize",
   fontFamily: "system-ui",
+  borderRadius: "50px",
+  minHeight: 0,
+  padding: "5px 10px",
+  fontSize: "0.8rem",
 });
 
 export default function Filter({ title, data, filterKey }: FilterShape) {

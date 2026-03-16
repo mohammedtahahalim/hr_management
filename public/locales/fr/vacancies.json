@@ -70,5 +70,40 @@
         { "key": "uk", "value": "Royaume-Uni" }
       ]
     }
-  ]
+  ],
+  "form": {
+    "basic": {
+      "title": "Intitulé du poste",
+      "depts": {
+        "title": "Département",
+        "values": {
+          "frontend": "Développeur Frontend",
+          "backend": "Développeur Backend",
+          "fullStack": "Développeur Full Stack",
+          "devOps": "Ingénieur DevOps",
+          "cloud": "Ingénieur Cloud",
+          "data": "Analyste de données",
+          "qa": "Assurance qualité",
+          "mobile": "Ingénieur Mobile",
+          "ml": "Apprentissage automatique",
+          "site": "Ingénieur fiabilité du site"
+        }
+      },
+      "desc": "Description",
+      "empType": "Type d’emploi",
+      "full": "Temps plein",
+      "part": "Temps partiel",
+      "contract": "Contrat",
+      "freelance": "Freelance",
+      "jp": "Japon",
+      "us": "États-Unis",
+      "ma": "Maroc",
+      "fr": "France",
+      "uk": "Royaume-Uni",
+      "r": "À distance",
+      "multiple": "Plusieurs candidats",
+      "yesMultiple": "Oui, je recrute plusieurs candidats",
+      "loc": "Emplacement"
+    }
+  }
 }

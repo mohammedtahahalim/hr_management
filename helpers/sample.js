@@ -1430,7 +1430,7 @@ export const activities = [
 ];
 
 export const generateVacancies = (page, filter) => {
-  return Array.from({ length: page < 7 ? 12 : 5 }).map((_, i) => {
+  return Array.from({ length: page < 7 ? 11 : 5 }).map((_, i) => {
     const titles = [
       {
         en: "Frontend Developer",
