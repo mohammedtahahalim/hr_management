@@ -2,7 +2,12 @@ import { Box, styled } from "@mui/material";
 import Headline from "./Headline";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../../config/store";
-import { addNewVacancy } from "./addVacancySlice";
+import { addNewVacancy, type NewVacancyData } from "./addVacancySlice";
+import { useForm } from "react-hook-form";
+import Basic from "./Basic";
+import Requirements from "./Requirements";
+import Status from "./Status";
+import Contact from "./Contact";
 
 const AddVacancyWrapper = styled(Box)({
   width: "100%",
@@ -15,10 +20,34 @@ const AddVacancyWrapper = styled(Box)({
 const FormWrapper = styled("form")({
   width: "100%",
   flex: 1,
-  border: "1px solid black",
+  display: "flex",
+  flexDirection: "column",
+  gap: "5px",
 });
 
+const Top = styled(Box)(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  gap: "5px",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+  },
+  minHeight: "350px",
+}));
+
+const Bottom = styled(Box)(({ theme }) => ({
+  width: "100%",
+  display: "flex",
+  gap: "5px",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+  },
+  minHeight: "350px",
+}));
+
 export default function AddVacancy() {
+  const { register } = useForm<NewVacancyData>();
+
   const dispatch = useDispatch<AppDispatch>();
   // TODO: Implement the hook form
 
@@ -29,7 +58,16 @@ export default function AddVacancy() {
   return (
     <AddVacancyWrapper>
       <Headline onSave={onSave} />
-      <FormWrapper></FormWrapper>
+      <FormWrapper>
+        <Top>
+          <Basic register={register} />
+          <Requirements register={register} />
+        </Top>
+        <Bottom>
+          <Status register={register} />
+          <Contact register={register} />
+        </Bottom>
+      </FormWrapper>
     </AddVacancyWrapper>
   );
 }

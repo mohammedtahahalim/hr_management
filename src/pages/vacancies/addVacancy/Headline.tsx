@@ -12,7 +12,7 @@ interface HeadlineProps {
   onSave: () => void;
 }
 
-const HeadlineWrapper = styled(Box)(({ theme }) => ({
+const HeadlineWrapper = styled(Box)({
   width: "100%",
   height: "fit-content",
   minHeight: "75px",
@@ -20,10 +20,7 @@ const HeadlineWrapper = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   flexWrap: "wrap",
-  [theme.breakpoints.down("md")]: {
-    minHeight: "150px",
-  },
-}));
+});
 
 const Control = styled(Box)({
   flex: 1,
