@@ -62,6 +62,9 @@ const FiltersWrapper = styled(Box)(({ theme }) => ({
 
 const Content = styled(Box)({
   flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
 });
 
 const LoaderWrapper = styled(Box)({
@@ -119,13 +122,13 @@ export default function Vacancies() {
             <Content>
               {isCard && <Cards />}
               {isList && <Table />}
+              <Control />
             </Content>
           )}
           <FiltersWrapper>
             <Filters />
           </FiltersWrapper>
         </MainWrapper>
-        <Control />
       </MainContent>
     </VacanciesWrapper>
   );

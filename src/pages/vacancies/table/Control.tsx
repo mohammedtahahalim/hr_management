@@ -11,7 +11,6 @@ const ControlWrapper = styled(Box)({
   justifyContent: "flex-end",
   alignItems: "center",
   gap: "8px",
-  padding: "0px 10px",
 });
 
 const Page = styled(Button)({

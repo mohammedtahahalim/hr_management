@@ -99,7 +99,12 @@ export const selectAddVacancyError = (state: RootState) =>
 const addVacancySlice = createSlice({
   name: "addVacancy/slice",
   initialState,
-  reducers: {},
+  reducers: {
+    resetFormStatus: (state) => {
+      state.status = "idle";
+      state.error = null;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(addNewVacancy.pending, (state) => {
@@ -119,3 +124,4 @@ const addVacancySlice = createSlice({
 });
 
 export default addVacancySlice.reducer;
+export const { resetFormStatus } = addVacancySlice.actions;
