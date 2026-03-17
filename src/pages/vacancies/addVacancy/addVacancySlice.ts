@@ -27,17 +27,19 @@ const newVacancySchema = z.object({
     location: z.string().min(1).max(2),
     multiple: z.boolean(),
     status: z.enum(["open", "completed", "inprogress"]),
-    openDate: z.string().datetime(),
-    closeDate: z.string().datetime(),
+    openDate: z.string(),
+    closeDate: z.string(),
     minWorkExp: z.enum(["junior", "juniorPlus", "mid", "midPlus", "senior"]),
-    minEducation: z.enum(["junior", "juniorPlus", "mid", "midPlus", "senior"]),
-    suitableFor: z.array(z.enum(["student", "vet", "disabled"])),
+    minEducation: z.enum(["junior", "juniorPlus", "mid", "senior"]),
+    suitableFor: z
+      .array(z.enum(["student", "vet", "disabled"]))
+      .or(z.boolean()),
     responsiblities: z.string().nonempty(),
     duties: z.string().nonempty(),
   }),
   hirer: z.object({
     name: z.string(),
-    phone: z.string().regex(/\d{3}(-|\s|)\d{3}\1\d{4}/),
+    phone: z.string(),
     additional: z.string(),
     showContact: z.boolean(),
   }),
@@ -47,7 +49,7 @@ export type NewVacancyData = z.infer<typeof newVacancySchema>;
 
 export const addNewVacancy = createAsyncThunk<
   void,
-  void, // NewVacancyData
+  unknown,
   { rejectValue: Reject }
 >("addVacancy", async (_args, { signal, rejectWithValue }) => {
   try {

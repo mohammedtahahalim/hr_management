@@ -8,7 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../config/store";
 import { createPortal } from "react-dom";
-import { HTTPErrors, type HTTPBackendErrors } from "../../shared/lib/constants";
+import { HTTPErrors, type TOASTErrors } from "../../shared/lib/constants";
 import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../config/i18n";
 import { AnimatePresence, motion } from "motion/react";
@@ -186,7 +186,7 @@ export default function Toast({ toastPosition = "topRight" }: ToastProps) {
                 <ToastTitle variant="h6">{t(`toast.${item.type}`)}</ToastTitle>
                 <ToastMessage variant="subtitle1">
                   {item.message in HTTPErrors
-                    ? HTTPErrors[item.message as HTTPBackendErrors][
+                    ? HTTPErrors[item.message as TOASTErrors][
                         i18n.language as TLanguage
                       ]
                     : item.message}

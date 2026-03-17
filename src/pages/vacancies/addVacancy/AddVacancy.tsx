@@ -1,13 +1,20 @@
 import { Box, styled } from "@mui/material";
 import Headline from "./Headline";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../config/store";
-import { addNewVacancy, type NewVacancyData } from "./addVacancySlice";
+import {
+  addNewVacancy,
+  selectAddVacancyError,
+  selectAddVacancyStatus,
+  type NewVacancyData,
+} from "./addVacancySlice";
 import { useForm } from "react-hook-form";
 import Basic from "./Basic";
 import Requirements from "./Requirements";
 import Status from "./Status";
 import Contact from "./Contact";
+import { useEffect } from "react";
+import { addToast } from "../../../features/toast/toastSlice";
 
 const AddVacancyWrapper = styled(Box)({
   width: "100%",
@@ -46,28 +53,39 @@ const Bottom = styled(Box)(({ theme }) => ({
 }));
 
 export default function AddVacancy() {
-  const { register } = useForm<NewVacancyData>();
-
+  const { register, getValues } = useForm<NewVacancyData>();
+  const status = useSelector(selectAddVacancyStatus);
+  const error = useSelector(selectAddVacancyError);
   const dispatch = useDispatch<AppDispatch>();
   // TODO: Implement the hook form
 
   const onSave = () => {
-    dispatch(addNewVacancy());
+    const data = getValues() as unknown;
+    dispatch(addNewVacancy(data));
   };
+
+  useEffect(() => {
+    if (!error) return;
+    dispatch(addToast({ message: error, type: "error", expireAt: 5000 }));
+  }, [error, dispatch]);
 
   return (
     <AddVacancyWrapper>
-      <Headline onSave={onSave} />
-      <FormWrapper>
-        <Top>
-          <Basic register={register} />
-          <Requirements register={register} />
-        </Top>
-        <Bottom>
-          <Status register={register} />
-          <Contact register={register} />
-        </Bottom>
-      </FormWrapper>
+      {status !== "loading" && (
+        <>
+          <Headline onSave={onSave} />
+          <FormWrapper>
+            <Top>
+              <Basic register={register} />
+              <Requirements register={register} />
+            </Top>
+            <Bottom>
+              <Status register={register} />
+              <Contact register={register} />
+            </Bottom>
+          </FormWrapper>
+        </>
+      )}
     </AddVacancyWrapper>
   );
 }

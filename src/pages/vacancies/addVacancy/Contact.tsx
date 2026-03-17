@@ -84,7 +84,7 @@ export default function Contact({ register }: ContactProps) {
           {t("form.contact.show")}
         </BasicFormLabel>
         <FormControlLabel
-          control={<Checkbox />}
+          control={<Checkbox {...register("hirer.showContact")} />}
           label={t("form.contact.showLarge")}
           sx={{
             flex: 1,

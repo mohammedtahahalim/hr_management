@@ -137,9 +137,6 @@ export default function Requirements({ register }: RequirementsProps) {
           <Option value="mid">
             {t("form.requirements.education.values.mid")}
           </Option>
-          <Option value="midPlus">
-            {t("form.requirements.education.values.midPlus")}
-          </Option>
           <Option value="senior">
             {t("form.requirements.education.values.senior")}
           </Option>
