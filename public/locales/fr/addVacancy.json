@@ -84,5 +84,6 @@
       "show": "Afficher le contact",
       "showLarge": "Afficher le nom et le téléphone sur la page de l'emploi"
     }
-  }
+  },
+  "success": "Votre offre d'emploi a bien été soumise !"
 }
