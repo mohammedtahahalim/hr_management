@@ -2,5 +2,88 @@
   "title": "Create Vacancy",
   "cancel": "Cancel",
   "save": "Save",
-  "loading": "Loading ..."
+  "loading": "Loading ...",
+  "form": {
+    "basic": {
+      "title": "Job Title",
+      "depts": {
+        "title": "Job Department",
+        "values": {
+          "frontend": "Frontend Developer",
+          "backend": "Backend Developer",
+          "fullStack": "Full Stack Developer",
+          "devOps": "DevOps Engineer",
+          "cloud": "Cloud Engineer",
+          "data": "Data Analyst",
+          "qa": "Q&A",
+          "mobile": "Mobile Engineer",
+          "ml": "Machine Learning",
+          "site": "Site Reliability Engineer"
+        }
+      },
+      "desc": "Description",
+      "empType": "Employment Type",
+      "full": "Full Time",
+      "part": "Part Time",
+      "contract": "Contract",
+      "freelance": "Freelance",
+      "jp": "Japan",
+      "us": "United States",
+      "ma": "Morocco",
+      "fr": "France",
+      "uk": "United Kingdom",
+      "r": "Remote",
+      "multiple": "Multiple Candidates",
+      "yesMultiple": "Yes I am Hiring Multiple Candidates",
+      "loc": "Location"
+    },
+    "requirements": {
+      "workExp": {
+        "title": "Work Experience",
+        "values": {
+          "none": "No Experience Required",
+          "junior": "Less than 1 year of experience",
+          "juniorPlus": "1-2 Years",
+          "mid": "2-3 Years",
+          "midPlus": "3-5 Years",
+          "senior": "5+ Years"
+        }
+      },
+      "education": {
+        "title": "Education",
+        "values": {
+          "none": "High school or equivalent",
+          "junior": "Some college (no degree)",
+          "juniorPlus": "Bachelor’s degree",
+          "mid": "Master’s degree",
+          "midPlus": "3-5 Years",
+          "senior": "Doctorate / Professional degree"
+        }
+      },
+      "suitable": {
+        "title": "The job is suitable for",
+        "student": "A student",
+        "veteran": "A veteran",
+        "disabled": "A person with disabilities"
+      },
+      "resp": "Responsibilities",
+      "duties": "Duties"
+    },
+    "status": {
+      "vacancy": "Vacancy Status",
+      "values": {
+        "open": "Open",
+        "completed": "Completed",
+        "inprogress": "In Progress"
+      },
+      "openClose": "Opening & Closing Dates"
+    },
+    "contact": {
+      "person": "Contact Person",
+      "phone": "Contact Phone",
+      "additional": "Additional Contact",
+      "show": "Show Contact",
+      "showLarge": "Show the name and the phone the job page"
+    }
+  }
 }

@@ -26,14 +26,18 @@ const RequirementsWrapper = styled(Box)({
   gap: "15px",
 });
 
-const BasicFormControl = styled(FormControl)({
+const BasicFormControl = styled(FormControl)(({ theme }) => ({
   width: "100%",
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "flex-start",
   gap: "25px",
-});
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    gap: "5px",
+  },
+}));
 
 const BasicFormLabel = styled(InputLabel)({
   position: "static",
@@ -79,7 +83,7 @@ const Duties = styled(TextField)({
 });
 
 export default function Requirements({ register }: RequirementsProps) {
-  const { t } = useTranslation("vacancies");
+  const { t } = useTranslation("addVacancy");
 
   return (
     <RequirementsWrapper>

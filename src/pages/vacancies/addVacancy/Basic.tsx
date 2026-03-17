@@ -28,14 +28,18 @@ const BasicWrapper = styled(Box)({
   gap: "15px",
 });
 
-const BasicFormControl = styled(FormControl)({
+const BasicFormControl = styled(FormControl)(({ theme }) => ({
   width: "100%",
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "flex-start",
   gap: "25px",
-});
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    gap: "5px",
+  },
+}));
 
 const BasicFormLabel = styled(InputLabel)({
   position: "static",
@@ -84,7 +88,7 @@ const Multiple = styled(FormControl)({
 });
 
 export default function Basic({ register }: BasicProps) {
-  const { t } = useTranslation("vacancies");
+  const { t } = useTranslation("addVacancy");
 
   return (
     <BasicWrapper>
@@ -162,7 +166,7 @@ export default function Basic({ register }: BasicProps) {
           <MenuItem value={"r"}>{t("form.basic.r")}</MenuItem>
         </BasicFormSelect>
       </BasicFormControl>
-      <Multiple sx={{ flex: 1 }}>
+      <Multiple>
         <BasicFormLabel>{t("form.basic.multiple")}</BasicFormLabel>
         <FormControlLabel
           control={<Checkbox {...register("job.multiple")} />}
