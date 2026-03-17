@@ -104,6 +104,38 @@
       "multiple": "複数候補者",
       "yesMultiple": "はい、複数の候補者を採用しています",
       "loc": "位置"
+    },
+    "requirements": {
+      "workExp": {
+        "title": "職務経験",
+        "values": {
+          "none": "経験不問",
+          "junior": "1年未満の経験",
+          "juniorPlus": "1～2年",
+          "mid": "2～3年",
+          "midPlus": "3～5年",
+          "senior": "5年以上"
+        }
+      },
+      "education": {
+        "title": "学歴",
+        "values": {
+          "none": "高校卒業または同等",
+          "junior": "大学在学（学位なし）",
+          "juniorPlus": "学士号",
+          "mid": "修士号",
+          "midPlus": "3～5年",
+          "senior": "博士号／専門職学位"
+        }
+      },
+      "suitable": {
+        "title": "この職種に適している方",
+        "student": "学生",
+        "veteran": "退役軍人",
+        "disabled": "障がいのある方"
+      },
+      "resp": "責任",
+      "duties": "業務内容"
     }
   }
 }

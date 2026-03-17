@@ -121,50 +121,28 @@ export default function Basic({ register }: BasicProps) {
           multiline
           {...register("job.desc")}
           minRows={3}
+          sx={{ fontFamily: "system-ui" }}
         />
       </BasicFormControl>
       <BasicFormControl>
-        <BasicFormLabel>{t("form.basic.empType")}</BasicFormLabel>
-        <Checkboxes>
+        <BasicFormLabel htmlFor="empType">
+          {t("form.basic.empType")}
+        </BasicFormLabel>
+        <Checkboxes id="empType">
           <FormControlLabel
-            control={
-              <Checkbox
-                color="primary"
-                {...register("job.empType")}
-                value={"f"}
-                defaultChecked
-              />
-            }
+            control={<Checkbox {...register("job.empType")} value={"f"} />}
             label={t("form.basic.full")}
           />
           <FormControlLabel
-            control={
-              <Checkbox
-                color="primary"
-                value={"p"}
-                {...register("job.empType")}
-              />
-            }
+            control={<Checkbox value={"p"} {...register("job.empType")} />}
             label={t("form.basic.part")}
           />
           <FormControlLabel
-            control={
-              <Checkbox
-                color="primary"
-                {...register("job.empType")}
-                value={"c"}
-              />
-            }
+            control={<Checkbox {...register("job.empType")} value={"c"} />}
             label={t("form.basic.contract")}
           />
           <FormControlLabel
-            control={
-              <Checkbox
-                color="primary"
-                {...register("job.empType")}
-                value={"fl"}
-              />
-            }
+            control={<Checkbox {...register("job.empType")} value={"fl"} />}
             label={t("form.basic.freelance")}
           />
         </Checkboxes>
