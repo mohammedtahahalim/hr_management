@@ -47,7 +47,7 @@ const MainWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
   display: "flex",
-  gap: "5px",
+  gap: "15px",
   [theme.breakpoints.down("lg")]: {
     flexDirection: "column-reverse",
   },
@@ -55,6 +55,10 @@ const MainWrapper = styled(Box)(({ theme }) => ({
 
 const FiltersWrapper = styled(Box)(({ theme }) => ({
   maxWidth: "325px",
+  height: "fit-content",
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: "12px",
+  padding: "5px",
   [theme.breakpoints.down("lg")]: {
     maxWidth: "100%",
   },

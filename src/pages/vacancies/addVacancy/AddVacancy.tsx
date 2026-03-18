@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 
 const AddVacancyWrapper = styled(Box)({
   width: "100%",
-  height: "100%",
+  height: "fit-content",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
@@ -28,6 +28,7 @@ const AddVacancyWrapper = styled(Box)({
 
 const FormWrapper = styled("form")({
   width: "100%",
+  height: "fit-content",
   flex: 1,
   display: "flex",
   flexDirection: "column",
@@ -41,7 +42,6 @@ const Top = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
   },
-  minHeight: "350px",
 }));
 
 const Bottom = styled(Box)(({ theme }) => ({
@@ -51,7 +51,6 @@ const Bottom = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
   },
-  minHeight: "350px",
 }));
 
 const Success = styled(Box)({
