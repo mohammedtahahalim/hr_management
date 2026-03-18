@@ -5,7 +5,7 @@ const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
 const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 const Redirect = lazy(() => import("../shared/ui/Redirect"));
 const Vacancies = lazy(() => import("../pages/vacancies/Vacancies"));
-const Vacancy = lazy(() => import("../pages/vacancies/Vacancy"));
+const Vacancy = lazy(() => import("../pages/vacancies/vacancy/Vacancy"));
 const AddVacancy = lazy(
   () => import("../pages/vacancies/addVacancy/AddVacancy"),
 );
