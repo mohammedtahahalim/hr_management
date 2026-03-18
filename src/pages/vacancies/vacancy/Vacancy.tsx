@@ -1,7 +1,12 @@
 import { Box, styled } from "@mui/material";
 import Headline from "./Headline";
-import JobStats from "./JobStats";
-import JobInfo from "./JobInfo";
+import JobStats from "./jobStats/JobStats";
+import JobInfo from "./jobStats/jobInfo/JobInfo";
+import { useDispatch } from "react-redux";
+import { fetchVacancy } from "./vacancySlice";
+import type { AppDispatch } from "../../../config/store";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const VacancyWrapper = styled(Box)({
   width: "100%",
@@ -9,7 +14,7 @@ const VacancyWrapper = styled(Box)({
   display: "flex",
   flexDirection: "column",
   gap: "10px",
-  border: "1px solid crimson",
+  padding: "10px",
 });
 
 const HeadlineContainer = styled(Box)({
@@ -23,6 +28,14 @@ const JobStatsContainer = styled(Box)({
 const JobInfoContainer = styled(Box)({});
 
 export default function Vacancy() {
+  const { id } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (!id) return;
+    dispatch(fetchVacancy({ id }));
+  }, [dispatch, id]);
+
   return (
     <VacancyWrapper>
       <HeadlineContainer>

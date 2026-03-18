@@ -1,7 +1,8 @@
 import { Box, styled } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectVacancieData } from "../vacancieSlice";
+import { selectVacancieData, selectVacancieStatus } from "../vacancieSlice";
 import Card from "./Card";
+import WithSkeleton from "../../../shared/ui/WithSkeleton";
 
 const CardsWrapper = styled(Box)({
   width: "fit-content",
@@ -15,11 +16,14 @@ const CardsWrapper = styled(Box)({
 
 export default function Cards() {
   const data = useSelector(selectVacancieData);
+  const status = useSelector(selectVacancieStatus);
   return (
-    <CardsWrapper>
-      {data.map((d) => {
-        return <Card key={d.id} {...d} />;
-      })}
-    </CardsWrapper>
+    <WithSkeleton loading={status === "loading"}>
+      <CardsWrapper>
+        {data.map((d) => {
+          return <Card key={d.id} {...d} />;
+        })}
+      </CardsWrapper>
+    </WithSkeleton>
   );
 }
