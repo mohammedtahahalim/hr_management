@@ -7,6 +7,10 @@ declare module "@mui/material/styles" {
     third: Palette["primary"];
     fourth: Palette["primary"];
     icon: Palette["primary"];
+    overviewOne: Palette["primary"];
+    overviewTwo: Palette["primary"];
+    overviewThree: Palette["primary"];
+    overviewFour: Palette["primary"];
   }
 
   interface PaletteOptions {
@@ -15,6 +19,10 @@ declare module "@mui/material/styles" {
     third?: PaletteOptions["primary"];
     fourth?: PaletteOptions["primary"];
     icon?: PaletteOptions["primary"];
+    overviewOne?: PaletteOptions["primary"];
+    overviewTwo?: PaletteOptions["primary"];
+    overviewThree?: PaletteOptions["primary"];
+    overviewFour?: PaletteOptions["primary"];
   }
 }
 
@@ -46,6 +54,18 @@ export const lightPalette: PaletteOptions = {
   },
   icon: {
     main: "#afb4bc",
+  },
+  overviewOne: {
+    main: "#defbe3",
+  },
+  overviewTwo: {
+    main: "#eff4fd",
+  },
+  overviewThree: {
+    main: "#f3effc",
+  },
+  overviewFour: {
+    main: "#fdefde",
   },
 };
 
@@ -80,6 +100,18 @@ export const darkPalette: PaletteOptions = {
   },
   icon: {
     main: "#42474f",
+  },
+  overviewOne: {
+    main: "#1f3a2a",
+  },
+  overviewTwo: {
+    main: "#1f2d3d",
+  },
+  overviewThree: {
+    main: "#2a2438",
+  },
+  overviewFour: {
+    main: "#3a2a1f",
   },
 };
 

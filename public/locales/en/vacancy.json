@@ -1,3 +1,8 @@
 {
-  "iconButtonLabel": "Return to vacancies"
+  "iconButtonLabel": "Return to vacancies",
+  "overview": "Overview",
+  "views": "Vacancy Views",
+  "apps": "Total Applicants",
+  "shortlist": "Shortlisted",
+  "progress": "Awaiting Review"
 }

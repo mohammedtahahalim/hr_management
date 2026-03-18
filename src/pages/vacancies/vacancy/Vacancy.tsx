@@ -1,7 +1,7 @@
 import { Box, styled } from "@mui/material";
 import Headline from "./Headline";
 import JobStats from "./jobStats/JobStats";
-import JobInfo from "./jobStats/jobInfo/JobInfo";
+import JobInfo from "./jobInfo/JobInfo";
 import { useDispatch } from "react-redux";
 import { fetchVacancy } from "./vacancySlice";
 import type { AppDispatch } from "../../../config/store";
@@ -14,7 +14,6 @@ const VacancyWrapper = styled(Box)({
   display: "flex",
   flexDirection: "column",
   gap: "10px",
-  padding: "10px",
 });
 
 const HeadlineContainer = styled(Box)({

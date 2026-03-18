@@ -34,6 +34,9 @@ const Row = styled("tr")(({ theme }) => ({
     "&>*": {
       maxWidth: "75px",
     },
+    "&>*:nth-of-type(1)": {
+      maxWidth: "75px",
+    },
   },
   "&>*": {
     borderBottom: `1px solid ${theme.palette.divider}`,
