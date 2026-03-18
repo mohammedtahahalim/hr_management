@@ -3,7 +3,7 @@ import z from "zod";
 import type { Reject, Status } from "../../shared/lib/types";
 import type { RootState } from "../../config/store";
 
-const vacancieSchema = z.object({
+export const vacancieSchema = z.object({
   id: z.number().nonnegative(),
   title: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().min(1)),
   location: z.string().min(1).max(2),
@@ -89,19 +89,19 @@ const initialState: VacancieState = {
 };
 
 export const selectVacancieStatus = (state: RootState) =>
-  state.vacancies.vacancy.status;
+  state.vacancies.vacancie.status;
 
 export const selectVacanieError = (state: RootState) =>
-  state.vacancies.vacancy.error;
+  state.vacancies.vacancie.error;
 
 export const selectVacancieData = (state: RootState) =>
-  state.vacancies.vacancy.data;
+  state.vacancies.vacancie.data;
 
 export const selectVacancieLastPage = (state: RootState) =>
-  state.vacancies.vacancy.lastPage;
+  state.vacancies.vacancie.lastPage;
 
 export const selectVacancieViewType = (state: RootState) =>
-  state.vacancies.vacancy.viewType;
+  state.vacancies.vacancie.viewType;
 
 const vacancieSlice = createSlice({
   name: "vacancies",
