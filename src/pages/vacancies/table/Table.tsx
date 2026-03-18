@@ -1,8 +1,9 @@
 import { Box, styled } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { selectVacancieData } from "../vacancieSlice";
+import { selectVacancieData, selectVacancieStatus } from "../vacancieSlice";
 import Line from "./Line";
+import WithSkeleton from "../../../shared/ui/WithSkeleton";
 
 const headCells: string[] = [
   "positionTitle",
@@ -75,23 +76,26 @@ export default function Table() {
   const { t, i18n } = useTranslation("vacancies");
   const isArabic = i18n.language === "ar";
   const data = useSelector(selectVacancieData);
+  const status = useSelector(selectVacancieStatus);
 
   return (
-    <TableWrapper>
-      <TableContent>
-        <thead>
-          <Identifier isArabic={isArabic}>
-            {headCells.map((c) => {
-              return <Cell key={c}>{t(`table.head.${c}`)}</Cell>;
+    <WithSkeleton loading={status === "loading"}>
+      <TableWrapper>
+        <TableContent>
+          <thead>
+            <Identifier isArabic={isArabic}>
+              {headCells.map((c) => {
+                return <Cell key={c}>{t(`table.head.${c}`)}</Cell>;
+              })}
+            </Identifier>
+          </thead>
+          <tbody>
+            {data.map((d) => {
+              return <Line {...d} key={d.id} />;
             })}
-          </Identifier>
-        </thead>
-        <tbody>
-          {data.map((d) => {
-            return <Line {...d} key={d.id} />;
-          })}
-        </tbody>
-      </TableContent>
-    </TableWrapper>
+          </tbody>
+        </TableContent>
+      </TableWrapper>
+    </WithSkeleton>
   );
 }

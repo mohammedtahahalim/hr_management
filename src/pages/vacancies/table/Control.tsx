@@ -17,6 +17,7 @@ const Page = styled(Button)({
   height: "90%",
   aspectRatio: 1,
   minWidth: 0,
+  maxHeight: "40px",
 });
 
 export default function Control() {

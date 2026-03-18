@@ -2,9 +2,10 @@ import { styled, Typography, type TypographyProps } from "@mui/material";
 import type { CSSProperties } from "react";
 
 interface TitleProps {
-  children: string;
+  children?: string;
   isColorDiff?: CSSProperties["color"];
   variant?: TypographyProps["variant"];
+  ender?: boolean;
 }
 
 const TitleWrapper = styled(Typography)({
@@ -15,13 +16,14 @@ const TitleWrapper = styled(Typography)({
 });
 
 export default function Title({
-  children,
+  children = "",
   isColorDiff = "",
   variant = "h6",
+  ender = true,
 }: TitleProps) {
   return (
     <TitleWrapper variant={variant} color={isColorDiff ?? "inherit"}>
-      {children} :
+      {children} {ender ? ":" : ""}
     </TitleWrapper>
   );
 }

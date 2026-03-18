@@ -261,3 +261,17 @@ export const depts = [
   "ml",
   "site",
 ];
+
+export const overviewBoxesColor: string[] = [
+  "#defbe3",
+  "#eff4fd",
+  "#f3effc",
+  "#fdefde",
+];
+
+export const darkOverviewBoxesColor: string[] = [
+  "#1f3a2a", // dark green
+  "#1f2d3d", // dark blue
+  "#2a2438", // dark purple
+  "#3a2a1f", // dark orange/brown
+];

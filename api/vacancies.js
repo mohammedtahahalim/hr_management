@@ -10,7 +10,13 @@ export default async function handler(req, res) {
     if (res.headersSent || res.writableEnded) {
       return;
     }
-    let { page = 1, filter = "all", ...rest } = req.query;
+    let { page = 1, filter = "all", id, ...rest } = req.query;
+    if (id) {
+      const data = generateVacancies(page, filter);
+      return res.status(200).json({
+        data: data[0],
+      });
+    }
     page = Number(page);
     page = isNaN(page) ? 1 : page;
     if (!allowedFilters.includes(filter))

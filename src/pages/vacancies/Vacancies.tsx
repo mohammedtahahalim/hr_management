@@ -14,7 +14,6 @@ import {
   type Filters as TFilters,
 } from "./vacancieSlice";
 import Cards from "./table/Cards";
-import Loader from "../../shared/ui/Loader";
 import Reload from "../../shared/ui/Reload";
 import Filters from "./filters/Filters";
 
@@ -71,14 +70,6 @@ const Content = styled(Box)({
   gap: "10px",
 });
 
-const LoaderWrapper = styled(Box)({
-  flex: 1,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  minHeight: "750px",
-});
-
 export default function Vacancies() {
   const { search } = useLocation();
   const dispatch = useDispatch<AppDispatch>();
@@ -115,15 +106,10 @@ export default function Vacancies() {
       </HeadlineWrapper>
       <MainContent>
         <MainWrapper>
-          {status === "loading" && (
-            <LoaderWrapper>
-              <Loader color="secondary" />
-            </LoaderWrapper>
-          )}
           {status === "failure" && (
             <Reload error={error} dispatchThunk={() => handleRetry()} />
           )}
-          {status === "success" && (
+          {status !== "failure" && (
             <Content>
               {isCard && <Cards />}
               {isList && <Table />}

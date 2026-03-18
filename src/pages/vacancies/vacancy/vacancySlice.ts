@@ -8,7 +8,7 @@ import { vacancieSchema, type VacancieData } from "../vacancieSlice";
 import type { RootState } from "../../../config/store";
 
 interface FetchVacancyProps {
-  id: number;
+  id: string;
 }
 
 export const fetchVacancy = createAsyncThunk<
@@ -20,8 +20,8 @@ export const fetchVacancy = createAsyncThunk<
     const { id } = _args ?? {};
     if (isNaN(Number(id))) return rejectWithValue("MISMATCH");
     const base = import.meta.env.VITE_API_URL;
-    const fullURL: URL = new URL("/api/vacancy", base);
-    fullURL.searchParams.set("id", String(id));
+    const fullURL: URL = new URL("/api/vacancies", base);
+    fullURL.searchParams.set("id", id);
     const fullOptions: RequestInit = {
       method: "GET",
       signal,
@@ -72,6 +72,9 @@ export const selectVacancyError = (state: RootState) =>
 
 export const selectVacancyData = (state: RootState) =>
   state.vacancies.vacancy.data;
+
+export const selectVacancyTitle = (state: RootState) =>
+  state.vacancies.vacancy.data?.title;
 
 const vacancySlice = createSlice({
   name: "vacancy/fetchById",
