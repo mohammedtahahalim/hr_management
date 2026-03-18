@@ -72,6 +72,7 @@ const LoaderWrapper = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  minHeight: "750px",
 });
 
 export default function Vacancies() {
