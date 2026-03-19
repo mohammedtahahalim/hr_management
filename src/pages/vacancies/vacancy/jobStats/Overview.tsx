@@ -104,7 +104,7 @@ export default function Overview() {
       </Title>
       <WithSkeleton
         loading={status === "loading"}
-        sx={{ maxWidth: "310px", alignSelf: "center" }}
+        sx={{ maxWidth: "310px", alignSelf: "center", maxHeight: "170px" }}
       >
         <BoxesWrapper>
           {sampleData.map((s, idx) => {
