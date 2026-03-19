@@ -9,21 +9,12 @@ import {
   Tooltip,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { formatDate } from "../../../../shared/lib/helpers";
+import { formatDate, getLast7DaysISO } from "../../../../shared/lib/helpers";
 import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../../config/i18n";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
 import { useSelector } from "react-redux";
 import { selectVacancyStatus } from "../vacancySlice";
-
-const sampleLabel: string[] = [
-  "2026-03-19T08:00:00.000Z",
-  "2026-03-20T12:30:00.000Z",
-  "2026-03-21T16:45:00.000Z",
-  "2026-03-22T09:15:00.000Z",
-  "2026-03-23T20:00:00.000Z",
-  "2026-03-24T14:10:00.000Z",
-];
 
 ChartJS.register(
   LineElement,
@@ -36,7 +27,7 @@ ChartJS.register(
 const ApplicantsWrapper = styled(Box)({
   flex: 1.5,
   minWidth: "350px",
-  overflow: "hidden",
+  overflowX: "hidden",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
@@ -51,7 +42,7 @@ const ApplicantHead = styled(Box)({
 const ApplicantChart = styled(Box)({
   width: "100%",
   flex: 1,
-  overflow: "hidden",
+  overflowX: "hidden",
 });
 
 export default function Applicants() {
@@ -59,7 +50,7 @@ export default function Applicants() {
   const status = useSelector(selectVacancyStatus);
   const theme = useTheme();
   const data = {
-    labels: sampleLabel.map((d) =>
+    labels: getLast7DaysISO().map((d) =>
       formatDate(d, i18n.language as TLanguage, false),
     ),
     datasets: [
@@ -88,13 +79,20 @@ export default function Applicants() {
       x: {
         grid: { display: false },
         border: { display: false },
+        ticks: {
+          color: theme.palette.primary.main,
+        },
       },
       y: {
         min: 0,
         max: 40,
         border: { display: false },
+        grid: {
+          color: theme.palette.background.paper,
+        },
         ticks: {
           stepSize: 10,
+          color: theme.palette.primary.main,
           callback: function (value: number | string) {
             if (value === 0) return "";
             return value;
