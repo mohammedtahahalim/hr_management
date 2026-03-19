@@ -24,7 +24,11 @@ const JobStatsContainer = styled(Box)({
   width: "100%",
 });
 
-const JobInfoContainer = styled(Box)({});
+const JobInfoContainer = styled(Box)({
+  flex: 2,
+  width: "100%",
+  border: "1px solid black",
+});
 
 export default function Vacancy() {
   const { id } = useParams();

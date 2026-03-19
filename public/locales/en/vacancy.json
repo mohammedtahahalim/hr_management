@@ -4,5 +4,6 @@
   "views": "Vacancy Views",
   "apps": "Total Applicants",
   "shortlist": "Shortlisted",
-  "progress": "Awaiting Review"
+  "progress": "Awaiting Review",
+  "applicants": "Applications Over Time"
 }

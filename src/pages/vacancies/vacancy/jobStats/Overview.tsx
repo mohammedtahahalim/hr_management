@@ -99,7 +99,10 @@ export default function Overview() {
       <Title variant="h5" ender={false}>
         {t("overview")}
       </Title>
-      <WithSkeleton loading={status === "loading"}>
+      <WithSkeleton
+        loading={status === "loading"}
+        sx={{ maxWidth: "310px", alignSelf: "center" }}
+      >
         <BoxesWrapper>
           {sampleData.map((s, idx) => {
             return (

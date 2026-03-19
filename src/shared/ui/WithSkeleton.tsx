@@ -1,9 +1,10 @@
-import { Skeleton, styled } from "@mui/material";
+import { Skeleton, styled, type SxProps } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 
 interface OnSkeletonProps {
   loading: boolean;
   children: React.ReactNode;
+  sx?: SxProps;
 }
 
 const SkeletonLoader = styled(Skeleton)(({ theme }) => ({
@@ -14,10 +15,14 @@ const SkeletonLoader = styled(Skeleton)(({ theme }) => ({
 
 const MotionSkeleton = motion.create(SkeletonLoader);
 
-export default function WithSkeleton({ loading, children }: OnSkeletonProps) {
+export default function WithSkeleton({
+  loading,
+  children,
+  sx = {},
+}: OnSkeletonProps) {
   return (
     <AnimatePresence>
-      {loading ? <MotionSkeleton variant="rectangular" /> : children}
+      {loading ? <MotionSkeleton variant="rectangular" sx={sx} /> : children}
     </AnimatePresence>
   );
 }

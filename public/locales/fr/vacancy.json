@@ -4,5 +4,6 @@
   "views": "Vues des postes",
   "apps": "Nombre de candidats",
   "shortlist": "présélectionné",
-  "progress": "En attente"
+  "progress": "En attente",
+  "applicants": "Applications au fil du temps"
 }
