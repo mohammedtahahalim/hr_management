@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 const VacancyWrapper = styled(Box)({
   width: "100%",
-  height: "100%",
+  minHeight: "100%",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
@@ -22,6 +22,7 @@ const HeadlineContainer = styled(Box)({
 
 const JobStatsContainer = styled(Box)({
   width: "100%",
+  minHeight: "275px",
 });
 
 const JobInfoContainer = styled(Box)({

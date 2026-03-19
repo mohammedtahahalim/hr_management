@@ -11,11 +11,29 @@ const JobInfoWrapper = styled(Box)({
   padding: "10px",
 });
 
+const DescriptionWrapper = styled(Box)(({ theme }) => ({
+  flex: 2,
+  minWidth: "450px",
+  [theme.breakpoints.down("sm")]: {
+    minWidth: "100%",
+  },
+}));
+
+const ActivityWrapper = styled(Box)({
+  flex: 1,
+  minWidth: "325px",
+  minHeight: "400px",
+});
+
 export default function JobInfo() {
   return (
     <JobInfoWrapper>
-      <Description />
-      <Activity />
+      <DescriptionWrapper>
+        <Description />
+      </DescriptionWrapper>
+      <ActivityWrapper>
+        <Activity />
+      </ActivityWrapper>
     </JobInfoWrapper>
   );
 }

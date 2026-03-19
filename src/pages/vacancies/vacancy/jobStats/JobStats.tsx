@@ -5,7 +5,7 @@ import Experiences from "./Experiences";
 
 const JobStatsWrapper = styled(Box)({
   width: "100%",
-  minHeight: "225px",
+  height: "100%",
   display: "flex",
   gap: "10px",
   flexWrap: "wrap",

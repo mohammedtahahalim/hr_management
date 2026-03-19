@@ -275,3 +275,156 @@ export const darkOverviewBoxesColor: string[] = [
   "#2a2438", // dark purple
   "#3a2a1f", // dark orange/brown
 ];
+
+//////////
+
+type SampleData = {
+  title: string;
+  content: string;
+};
+
+export const sampleData: Record<TLanguage, SampleData[]> = {
+  en: [
+    {
+      title: "Interview Feedback",
+      content:
+        "Feedback from the recent interview with David Clark was positive for the Senior Software Developer position.",
+    },
+    {
+      title: "Application Withdrawn",
+      content:
+        "Lisa Williams withdrew her opplication for the Senior Software Developer role.",
+    },
+    {
+      title: "Interview Scheduled",
+      content:
+        "Emily Johnson's interview for the Senior Softwore Developer role is scheduled for August 25,",
+    },
+    {
+      title: "Offer Extended",
+      content:
+        "An offer was extended to Sarah Miller for the Senior Softwore Oeveloper position.",
+    },
+    {
+      title: "Application Received",
+      content:
+        "John Smith submitted an application for the Senior Software Developer position.",
+    },
+    {
+      title: "Interview Scheduled",
+      content:
+        "An interview was scheduled with John Doe for the Frontend Developer position.",
+    },
+    {
+      title: "Application Rejected",
+      content:
+        "The application of Emily Clark was rejected for the Backend Developer position.",
+    },
+  ],
+  ar: [
+    {
+      title: "ملاحظات المقابلة",
+      content:
+        "كانت الملاحظات من المقابلة الأخيرة مع David Clark إيجابية لمنصب مطور برمجيات أول.",
+    },
+    {
+      title: "تم سحب الطلب",
+      content: "قامت Lisa Williams بسحب طلبها لمنصب مطور برمجيات أول.",
+    },
+    {
+      title: "تم جدولة المقابلة",
+      content:
+        "تم تحديد مقابلة Emily Johnson لمنصب مطور برمجيات أول بتاريخ 25 أغسطس،",
+    },
+    {
+      title: "تم تقديم عرض",
+      content: "تم تقديم عرض إلى Sarah Miller لمنصب مطور برمجيات أول.",
+    },
+    {
+      title: "تم استلام الطلب",
+      content: "قام John Smith بتقديم طلب لمنصب مطور برمجيات أول.",
+    },
+    {
+      title: "تم جدولة المقابلة",
+      content: "تم جدولة مقابلة مع جون دو لوظيفة مطور الواجهة الأمامية.",
+    },
+    {
+      title: "تم رفض الطلب",
+      content: "تم رفض طلب إميلي كلارك لوظيفة مطور الواجهة الخلفية.",
+    },
+  ],
+  ja: [
+    {
+      title: "面接フィードバック",
+      content:
+        "David Clarkとの最近の面接のフィードバックは、シニアソフトウェア開発者のポジションに対して好意的でした。",
+    },
+    {
+      title: "応募取り下げ",
+      content:
+        "Lisa Williamsはシニアソフトウェア開発者の役職への応募を取り下げました。",
+    },
+    {
+      title: "面接予定",
+      content:
+        "Emily Johnsonのシニアソフトウェア開発者職の面接は8月25日に予定されています、",
+    },
+    {
+      title: "オファー提示",
+      content:
+        "Sarah Millerにシニアソフトウェア開発者のポジションのオファーが提示されました。",
+    },
+    {
+      title: "応募受付",
+      content:
+        "John Smithはシニアソフトウェア開発者のポジションに応募を提出しました。",
+    },
+    {
+      title: "面接が予定されました",
+      content:
+        "フロントエンド開発者のポジションのために、ジョン・ドウとの面接が予定されました。",
+    },
+    {
+      title: "応募が却下されました",
+      content:
+        "バックエンド開発者のポジションに対するエミリー・クラークの応募は却下されました。",
+    },
+  ],
+  fr: [
+    {
+      title: "Retour d'entretien",
+      content:
+        "Les retours de l'entretien récent avec David Clark étaient positifs pour le poste de développeur logiciel senior.",
+    },
+    {
+      title: "Candidature retirée",
+      content:
+        "Lisa Williams a retiré sa candidature pour le poste de développeur logiciel senior.",
+    },
+    {
+      title: "Entretien programmé",
+      content:
+        "L'entretien de Emily Johnson pour le poste de développeur logiciel senior est prévu pour le 25 août,",
+    },
+    {
+      title: "Offre proposée",
+      content:
+        "Une offre a été faite à Sarah Miller pour le poste de développeur logiciel senior.",
+    },
+    {
+      title: "Candidature reçue",
+      content:
+        "John Smith a soumis une candidature pour le poste de développeur logiciel senior.",
+    },
+    {
+      title: "Entretien planifié",
+      content:
+        "Un entretien a été planifié avec John Doe pour le poste de développeur frontend.",
+    },
+    {
+      title: "Candidature rejetée",
+      content:
+        "La candidature d'Emily Clark a été rejetée pour le poste de développeur backend.",
+    },
+  ],
+};
