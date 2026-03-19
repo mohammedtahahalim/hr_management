@@ -43,10 +43,14 @@ export const displayControlPages = (
   );
 };
 
-export const formatDate = (dateString: string, lang: TLanguage): string => {
+export const formatDate = (
+  dateString: string,
+  lang: TLanguage,
+  withYear: boolean = true,
+): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat(lang, {
-    year: "numeric",
+    ...(withYear ? { year: "numeric" } : {}),
     month: "long",
     day: "numeric",
   }).format(date);

@@ -4,5 +4,6 @@
   "views": "求人情報",
   "apps": "応募者総数",
   "shortlist": "最終選考に残った",
-  "progress": "審査待ち"
+  "progress": "審査待ち",
+  "applicants": "時間ごとの申請"
 }
