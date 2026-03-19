@@ -59,3 +59,16 @@ export const formatDate = (
 export const generateRandomImage = () => {
   return `https://api.dicebear.com/9.x/avataaars/svg?seed=${names[Math.floor(Math.random() * names.length)]}`;
 };
+
+export const getLast7DaysISO = (): string[] => {
+  const result: string[] = [];
+  const today = new Date();
+
+  for (let i = 0; i < 6; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    result.push(date.toISOString());
+  }
+
+  return result.reverse();
+};

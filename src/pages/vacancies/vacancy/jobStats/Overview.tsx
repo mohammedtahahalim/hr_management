@@ -58,13 +58,15 @@ const OverviewBox = styled(Box, {
   textTransform: "capitalize",
 }));
 
-const BoxTitle = styled(Box)({
+const BoxTitle = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "isArabic",
+})<{ isArabic: boolean }>(({ isArabic }) => ({
   width: "100%",
-  paddingLeft: "10px",
-  overflow: "hidden",
+  ...(isArabic ? { paddingRight: "10px" } : { paddingLeft: "10px" }),
+  overflowX: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
-});
+}));
 
 const Stats = styled(Box)({
   width: "100%",
@@ -91,8 +93,9 @@ const NewBox = styled(Box, {
 }));
 
 export default function Overview() {
-  const { t } = useTranslation("vacancy");
+  const { t, i18n } = useTranslation("vacancy");
   const status = useSelector(selectVacancyStatus);
+  const isArabic = i18n.language === "ar";
 
   return (
     <OverviewWrapper>
@@ -107,7 +110,7 @@ export default function Overview() {
           {sampleData.map((s, idx) => {
             return (
               <OverviewBox key={s.type} bgColor={OverviewColors[idx]}>
-                <BoxTitle>
+                <BoxTitle isArabic={isArabic}>
                   <Title variant="body2" ender={false}>
                     {t(`${s.type}`)}
                   </Title>
