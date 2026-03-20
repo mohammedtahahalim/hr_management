@@ -78,7 +78,9 @@ export default function Experiences() {
 
   return (
     <ExperiencesWrapper>
-      <Title ender={false}>{t("distribution")}</Title>
+      <Title variant="h6" ender={false}>
+        {t("distribution")}
+      </Title>
       <WithSkeleton loading={status === "loading"}>
         <DistributionWrapper>
           <Total>

@@ -11,5 +11,20 @@
   "junior": "<1 年",
   "mid": "1-3 年",
   "senior": "3+ 年",
-  "recentActivities": "最近の活動"
+  "recentActivities": "最近の活動",
+  "description": "仕事内容",
+  "editVacancy": "編集",
+  "saveChanges": "変更を保存",
+  "editMode": {
+    "title": "職種名",
+    "status": "ステータス",
+    "open": "募集中",
+    "inprogress": "進行中",
+    "completed": "完了",
+    "window": "募集期間",
+    "salary": "給与",
+    "skills": "必要なスキル",
+    "description": "仕事内容",
+    "notes": "メモ"
+  }
 }

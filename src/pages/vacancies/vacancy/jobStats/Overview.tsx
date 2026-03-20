@@ -99,7 +99,7 @@ export default function Overview() {
 
   return (
     <OverviewWrapper>
-      <Title variant="h5" ender={false}>
+      <Title variant="h6" ender={false}>
         {t("overview")}
       </Title>
       <WithSkeleton
