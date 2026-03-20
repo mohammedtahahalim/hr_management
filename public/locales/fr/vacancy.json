@@ -11,5 +11,20 @@
   "junior": "<1 Année",
   "mid": "1-3 Année",
   "senior": "3+ Année",
-  "recentActivities": "Activités récentes"
+  "recentActivities": "Activités récentes",
+  "description": "Description d'offre",
+  "editVacancy": "Modifier l'offre",
+  "saveChanges": "Enregistrer",
+  "editMode": {
+    "title": "Intitulé du poste",
+    "status": "Statut du poste",
+    "open": "Ouvert",
+    "inprogress": "En cours",
+    "completed": "Terminé",
+    "window": "Période de recrutement",
+    "salary": "Salaire",
+    "skills": "Compétences clés",
+    "description": "Description du poste",
+    "notes": "Notes"
+  }
 }

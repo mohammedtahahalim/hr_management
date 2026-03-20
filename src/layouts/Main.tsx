@@ -2,7 +2,7 @@ import { alpha, Box, Container, styled } from "@mui/material";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./sidebar/Sidebar";
 import Header from "./header/Header";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../features/auth/AuthContext";
 import { canAccessRoute } from "../shared/lib/helpers";
 import Forbidden from "../shared/ui/Forbidden";
@@ -45,8 +45,15 @@ const OutletWrapper = styled(Container)({
 });
 
 export default function Main() {
-  const { pathname } = useLocation();
   const { whoIs } = useContext(AuthContext);
+  const { pathname } = useLocation();
+  const outletRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const outlet = outletRef.current;
+    if (!outlet) return;
+    outlet.scrollTo({ top: 0 });
+  }, [pathname]);
 
   return (
     <MainWrapper>
@@ -57,7 +64,7 @@ export default function Main() {
         <HeaderWrapper>
           <Header />
         </HeaderWrapper>
-        <OutletWrapper maxWidth="xl">
+        <OutletWrapper maxWidth="xl" ref={outletRef}>
           {whoIs && canAccessRoute(pathname, whoIs) ? (
             <Outlet />
           ) : (

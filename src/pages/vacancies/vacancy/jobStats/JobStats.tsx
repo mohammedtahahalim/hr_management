@@ -10,6 +10,10 @@ const JobStatsWrapper = styled(Box)({
   gap: "10px",
   flexWrap: "wrap",
   padding: "10px",
+  minHeight: "260px",
+  "& > *": {
+    minHeight: "260px",
+  },
 });
 
 export default function JobStats() {

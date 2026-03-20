@@ -11,5 +11,20 @@
   "junior": "أقل من سنة",
   "mid": "1-3 سنين",
   "senior": "3+ سنين",
-  "recentActivities": "الأنشطة الأخيرة"
+  "recentActivities": "الأنشطة الأخيرة",
+  "description": "المسمى الوظيفي",
+  "editVacancy": "تعديل الوظيفة",
+  "saveChanges": "حفظ التغييرات",
+  "editMode": {
+    "title": "المسمى الوظيفي",
+    "status": "حالة الوظيفة",
+    "open": "مفتوح",
+    "inprogress": "قيد التنفيذ",
+    "completed": "مكتمل",
+    "window": "فترة التوظيف",
+    "salary": "الراتب",
+    "skills": "المهارات الأساسية",
+    "description": "وصف الوظيفة",
+    "notes": "ملاحظات"
+  }
 }
