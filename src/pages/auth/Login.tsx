@@ -263,6 +263,7 @@ export default function Login() {
 
   return (
     <LoginWrapper>
+      // TODO: fix the position of theme and languages
       <ThemeWrapper>
         <Theme />
       </ThemeWrapper>
