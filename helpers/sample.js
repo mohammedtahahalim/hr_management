@@ -1511,3 +1511,188 @@ export const generateVacancies = (page, filter) => {
     };
   });
 };
+
+/*This helper function is generated with AI, its whole purpose is to generate fake data and numbers that are statiscally pleasant represening in a graph*/
+export function generateRandomVacancy(id) {
+  // ---- ID + seed from string ----
+  const finalId = id ?? `vac_${Math.random().toString(36).slice(2, 10)}`;
+
+  function hashString(str) {
+    let h = 1779033703 ^ str.length;
+    for (let i = 0; i < str.length; i++) {
+      h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+      h = (h << 13) | (h >>> 19);
+    }
+    return () => {
+      h = Math.imul(h ^ (h >>> 16), 2246822507);
+      h = Math.imul(h ^ (h >>> 13), 3266489909);
+      return (h ^= h >>> 16) >>> 0;
+    };
+  }
+
+  function mulberry32(a) {
+    return function () {
+      let t = (a += 0x6d2b79f5);
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  const seed = hashString(finalId)();
+  const rand = mulberry32(seed);
+
+  const randInt = (min, max) => Math.floor(rand() * (max - min + 1)) + min;
+
+  const randItem = (arr) => arr[Math.floor(rand() * arr.length)];
+
+  const randomDate = (start, end) =>
+    new Date(start.getTime() + rand() * (end.getTime() - start.getTime()));
+
+  const formatDate = (date) => date.toISOString();
+
+  // ---- Trend (smooth UI-friendly) ----
+  const generateTrend = (length) => {
+    const base = randInt(80, 200);
+    const amplitude = randInt(10, 40);
+    const frequency = rand() * 0.5 + 0.2;
+
+    return Array.from({ length }, (_, i) => {
+      const wave = Math.sin(i * frequency) * amplitude;
+      const noise = randInt(-5, 5);
+      return Math.max(0, Math.round(base + wave + noise));
+    });
+  };
+
+  // ---- Multilang helpers ----
+  const langs = ["en", "fr", "ar", "ja"];
+
+  const mapLang = (fn) => Object.fromEntries(langs.map((l) => [l, fn(l)]));
+
+  // ---- Data pools ----
+  const titles = {
+    en: ["Frontend Developer", "Backend Engineer", "Fullstack Developer"],
+    fr: ["Développeur Frontend", "Ingénieur Backend", "Développeur Fullstack"],
+    ar: ["مطور واجهات", "مهندس خلفيات", "مطور شامل"],
+    ja: [
+      "フロントエンドエンジニア",
+      "バックエンドエンジニア",
+      "フルスタックエンジニア",
+    ],
+  };
+
+  const skillsPool = {
+    en: ["JavaScript", "TypeScript", "React", "Node.js", "Docker"],
+    fr: ["JavaScript", "TypeScript", "React", "Node.js", "Docker"],
+    ar: ["جافاسكريبت", "تايب سكريبت", "React", "Node.js", "Docker"],
+    ja: ["JavaScript", "TypeScript", "React", "Node.js", "Docker"],
+  };
+
+  const descriptions = {
+    en: ["Build scalable apps", "Collaborate with team", "Maintain APIs"],
+    fr: [
+      "Construire des apps scalables",
+      "Collaborer en équipe",
+      "Maintenir des APIs",
+    ],
+    ar: ["بناء تطبيقات قابلة للتوسع", "العمل مع الفريق", "صيانة APIs"],
+    ja: ["スケーラブルなアプリ開発", "チームで協力", "APIの保守"],
+  };
+
+  const notesList = {
+    en: ["Urgent hire", "Remote possible"],
+    fr: ["Recrutement urgent", "Télétravail possible"],
+    ar: ["توظيف عاجل", "عمل عن بعد ممكن"],
+    ja: ["急募", "リモート可"],
+  };
+
+  // ---- Dates ----
+  const open = randomDate(new Date(2023, 0, 1), new Date());
+  const close = randomDate(
+    open,
+    new Date(open.getTime() + 1000 * 60 * 60 * 24 * 90),
+  );
+
+  // ---- Funnel (coherent numbers) ----
+  const views = randInt(250, 1000);
+  const applicants = Math.floor(views * (0.05 + rand() * 0.15));
+  const shortlisted = Math.floor(applicants * (0.2 + rand() * 0.3));
+  const progress = Math.floor(shortlisted * (0.4 + rand() * 0.4));
+
+  // ---- Overview cards ----
+  const overviews = [
+    {
+      type: "views",
+      total: views,
+      new: randInt(0, views * 0.5) * [1, -1][Math.floor(Math.random() * 2)],
+    },
+    {
+      type: "apps",
+      total: applicants,
+      new: randInt(0, applicants) * [1, -1][Math.floor(Math.random() * 2)],
+    },
+    {
+      type: "shortlist",
+      total: shortlisted,
+      new: randInt(0, shortlisted) * [1, -1][Math.floor(Math.random() * 2)],
+    },
+    {
+      type: "progress",
+      total: progress,
+      new: randInt(0, progress) * [1, -1][Math.floor(Math.random() * 2)],
+    },
+  ];
+
+  // ---- Distribution (levels) ----
+  const junior = randInt(10, 40);
+  const mid = randInt(20, 50);
+  const senior = randInt(10, 30);
+  const distTotal = junior + mid + senior;
+
+  return {
+    id: finalId,
+
+    overviews,
+
+    trend: generateTrend(6),
+
+    distribution: {
+      total: distTotal,
+      data: [
+        { type: "junior", total: junior },
+        { type: "mid", total: mid },
+        { type: "senior", total: senior },
+      ],
+    },
+
+    details: {
+      title: mapLang((l) => randItem(titles[l])),
+
+      status: randItem(["open", "completed", "inprogress"]),
+
+      openDate: formatDate(open),
+      closeDate: formatDate(close),
+
+      salary: rand() > 0.3 ? randInt(30000, 120000) : null,
+
+      skills: mapLang((l) =>
+        Array.from(
+          new Set(
+            Array.from({ length: randInt(3, 5) }, () =>
+              randItem(skillsPool[l]),
+            ),
+          ),
+        ),
+      ),
+
+      description: mapLang((l) =>
+        Array.from({ length: randInt(2, 4) }, () => randItem(descriptions[l])),
+      ),
+
+      notes: mapLang((l) =>
+        Array.from({ length: randInt(1, 3) }, () => randItem(notesList[l])),
+      ),
+    },
+  };
+}
+/**/

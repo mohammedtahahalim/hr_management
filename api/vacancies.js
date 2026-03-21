@@ -1,12 +1,12 @@
 import auth from "../helpers/auth.js";
 import { allowedFilters } from "../helpers/constants.js";
-import { generateVacancies } from "../helpers/sample.js";
+import { generateRandomVacancy, generateVacancies } from "../helpers/sample.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET")
     return res.status(405).json({ message: "Method not allowed ..." });
   try {
-    await auth(req, res);
+    // await auth(req, res);
     if (res.headersSent || res.writableEnded) {
       return;
     }
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     if (id) {
       const data = generateVacancies(page, filter);
       return res.status(200).json({
-        data: data[0],
+        data: generateRandomVacancy(id),
       });
     }
     page = Number(page);

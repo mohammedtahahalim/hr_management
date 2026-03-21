@@ -8,9 +8,10 @@ import {
 } from "@mui/material";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
 import { useSelector } from "react-redux";
-import { selectVacancyStatus } from "../vacancySlice";
+import { selectVacancyDetails, selectVacancyStatus } from "../vacancySlice";
 import { useForm, type UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import type { TLanguage } from "../../../../config/i18n";
 
 interface DescriptionProps {
   onEditMode: boolean;
@@ -22,6 +23,7 @@ const DescriptionWrapper = styled(Box)(({ theme }) => ({
   height: "100%",
   overflowX: "hidden",
   overflowY: "scroll",
+  scrollbarWidth: "none",
   backgroundColor: theme.palette.background.paper,
   borderRadius: "18px",
   padding: "10px",
@@ -83,9 +85,11 @@ const Dates = styled(Box)(({ theme }) => ({
 }));
 
 export default function Description({ onEditMode }: DescriptionProps) {
-  const { t } = useTranslation("vacancy");
+  const { t, i18n } = useTranslation("vacancy");
   const status = useSelector(selectVacancyStatus);
   const { register } = useForm();
+  const details = useSelector(selectVacancyDetails);
+  const lang = i18n.language as TLanguage;
 
   return (
     <WithSkeleton loading={status === "loading"}>
@@ -94,7 +98,7 @@ export default function Description({ onEditMode }: DescriptionProps) {
           <Label htmlFor="jobTitle">{t("editMode.title")}</Label>
           <Input
             disabled={!onEditMode}
-            defaultValue={"Senior Software Developer"}
+            defaultValue={details?.title[lang]}
             size="small"
             {...register("jobTitle")}
             id="jobTitle"
@@ -141,7 +145,7 @@ export default function Description({ onEditMode }: DescriptionProps) {
           <Label>{t("editMode.salary")}</Label>
           <Input
             disabled={!onEditMode}
-            defaultValue={"Ensure to check the salary provided"}
+            defaultValue={details?.salary ?? 4_800_000}
             size="small"
             variant="standard"
             {...register("salary")}
@@ -151,7 +155,7 @@ export default function Description({ onEditMode }: DescriptionProps) {
           <Label>{t("editMode.skills")}</Label>
           <Input
             disabled={!onEditMode}
-            defaultValue={"React, Redux, Node.js"}
+            defaultValue={details?.skills[lang].join(", ")}
             size="small"
             variant="standard"
             {...register("skills")}
@@ -161,7 +165,7 @@ export default function Description({ onEditMode }: DescriptionProps) {
           <Label>{t("editMode.description")}</Label>
           <Input
             disabled={!onEditMode}
-            defaultValue={"lorem Ipsum dolores ..."}
+            defaultValue={details?.description[lang].join(", ")}
             size="small"
             variant="standard"
           />
@@ -170,7 +174,7 @@ export default function Description({ onEditMode }: DescriptionProps) {
           <Label>{t("editMode.notes")}</Label>
           <Input
             disabled={!onEditMode}
-            defaultValue={"Ensure to check the salary provided"}
+            defaultValue={details?.notes[lang].join(", ")}
             size="small"
             variant="standard"
           />

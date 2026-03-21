@@ -4,7 +4,7 @@ import NorthIcon from "@mui/icons-material/North";
 import SouthIcon from "@mui/icons-material/South";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { selectVacancyStatus } from "../vacancySlice";
+import { selectOverviews, selectVacancyStatus } from "../vacancySlice";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
 
 type TOverviewColor = keyof Pick<
@@ -17,12 +17,6 @@ const OverviewColors: TOverviewColor[] = [
   "overviewTwo",
   "overviewThree",
   "overviewFour",
-];
-const sampleData = [
-  { type: "views", total: 529, newPerc: 10 },
-  { type: "apps", total: 529, newPerc: 10 },
-  { type: "shortlist", total: 529, newPerc: 10 },
-  { type: "progress", total: 529, newPerc: -25 },
 ];
 
 const OverviewWrapper = styled(Box)({
@@ -96,6 +90,7 @@ export default function Overview() {
   const { t, i18n } = useTranslation("vacancy");
   const status = useSelector(selectVacancyStatus);
   const isArabic = i18n.language === "ar";
+  const overviewData = useSelector(selectOverviews);
 
   return (
     <OverviewWrapper>
@@ -107,30 +102,33 @@ export default function Overview() {
         sx={{ maxWidth: "310px", alignSelf: "center", maxHeight: "170px" }}
       >
         <BoxesWrapper>
-          {sampleData.map((s, idx) => {
-            return (
-              <OverviewBox key={s.type} bgColor={OverviewColors[idx]}>
-                <BoxTitle isArabic={isArabic}>
-                  <Title variant="body2" ender={false}>
-                    {t(`${s.type}`)}
-                  </Title>
-                </BoxTitle>
-                <Stats>
-                  <Title variant="h6" ender={false}>
-                    {String(s.total)}
-                  </Title>
-                  <NewBox bgColor={s.newPerc > 0 ? "success" : "error"}>
-                    {s.newPerc > 0 ? (
-                      <NorthIcon sx={{ fontSize: "0.8rem" }} />
-                    ) : (
-                      <SouthIcon sx={{ fontSize: "0.8rem" }} />
+          {Array.isArray(overviewData) &&
+            overviewData.map((s, idx) => {
+              return (
+                <OverviewBox key={s.type} bgColor={OverviewColors[idx]}>
+                  <BoxTitle isArabic={isArabic}>
+                    <Title variant="body2" ender={false}>
+                      {t(`${s.type}`)}
+                    </Title>
+                  </BoxTitle>
+                  <Stats>
+                    <Title variant="h6" ender={false}>
+                      {String(s.total)}
+                    </Title>
+                    {s.new !== 0 && (
+                      <NewBox bgColor={s.new > 0 ? "success" : "error"}>
+                        {s.new > 0 ? (
+                          <NorthIcon sx={{ fontSize: "0.8rem" }} />
+                        ) : (
+                          <SouthIcon sx={{ fontSize: "0.8rem" }} />
+                        )}
+                        {s.new}%
+                      </NewBox>
                     )}
-                    {s.newPerc}%
-                  </NewBox>
-                </Stats>
-              </OverviewBox>
-            );
-          })}
+                  </Stats>
+                </OverviewBox>
+              );
+            })}
         </BoxesWrapper>
       </WithSkeleton>
     </OverviewWrapper>

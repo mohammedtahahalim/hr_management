@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../../config/i18n";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
 import { useSelector } from "react-redux";
-import { selectVacancyStatus } from "../vacancySlice";
+import { selectApplicantOverTime, selectVacancyStatus } from "../vacancySlice";
 
 ChartJS.register(
   LineElement,
@@ -49,13 +49,14 @@ export default function Applicants() {
   const { i18n, t } = useTranslation("vacancy");
   const status = useSelector(selectVacancyStatus);
   const theme = useTheme();
+  const trend = useSelector(selectApplicantOverTime);
   const data = {
     labels: getLast7DaysISO().map((d) =>
       formatDate(d, i18n.language as TLanguage, false),
     ),
     datasets: [
       {
-        data: [12, 15, 12, 22, 18, 9],
+        data: trend,
         borderWidth: 2,
         pointRadius: 0,
         tension: 0.4,
@@ -84,8 +85,8 @@ export default function Applicants() {
         },
       },
       y: {
-        min: 0,
-        max: 40,
+        min: Math.min(...(trend ?? [])),
+        max: Math.max(...(trend ?? [])),
         border: { display: false },
         grid: {
           color: theme.palette.background.paper,
