@@ -4,15 +4,57 @@ import {
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import type { Reject, Status } from "../../../shared/lib/types";
-import { vacancieSchema, type VacancieData } from "../vacancieSlice";
 import type { RootState } from "../../../config/store";
+import { z } from "zod";
 
 interface FetchVacancyProps {
   id: string;
 }
 
+const vacancySchema = z.object({
+  id: z.string().nonempty(),
+  overviews: z.array(
+    z.object({
+      type: z.enum(["views", "apps", "shortlist", "progress"]),
+      total: z.number().nonnegative(),
+      new: z.number(),
+    }),
+  ),
+  trend: z.array(z.number()),
+  distribution: z.object({
+    total: z.number().nonnegative(),
+    data: z.array(
+      z.object({
+        type: z.enum(["junior", "mid", "senior"]),
+        total: z.number().nonnegative(),
+      }),
+    ),
+  }),
+  details: z.object({
+    title: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().min(1)),
+    status: z.enum(["open", "completed", "inprogress"]),
+    openDate: z.string().nonempty(),
+    closeDate: z.string().nonempty(),
+    salary: z.number().or(z.null()),
+    skills: z.record(
+      z.enum(["en", "ja", "ar", "fr"]),
+      z.array(z.string().nonempty()),
+    ),
+    description: z.record(
+      z.enum(["en", "ja", "ar", "fr"]),
+      z.array(z.string().nonempty()),
+    ),
+    notes: z.record(
+      z.enum(["en", "ja", "ar", "fr"]),
+      z.array(z.string().nonempty()),
+    ),
+  }),
+});
+
+export type VacancyData = z.infer<typeof vacancySchema>;
+
 export const fetchVacancy = createAsyncThunk<
-  VacancieData,
+  VacancyData,
   FetchVacancyProps,
   { rejectValue: Reject }
 >("vacancy/fetchById", async (_args, { signal, rejectWithValue }) => {
@@ -42,9 +84,9 @@ export const fetchVacancy = createAsyncThunk<
     )
       return rejectWithValue("MISMATCH");
     const { data } = dataFromServer;
-    const isValidData = vacancieSchema.safeParse(data);
+    const isValidData = vacancySchema.safeParse(data);
     if (!isValidData.success) return rejectWithValue("MISMATCH");
-    return isValidData.data as VacancieData;
+    return isValidData.data as VacancyData;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError")
       return rejectWithValue("ABORT");
@@ -55,7 +97,7 @@ export const fetchVacancy = createAsyncThunk<
 interface VacancyState {
   status: Status;
   error: Reject | null;
-  data: VacancieData | null;
+  data: VacancyData | null;
 }
 
 const initialState: VacancyState = {
@@ -74,7 +116,19 @@ export const selectVacancyData = (state: RootState) =>
   state.vacancies.vacancy.data;
 
 export const selectVacancyTitle = (state: RootState) =>
-  state.vacancies.vacancy.data?.title;
+  state.vacancies.vacancy.data?.details.title;
+
+export const selectOverviews = (state: RootState) =>
+  state.vacancies.vacancy.data?.overviews;
+
+export const selectApplicantOverTime = (state: RootState) =>
+  state.vacancies.vacancy.data?.trend;
+
+export const selectDistributions = (state: RootState) =>
+  state.vacancies.vacancy.data?.distribution;
+
+export const selectVacancyDetails = (state: RootState) =>
+  state.vacancies.vacancy.data?.details;
 
 const vacancySlice = createSlice({
   name: "vacancy/fetchById",
@@ -95,7 +149,7 @@ const vacancySlice = createSlice({
       )
       .addCase(
         fetchVacancy.fulfilled,
-        (state, action: PayloadAction<VacancieData>) => {
+        (state, action: PayloadAction<VacancyData>) => {
           state.status = "success";
           state.data = action.payload;
         },

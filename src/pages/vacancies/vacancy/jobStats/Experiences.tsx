@@ -2,7 +2,7 @@ import { Box, styled, Typography } from "@mui/material";
 import Title from "../../../../shared/ui/Title";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
 import { useSelector } from "react-redux";
-import { selectVacancyStatus } from "../vacancySlice";
+import { selectDistributions, selectVacancyStatus } from "../vacancySlice";
 import { useTranslation } from "react-i18next";
 
 const ExperiencesWrapper = styled(Box)({
@@ -75,6 +75,7 @@ const Seniority = styled(Typography)({
 export default function Experiences() {
   const status = useSelector(selectVacancyStatus);
   const { t } = useTranslation("vacancy");
+  const distribution = useSelector(selectDistributions);
 
   return (
     <ExperiencesWrapper>
@@ -92,7 +93,7 @@ export default function Experiences() {
                 fontWeight: "bold",
               }}
             >
-              124
+              {distribution?.total}
             </Typography>
             <Typography
               variant="body1"
@@ -102,7 +103,16 @@ export default function Experiences() {
             </Typography>
           </Total>
           <Partitions>
-            <Partition>
+            {distribution?.data.map((d) => {
+              return (
+                <Partition key={d.type}>
+                  <Applicants variant="h6">{d.total}</Applicants>
+                  <Seniority variant="subtitle2">{t(`${d.type}`)}</Seniority>
+                </Partition>
+              );
+            })}
+            {/*
+                        <Partition>
               <Applicants variant="h6">24</Applicants>
               <Seniority variant="subtitle2">{t("junior")}</Seniority>
             </Partition>
@@ -114,6 +124,7 @@ export default function Experiences() {
               <Applicants variant="h6">24</Applicants>
               <Seniority variant="subtitle2">{t("senior")}</Seniority>
             </Partition>
+            */}
           </Partitions>
         </DistributionWrapper>
       </WithSkeleton>

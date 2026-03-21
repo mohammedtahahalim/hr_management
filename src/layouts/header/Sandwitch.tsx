@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import Sidebar from "../sidebar/Sidebar";
 import useFocusTrap from "../../shared/lib/useFocusTrap";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 const SandwitchWrapper = styled(MenuIcon)(({ theme }) => ({
   fontSize: "1.7rem",
@@ -32,6 +33,7 @@ const SidebarMotion = motion.create(SidebarWrapper);
 
 export default function Sandwitch() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { pathname } = useLocation();
   const sidebarRef = useRef<HTMLElement | null>(null);
   const burgerRef = useRef<SVGSVGElement | null>(null);
   const { i18n } = useTranslation();
@@ -55,6 +57,10 @@ export default function Sandwitch() {
       window.removeEventListener("click", handleClickOutsideRef);
     };
   }, []);
+
+  useEffect(() => {
+    (() => setIsOpen(false))();
+  }, [pathname]);
 
   useEffect(() => {
     const handleEscapeKey = (e: KeyboardEvent) => {

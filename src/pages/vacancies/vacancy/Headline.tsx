@@ -31,7 +31,7 @@ export default function Headline() {
   return (
     <HeadlineWrapper>
       <IconButton
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/vacancies")}
         aria-label={t("iconButtonLabel")}
       >
         {i18n.language === "ar" ? (
