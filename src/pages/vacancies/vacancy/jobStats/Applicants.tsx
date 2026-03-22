@@ -85,8 +85,9 @@ export default function Applicants() {
         },
       },
       y: {
-        min: Math.min(...(trend ?? [])),
-        max: Math.max(...(trend ?? [])),
+        min: Math.min(...(trend ?? [])) - (Math.min(...(trend ?? [])) % 10),
+        max:
+          Math.max(...(trend ?? [])) + (10 - (Math.max(...(trend ?? [])) % 10)),
         border: { display: false },
         grid: {
           color: theme.palette.background.paper,

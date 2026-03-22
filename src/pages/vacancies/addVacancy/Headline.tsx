@@ -28,13 +28,13 @@ const Control = styled(Box)({
   display: "flex",
   justifyContent: "flex-end",
   alignItems: "center",
-  gap: "8px",
+  gap: "5px",
 });
 
 const ControlButton = styled(Button)({
   borderRadius: "50px",
   textTransform: "capitalize",
-  minWidth: "100px",
+  minWidth: "fit-content",
 });
 
 const Headline = memo(({ onSave }: HeadlineProps) => {

@@ -99,12 +99,14 @@ const ThemeWrapper = styled(Box)({
   position: "absolute",
   top: "10px",
   left: "10px",
+  width: "75px",
 });
 
 const LanguageWrapper = styled(Box)({
   position: "absolute",
   top: "10px",
   right: "10px",
+  width: "75px",
 });
 
 const Label = styled(FormLabel)({
@@ -122,6 +124,7 @@ const FieldInput = styled(Box)({
 });
 
 const Input = styled(TextField)({
+  width: "100%",
   fontFamily: "system-ui",
   color: "inherit",
   fontSize: "0.9rem",
@@ -133,13 +136,11 @@ const ErrorMessage = styled(Typography)({
 });
 
 const PasswordOption = styled(IconButton, {
-  shouldForwardProp: (prop) => prop !== "isArabic" && prop !== "hasError",
-})<{ isArabic: boolean; hasError: boolean }>(({ isArabic, hasError }) => ({
+  shouldForwardProp: (prop) => prop !== "isArabic",
+})<{ isArabic: boolean }>(({ isArabic }) => ({
   position: "absolute",
-  bottom: "0px",
   ...(isArabic ? { left: "0px" } : { right: "0px" }),
   zIndex: 999,
-  transform: hasError ? "translateY(-80%)" : "translateY(-5%)",
   cursor: "pointer",
 }));
 
@@ -263,7 +264,6 @@ export default function Login() {
 
   return (
     <LoginWrapper>
-      // TODO: fix the position of theme and languages
       <ThemeWrapper>
         <Theme />
       </ThemeWrapper>
@@ -304,41 +304,43 @@ export default function Login() {
           </FieldInput>
           <FieldInput>
             <Label htmlFor="password">{t("password")}</Label>
-            <Input
-              placeholder={t("passwordPlaceholder")}
-              size="small"
-              id="password"
-              error={!!errors.password}
-              type={hidePassword ? "password" : "text"}
-              {...register("password", {
-                required: true,
-                pattern: {
-                  value:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_=+[\]{}\\|;:'",.<>?-])[a-zA-Z0-9!@#$%^&*()_=+[\]{}\\|;:'.",<>?-]{4,30}$/,
-                  message: "passwordError",
-                },
-              })}
-              autoComplete="current-password"
-              defaultValue={"Test@Test.001"}
-            />
+            <Box sx={{ width: "100%", position: "relative" }}>
+              <Input
+                placeholder={t("passwordPlaceholder")}
+                size="small"
+                id="password"
+                error={!!errors.password}
+                type={hidePassword ? "password" : "text"}
+                {...register("password", {
+                  required: true,
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_=+[\]{}\\|;:'",.<>?-])[a-zA-Z0-9!@#$%^&*()_=+[\]{}\\|;:'.",<>?-]{4,30}$/,
+                    message: "passwordError",
+                  },
+                })}
+                autoComplete="current-password"
+                defaultValue={"Test@Test.001"}
+              />
+              <PasswordOption
+                isArabic={i18n.language === "ar"}
+                onClick={() => setHidePassword((hidePassword) => !hidePassword)}
+                aria-label={
+                  hidePassword ? t("hidePassword") : t("showPassword")
+                }
+              >
+                {hidePassword ? (
+                  <VisibilityIcon fontSize="small" />
+                ) : (
+                  <VisibilityOffIcon fontSize="small" />
+                )}
+              </PasswordOption>
+            </Box>
             {errors.password && (
               <ErrorMessage color="error" role="alert" aria-live="assertive">
                 {t("passwordError")}
               </ErrorMessage>
             )}
-            {/* TODO: Fix the eye position */}
-            <PasswordOption
-              isArabic={i18n.language === "ar"}
-              hasError={Boolean(errors.email || errors.password)}
-              onClick={() => setHidePassword((hidePassword) => !hidePassword)}
-              aria-label={hidePassword ? t("hidePassword") : t("showPassword")}
-            >
-              {hidePassword ? (
-                <VisibilityIcon fontSize="small" />
-              ) : (
-                <VisibilityOffIcon fontSize="small" />
-              )}
-            </PasswordOption>
           </FieldInput>
           <Options>
             <FormControlLabel
