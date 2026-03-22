@@ -26,5 +26,7 @@
     "skills": "Compétences clés",
     "description": "Description du poste",
     "notes": "Notes"
-  }
+  },
+  "increase": "Augmentation de",
+  "decrease": "Diminution de"
 }

@@ -111,20 +111,6 @@ export default function Experiences() {
                 </Partition>
               );
             })}
-            {/*
-                        <Partition>
-              <Applicants variant="h6">24</Applicants>
-              <Seniority variant="subtitle2">{t("junior")}</Seniority>
-            </Partition>
-            <Partition>
-              <Applicants variant="h6">24</Applicants>
-              <Seniority variant="subtitle2">{t("mid")}</Seniority>
-            </Partition>
-            <Partition>
-              <Applicants variant="h6">24</Applicants>
-              <Seniority variant="subtitle2">{t("senior")}</Seniority>
-            </Partition>
-            */}
           </Partitions>
         </DistributionWrapper>
       </WithSkeleton>

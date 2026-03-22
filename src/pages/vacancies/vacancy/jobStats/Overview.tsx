@@ -116,7 +116,11 @@ export default function Overview() {
                       {String(s.total)}
                     </Title>
                     {s.new !== 0 && (
-                      <NewBox bgColor={s.new > 0 ? "success" : "error"}>
+                      <NewBox
+                        bgColor={s.new > 0 ? "success" : "error"}
+                        aria-label={`${s.new > 0 ? t("increase") : t("decrease")} ${s.new}%`}
+                        tabIndex={0}
+                      >
                         {s.new > 0 ? (
                           <NorthIcon sx={{ fontSize: "0.8rem" }} />
                         ) : (

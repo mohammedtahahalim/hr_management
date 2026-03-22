@@ -106,7 +106,7 @@ export default function Description({ onEditMode }: DescriptionProps) {
           />
         </Line>
         <Line>
-          <Label>{t("editMode.status")}</Label>
+          <Label htmlFor="jobStatus">{t("editMode.status")}</Label>
           <Status
             disabled={!onEditMode}
             size="small"
@@ -114,6 +114,7 @@ export default function Description({ onEditMode }: DescriptionProps) {
             {...register("jobStatus")}
             sx={{ flex: 2.5 }}
             variant="standard"
+            id="jobStatus"
           >
             <MenuItem value="open">{t("editMode.open")}</MenuItem>
             <MenuItem value="inprogress">{t("editMode.inprogress")}</MenuItem>
@@ -121,8 +122,8 @@ export default function Description({ onEditMode }: DescriptionProps) {
           </Status>
         </Line>
         <Line>
-          <Label>{t("editMode.window")}</Label>
-          <Dates>
+          <Label htmlFor="datesWindow">{t("editMode.window")}</Label>
+          <Dates id="datesWindow">
             <TextField
               type="date"
               sx={{ flex: 1 }}
@@ -142,41 +143,45 @@ export default function Description({ onEditMode }: DescriptionProps) {
           </Dates>
         </Line>
         <Line>
-          <Label>{t("editMode.salary")}</Label>
+          <Label htmlFor="salary">{t("editMode.salary")}</Label>
           <Input
             disabled={!onEditMode}
             defaultValue={details?.salary ?? 4_800_000}
             size="small"
             variant="standard"
             {...register("salary")}
+            id="salary"
           />
         </Line>
         <Line>
-          <Label>{t("editMode.skills")}</Label>
+          <Label htmlFor="skills">{t("editMode.skills")}</Label>
           <Input
             disabled={!onEditMode}
             defaultValue={details?.skills[lang].join(", ")}
             size="small"
             variant="standard"
             {...register("skills")}
+            id="skills"
           />
         </Line>
         <Line>
-          <Label>{t("editMode.description")}</Label>
+          <Label htmlFor="description">{t("editMode.description")}</Label>
           <Input
             disabled={!onEditMode}
             defaultValue={details?.description[lang].join(", ")}
             size="small"
             variant="standard"
+            id="description"
           />
         </Line>
         <Line>
-          <Label>{t("editMode.notes")}</Label>
+          <Label htmlFor="notes">{t("editMode.notes")}</Label>
           <Input
             disabled={!onEditMode}
             defaultValue={details?.notes[lang].join(", ")}
             size="small"
             variant="standard"
+            id="notes"
           />
         </Line>
       </DescriptionWrapper>

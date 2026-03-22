@@ -26,5 +26,7 @@
     "skills": "必要なスキル",
     "description": "仕事内容",
     "notes": "メモ"
-  }
+  },
+  "increase": "増加",
+  "decrease": "減少"
 }
