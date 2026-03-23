@@ -2,5 +2,6 @@
   "theme": "Changer de thème",
   "language": "Changer de langue",
   "logo_label": "Logo de gestion des RH",
-  "profile_label": "Image de profil"
+  "profile_label": "Image de profil",
+  "openMenu": "Ouvrir le menu"
 }

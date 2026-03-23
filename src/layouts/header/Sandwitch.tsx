@@ -14,6 +14,7 @@ const SandwitchWrapper = styled(MenuIcon)(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {
     display: "none",
   },
+  cursor: "pointer",
 }));
 
 const SidebarWrapper = styled(Box, {
@@ -36,7 +37,7 @@ export default function Sandwitch() {
   const { pathname } = useLocation();
   const sidebarRef = useRef<HTMLElement | null>(null);
   const burgerRef = useRef<SVGSVGElement | null>(null);
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation("a11y");
   const isArabic = i18n.language === "ar";
 
   useFocusTrap(sidebarRef, isOpen);
@@ -85,7 +86,7 @@ export default function Sandwitch() {
       <SandwitchWrapper
         onClick={() => setIsOpen(true)}
         tabIndex={0}
-        aria-label="Open Menu"
+        aria-label={t("openMenu")}
         onKeyDown={handleBurgerKeyClick}
         aria-hidden={false}
         ref={burgerRef}

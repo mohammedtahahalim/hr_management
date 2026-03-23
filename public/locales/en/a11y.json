@@ -2,5 +2,6 @@
   "theme": "Change Theme",
   "language": "Change Language",
   "logo_label": "HR Management Logo",
-  "profile_label": "Profile Image"
+  "profile_label": "Profile Image",
+  "openMenu": "Open Menu"
 }
