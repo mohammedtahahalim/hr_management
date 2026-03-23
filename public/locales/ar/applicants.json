@@ -1,0 +1,21 @@
+{
+  "title": "المتقدمون",
+  "miniStats": {
+    "open": {
+      "title": "الوظائف الشاغرة",
+      "special": "جديد"
+    },
+    "active": {
+      "title": "المرشحون النشطون",
+      "special": "جديد"
+    },
+    "hiring": {
+      "title": "عملية التوظيف",
+      "special": "مراحل"
+    },
+    "experience": {
+      "title": "الخبرات",
+      "special": "%"
+    }
+  }
+}

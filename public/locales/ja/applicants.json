@@ -1,0 +1,21 @@
+{
+  "title": "応募者",
+  "miniStats": {
+    "open": {
+      "title": "募集中のポジション",
+      "special": "新規"
+    },
+    "active": {
+      "title": "アクティブな候補者",
+      "special": "新規"
+    },
+    "hiring": {
+      "title": "採用プロセス",
+      "special": "ステージ"
+    },
+    "experience": {
+      "title": "経験",
+      "special": "%"
+    }
+  }
+}
