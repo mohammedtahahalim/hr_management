@@ -1,9 +1,15 @@
 import { Box, styled } from "@mui/material";
-import Card from "./Card";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../config/store";
+import { useEffect } from "react";
+import { fetchApplicantsOverview } from "./applicantOverview";
+import Open from "./Open";
+import Active from "./Active";
+import Hiring from "./Hiring";
+import Experience from "./Experience";
 
 const MiniStatsWrapper = styled(Box)({
   width: "fit-content",
-  minHeight: "150px",
   margin: "0 auto",
   display: "flex",
   gap: "10px",
@@ -12,12 +18,18 @@ const MiniStatsWrapper = styled(Box)({
 });
 
 export default function MiniStats() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchApplicantsOverview());
+  }, []);
+
   return (
     <MiniStatsWrapper>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      <Open />
+      <Active />
+      <Hiring />
+      <Experience />
     </MiniStatsWrapper>
   );
 }

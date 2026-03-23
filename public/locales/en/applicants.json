@@ -1,0 +1,21 @@
+{
+  "title": "Applicants",
+  "miniStats": {
+    "open": {
+      "title": "Open Positions",
+      "special": "new"
+    },
+    "active": {
+      "title": "Active Condidates",
+      "special": "new"
+    },
+    "hiring": {
+      "title": "Hiring Process",
+      "special": "stages"
+    },
+    "experience": {
+      "title": "Experiences",
+      "special": "%"
+    }
+  }
+}

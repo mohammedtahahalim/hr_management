@@ -1,0 +1,21 @@
+{
+  "title": "Candidats",
+  "miniStats": {
+    "open": {
+      "title": "Postes ouverts",
+      "special": "nouveau"
+    },
+    "active": {
+      "title": "Candidats actifs",
+      "special": "nouveau"
+    },
+    "hiring": {
+      "title": "Recrutement",
+      "special": "étapes"
+    },
+    "experience": {
+      "title": "Expériences",
+      "special": "%"
+    }
+  }
+}

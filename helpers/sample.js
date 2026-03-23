@@ -1696,3 +1696,46 @@ export function generateRandomVacancy(id) {
   };
 }
 /**/
+
+/* This helper function is generated with AI, its whole purpose is to generate fake data and numbers that are statiscally pleasant represening in a graph */
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateTrend() {
+  const trend = Array.from({ length: 7 }, () => getRandomInt(0, 5));
+
+  // ensure at least one 0
+  if (!trend.includes(0)) {
+    const index = getRandomInt(0, 6);
+    trend[index] = 0;
+  }
+
+  return trend;
+}
+
+export function generateApplicantsOverview() {
+  return {
+    open: {
+      total: getRandomInt(0, 1000),
+      trend: generateTrend(),
+      new: getRandomInt(0, 9),
+    },
+    active: {
+      total: getRandomInt(0, 1000),
+      trend: generateTrend(),
+      new: getRandomInt(0, 9),
+    },
+    hiring: {
+      average: getRandomInt(0, 50),
+      trend: generateTrend(),
+      stages: getRandomInt(1, 6),
+    },
+    candidate: {
+      average: getRandomInt(0, 50),
+      trend: generateTrend(),
+      percentage: getRandomInt(0, 99),
+    },
+  };
+}
+/**/
