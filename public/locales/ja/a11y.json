@@ -2,5 +2,6 @@
   "theme": "テーマを変更する",
   "language": "言語を変更",
   "logo_label": "HRマネジメントロゴ",
-  "profile_label": "プロフィール画像"
+  "profile_label": "プロフィール画像",
+  "openMenu": "メニューを開く"
 }
