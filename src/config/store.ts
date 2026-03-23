@@ -4,6 +4,7 @@ import toastSlice from "../features/toast/toastSlice";
 import notificationSlice from "../features/notifications/notificationSlice";
 import { dashboardReducer } from "../pages/dashboard/dashboardReducer";
 import { vacancyReducer } from "../pages/vacancies/vacancyReducer";
+import { applicantReducer } from "../pages/applicants/applicantReducer";
 
 export const HRStore = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const HRStore = configureStore({
     notifications: notificationSlice,
     dashboard: dashboardReducer,
     vacancies: vacancyReducer,
+    applicants: applicantReducer,
   },
 });
 

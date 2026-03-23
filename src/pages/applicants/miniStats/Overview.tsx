@@ -1,3 +1,10 @@
+import { Box, styled } from "@mui/material";
+
+const OverviewWrapper = styled(Box)({
+  height: "100%",
+  width: "80px",
+});
+
 export default function Overview() {
-  return <div>Overview</div>;
+  return <OverviewWrapper>Overview</OverviewWrapper>;
 }
