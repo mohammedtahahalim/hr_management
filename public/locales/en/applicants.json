@@ -20,5 +20,30 @@
   },
   "prevPage": "Previous Page",
   "currentPage": "Current Page",
-  "nextPage": "Next Page"
+  "nextPage": "Next Page",
+  "table": {
+    "head": {
+      "name": "Applicant Name",
+      "pos": "Position",
+      "date": "Application Date",
+      "status": "Status",
+      "contact": "Email",
+      "rating": "Rating"
+    },
+    "body": {
+      "position": {
+        "backend": "Backend Engineer",
+        "devOps": "DevOps Engineer",
+        "fullStack": "FullStack Engineer",
+        "django": "Django Developer",
+        "cloud": "Cloud Engineer",
+        "c++": "C++ Developer",
+        "front": "Frontend Engineer",
+        "php": "PHP Developer",
+        "data": "Data Analyst",
+        "design": "UI/UX Designer",
+        "project": "Project Manager"
+      }
+    }
+  }
 }

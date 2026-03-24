@@ -8,7 +8,7 @@ import z from "zod";
 import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 
-type Sorters = "name" | "pos" | "date" | "status" | "contact" | "rating";
+export type Sorters = "name" | "pos" | "date" | "status" | "contact" | "rating";
 
 const applicantSchema = z.object({
   page: z.number().nonnegative(),
@@ -32,7 +32,7 @@ const applicantSchema = z.object({
         "cloud",
       ]),
       date: z.string().datetime(),
-      status: z.enum(["new", "1", "2", "3", "review", "onboard", "offer"]),
+      status: z.number().min(1).max(6),
       email: z.email(),
       rating: z.number().min(0).max(5),
     }),
@@ -41,13 +41,15 @@ const applicantSchema = z.object({
 
 type ApplicantData = z.infer<typeof applicantSchema>;
 
+export type ApplicantDataSample = ApplicantData["data"][number];
+
 export const fetchApplicants = createAsyncThunk<
   ApplicantData,
   Record<string, number | string>,
   { rejectValue: Reject }
 >("fetchApplicants", async (_args, { signal, rejectWithValue }) => {
   try {
-    const { page = 1, pageSize = 8 } = _args ?? {};
+    const { page = 1, pageSize = 10 } = _args ?? {};
     const base = import.meta.env.VITE_API_URL;
     const fullURL: URL = new URL("/api/applicants", base);
     fullURL.searchParams.set("page", String(page));
@@ -103,23 +105,23 @@ export const selectApplicantLastPage = (state: RootState) =>
 export const selectApplicantData = (state: RootState) =>
   state.applicants.applicants.data?.data;
 
-export const selectSortBy = (state: RootState) =>
+export const selectApplicantSortBy = (state: RootState) =>
   state.applicants.applicants.sortBy;
 
-export const selectSortOrder = (state: RootState) =>
+export const selectApplicantSortOrder = (state: RootState) =>
   state.applicants.applicants.sortOrder;
 
 const sorters: Record<Sorters, (a: any, b: any) => number> = {
   name: (a, b) => a.name.localeCompare(b.name),
   pos: (a, b) => a.position.localeCompare(b.position),
   date: (a, b) => a.date.localeCompare(b.date),
-  status: (a, b) => a.status.localeCompare(b.status),
+  status: (a, b) => a.status - b.status,
   contact: (a, b) => a.email.localeCompare(b.email),
   rating: (a, b) => a.rating - b.rating,
 };
 
-export const displayData = createSelector(
-  [selectApplicantData, selectSortBy, selectSortOrder],
+export const selectDisplayData = createSelector(
+  [selectApplicantData, selectApplicantSortBy, selectApplicantSortOrder],
   (data, sortBy, sortOrder) => {
     if (!data || data.length === 0) return [];
 
@@ -172,3 +174,4 @@ const applicantSlice = createSlice({
 });
 
 export default applicantSlice.reducer;
+export const { sortData } = applicantSlice.actions;

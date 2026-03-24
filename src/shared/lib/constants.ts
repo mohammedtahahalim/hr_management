@@ -428,3 +428,42 @@ export const sampleData: Record<TLanguage, SampleData[]> = {
     },
   ],
 };
+
+export const statusStages: Record<TLanguage, string>[] = [
+  {
+    en: "New Application",
+    ja: "新規応募",
+    ar: "طلب جديد",
+    fr: "Nouvelle candidature",
+  },
+  {
+    en: "Review",
+    ja: "審査",
+    ar: "مراجعة",
+    fr: "Examen",
+  },
+  {
+    en: "Interview 1",
+    ja: "一次面接",
+    ar: "المقابلة الأولى",
+    fr: "Entretien 1",
+  },
+  {
+    en: "Interview 2",
+    ja: "二次面接",
+    ar: "المقابلة الثانية",
+    fr: "Entretien 2",
+  },
+  {
+    en: "Offer Extended",
+    ja: "内定通知",
+    ar: "تقديم عرض",
+    fr: "Offre proposée",
+  },
+  {
+    en: "Onboarding",
+    ja: "入社手続き",
+    ar: "إجراءات الانضمام",
+    fr: "Intégration",
+  },
+];

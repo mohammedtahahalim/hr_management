@@ -1,17 +1,42 @@
 import { styled } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import {
+  selectApplicantSortBy,
+  selectApplicantSortOrder,
+  sortData,
+  type Sorters,
+} from "./applicantSlice";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch } from "../../../config/store";
+import NorthIcon from "@mui/icons-material/North";
+import SouthIcon from "@mui/icons-material/South";
+import ImportExportIcon from "@mui/icons-material/ImportExport";
+
+const HeadContent: Sorters[] = [
+  "name",
+  "pos",
+  "date",
+  "status",
+  "contact",
+  "rating",
+];
 
 const HeadWrapper = styled("thead")({
   width: "100%",
 });
 
-const Row = styled("tr")(({ theme }) => ({
+const Row = styled("tr", {
+  shouldForwardProp: (prop) => prop !== "isArabic",
+})<{ isArabic: boolean }>(({ theme, isArabic }) => ({
   "&>td:first-of-type": {
-    borderTopLeftRadius: "50px",
-    borderBottomLeftRadius: "50px",
+    ...(isArabic
+      ? { borderTopRightRadius: "50px", borderBottomRightRadius: "50px" }
+      : { borderTopLeftRadius: "50px", borderBottomLeftRadius: "50px" }),
   },
   "&>td:last-of-type": {
-    borderTopRightRadius: "50px",
-    borderBottomRightRadius: "50px",
+    ...(isArabic
+      ? { borderTopLeftRadius: "50px", borderBottomLeftRadius: "50px" }
+      : { borderTopRightRadius: "50px", borderBottomRightRadius: "50px" }),
   },
   [theme.breakpoints.down("lg")]: {
     "&>td:nth-of-type(3)": {
@@ -28,8 +53,9 @@ const Row = styled("tr")(({ theme }) => ({
       display: "none",
     },
     "&>td:nth-of-type(4)": {
-      borderTopRightRadius: "50px",
-      borderBottomRightRadius: "50px",
+      ...(isArabic
+        ? { borderTopLeftRadius: "50px", borderBottomLeftRadius: "50px" }
+        : { borderTopRightRadius: "50px", borderBottomRightRadius: "50px" }),
     },
   },
 }));
@@ -41,18 +67,36 @@ const Col = styled("td")(({ theme }) => ({
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
   height: "50px",
+  cursor: "pointer",
+  fontSize: "0.9rem",
 }));
 
 export default function Head() {
+  const { t, i18n } = useTranslation("applicants");
+  const dispatch = useDispatch<AppDispatch>();
+  const activeSort = useSelector(selectApplicantSortBy);
+  const sortOrder = useSelector(selectApplicantSortOrder);
+  const isArabic = i18n.language === "ar";
+
   return (
     <HeadWrapper>
-      <Row>
-        <Col>Col</Col>
-        <Col>Col</Col>
-        <Col>Col</Col>
-        <Col>Col</Col>
-        <Col>Col</Col>
-        <Col>Col</Col>
+      <Row isArabic={isArabic}>
+        {HeadContent.map((c) => {
+          return (
+            <Col onClick={() => dispatch(sortData(c))} key={c}>
+              {t(`table.head.${c}`)}{" "}
+              {activeSort === c ? (
+                sortOrder === "asc" ? (
+                  <NorthIcon sx={{ fontSize: "0.75rem" }} />
+                ) : (
+                  <SouthIcon sx={{ fontSize: "0.75rem" }} />
+                )
+              ) : (
+                <ImportExportIcon sx={{ fontSize: "0.8rem" }} />
+              )}
+            </Col>
+          );
+        })}
       </Row>
     </HeadWrapper>
   );
