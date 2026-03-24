@@ -17,5 +17,8 @@
       "title": "Experiences",
       "special": "%"
     }
-  }
+  },
+  "prevPage": "Previous Page",
+  "currentPage": "Current Page",
+  "nextPage": "Next Page"
 }

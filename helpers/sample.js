@@ -1717,7 +1717,7 @@ function generateTrend() {
 export function generateApplicantsOverview() {
   return {
     open: {
-      total: getRandomInt(0, 1000),
+      total: getRandomInt(0, 200),
       trend: generateTrend(),
       new: getRandomInt(0, 9),
     },
@@ -1727,15 +1727,82 @@ export function generateApplicantsOverview() {
       new: getRandomInt(0, 9),
     },
     hiring: {
-      average: getRandomInt(0, 50),
+      average: getRandomInt(0, 300),
       trend: generateTrend(),
       stages: getRandomInt(1, 6),
     },
     candidate: {
-      average: getRandomInt(0, 50),
+      average: getRandomInt(0, 75),
       trend: generateTrend(),
       percentage: getRandomInt(0, 99),
     },
   };
 }
 /**/
+
+const positions = [
+  "front",
+  "backend",
+  "design",
+  "fullStack",
+  "data",
+  "c++",
+  "php",
+  "django",
+  "project",
+  "devOps",
+  "cloud",
+];
+
+const statuses = ["new", "1", "2", "3", "review", "onboard", "offer"];
+
+const names = [
+  "Yassine",
+  "Karim",
+  "Salma",
+  "Nadia",
+  "Omar",
+  "Hassan",
+  "Amine",
+  "Leila",
+  "Rachid",
+  "Imane",
+];
+
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function randomEmail(name) {
+  const domains = ["gmail.com", "yahoo.com", "outlook.com"];
+  return `${name.toLowerCase()}${Math.floor(Math.random() * 1000)}@${randomItem(domains)}`;
+}
+
+function randomDate() {
+  return new Date(
+    Date.now() - Math.floor(Math.random() * 1000 * 60 * 60 * 24 * 30),
+  ).toISOString();
+}
+
+export function generateApplicant(id) {
+  const name = randomItem(names);
+
+  const data = {
+    id,
+    name,
+    position: randomItem(positions),
+    date: randomDate(),
+    status: randomItem(statuses),
+    email: randomEmail(name),
+    rating: Math.floor(Math.random() * 5),
+  };
+
+  // optional validation
+  return data;
+}
+
+// ---- generate multiple ----
+
+export function generateApplicants(count) {
+  return Array.from({ length: count }, (_, i) => generateApplicant(i));
+}
