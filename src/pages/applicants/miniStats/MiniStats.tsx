@@ -21,7 +21,10 @@ export default function MiniStats() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchApplicantsOverview());
+    const applicantsOverview = dispatch(fetchApplicantsOverview());
+    return () => {
+      applicantsOverview.abort();
+    };
   }, []);
 
   return (

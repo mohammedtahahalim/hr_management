@@ -17,5 +17,8 @@
       "title": "経験",
       "special": "%"
     }
-  }
+  },
+  "prevPage": "前のページ",
+  "currentPage": "現在のページ",
+  "nextPage": "次のページ"
 }
