@@ -20,5 +20,30 @@
   },
   "prevPage": "前のページ",
   "currentPage": "現在のページ",
-  "nextPage": "次のページ"
+  "nextPage": "次のページ",
+  "table": {
+    "head": {
+      "name": "応募者氏名",
+      "pos": "位置",
+      "date": "申請日",
+      "status": "状態",
+      "contact": "メール",
+      "rating": "評価"
+    },
+    "body": {
+      "position": {
+        "backend": "バックエンドエンジニア",
+        "devOps": "DevOpsエンジニア",
+        "fullStack": "フルスタックエンジニア",
+        "django": "Django開発者",
+        "cloud": "クラウドエンジニア",
+        "c++": "C++開発者",
+        "front": "フロントエンドエンジニア",
+        "php": "PHP開発者",
+        "data": "データアナリスト",
+        "design": "UI/UXデザイナー",
+        "project": "プロジェクトマネージャー"
+      }
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import type { TLanguage } from "../../config/i18n";
 import type { User } from "../../features/auth/authSlice";
 import { names, routesWithPermissions } from "./constants";
-import type { DistributionWeek, Status } from "./types";
+import type { DistributionWeek, PositionColor, Status } from "./types";
 
 export const canAccessRoute = (route: string, whoIs: User): boolean => {
   const { role } = whoIs;
@@ -91,4 +91,14 @@ export const YAxis = (trend: number[] | undefined) => {
   }
   console.log(min, max);
   return [min, max];
+};
+
+export const generateRandomPosColor = (): PositionColor => {
+  const colors: Partial<PositionColor>[] = [
+    "first",
+    "fourth",
+    "second",
+    "third",
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
 };

@@ -1792,7 +1792,7 @@ export function generateApplicant(id) {
     name,
     position: randomItem(positions),
     date: randomDate(),
-    status: randomItem(statuses),
+    status: Math.floor(Math.random() * 6) + 1,
     email: randomEmail(name),
     rating: Math.floor(Math.random() * 5),
   };

@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../config/store";
 import { useEffect } from "react";
-import { fetchApplicants } from "./applicantSlice";
+import { fetchApplicants, selectApplicantStatus } from "./applicantSlice";
 import { styled } from "@mui/material";
 import Head from "./Head";
 import Body from "./Body";
+import WithSkeleton from "../../../shared/ui/WithSkeleton";
 
 const TableWrapper = styled("table")({
   width: "100%",
@@ -16,6 +17,7 @@ const TableWrapper = styled("table")({
 });
 
 export default function Table() {
+  const status = useSelector(selectApplicantStatus);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -28,9 +30,11 @@ export default function Table() {
   }, [dispatch]);
 
   return (
-    <TableWrapper>
-      <Head />
-      <Body />
-    </TableWrapper>
+    <WithSkeleton loading={status === "loading"} sx={{ borderRadius: "25px" }}>
+      <TableWrapper>
+        <Head />
+        <Body />
+      </TableWrapper>
+    </WithSkeleton>
   );
 }

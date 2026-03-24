@@ -1,5 +1,7 @@
 import { styled } from "@mui/material";
 import Row from "./Row";
+import { useSelector } from "react-redux";
+import { selectDisplayData } from "./applicantSlice";
 
 const BodyWrapper = styled("tbody")({
   width: "100%",
@@ -7,18 +9,13 @@ const BodyWrapper = styled("tbody")({
 });
 
 export default function Body() {
+  const displayData = useSelector(selectDisplayData);
+
   return (
     <BodyWrapper>
-      <Row />
-      <Row />
-      <Row />
-      <Row />
-      <Row />
-      <Row />
-      <Row />
-      <Row />
-      <Row />
-      <Row />
+      {displayData.map((d) => {
+        return <Row key={d.id} {...d} />;
+      })}
     </BodyWrapper>
   );
 }
