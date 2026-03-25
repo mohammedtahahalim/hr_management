@@ -48,6 +48,9 @@ const Name = styled(Typography)({
   fontFamily: "system-ui",
   fontWeight: "bold",
   fontSize: "0.9rem",
+  maxWidth: "120px",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 });
 
 const Position = styled(Box, {
@@ -62,6 +65,9 @@ const Position = styled(Box, {
   fontSize: "0.8rem",
   margin: "0 auto",
   color: "whitesmoke",
+  maxWidth: "100px",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 }));
 
 const Date = styled(Typography)({
@@ -114,12 +120,15 @@ export default function Row({
   status,
   email,
   rating,
-}: ApplicantDataSample) {
+  setActiveApplicant,
+}: ApplicantDataSample & {
+  setActiveApplicant: React.Dispatch<React.SetStateAction<number>>;
+}) {
   const { t, i18n } = useTranslation("applicants");
   const statusText = statusStages[status - 1][i18n.language as TLanguage];
 
   return (
-    <RowWrapper id={`row-${id}`}>
+    <RowWrapper id={`row-${id}`} onClick={() => setActiveApplicant(id)}>
       <Col>
         <Name variant="subtitle1">{name}</Name>
       </Col>

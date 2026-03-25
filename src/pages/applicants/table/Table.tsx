@@ -1,7 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch } from "../../../config/store";
-import { useEffect } from "react";
-import { fetchApplicants, selectApplicantStatus } from "./applicantSlice";
+import { useSelector } from "react-redux";
+import { selectApplicantStatus } from "./applicantSlice";
 import { styled } from "@mui/material";
 import Head from "./Head";
 import Body from "./Body";
@@ -18,16 +16,6 @@ const TableWrapper = styled("table")({
 
 export default function Table() {
   const status = useSelector(selectApplicantStatus);
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    const applicantRequest = dispatch(
-      fetchApplicants({ page: 1, pageSize: 8 }),
-    );
-    return () => {
-      applicantRequest.abort();
-    };
-  }, [dispatch]);
 
   return (
     <WithSkeleton loading={status === "loading"} sx={{ borderRadius: "25px" }}>

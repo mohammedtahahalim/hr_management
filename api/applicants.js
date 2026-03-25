@@ -2,6 +2,7 @@ import auth from "../helpers/auth.js";
 import {
   generateApplicants,
   generateApplicantsOverview,
+  generateMockApplicant,
 } from "../helpers/sample.js";
 
 export default async function handler(req, res) {
@@ -12,7 +13,10 @@ export default async function handler(req, res) {
     if (res.headersSent || res.writableEnded) {
       return;
     }
-    const { block } = req.query;
+    const { block, id } = req.query;
+    if (id) {
+      return res.status(200).json({ data: generateMockApplicant(id) });
+    }
     if (block === "overview") {
       return res.status(200).json({ data: generateApplicantsOverview() });
     }

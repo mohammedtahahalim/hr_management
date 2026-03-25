@@ -58,7 +58,7 @@ export default function Control() {
         "page",
         dir === "prev"
           ? String(Math.max(currentPage - 1, 1))
-          : String(Math.min(currentPage + 1, lastPage ?? currentPage)),
+          : String(Math.min(currentPage + 1, lastPage ?? currentPage + 1)),
       );
 
       navigate({ pathname, search: params.toString() });
@@ -77,7 +77,7 @@ export default function Control() {
       </PrevPage>
       <WithSkeleton
         loading={isLoading}
-        sx={{ height: "27.5px", maxWidth: "27.5px" }}
+        sx={{ height: "27px", maxWidth: "27px" }}
       >
         <Page aria-label={`${t("currentPage")}:${page}`} aria-live="polite">
           {page}
