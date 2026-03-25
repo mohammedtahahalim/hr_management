@@ -2,12 +2,9 @@ import { Box, styled, Typography } from "@mui/material";
 import type { ApplicantDataSample } from "./applicantSlice";
 import { useTranslation } from "react-i18next";
 import type { PositionColor } from "../../../shared/lib/types";
-import {
-  formatDate,
-  generateRandomPosColor,
-} from "../../../shared/lib/helpers";
+import { formatDate } from "../../../shared/lib/helpers";
 import type { TLanguage } from "../../../config/i18n";
-import { statusStages } from "../../../shared/lib/constants";
+import { positionsColor, statusStages } from "../../../shared/lib/constants";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 
@@ -133,7 +130,7 @@ export default function Row({
         <Name variant="subtitle1">{name}</Name>
       </Col>
       <Col>
-        <Position posColor={generateRandomPosColor()}>
+        <Position posColor={positionsColor[position]}>
           {t(`table.body.position.${position}`)}
         </Position>
       </Col>

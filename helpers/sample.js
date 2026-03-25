@@ -1803,7 +1803,7 @@ export function generateApplicant() {
   const user = randomItem(users);
 
   const data = {
-    id: Math.floor(Math.random() * 100000),
+    id: Math.floor(Math.random() * 10000000),
     name: user.name,
     position: randomItem(positions),
     date: randomDate(),
@@ -2020,6 +2020,8 @@ export const generateMockApplicant = (id) => {
     "mysql",
   ];
 
+  const locations = ["us", "fr", "ma", "ja", "uk", "sp"];
+
   const name = randomFrom(NAMES);
   const shortName = name["en"].replace(/\s/g, "").toLowerCase();
 
@@ -2068,7 +2070,7 @@ export const generateMockApplicant = (id) => {
       tasks: Array.from({ length: 1 + Math.floor(Math.random() * 3) }, () =>
         randomFrom(TASKS),
       ),
-      location: "US",
+      location: randomFrom(locations),
       startDate: new Date(
         Date.now() - Math.random() * 5 * 31536000000,
       ).toISOString(),

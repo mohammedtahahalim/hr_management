@@ -45,5 +45,62 @@
         "project": "Chef de projet"
       }
     }
+  },
+  "details": {
+    "skills": {
+      "title": "Compétences",
+      "javascript": "Javascript",
+      "typescript": "Typescript",
+      "html": "HTML",
+      "css": "CSS",
+      "sql": "SQL",
+      "react": "React",
+      "vue": "Vue",
+      "angular": "Angular",
+      "redux": "Redux",
+      "next.js": "Next.js",
+      "tailwind": "Tailwind CSS",
+      "node.js": "Node.js",
+      "express": "Express",
+      "nestjs": "NestJS",
+      "mongodb": "MongoDB",
+      "postgresql": "PostgreSQL",
+      "mysql": "MYSQL"
+    },
+    "headline": {
+      "status": {
+        "title": "Statut",
+        "hr": "Ressources humaines",
+        "interview1": "Entretien 1",
+        "interview2": "Entretien 2",
+        "systemDesign": "Conception système",
+        "culturalFit": "Adéquation culturelle",
+        "ceo": "Entretien avec le PDG"
+      },
+      "positions": {
+        "front": "Ingénieur Frontend",
+        "backend": "Ingénieur Backend",
+        "design": "Designer UI/UX",
+        "fullStack": "Ingénieur Full Stack",
+        "data": "Analyste de données",
+        "c++": "Développeur C++",
+        "php": "Développeur PHP",
+        "django": "Développeur Django",
+        "project": "Chef de projet",
+        "devOps": "Ingénieur DevOps",
+        "cloud": "Ingénieur Cloud"
+      }
+    },
+    "experience": {
+      "current": "Actuel",
+      "location": {
+        "us": "États-Unis",
+        "fr": "France",
+        "ma": "Maroc",
+        "ja": "Japon",
+        "uk": "Royaume-Uni",
+        "sp": "Espagne"
+      }
+    }
   }
 }

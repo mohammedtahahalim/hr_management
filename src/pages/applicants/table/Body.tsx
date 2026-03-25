@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { createPortal } from "react-dom";
 import Details from "./details/Details";
+import { useTranslation } from "react-i18next";
 
 const BodyWrapper = styled("tbody")({
   width: "100%",
@@ -15,18 +16,14 @@ const BodyWrapper = styled("tbody")({
 const DetailsWrapper = styled(Box)(({ theme }) => ({
   position: "fixed",
   top: "0px",
-  right: "0px",
   height: "100vh",
-  overflowY: "scroll",
-  scrollbarWidth: "none",
-  width: "50vw",
-  minWidth: "400px",
+  width: "100%",
+  maxWidth: "650px",
   zIndex: 9999,
   backgroundColor: alpha(theme.palette.background.paper, 0.9),
   border: `1px solid ${theme.palette.divider}`,
   borderTopLeftRadius: "18px",
   borderBottomLeftRadius: "18px",
-  overflow: "hidden",
 }));
 
 const DetailsMotion = motion.create(DetailsWrapper);
@@ -36,6 +33,8 @@ export default function Body() {
   const [activeApplicant, setActiveApplicant] = useState<number>(-1);
   const tableBodyRef = useRef<HTMLTableSectionElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
+  const { i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
 
   useEffect(() => {
     const onEscapeKey = (e: KeyboardEvent) => {
@@ -66,12 +65,27 @@ export default function Body() {
           {activeApplicant !== -1 && (
             <DetailsMotion
               ref={detailsRef}
-              initial={{ opacity: 0, right: "-100%" }}
-              animate={{ opacity: 1, right: "0px" }}
-              exit={{ opacity: 0, right: "-100%" }}
+              initial={{
+                opacity: 0,
+                ...(isArabic ? { left: "-100%" } : { right: "-100%" }),
+              }}
+              animate={{
+                opacity: 1,
+                ...(isArabic ? { left: "0px" } : { right: "0px" }),
+              }}
+              exit={{
+                opacity: 0,
+                ...(isArabic ? { left: "-100%" } : { right: "-100%" }),
+              }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
+              aria-haspopup={true}
+              role="dialog"
+              aria-live="assertive"
             >
-              <Details id={activeApplicant} />
+              <Details
+                id={activeApplicant}
+                setActiveApplicant={setActiveApplicant}
+              />
             </DetailsMotion>
           )}
         </AnimatePresence>,
