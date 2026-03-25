@@ -26,6 +26,7 @@ import type {
   Filters,
   VacancieData,
 } from "../../pages/vacancies/vacancieSlice";
+import type { Positions } from "../../pages/applicants/table/details/detailSlice";
 
 type MuiIcon = OverridableComponent<SvgIconTypeMap<object, "svg">> & {
   muiName: string;
@@ -467,3 +468,17 @@ export const statusStages: Record<TLanguage, string>[] = [
     fr: "Intégration",
   },
 ];
+
+export const positionsColor: Record<Positions, PositionColor> = {
+  front: "first",
+  backend: "second",
+  design: "third",
+  fullStack: "fourth",
+  data: "error",
+  "c++": "success",
+  php: "first",
+  django: "second",
+  project: "third",
+  devOps: "fourth",
+  cloud: "error",
+};

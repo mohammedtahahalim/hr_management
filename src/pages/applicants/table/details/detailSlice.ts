@@ -84,6 +84,8 @@ const applicantDetailSchema = z.object({
 
 type ApplicationDetail = z.infer<typeof applicantDetailSchema>;
 
+export type Positions = ApplicationDetail["general"]["position"];
+
 type FetchDetailsProps = { id: number };
 
 export const fetchDetails = createAsyncThunk<
@@ -154,7 +156,7 @@ export const selectDetailPersonal = (state: RootState) =>
 export const selectDetailEducation = (state: RootState) =>
   state.applicants.details.data?.educations;
 
-export const selectDetailPExperience = (state: RootState) =>
+export const selectDetailExperience = (state: RootState) =>
   state.applicants.details.data?.experiences;
 
 export const selectDetailSkills = (state: RootState) =>

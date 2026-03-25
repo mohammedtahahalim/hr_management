@@ -45,5 +45,51 @@
         "project": "Project Manager"
       }
     }
+  },
+  "details": {
+    "skills": {
+      "title": "Skills",
+      "javascript": "Javascript",
+      "typescript": "Typescript",
+      "html": "HTML",
+      "css": "CSS",
+      "sql": "SQL",
+      "react": "React",
+      "vue": "Vue",
+      "angular": "Angular",
+      "redux": "Eedux",
+      "next.js": "Next.js",
+      "tailwind": "Tailwind CSS",
+      "node.js": "Node.js",
+      "express": "Express",
+      "nestjs": "NestJS",
+      "mongodb": "MongoDB",
+      "postgresql": "PostgreSQL",
+      "mysql": "MYSQL"
+    },
+    "headline": {
+      "status": {
+        "title": "Status",
+        "hr": "HR",
+        "interview1": "Interview 1",
+        "interview2": "Interview 2",
+        "systemDesign": "System Design",
+        "culturalFit": "Cultural Fit",
+        "ceo": "CEO Interview"
+      },
+      "positions": {
+        "front": "Frontend Engineer",
+        "backend": "Backend Engineer",
+        "design": "UI/UX Designer",
+        "fullStack": "FullStack Engineer",
+        "data": "Data Analyst",
+        "c++": "C++ Developer",
+        "php": "PHP Developer",
+        "django": "Django Developer",
+        "project": "Project Manager",
+        "devOps": "DevOps Engineer",
+        "cloud": "Cloud Engineer"
+      }
+    }
   }
 }

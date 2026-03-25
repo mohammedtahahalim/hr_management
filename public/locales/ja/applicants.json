@@ -45,5 +45,51 @@
         "project": "プロジェクトマネージャー"
       }
     }
+  },
+  "details": {
+    "skills": {
+      "title": "スキル",
+      "javascript": "ジャバスクリプト",
+      "typescript": "タイプスクリプト",
+      "html": "HTML",
+      "css": "CSS",
+      "sql": "SQL",
+      "react": "リアクト",
+      "vue": "ヴュー",
+      "angular": "アンギュラー",
+      "redux": "リダックス",
+      "next.js": "ネクスト.js",
+      "tailwind": "テイルウィンド CSS",
+      "node.js": "ノード.js",
+      "express": "エクスプレス",
+      "nestjs": "ネストJS",
+      "mongodb": "モンゴDB",
+      "postgresql": "ポストグレスQL",
+      "mysql": "MySQL"
+    },
+    "headline": {
+      "status": {
+        "title": "ステータス",
+        "hr": "人事",
+        "interview1": "一次面接",
+        "interview2": "二次面接",
+        "systemDesign": "システム設計",
+        "culturalFit": "カルチャーフィット",
+        "ceo": "CEO面接"
+      },
+      "positions": {
+        "front": "フロントエンドエンジニア",
+        "backend": "バックエンドエンジニア",
+        "design": "UI/UXデザイナー",
+        "fullStack": "フルスタックエンジニア",
+        "data": "データアナリスト",
+        "c++": "C++開発者",
+        "php": "PHP開発者",
+        "django": "Django開発者",
+        "project": "プロジェクトマネージャー",
+        "devOps": "DevOpsエンジニア",
+        "cloud": "クラウドエンジニア"
+      }
+    }
   }
 }

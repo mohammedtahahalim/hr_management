@@ -1803,7 +1803,7 @@ export function generateApplicant() {
   const user = randomItem(users);
 
   const data = {
-    id: Math.floor(Math.random() * 100000),
+    id: Math.floor(Math.random() * 10000000),
     name: user.name,
     position: randomItem(positions),
     date: randomDate(),
