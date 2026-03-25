@@ -1821,3 +1821,262 @@ export function generateApplicant() {
 export function generateApplicants(count) {
   return Array.from({ length: count }, (_, i) => generateApplicant());
 }
+
+// ------------- Generate Random Applicant -------------------- //
+
+export const generateMockApplicant = (id) => {
+  const NAMES = [
+    { en: "John Doe", ar: "جون دو", ja: "ジョン・ドー", fr: "Jean Doe" },
+    {
+      en: "Alice Smith",
+      ar: "أليس سميث",
+      ja: "アリス・スミス",
+      fr: "Alice Smith",
+    },
+    {
+      en: "Bob Johnson",
+      ar: "بوب جونسون",
+      ja: "ボブ・ジョンソン",
+      fr: "Bob Johnson",
+    },
+    { en: "Mary Lee", ar: "ماري لي", ja: "メアリー・リー", fr: "Marie Lee" },
+    {
+      en: "James Brown",
+      ar: "جيمس براون",
+      ja: "ジェームズ・ブラウン",
+      fr: "James Brown",
+    },
+    {
+      en: "Emma Wilson",
+      ar: "إيما ويلسون",
+      ja: "エマ・ウィルソン",
+      fr: "Emma Wilson",
+    },
+    {
+      en: "Liam Taylor",
+      ar: "ليام تايلور",
+      ja: "リアム・テイラー",
+      fr: "Liam Taylor",
+    },
+    {
+      en: "Olivia Martinez",
+      ar: "أوليفيا مارتينيز",
+      ja: "オリビア・マルティネス",
+      fr: "Olivia Martinez",
+    },
+  ];
+
+  const COMPANIES = [
+    { en: "TechCorp", ar: "تك كورب", ja: "テックコープ", fr: "TechCorp" },
+    { en: "DesignHub", ar: "ديزاين هاب", ja: "デザインハブ", fr: "DesignHub" },
+    { en: "DataWorks", ar: "داتا وركس", ja: "データワークス", fr: "DataWorks" },
+    {
+      en: "CloudNine",
+      ar: "كلاود ناين",
+      ja: "クラウドナイン",
+      fr: "CloudNine",
+    },
+    {
+      en: "NextGen Solutions",
+      ar: "نيكست جن سولوشنز",
+      ja: "ネクストジェンソリューションズ",
+      fr: "NextGen Solutions",
+    },
+    { en: "AlphaTech", ar: "ألفا تك", ja: "アルファテック", fr: "AlphaTech" },
+    {
+      en: "Bright Minds",
+      ar: "برايت مايندز",
+      ja: "ブライトマインズ",
+      fr: "Bright Minds",
+    },
+    { en: "CodeWorks", ar: "كود وركس", ja: "コードワークス", fr: "CodeWorks" },
+  ];
+
+  const DEGREES = [
+    {
+      en: "Bachelor of Science",
+      ar: "بكالوريوس علوم",
+      ja: "理学士",
+      fr: "Licence en sciences",
+    },
+    {
+      en: "Master of Engineering",
+      ar: "ماجستير هندسة",
+      ja: "工学修士",
+      fr: "Master en ingénierie",
+    },
+    {
+      en: "Bachelor of Arts",
+      ar: "بكالوريوس آداب",
+      ja: "文学士",
+      fr: "Licence en arts",
+    },
+    {
+      en: "Master of Science",
+      ar: "ماجستير علوم",
+      ja: "理学修士",
+      fr: "Master en sciences",
+    },
+    { en: "MBA", ar: "ماجستير إدارة أعمال", ja: "経営学修士", fr: "MBA" },
+  ];
+
+  const POSITIONS = [
+    {
+      en: "Frontend Developer",
+      ar: "مطوّر الواجهة الأمامية",
+      ja: "フロントエンド開発者",
+      fr: "Développeur Frontend",
+    },
+    {
+      en: "Backend Developer",
+      ar: "مطوّر الواجهة الخلفية",
+      ja: "バックエンド開発者",
+      fr: "Développeur Backend",
+    },
+    {
+      en: "FullStack Engineer",
+      ar: "مهندس متكامل",
+      ja: "フルスタックエンジニア",
+      fr: "Ingénieur FullStack",
+    },
+    {
+      en: "UI/UX Designer",
+      ar: "مصمم واجهة وتجربة المستخدم",
+      ja: "UI/UXデザイナー",
+      fr: "Designer UI/UX",
+    },
+    {
+      en: "Data Analyst",
+      ar: "محلل بيانات",
+      ja: "データアナリスト",
+      fr: "Analyste de données",
+    },
+  ];
+
+  const TASKS = [
+    {
+      en: "Implemented new feature",
+      ar: "تم تنفيذ ميزة جديدة",
+      ja: "新機能を実装",
+      fr: "Implémentation d'une nouvelle fonctionnalité",
+    },
+    {
+      en: "Fixed critical bugs",
+      ar: "إصلاح أخطاء حرجة",
+      ja: "重大なバグを修正",
+      fr: "Correction de bugs critiques",
+    },
+    {
+      en: "Optimized database queries",
+      ar: "تحسين استعلامات قاعدة البيانات",
+      ja: "データベースクエリを最適化",
+      fr: "Optimisation des requêtes de base de données",
+    },
+    {
+      en: "Refactored codebase",
+      ar: "إعادة هيكلة قاعدة الشيفرة",
+      ja: "コードベースをリファクタリング",
+      fr: "Refactoring du code",
+    },
+    {
+      en: "Led team meetings",
+      ar: "قيادة اجتماعات الفريق",
+      ja: "チームミーティングを主導",
+      fr: "Conduite des réunions d'équipe",
+    },
+    {
+      en: "Improved performance",
+      ar: "تحسين الأداء",
+      ja: "パフォーマンス改善",
+      fr: "Amélioration des performances",
+    },
+  ];
+
+  const LANGS = ["en", "ar", "ja", "fr"];
+
+  function randomFrom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  const eduCount = 1 + Math.floor(Math.random() * 3);
+  const expCount = 1 + Math.floor(Math.random() * 3);
+  const skillsPool = [
+    "javascript",
+    "typescript",
+    "html",
+    "css",
+    "sql",
+    "react",
+    "vue",
+    "angular",
+    "redux",
+    "next.js",
+    "tailwind",
+    "node.js",
+    "express",
+    "nestjs",
+    "mongodb",
+    "postgresql",
+    "mysql",
+  ];
+
+  const name = randomFrom(NAMES);
+  const shortName = name["en"].replace(/\s/g, "").toLowerCase();
+
+  return {
+    id,
+    general: {
+      name,
+      status: randomFrom([
+        "hr",
+        "interview1",
+        "interview2",
+        "systemDesign",
+        "culturalFit",
+        "ceo",
+      ]),
+      position: randomFrom([
+        "front",
+        "backend",
+        "design",
+        "fullStack",
+        "data",
+        "c++",
+        "php",
+        "django",
+        "project",
+        "devOps",
+        "cloud",
+      ]),
+    },
+    personal: {
+      email: shortName + "@gmail.com",
+      phone: "+1234567890",
+      linkedin: `https://linkedin.com/in/${shortName}`,
+      appliedDate: new Date(
+        Date.now() - Math.random() * 31536000000,
+      ).toISOString(),
+    },
+    educations: Array.from({ length: eduCount }, () => ({
+      school: randomFrom(COMPANIES),
+      degree: randomFrom(DEGREES),
+      graduated: (2015 + Math.floor(Math.random() * 8)).toString(),
+    })).sort((a, b) => new Date(a.graduated) > new Date(b.graduated)),
+    experiences: Array.from({ length: expCount }, () => ({
+      position: randomFrom(POSITIONS),
+      company: randomFrom(COMPANIES),
+      tasks: Array.from({ length: 1 + Math.floor(Math.random() * 3) }, () =>
+        randomFrom(TASKS),
+      ),
+      location: "US",
+      startDate: new Date(
+        Date.now() - Math.random() * 5 * 31536000000,
+      ).toISOString(),
+      endDate:
+        Math.random() > 0.5
+          ? new Date(Date.now() - Math.random() * 2 * 31536000000).toISOString()
+          : null,
+    })).sort((a, b) => new Date(a.startDate) > new Date(b.startDate)),
+    skills: skillsPool.sort(() => 0.5 - Math.random()).slice(0, 5),
+  };
+};

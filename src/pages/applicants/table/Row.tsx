@@ -48,7 +48,7 @@ const Name = styled(Typography)({
   fontFamily: "system-ui",
   fontWeight: "bold",
   fontSize: "0.9rem",
-  maxWidth: "90px",
+  maxWidth: "120px",
   overflow: "hidden",
   textOverflow: "ellipsis",
 });

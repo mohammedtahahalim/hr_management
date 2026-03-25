@@ -1,5 +1,8 @@
 import { Box, styled } from "@mui/material";
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../../../config/store";
+import { fetchDetails } from "./detailSlice";
 
 interface DetailsProps {
   id: number;
@@ -12,6 +15,15 @@ const DetailsWrapper = styled(Box)({
 });
 
 const Details = memo(({ id }: DetailsProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const detailRequest = dispatch(fetchDetails({ id }));
+    return () => {
+      detailRequest.abort();
+    };
+  }, [dispatch]);
+
   return <DetailsWrapper>{id}</DetailsWrapper>;
 });
 
