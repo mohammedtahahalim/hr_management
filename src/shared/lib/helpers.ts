@@ -47,12 +47,13 @@ export const formatDate = (
   dateString: string,
   lang: TLanguage,
   withYear: boolean = true,
+  withDay: boolean = true,
 ): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat(lang, {
     ...(withYear ? { year: "numeric" } : {}),
     month: "long",
-    day: "numeric",
+    ...(withDay ? { day: "numeric" } : {}),
   }).format(date);
 };
 

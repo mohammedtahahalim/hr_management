@@ -9,14 +9,14 @@ import type { PositionColor } from "../../../../shared/lib/types";
 
 const HeadlineWrapper = styled(Box)(({ theme }) => ({
   padding: "5px",
-  minHeight: "80px",
+  height: "80px",
   borderRadius: "12px",
   display: "flex",
   gap: "5px",
   justifyContent: "space-between",
   [theme.breakpoints.down("sm")]: {
     flexDirection: "column",
-    minHeight: "150px",
+    height: "150px",
   },
 }));
 

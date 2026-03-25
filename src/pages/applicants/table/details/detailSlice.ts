@@ -86,6 +86,8 @@ type ApplicationDetail = z.infer<typeof applicantDetailSchema>;
 
 export type Positions = ApplicationDetail["general"]["position"];
 
+export type Experience = ApplicationDetail["experiences"][number];
+
 type FetchDetailsProps = { id: number };
 
 export const fetchDetails = createAsyncThunk<

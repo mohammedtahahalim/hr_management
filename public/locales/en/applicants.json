@@ -90,6 +90,17 @@
         "devOps": "DevOps Engineer",
         "cloud": "Cloud Engineer"
       }
+    },
+    "experience": {
+      "current": "Current",
+      "location": {
+        "us": "United States",
+        "fr": "France",
+        "ma": "Morocco",
+        "ja": "Japan",
+        "uk": "United Kingdom",
+        "sp": "Spain"
+      }
     }
   }
 }

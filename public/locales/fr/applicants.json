@@ -90,6 +90,17 @@
         "devOps": "Ingénieur DevOps",
         "cloud": "Ingénieur Cloud"
       }
+    },
+    "experience": {
+      "current": "Actuel",
+      "location": {
+        "us": "États-Unis",
+        "fr": "France",
+        "ma": "Maroc",
+        "ja": "Japon",
+        "uk": "Royaume-Uni",
+        "sp": "Espagne"
+      }
     }
   }
 }
