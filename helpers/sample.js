@@ -1799,11 +1799,11 @@ function randomDate() {
   ).toISOString();
 }
 
-export function generateApplicant(id) {
+export function generateApplicant() {
   const user = randomItem(users);
 
   const data = {
-    id,
+    id: Math.floor(Math.random() * 100000),
     name: user.name,
     position: randomItem(positions),
     date: randomDate(),
@@ -1819,5 +1819,5 @@ export function generateApplicant(id) {
 // ---- generate multiple ----
 
 export function generateApplicants(count) {
-  return Array.from({ length: count }, (_, i) => generateApplicant(i));
+  return Array.from({ length: count }, (_, i) => generateApplicant());
 }
