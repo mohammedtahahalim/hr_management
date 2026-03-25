@@ -1756,26 +1756,41 @@ const positions = [
 
 const statuses = ["new", "1", "2", "3", "review", "onboard", "offer"];
 
-const names = [
-  "Yassine",
-  "Karim",
-  "Salma",
-  "Nadia",
-  "Omar",
-  "Hassan",
-  "Amine",
-  "Leila",
-  "Rachid",
-  "Imane",
+const users = [
+  { name: "山本 さくら", email: "sakura.yamamoto23@example.com" },
+  { name: "أمير الفارسي", email: "amir.alfarsi91@mail.com" },
+  { name: "Élodie Dupont", email: "elodie.dupont77@example.fr" },
+  { name: "Mateo García", email: "mateo.garcia55@mail.es" },
+  { name: "田中 優希", email: "yuki.tanaka88@example.jp" },
+  { name: "فاطمة الزهراء", email: "fatima.zahra14@mail.com" },
+  { name: "Noah Müller", email: "noah.mueller62@example.de" },
+  { name: "आरव शर्मा", email: "aarav.sharma30@mail.in" },
+  { name: "Chloé Martin", email: "chloe.martin49@example.fr" },
+  { name: "حسن العمراني", email: "hassan.elamrani73@mail.ma" },
+  { name: "Luca Bianchi", email: "luca.bianchi11@example.it" },
+  { name: "زهرا حسینی", email: "zahra.hosseini27@mail.ir" },
+  { name: "Иван Петров", email: "ivan.petrov64@example.ru" },
+  { name: "林 美", email: "mei.lin05@mail.cn" },
+  { name: "عمر حداد", email: "omar.haddad92@example.com" },
+  { name: "Σοφία Παπαδοπούλου", email: "sofia.papadopoulou38@mail.gr" },
+  { name: "佐藤 健二", email: "kenji.sato81@example.jp" },
+  { name: "ليلى بن علي", email: "leila.benali19@mail.com" },
+  { name: "Diego Fernández", email: "diego.fernandez44@example.es" },
+  { name: "Аня Иванова", email: "anya.ivanova29@mail.ru" },
+  { name: "ريان السيد", email: "rayan.alsayed66@example.com" },
+  { name: "Isabella Rossi", email: "isabella.rossi07@mail.it" },
+  { name: "طارق محمود", email: "tariq.mahmoud53@example.com" },
+  { name: "Nina Novak", email: "nina.novak35@mail.cz" },
+  { name: "김진우", email: "jinwoo.kim90@example.kr" },
+  { name: "سلمى ناصر", email: "salma.nasser12@mail.com" },
+  { name: "Ethan Smith", email: "ethan.smith58@example.com" },
+  { name: "Мила Јовановић", email: "mila.jovanovic76@mail.rs" },
+  { name: "كريم بوالحفة", email: "karim.boulahfa21@example.ma" },
+  { name: "O'Connor Liam", email: "liam.oconnor33@mail.ie" },
 ];
 
 function randomItem(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function randomEmail(name) {
-  const domains = ["gmail.com", "yahoo.com", "outlook.com"];
-  return `${name.toLowerCase()}${Math.floor(Math.random() * 1000)}@${randomItem(domains)}`;
 }
 
 function randomDate() {
@@ -1785,15 +1800,15 @@ function randomDate() {
 }
 
 export function generateApplicant(id) {
-  const name = randomItem(names);
+  const user = randomItem(users);
 
   const data = {
     id,
-    name,
+    name: user.name,
     position: randomItem(positions),
     date: randomDate(),
     status: Math.floor(Math.random() * 6) + 1,
-    email: randomEmail(name),
+    email: user.email,
     rating: Math.floor(Math.random() * 5),
   };
 

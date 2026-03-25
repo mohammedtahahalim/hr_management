@@ -17,7 +17,7 @@ const applicantSchema = z.object({
   data: z.array(
     z.object({
       id: z.number().nonnegative(),
-      name: z.string().min(4).max(25),
+      name: z.string().min(2).max(25),
       position: z.enum([
         "front",
         "backend",
@@ -33,7 +33,7 @@ const applicantSchema = z.object({
       ]),
       date: z.string().datetime(),
       status: z.number().min(1).max(6),
-      email: z.email(),
+      email: z.string(),
       rating: z.number().min(0).max(5),
     }),
   ),
