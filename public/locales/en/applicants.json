@@ -109,6 +109,9 @@
       "phone": "Phone",
       "linkedin": "Linkedin",
       "appliedDate": "Applied"
+    },
+    "education": {
+      "title": "Education"
     }
   }
 }

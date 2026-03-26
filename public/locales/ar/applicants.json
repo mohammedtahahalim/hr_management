@@ -92,6 +92,7 @@
       }
     },
     "experience": {
+      "title": "خبرة",
       "current": "الحالي",
       "location": {
         "us": "الولايات المتحدة",
@@ -108,6 +109,9 @@
       "phone": "الهاتف",
       "linkedin": "لينكد إن",
       "appliedDate": "تم التقديم"
+    },
+    "education": {
+      "title": "تعليم"
     }
   }
 }
