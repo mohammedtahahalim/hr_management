@@ -101,6 +101,13 @@
         "uk": "イギリス",
         "sp": "スペイン"
       }
+    },
+    "personal": {
+      "name": "氏名",
+      "email": "メール",
+      "phone": "電話番号",
+      "linkedin": "LinkedIn",
+      "appliedDate": "応募日"
     }
   }
 }

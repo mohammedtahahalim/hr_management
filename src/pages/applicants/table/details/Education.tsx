@@ -7,6 +7,7 @@ const EducationWrapper = styled(Box)(({ theme }) => ({
   minHeight: "300px",
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: "12px",
+  padding: "5px",
 }));
 
 export default function Education() {
