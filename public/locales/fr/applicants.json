@@ -92,6 +92,7 @@
       }
     },
     "experience": {
+      "title": "Expériences",
       "current": "Actuel",
       "location": {
         "us": "États-Unis",
@@ -108,6 +109,9 @@
       "phone": "Téléphone",
       "linkedin": "LinkedIn",
       "appliedDate": "Candidaté"
+    },
+    "education": {
+      "title": "Éducation"
     }
   }
 }

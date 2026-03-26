@@ -92,6 +92,7 @@
       }
     },
     "experience": {
+      "title": "体験談",
       "current": "現在",
       "location": {
         "us": "アメリカ合衆国",
@@ -108,6 +109,9 @@
       "phone": "電話番号",
       "linkedin": "LinkedIn",
       "appliedDate": "応募日"
+    },
+    "education": {
+      "title": "教育"
     }
   }
 }
