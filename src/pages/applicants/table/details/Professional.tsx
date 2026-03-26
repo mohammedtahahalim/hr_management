@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectDetailExperience, selectDetailStatus } from "./detailSlice";
 import Experience from "./Experience";
 import Title from "../../../../shared/ui/Title";
+import { useTranslation } from "react-i18next";
 
 const ProfessionalWrapper = styled(Box)({
   flex: 1,
@@ -15,6 +16,7 @@ const ProfessionalWrapper = styled(Box)({
 });
 
 export default function Professional() {
+  const { t } = useTranslation("applicants");
   const status = useSelector(selectDetailStatus);
   const professionalExperience = useSelector(selectDetailExperience);
 
@@ -25,7 +27,7 @@ export default function Professional() {
         sx={{ borderRadius: "12px" }}
       >
         <Title variant="body1" ender={false}>
-          Experiences
+          {t("details.experience.title")}
         </Title>
         {professionalExperience?.map((p) => {
           return <Experience key={`${p.startDate}-${p.endDate}`} {...p} />;

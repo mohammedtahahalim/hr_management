@@ -39,7 +39,7 @@ const applicantDetailSchema = z.object({
       .string()
       .regex(/^\+?[1-9]\d{1,14}$/)
       .or(z.null()),
-    linkedin: z.url().or(z.null()),
+    linkedin: z.string().or(z.null()),
     appliedDate: z.iso.datetime(),
   }),
   educations: z.array(
@@ -163,6 +163,9 @@ export const selectDetailExperience = (state: RootState) =>
 
 export const selectDetailSkills = (state: RootState) =>
   state.applicants.details.data?.skills;
+
+export const selectDetailName = (state: RootState) =>
+  state.applicants.details.data?.general.name;
 
 const detailSlice = createSlice({
   name: "details/slice",

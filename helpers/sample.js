@@ -2054,7 +2054,7 @@ export const generateMockApplicant = (id) => {
     personal: {
       email: shortName + "@gmail.com",
       phone: "+1234567890",
-      linkedin: `https://linkedin.com/in/${shortName}`,
+      linkedin: `/in/${shortName}`,
       appliedDate: new Date(
         Date.now() - Math.random() * 31536000000,
       ).toISOString(),

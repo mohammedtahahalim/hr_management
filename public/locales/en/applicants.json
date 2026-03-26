@@ -92,6 +92,7 @@
       }
     },
     "experience": {
+      "title": "Experiences",
       "current": "Current",
       "location": {
         "us": "United States",
@@ -101,6 +102,13 @@
         "uk": "United Kingdom",
         "sp": "Spain"
       }
+    },
+    "personal": {
+      "name": "FullName",
+      "email": "Email",
+      "phone": "Phone",
+      "linkedin": "Linkedin",
+      "appliedDate": "Applied"
     }
   }
 }

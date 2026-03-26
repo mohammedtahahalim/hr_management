@@ -101,6 +101,13 @@
         "uk": "Royaume-Uni",
         "sp": "Espagne"
       }
+    },
+    "personal": {
+      "name": "Nom complet",
+      "email": "Email",
+      "phone": "Téléphone",
+      "linkedin": "LinkedIn",
+      "appliedDate": "Candidaté"
     }
   }
 }
