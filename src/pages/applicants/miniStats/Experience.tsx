@@ -2,11 +2,15 @@ import { Box, styled } from "@mui/material";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import Bar from "./Bar";
 import Overview from "./Overview";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchApplicantsOverview,
   selectApplicantOverviewCandidate,
+  selectApplicantOverviewError,
   selectApplicantOverviewStatus,
 } from "./applicantOverview";
+import type { AppDispatch } from "../../../config/store";
+import Reload from "../../../shared/ui/Reload";
 
 const ExperienceWrapper = styled(Box)(({ theme }) => ({
   width: "275px",
@@ -21,22 +25,32 @@ const ExperienceWrapper = styled(Box)(({ theme }) => ({
 export default function Experience() {
   const status = useSelector(selectApplicantOverviewStatus);
   const experienceData = useSelector(selectApplicantOverviewCandidate);
+  const error = useSelector(selectApplicantOverviewError);
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <ExperienceWrapper>
       <WithSkeleton loading={status === "loading"}>
-        <>
-          <Bar
-            name="experience"
-            trend={experienceData?.trend ?? []}
-            barColor={"fourth"}
+        {status === "success" && (
+          <>
+            <Bar
+              name="experience"
+              trend={experienceData?.trend ?? []}
+              barColor={"fourth"}
+            />
+            <Overview
+              total={experienceData?.average ?? 0}
+              name="experience"
+              special={experienceData?.percentage ?? 0}
+            />
+          </>
+        )}
+        {status === "failure" && (
+          <Reload
+            error={error}
+            dispatchThunk={() => dispatch(fetchApplicantsOverview())}
           />
-          <Overview
-            total={experienceData?.average ?? 0}
-            name="experience"
-            special={experienceData?.percentage ?? 0}
-          />
-        </>
+        )}
       </WithSkeleton>
     </ExperienceWrapper>
   );

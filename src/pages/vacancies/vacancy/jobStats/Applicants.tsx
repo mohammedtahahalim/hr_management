@@ -13,8 +13,16 @@ import { formatDate, getLast7DaysISO } from "../../../../shared/lib/helpers";
 import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../../config/i18n";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
-import { useSelector } from "react-redux";
-import { selectApplicantOverTime, selectVacancyStatus } from "../vacancySlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchVacancy,
+  selectApplicantOverTime,
+  selectVacancyError,
+  selectVacancyStatus,
+} from "../vacancySlice";
+import Reload from "../../../../shared/ui/Reload";
+import { useParams } from "react-router-dom";
+import type { AppDispatch } from "../../../../config/store";
 
 ChartJS.register(
   LineElement,
@@ -29,7 +37,7 @@ const ApplicantsWrapper = styled(Box)({
   maxHeight: "250px",
   flex: 1.5,
   minWidth: "350px",
-  overflowX: "hidden",
+  overflow: "hidden",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
@@ -44,7 +52,7 @@ const ApplicantHead = styled(Box)({
 const ApplicantChart = styled(Box)({
   width: "100%",
   flex: 1,
-  overflowX: "hidden",
+  overflow: "hidden",
   "& canvas": {
     width: "100% !important",
   },
@@ -52,7 +60,10 @@ const ApplicantChart = styled(Box)({
 
 export default function Applicants() {
   const { i18n, t } = useTranslation("vacancy");
+  const { id = "1" } = useParams();
   const status = useSelector(selectVacancyStatus);
+  const error = useSelector(selectVacancyError);
+  const dispatch = useDispatch<AppDispatch>();
   const theme = useTheme();
   const trend = useSelector(selectApplicantOverTime);
   const data = {
@@ -115,10 +126,18 @@ export default function Applicants() {
           {t("applicants")}
         </Title>
       </ApplicantHead>
-      <WithSkeleton loading={status === "loading"}>
-        <ApplicantChart>
-          <Line data={data} options={options} tabIndex={0} />
-        </ApplicantChart>
+      <WithSkeleton loading={status === "loading"} sx={{ minHeight: "250px" }}>
+        {status === "success" && (
+          <ApplicantChart>
+            <Line data={data} options={options} tabIndex={0} />
+          </ApplicantChart>
+        )}
+        {status === "failure" && (
+          <Reload
+            error={error}
+            dispatchThunk={() => dispatch(fetchVacancy({ id }))}
+          />
+        )}
       </WithSkeleton>
     </ApplicantsWrapper>
   );

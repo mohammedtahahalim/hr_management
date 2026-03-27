@@ -7,6 +7,7 @@ interface EventProps {
   date: string;
   title: string;
   content: string;
+  id: number;
 }
 
 const EventWrapper = styled(Box)({
@@ -69,21 +70,24 @@ const EventContent = styled(Typography)({
   fontSize: "0.9rem",
 });
 
-export default function Event({ date, title, content }: EventProps) {
+export default function Event({ date, title, content, id }: EventProps) {
   const { i18n } = useTranslation();
   const [day, month] = date.split("-");
   const formattedDate = fetchMonth(Number(month), i18n.language as TLanguage);
   return (
-    <EventWrapper tabIndex={0} aria-describedby="event-title event-content">
+    <EventWrapper
+      tabIndex={0}
+      aria-describedby={`event-title-${id} event-content-${id}`}
+    >
       <DateWrapper>
         <Day variant="h6">{day}</Day>
         <Month variant="subtitle1">{formattedDate}</Month>
       </DateWrapper>
       <EventDetails>
-        <EventTitle variant="h6" id="event-title">
+        <EventTitle variant="h6" id={`event-title-${id}`}>
           {title}
         </EventTitle>
-        <EventContent variant="body1" id="event-content">
+        <EventContent variant="body1" id={`event-content-${id}`}>
           {content}
         </EventContent>
       </EventDetails>

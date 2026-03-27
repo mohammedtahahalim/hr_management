@@ -7,11 +7,19 @@ import {
   TextField,
 } from "@mui/material";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
-import { useSelector } from "react-redux";
-import { selectVacancyDetails, selectVacancyStatus } from "../vacancySlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchVacancy,
+  selectVacancyDetails,
+  selectVacancyError,
+  selectVacancyStatus,
+} from "../vacancySlice";
 import { useForm, type UseFormRegister } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../../config/i18n";
+import Reload from "../../../../shared/ui/Reload";
+import type { AppDispatch } from "../../../../config/store";
+import { useParams } from "react-router-dom";
 
 interface DescriptionProps {
   onEditMode: boolean;
@@ -86,105 +94,116 @@ const Dates = styled(Box)(({ theme }) => ({
 
 export default function Description({ onEditMode }: DescriptionProps) {
   const { t, i18n } = useTranslation("vacancy");
+  const { id = "1" } = useParams();
   const status = useSelector(selectVacancyStatus);
+  const error = useSelector(selectVacancyError);
+  const dispatch = useDispatch<AppDispatch>();
   const { register } = useForm();
   const details = useSelector(selectVacancyDetails);
   const lang = i18n.language as TLanguage;
 
   return (
     <WithSkeleton loading={status === "loading"}>
-      <DescriptionWrapper>
-        <Line>
-          <Label htmlFor="jobTitle">{t("editMode.title")}</Label>
-          <Input
-            disabled={!onEditMode}
-            defaultValue={details?.title[lang]}
-            size="small"
-            {...register("jobTitle")}
-            id="jobTitle"
-            variant="standard"
-          />
-        </Line>
-        <Line>
-          <Label htmlFor="jobStatus">{t("editMode.status")}</Label>
-          <Status
-            disabled={!onEditMode}
-            size="small"
-            defaultValue={"open"}
-            {...register("jobStatus")}
-            sx={{ flex: 2.5 }}
-            variant="standard"
-            id="jobStatus"
-          >
-            <MenuItem value="open">{t("editMode.open")}</MenuItem>
-            <MenuItem value="inprogress">{t("editMode.inprogress")}</MenuItem>
-            <MenuItem value="completed">{t("editMode.completed")}</MenuItem>
-          </Status>
-        </Line>
-        <Line>
-          <Label htmlFor="datesWindow">{t("editMode.window")}</Label>
-          <Dates id="datesWindow">
-            <TextField
-              type="date"
-              sx={{ flex: 1 }}
-              size="small"
-              {...register("openDate")}
+      {status === "success" && (
+        <DescriptionWrapper>
+          <Line>
+            <Label htmlFor="jobTitle">{t("editMode.title")}</Label>
+            <Input
               disabled={!onEditMode}
+              defaultValue={details?.title[lang]}
+              size="small"
+              {...register("jobTitle")}
+              id="jobTitle"
               variant="standard"
             />
-            <TextField
-              type="date"
-              sx={{ flex: 1 }}
-              size="small"
-              {...register("closeDate")}
+          </Line>
+          <Line>
+            <Label htmlFor="jobStatus">{t("editMode.status")}</Label>
+            <Status
               disabled={!onEditMode}
+              size="small"
+              defaultValue={"open"}
+              {...register("jobStatus")}
+              sx={{ flex: 2.5 }}
               variant="standard"
+              id="jobStatus"
+            >
+              <MenuItem value="open">{t("editMode.open")}</MenuItem>
+              <MenuItem value="inprogress">{t("editMode.inprogress")}</MenuItem>
+              <MenuItem value="completed">{t("editMode.completed")}</MenuItem>
+            </Status>
+          </Line>
+          <Line>
+            <Label htmlFor="datesWindow">{t("editMode.window")}</Label>
+            <Dates id="datesWindow">
+              <TextField
+                type="date"
+                sx={{ flex: 1 }}
+                size="small"
+                {...register("openDate")}
+                disabled={!onEditMode}
+                variant="standard"
+              />
+              <TextField
+                type="date"
+                sx={{ flex: 1 }}
+                size="small"
+                {...register("closeDate")}
+                disabled={!onEditMode}
+                variant="standard"
+              />
+            </Dates>
+          </Line>
+          <Line>
+            <Label htmlFor="salary">{t("editMode.salary")}</Label>
+            <Input
+              disabled={!onEditMode}
+              defaultValue={details?.salary ?? 4_800_000}
+              size="small"
+              variant="standard"
+              {...register("salary")}
+              id="salary"
             />
-          </Dates>
-        </Line>
-        <Line>
-          <Label htmlFor="salary">{t("editMode.salary")}</Label>
-          <Input
-            disabled={!onEditMode}
-            defaultValue={details?.salary ?? 4_800_000}
-            size="small"
-            variant="standard"
-            {...register("salary")}
-            id="salary"
-          />
-        </Line>
-        <Line>
-          <Label htmlFor="skills">{t("editMode.skills")}</Label>
-          <Input
-            disabled={!onEditMode}
-            defaultValue={details?.skills[lang].join(", ")}
-            size="small"
-            variant="standard"
-            {...register("skills")}
-            id="skills"
-          />
-        </Line>
-        <Line>
-          <Label htmlFor="description">{t("editMode.description")}</Label>
-          <Input
-            disabled={!onEditMode}
-            defaultValue={details?.description[lang].join(", ")}
-            size="small"
-            variant="standard"
-            id="description"
-          />
-        </Line>
-        <Line>
-          <Label htmlFor="notes">{t("editMode.notes")}</Label>
-          <Input
-            disabled={!onEditMode}
-            defaultValue={details?.notes[lang].join(", ")}
-            size="small"
-            variant="standard"
-            id="notes"
-          />
-        </Line>
-      </DescriptionWrapper>
+          </Line>
+          <Line>
+            <Label htmlFor="skills">{t("editMode.skills")}</Label>
+            <Input
+              disabled={!onEditMode}
+              defaultValue={details?.skills[lang].join(", ")}
+              size="small"
+              variant="standard"
+              {...register("skills")}
+              id="skills"
+            />
+          </Line>
+          <Line>
+            <Label htmlFor="description">{t("editMode.description")}</Label>
+            <Input
+              disabled={!onEditMode}
+              defaultValue={details?.description[lang].join(", ")}
+              size="small"
+              variant="standard"
+              id="description"
+            />
+          </Line>
+          <Line>
+            <Label htmlFor="notes">{t("editMode.notes")}</Label>
+            <Input
+              disabled={!onEditMode}
+              defaultValue={details?.notes[lang].join(", ")}
+              size="small"
+              variant="standard"
+              id="notes"
+            />
+          </Line>
+        </DescriptionWrapper>
+      )}
+      {status === "failure" && (
+        <Reload
+          error={error}
+          dispatchThunk={() => dispatch(fetchVacancy({ id }))}
+        />
+      )}
     </WithSkeleton>
   );
 }

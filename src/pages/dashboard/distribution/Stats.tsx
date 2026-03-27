@@ -71,8 +71,8 @@ export default function Stats() {
   const { t } = useTranslation("dashboard");
 
   return (
-    <StatsWrapper>
-      <All variant="h6">
+    <StatsWrapper tabIndex={-1}>
+      <All variant="h6" tabIndex={0}>
         {total} {t("distributions.total")}
       </All>
       <BarsWrapper>
