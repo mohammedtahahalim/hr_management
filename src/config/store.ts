@@ -5,6 +5,7 @@ import notificationSlice from "../features/notifications/notificationSlice";
 import { dashboardReducer } from "../pages/dashboard/dashboardReducer";
 import { vacancyReducer } from "../pages/vacancies/vacancyReducer";
 import { applicantReducer } from "../pages/applicants/applicantReducer";
+import { employeeReducer } from "../pages/employees/employeeReducer";
 
 export const HRStore = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const HRStore = configureStore({
     dashboard: dashboardReducer,
     vacancies: vacancyReducer,
     applicants: applicantReducer,
+    employee: employeeReducer,
   },
 });
 

@@ -11,7 +11,10 @@ const AddVacancy = lazy(
 );
 const Applicants = lazy(() => import("../pages/applicants/Applicants"));
 const Employees = lazy(() => import("../pages/employees/Employees"));
-const AddEmployee = lazy(() => import("../pages/employees/AddEmployee"));
+const Employee = lazy(() => import("../pages/employees/employee/Employee"));
+const AddEmployee = lazy(
+  () => import("../pages/employees/addEmployee/AddEmployee"),
+);
 const Payroll = lazy(() => import("../pages/payroll/Payroll"));
 const NotFound = lazy(() => import("../shared/ui/NotFound"));
 
@@ -67,6 +70,10 @@ export const mainRoutes: IRoute[] = [
   {
     path: "/employees",
     component: Employees,
+  },
+  {
+    path: "/employees/:id",
+    component: Employee,
   },
   {
     path: "/payroll",
