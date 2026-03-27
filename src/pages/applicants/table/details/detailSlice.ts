@@ -35,10 +35,7 @@ const applicantDetailSchema = z.object({
   }),
   personal: z.object({
     email: z.email(),
-    phone: z
-      .string()
-      .regex(/^\+?[1-9]\d{1,14}$/)
-      .or(z.null()),
+    phone: z.string().or(z.null()),
     linkedin: z.string().or(z.null()),
     appliedDate: z.iso.datetime(),
   }),
@@ -51,7 +48,7 @@ const applicantDetailSchema = z.object({
   ),
   experiences: z.array(
     z.object({
-      position: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string()), // Position at job
+      position: z.string(), // Position at job
       company: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string()), // company name
       tasks: z.array(z.record(z.enum(["en", "ar", "ja", "fr"]), z.string())), // Tasks done at this job
       location: z.string().min(1).max(2), // geocode for country

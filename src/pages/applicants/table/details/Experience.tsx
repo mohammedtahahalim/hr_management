@@ -67,10 +67,13 @@ export default function Experience({
   endDate,
 }: ExperienceProps) {
   const { i18n, t } = useTranslation("applicants");
+
   return (
     <ExperienceWrapper>
       <Details>
-        <Position variant="h6">{position[i18n.language as TLanguage]}</Position>
+        <Position variant="h6">
+          {t(`details.headline.positions.${position}`)}
+        </Position>
         <Meta>
           <Time>
             <Typography sx={{ fontSize: "0.7rem" }}>
