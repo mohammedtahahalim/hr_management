@@ -57,7 +57,7 @@ export default function Activity() {
       {status === "success" && (
         <ActivityWrapper>
           <Title isColorDiff="whitesmoke">{t("activity.title")}</Title>
-          <EventsWrapper>
+          <EventsWrapper tabIndex={-1}>
             {data.map((d) => {
               return (
                 <Event
@@ -65,6 +65,7 @@ export default function Activity() {
                   title={d.title[i18n.language as TLanguage]}
                   content={d.content[i18n.language as TLanguage]}
                   date={d.date}
+                  id={d.id}
                 />
               );
             })}

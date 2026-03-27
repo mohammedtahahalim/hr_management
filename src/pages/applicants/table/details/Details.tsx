@@ -1,8 +1,12 @@
 import { Box, IconButton, styled } from "@mui/material";
 import React, { memo, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../../config/store";
-import { fetchDetails } from "./detailSlice";
+import {
+  fetchDetails,
+  selectDetailError,
+  selectDetailStatus,
+} from "./detailSlice";
 import Headline from "./Headline";
 import Skills from "./Skills";
 import Professional from "./Professional";
@@ -10,6 +14,7 @@ import Personal from "./Personal";
 import Education from "./Education";
 import CloseIcon from "@mui/icons-material/Close";
 import useFocusTrap from "../../../../shared/lib/useFocusTrap";
+import Reload from "../../../../shared/ui/Reload";
 
 interface DetailsProps {
   id: number;
@@ -50,6 +55,8 @@ const User = styled(Box)({
 const Details = memo(({ id, setActiveApplicant }: DetailsProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const detailsRef = useRef<HTMLDivElement | null>(null);
+  const error = useSelector(selectDetailError);
+  const status = useSelector(selectDetailStatus);
 
   useFocusTrap(detailsRef);
 
@@ -62,21 +69,31 @@ const Details = memo(({ id, setActiveApplicant }: DetailsProps) => {
 
   return (
     <DetailsWrapper ref={detailsRef}>
-      <CloseWrapper
-        onClick={() => setActiveApplicant(-1)}
-        aria-label="Close Menu"
-      >
-        <CloseIcon fontSize="small" />
-      </CloseWrapper>
-      <Headline />
-      <Core>
-        <User>
-          <Personal />
-          <Education />
-        </User>
-        <Professional />
-      </Core>
-      <Skills />
+      {status !== "failure" && (
+        <>
+          <CloseWrapper
+            onClick={() => setActiveApplicant(-1)}
+            aria-label="Close Menu"
+          >
+            <CloseIcon fontSize="small" />
+          </CloseWrapper>
+          <Headline />
+          <Core>
+            <User>
+              <Personal />
+              <Education />
+            </User>
+            <Professional />
+          </Core>
+          <Skills />
+        </>
+      )}
+      {status === "failure" && (
+        <Reload
+          error={error}
+          dispatchThunk={() => dispatch(fetchDetails({ id }))}
+        />
+      )}
     </DetailsWrapper>
   );
 });

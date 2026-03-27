@@ -68,7 +68,7 @@ const HeadRow = styled("tr", {
   },
 }));
 
-const Col = styled("td")(({ theme }) => ({
+const Col = styled("th")(({ theme }) => ({
   maxWidth: "100px",
   padding: "5px",
   overflow: "hidden",
@@ -105,10 +105,10 @@ export default function Recent() {
             <Content>
               <thead>
                 <HeadRow isArabic={isArabic}>
-                  <Col id="job-title">{t("recent.jobTitle")}</Col>
-                  <Col id="job-location">{t("recent.location")}</Col>
-                  <Col id="application-count">{t("recent.appNum")}</Col>
-                  <Col id="application-chart">{t("recent.chart")}</Col>
+                  <Col>{t("recent.jobTitle")}</Col>
+                  <Col>{t("recent.location")}</Col>
+                  <Col>{t("recent.appNum")}</Col>
+                  <Col>{t("recent.chart")}</Col>
                 </HeadRow>
               </thead>
               <tbody>

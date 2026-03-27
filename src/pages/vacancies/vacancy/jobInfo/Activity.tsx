@@ -1,11 +1,18 @@
 import { Box, styled, Typography } from "@mui/material";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
-import { useSelector } from "react-redux";
-import { selectVacancyStatus } from "../vacancySlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchVacancy,
+  selectVacancyError,
+  selectVacancyStatus,
+} from "../vacancySlice";
 import Title from "../../../../shared/ui/Title";
 import { useTranslation } from "react-i18next";
 import { sampleData } from "../../../../shared/lib/constants";
 import type { TLanguage } from "../../../../config/i18n";
+import Reload from "../../../../shared/ui/Reload";
+import type { AppDispatch } from "../../../../config/store";
+import { useParams } from "react-router-dom";
 
 const ActivityWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -57,32 +64,43 @@ const Feedback = styled(Typography)({
 
 export default function Activity() {
   const status = useSelector(selectVacancyStatus);
+  const error = useSelector(selectVacancyError);
+  const { id = "1" } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
   const { i18n, t } = useTranslation("vacancy");
   return (
     <WithSkeleton loading={status === "loading"}>
-      <ActivityWrapper>
-        <Title variant="h6" ender={false}>
-          {t("recentActivities")}
-        </Title>
-        <ActivitiesContent tabIndex={-1}>
-          {sampleData[i18n.language as TLanguage].map((s, idx) => {
-            return (
-              <ActivityLine key={idx} tabIndex={-1}>
-                <Step
-                  variant="body1"
-                  aria-describedby={`feedback-${s.title}`}
-                  tabIndex={0}
-                >
-                  {s.title}
-                </Step>
-                <Feedback variant="subtitle1" id={`feedback-${s.title}`}>
-                  {s.content}
-                </Feedback>
-              </ActivityLine>
-            );
-          })}
-        </ActivitiesContent>
-      </ActivityWrapper>
+      {status === "success" && (
+        <ActivityWrapper>
+          <Title variant="h6" ender={false}>
+            {t("recentActivities")}
+          </Title>
+          <ActivitiesContent tabIndex={-1}>
+            {sampleData[i18n.language as TLanguage].map((s, idx) => {
+              return (
+                <ActivityLine key={idx} tabIndex={-1}>
+                  <Step
+                    variant="body1"
+                    aria-describedby={`feedback-${s.title}`}
+                    tabIndex={0}
+                  >
+                    {s.title}
+                  </Step>
+                  <Feedback variant="subtitle1" id={`feedback-${s.title}`}>
+                    {s.content}
+                  </Feedback>
+                </ActivityLine>
+              );
+            })}
+          </ActivitiesContent>
+        </ActivityWrapper>
+      )}
+      {status === "failure" && (
+        <Reload
+          error={error}
+          dispatchThunk={() => dispatch(fetchVacancy({ id }))}
+        />
+      )}
     </WithSkeleton>
   );
 }

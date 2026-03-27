@@ -2,11 +2,15 @@ import { Box, styled } from "@mui/material";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import Bar from "./Bar";
 import Overview from "./Overview";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchApplicantsOverview,
   selectApplicantOverviewActive,
+  selectApplicantOverviewError,
   selectApplicantOverviewStatus,
 } from "./applicantOverview";
+import type { AppDispatch } from "../../../config/store";
+import Reload from "../../../shared/ui/Reload";
 
 const ActiveWrapper = styled(Box)(({ theme }) => ({
   width: "275px",
@@ -21,22 +25,32 @@ const ActiveWrapper = styled(Box)(({ theme }) => ({
 export default function Active() {
   const status = useSelector(selectApplicantOverviewStatus);
   const activeData = useSelector(selectApplicantOverviewActive);
+  const error = useSelector(selectApplicantOverviewError);
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <ActiveWrapper>
       <WithSkeleton loading={status === "loading"}>
-        <>
-          <Bar
-            name="active"
-            trend={activeData?.trend ?? []}
-            barColor={"second"}
+        {status === "success" && (
+          <>
+            <Bar
+              name="active"
+              trend={activeData?.trend ?? []}
+              barColor={"second"}
+            />
+            <Overview
+              total={activeData?.total ?? 0}
+              name="active"
+              special={activeData?.new ?? 0}
+            />
+          </>
+        )}
+        {status === "failure" && (
+          <Reload
+            error={error}
+            dispatchThunk={() => dispatch(fetchApplicantsOverview())}
           />
-          <Overview
-            total={activeData?.total ?? 0}
-            name="active"
-            special={activeData?.new ?? 0}
-          />
-        </>
+        )}
       </WithSkeleton>
     </ActiveWrapper>
   );

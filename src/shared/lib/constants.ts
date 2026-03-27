@@ -109,6 +109,7 @@ export const routesWithPermissions: Record<string, TRole[]> = {
   "add-vacancy": ["admin", "hr"],
   "add-employee": ["admin", "hr"],
   payroll: ["admin"],
+  editVacancy: ["admin", "manager"],
 };
 
 export const navIcons: Record<string, MuiIcon> = {

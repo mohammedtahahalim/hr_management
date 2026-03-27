@@ -1,9 +1,17 @@
 import { Box, styled, Typography } from "@mui/material";
 import Title from "../../../../shared/ui/Title";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
-import { useSelector } from "react-redux";
-import { selectDistributions, selectVacancyStatus } from "../vacancySlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchVacancy,
+  selectDistributions,
+  selectVacancyError,
+  selectVacancyStatus,
+} from "../vacancySlice";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import type { AppDispatch } from "../../../../config/store";
+import Reload from "../../../../shared/ui/Reload";
 
 const ExperiencesWrapper = styled(Box)({
   height: "100%",
@@ -75,6 +83,9 @@ const Seniority = styled(Typography)({
 
 export default function Experiences() {
   const status = useSelector(selectVacancyStatus);
+  const error = useSelector(selectVacancyError);
+  const { id = "1" } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation("vacancy");
   const distribution = useSelector(selectDistributions);
 
@@ -83,44 +94,52 @@ export default function Experiences() {
       <Title variant="h6" ender={false}>
         {t("distribution")}
       </Title>
-      <WithSkeleton loading={status === "loading"}>
-        <DistributionWrapper>
-          <Total
-            tabIndex={0}
-            aria-label={`${distribution?.total} ${t("candidates")}`}
-          >
-            <Typography
-              variant="h6"
-              sx={{
-                fontSize: "2rem",
-                fontFamily: "system-ui",
-                fontWeight: "bold",
-              }}
+      <WithSkeleton loading={status === "loading"} sx={{ minHeight: "200px" }}>
+        {status === "success" && (
+          <DistributionWrapper>
+            <Total
+              tabIndex={0}
+              aria-label={`${distribution?.total} ${t("candidates")}`}
             >
-              {distribution?.total}
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ fontFamily: "system-ui", fontStyle: "italic" }}
-            >
-              {t("candidates")}
-            </Typography>
-          </Total>
-          <Partitions>
-            {distribution?.data.map((d) => {
-              return (
-                <Partition
-                  key={d.type}
-                  aria-label={`${d.total} ${t(`${d.type}`)}`}
-                  tabIndex={0}
-                >
-                  <Applicants variant="h6">{d.total}</Applicants>
-                  <Seniority variant="subtitle2">{t(`${d.type}`)}</Seniority>
-                </Partition>
-              );
-            })}
-          </Partitions>
-        </DistributionWrapper>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontSize: "2rem",
+                  fontFamily: "system-ui",
+                  fontWeight: "bold",
+                }}
+              >
+                {distribution?.total}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ fontFamily: "system-ui", fontStyle: "italic" }}
+              >
+                {t("candidates")}
+              </Typography>
+            </Total>
+            <Partitions>
+              {distribution?.data.map((d) => {
+                return (
+                  <Partition
+                    key={d.type}
+                    aria-label={`${d.total} ${t(`${d.type}`)}`}
+                    tabIndex={0}
+                  >
+                    <Applicants variant="h6">{d.total}</Applicants>
+                    <Seniority variant="subtitle2">{t(`${d.type}`)}</Seniority>
+                  </Partition>
+                );
+              })}
+            </Partitions>
+          </DistributionWrapper>
+        )}
+        {status === "failure" && (
+          <Reload
+            error={error}
+            dispatchThunk={() => dispatch(fetchVacancy({ id }))}
+          />
+        )}
       </WithSkeleton>
     </ExperiencesWrapper>
   );

@@ -3,9 +3,17 @@ import Title from "../../../../shared/ui/Title";
 import NorthIcon from "@mui/icons-material/North";
 import SouthIcon from "@mui/icons-material/South";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { selectOverviews, selectVacancyStatus } from "../vacancySlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchVacancy,
+  selectOverviews,
+  selectVacancyError,
+  selectVacancyStatus,
+} from "../vacancySlice";
 import WithSkeleton from "../../../../shared/ui/WithSkeleton";
+import Reload from "../../../../shared/ui/Reload";
+import type { AppDispatch } from "../../../../config/store";
+import { useParams } from "react-router-dom";
 
 type TOverviewColor = keyof Pick<
   Theme["palette"],
@@ -88,9 +96,12 @@ const NewBox = styled(Box, {
 
 export default function Overview() {
   const { t, i18n } = useTranslation("vacancy");
+  const { id = "1" } = useParams();
   const status = useSelector(selectVacancyStatus);
+  const error = useSelector(selectVacancyError);
   const isArabic = i18n.language === "ar";
   const overviewData = useSelector(selectOverviews);
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <OverviewWrapper>
@@ -101,40 +112,48 @@ export default function Overview() {
         loading={status === "loading"}
         sx={{ maxWidth: "310px", alignSelf: "center", maxHeight: "170px" }}
       >
-        <BoxesWrapper>
-          {Array.isArray(overviewData) &&
-            overviewData.map((s, idx) => {
-              return (
-                <OverviewBox key={s.type} bgColor={OverviewColors[idx]}>
-                  <BoxTitle isArabic={isArabic} id={`overview-${s.type}`}>
-                    <Title variant="body2" ender={false}>
-                      {t(`${s.type}`)}
-                    </Title>
-                  </BoxTitle>
-                  <Stats>
-                    <Title variant="h6" ender={false}>
-                      {String(s.total)}
-                    </Title>
-                    {s.new !== 0 && (
-                      <NewBox
-                        bgColor={s.new > 0 ? "success" : "error"}
-                        aria-label={`${s.new > 0 ? t("increase") : t("decrease")} ${s.new}%`}
-                        aria-describedby={`overview-${s.type}`}
-                        tabIndex={0}
-                      >
-                        {s.new > 0 ? (
-                          <NorthIcon sx={{ fontSize: "0.8rem" }} />
-                        ) : (
-                          <SouthIcon sx={{ fontSize: "0.8rem" }} />
-                        )}
-                        {s.new}%
-                      </NewBox>
-                    )}
-                  </Stats>
-                </OverviewBox>
-              );
-            })}
-        </BoxesWrapper>
+        {status === "success" && (
+          <BoxesWrapper>
+            {Array.isArray(overviewData) &&
+              overviewData.map((s, idx) => {
+                return (
+                  <OverviewBox key={s.type} bgColor={OverviewColors[idx]}>
+                    <BoxTitle isArabic={isArabic} id={`overview-${s.type}`}>
+                      <Title variant="body2" ender={false}>
+                        {t(`${s.type}`)}
+                      </Title>
+                    </BoxTitle>
+                    <Stats>
+                      <Title variant="h6" ender={false}>
+                        {String(s.total)}
+                      </Title>
+                      {s.new !== 0 && (
+                        <NewBox
+                          bgColor={s.new > 0 ? "success" : "error"}
+                          aria-label={`${s.new > 0 ? t("increase") : t("decrease")} ${s.new}%`}
+                          aria-describedby={`overview-${s.type}`}
+                          tabIndex={0}
+                        >
+                          {s.new > 0 ? (
+                            <NorthIcon sx={{ fontSize: "0.8rem" }} />
+                          ) : (
+                            <SouthIcon sx={{ fontSize: "0.8rem" }} />
+                          )}
+                          {s.new}%
+                        </NewBox>
+                      )}
+                    </Stats>
+                  </OverviewBox>
+                );
+              })}
+          </BoxesWrapper>
+        )}
+        {status === "failure" && (
+          <Reload
+            error={error}
+            dispatchThunk={() => dispatch(fetchVacancy({ id }))}
+          />
+        )}
       </WithSkeleton>
     </OverviewWrapper>
   );

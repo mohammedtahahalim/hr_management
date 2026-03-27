@@ -12,7 +12,6 @@ export default async function handler(req, res) {
     }
     let { page = 1, filter = "all", id, ...rest } = req.query;
     if (id) {
-      const data = generateVacancies(page, filter);
       return res.status(200).json({
         data: generateRandomVacancy(id),
       });

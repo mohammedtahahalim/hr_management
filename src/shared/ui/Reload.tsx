@@ -16,6 +16,7 @@ const ReloadWrapper = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: "10px",
   border: `1px solid ${theme.palette.divider}`,
+  padding: "10px",
 }));
 
 const Error = styled(Typography)({
