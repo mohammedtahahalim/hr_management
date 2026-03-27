@@ -124,8 +124,19 @@ export default function Row({
   const { t, i18n } = useTranslation("applicants");
   const statusText = statusStages[status - 1][i18n.language as TLanguage];
 
+  const onKeyDown = (e: React.KeyboardEvent, id: number) => {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    setActiveApplicant(id);
+  };
+
   return (
-    <RowWrapper id={`row-${id}`} onClick={() => setActiveApplicant(id)}>
+    <RowWrapper
+      id={`row-${id}`}
+      onClick={() => setActiveApplicant(id)}
+      tabIndex={0}
+      onKeyDown={(e) => onKeyDown(e, id)}
+    >
       <Col>
         <Name variant="subtitle1">{name}</Name>
       </Col>

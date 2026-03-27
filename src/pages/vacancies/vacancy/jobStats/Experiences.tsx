@@ -6,6 +6,7 @@ import { selectDistributions, selectVacancyStatus } from "../vacancySlice";
 import { useTranslation } from "react-i18next";
 
 const ExperiencesWrapper = styled(Box)({
+  height: "100%",
   flex: 1,
   minWidth: "250px",
   maxWidth: "350px",
@@ -84,7 +85,10 @@ export default function Experiences() {
       </Title>
       <WithSkeleton loading={status === "loading"}>
         <DistributionWrapper>
-          <Total>
+          <Total
+            tabIndex={0}
+            aria-label={`${distribution?.total} ${t("candidates")}`}
+          >
             <Typography
               variant="h6"
               sx={{
@@ -105,7 +109,11 @@ export default function Experiences() {
           <Partitions>
             {distribution?.data.map((d) => {
               return (
-                <Partition key={d.type}>
+                <Partition
+                  key={d.type}
+                  aria-label={`${d.total} ${t(`${d.type}`)}`}
+                  tabIndex={0}
+                >
                   <Applicants variant="h6">{d.total}</Applicants>
                   <Seniority variant="subtitle2">{t(`${d.type}`)}</Seniority>
                 </Partition>

@@ -44,7 +44,7 @@ export default function Overview({ name, total, special }: OverviewProps) {
   const { t } = useTranslation("applicants");
   return (
     <OverviewWrapper>
-      <Total aria-labelledby={name} variant="h4">
+      <Total variant="h4" aria-describedby={`overview-${name}`} tabIndex={0}>
         {total}
       </Total>
       <Special>
