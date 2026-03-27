@@ -51,10 +51,10 @@ export default function Body() {
       }
     };
     window.addEventListener("keydown", onEscapeKey);
-    window.addEventListener("click", onClickOutside);
+    window.addEventListener("mousedown", onClickOutside);
     return () => {
       window.removeEventListener("keydown", onEscapeKey);
-      window.removeEventListener("click", onClickOutside);
+      window.removeEventListener("mousedown", onClickOutside);
     };
   }, []);
 

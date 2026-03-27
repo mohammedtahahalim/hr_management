@@ -85,7 +85,7 @@ export default function Bar({ name, trend, barColor }: BarProps) {
 
   return (
     <BarWrapper>
-      <Title id="overview-title" tabIndex={0} variant="h6">
+      <Title id={`overview-${name}`} variant="h6">
         {t(`miniStats.${name}.title`)}
       </Title>
       <BarContainer>

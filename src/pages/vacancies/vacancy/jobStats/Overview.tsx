@@ -106,7 +106,7 @@ export default function Overview() {
             overviewData.map((s, idx) => {
               return (
                 <OverviewBox key={s.type} bgColor={OverviewColors[idx]}>
-                  <BoxTitle isArabic={isArabic}>
+                  <BoxTitle isArabic={isArabic} id={`overview-${s.type}`}>
                     <Title variant="body2" ender={false}>
                       {t(`${s.type}`)}
                     </Title>
@@ -119,6 +119,7 @@ export default function Overview() {
                       <NewBox
                         bgColor={s.new > 0 ? "success" : "error"}
                         aria-label={`${s.new > 0 ? t("increase") : t("decrease")} ${s.new}%`}
+                        aria-describedby={`overview-${s.type}`}
                         tabIndex={0}
                       >
                         {s.new > 0 ? (

@@ -25,6 +25,8 @@ ChartJS.register(
 );
 
 const ApplicantsWrapper = styled(Box)({
+  height: "100%",
+  maxHeight: "250px",
   flex: 1.5,
   minWidth: "350px",
   overflowX: "hidden",
@@ -43,6 +45,9 @@ const ApplicantChart = styled(Box)({
   width: "100%",
   flex: 1,
   overflowX: "hidden",
+  "& canvas": {
+    width: "100% !important",
+  },
 });
 
 export default function Applicants() {
@@ -112,7 +117,7 @@ export default function Applicants() {
       </ApplicantHead>
       <WithSkeleton loading={status === "loading"}>
         <ApplicantChart>
-          <Line data={data} options={options} />
+          <Line data={data} options={options} tabIndex={0} />
         </ApplicantChart>
       </WithSkeleton>
     </ApplicantsWrapper>

@@ -64,11 +64,15 @@ export default function Activity() {
         <Title variant="h6" ender={false}>
           {t("recentActivities")}
         </Title>
-        <ActivitiesContent>
+        <ActivitiesContent tabIndex={-1}>
           {sampleData[i18n.language as TLanguage].map((s, idx) => {
             return (
-              <ActivityLine key={idx}>
-                <Step variant="body1" aria-describedby={`feedback-${s.title}`}>
+              <ActivityLine key={idx} tabIndex={-1}>
+                <Step
+                  variant="body1"
+                  aria-describedby={`feedback-${s.title}`}
+                  tabIndex={0}
+                >
                   {s.title}
                 </Step>
                 <Feedback variant="subtitle1" id={`feedback-${s.title}`}>
