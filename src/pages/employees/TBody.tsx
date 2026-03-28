@@ -1,3 +1,9 @@
+import { styled } from "@mui/material";
+
+const TBodyWrapper = styled("tbody")({
+  border: "1px solid white",
+});
+
 export default function TBody() {
-  return <div>TBody</div>;
+  return <TBodyWrapper>TBody</TBodyWrapper>;
 }

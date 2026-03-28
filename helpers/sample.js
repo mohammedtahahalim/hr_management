@@ -2,6 +2,7 @@ import { generateSharpRandomSeries } from "./constants.js";
 import {
   COMPANIES,
   DEGREES,
+  DEPARTMENTS,
   INTERVIEWSTEPS,
   LOCATIONS,
   NAMES,
@@ -1834,12 +1835,11 @@ export function generateApplicants(count) {
 }
 
 // ------------- Generate Random Applicant -------------------- //
+function randomFrom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
 export const generateMockApplicant = (id) => {
-  function randomFrom(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
-
   const eduCount = 2 + Math.floor(Math.random() * 2);
   const expCount = 2 + Math.floor(Math.random() * 2);
 
@@ -1884,5 +1884,28 @@ export const generateMockApplicant = (id) => {
           : null,
     })).sort((a, b) => new Date(a.startDate) > new Date(b.startDate)),
     skills: SKILLSPOOL.sort(() => 0.5 - Math.random()).slice(0, 5),
+  };
+};
+
+export const generateEmployee = (id) => {
+  const formattedId = String(id ?? Math.floor(Math.random() * 100000000));
+  const imageSeed = `https://api.dicebear.com/9.x/avataaars/svg?seed=`;
+
+  return {
+    id: formattedId,
+    name: randomFrom(NAMES),
+    profilePicture: imageSeed + randomFrom(NAMES)["en"].split(" ")[0],
+    position: randomFrom(POSITIONS),
+    department: randomFrom(DEPARTMENTS),
+    status: randomFrom(["active", "remote", "onleave", "terminated"]),
+    joinDate: new Date(
+      Date.now() - Math.random() * 5 * 31536000000,
+    ).toISOString(),
+    email:
+      randomFrom(NAMES)["en"].replace(/\s/g, ".") +
+      `@${randomFrom(["gmail", "hotmail", "yahoo"])}.${randomFrom(["com", "co.jp", "fr", "net"])}`,
+    phoneNumber: randomFrom(
+      PHONENUMBERS[randomFrom(["us", "fr", "ma", "ja", "uk", "sp"])],
+    ),
   };
 };

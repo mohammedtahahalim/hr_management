@@ -7,6 +7,7 @@ import {
 import z from "zod";
 import type { Reject, Status } from "../../shared/lib/types";
 import type { RootState } from "../../config/store";
+import type { TLanguage } from "../../config/i18n";
 
 const allEmployeeSchema = z.object({
   page: z.number().min(1),
@@ -14,7 +15,7 @@ const allEmployeeSchema = z.object({
   lastPage: z.number().min(1),
   data: z.array(
     z.object({
-      name: z.string().nonempty(),
+      name: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().nonempty()),
       profilePicture: z.string().or(z.null()),
       position: z.enum([
         "front",
@@ -41,7 +42,7 @@ const allEmployeeSchema = z.object({
       status: z.enum(["active", "remote", "onleave", "terminated"]),
       joinDate: z.iso.datetime(),
       email: z.email(),
-      phoneNumber: z.string().regex(/^\+?[\d\s]+$/),
+      phoneNumber: z.string().regex(/^\+?[\d\s()-]+$/),
     }),
   ),
 });
@@ -53,7 +54,9 @@ export type AllEmployeeData = DataFromServer["data"];
 type Employee = AllEmployeeData[number];
 
 type SortableKeys = {
-  [K in keyof Employee]: Employee[K] extends string ? K : never;
+  [K in keyof Employee]: Employee[K] extends string | Record<TLanguage, string>
+    ? K
+    : never;
 }[keyof Employee];
 
 const sorters: Record<
@@ -61,7 +64,9 @@ const sorters: Record<
   (a: Employee, b: Employee, dir: "asc" | "desc") => number
 > = {
   name: (a, b, dir) =>
-    dir === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+    dir === "asc"
+      ? a.name["en"].localeCompare(b.name["en"])
+      : b.name["en"].localeCompare(a.name["en"]),
   position: (a, b, dir) =>
     dir === "asc"
       ? a.position.localeCompare(b.position)

@@ -49,17 +49,12 @@ const Logic = styled(Box)({
   height: "100%",
 });
 
-const ViewTypeWrapper = styled(Box)({
-  height: "100%",
+const ViewTypeButton = styled(Button)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-});
-
-const ViewButton = styled(Button)({
-  fontFamily: "system-ui",
-  fontSize: "1.1rem",
   textTransform: "capitalize",
+  fontFamily: "system-ui",
 });
 
 const AddVacancy = styled(Button)({
@@ -105,17 +100,18 @@ export default function Headline() {
         })}
       </Filters>
       <Logic>
-        <ViewTypeWrapper onClick={() => dispatch(toggleViewType())}>
-          {viewType === "card" ? (
-            <ViewButton startIcon={<ViewListIcon />}>
-              {t("listView")}
-            </ViewButton>
-          ) : (
-            <ViewButton startIcon={<GridViewIcon />}>
-              {t("cardView")}
-            </ViewButton>
-          )}
-        </ViewTypeWrapper>
+        <ViewTypeButton
+          startIcon={
+            viewType === "card" ? (
+              <ViewListIcon fontSize="inherit" />
+            ) : (
+              <GridViewIcon fontSize="inherit" />
+            )
+          }
+          onClick={() => dispatch(toggleViewType())}
+        >
+          {viewType === "card" ? t("listView") : t("cardView")}
+        </ViewTypeButton>
         <AddVacancy
           variant="contained"
           color="primary"

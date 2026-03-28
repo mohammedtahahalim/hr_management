@@ -1436,6 +1436,16 @@ export const POSITIONS = [
   "cloud",
 ];
 
+export const DEPARTMENTS = [
+  "development",
+  "sales",
+  "management",
+  "analytics",
+  "finance",
+  "hr",
+  "data",
+];
+
 export const PHONENUMBERS = {
   us: [
     "+1 (212) 555-0142",
