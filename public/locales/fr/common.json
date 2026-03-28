@@ -1,4 +1,5 @@
 {
+  "title": "Gestion des ressources humaines",
   "errorBoundary": {
     "title": "Quelque chose a mal tourné...",
     "message": "Une erreur inattendue s'est produite lors du chargement de cette section de l'application. Veuillez réessayer ou actualiser la page si le problème persiste.",

@@ -1,0 +1,16 @@
+{
+  "headline": {
+    "title": "従業員",
+    "cardView": "カード表示",
+    "listView": "リスト表示",
+    "addEmployee": "従業員を追加",
+    "import": "インポート"
+  },
+  "table": {},
+  "cards": {},
+  "control": {
+    "prevPage": "前のページ",
+    "nextPage": "次のページ",
+    "currentPage": "現在のページ"
+  }
+}

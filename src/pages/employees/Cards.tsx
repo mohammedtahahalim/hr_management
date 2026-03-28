@@ -3,21 +3,22 @@ import WithSkeleton from "../../shared/ui/WithSkeleton";
 import { useSelector } from "react-redux";
 import { selectAllEmployeeStatus } from "./allEmployeeSlice";
 
-const TableWrapper = styled(Box)({
+const CardsWrapper = styled(Box)({
   width: "100%",
   flex: 1,
   overflow: "hidden",
   borderRadius: "10px",
 });
 
-export default function Table() {
+export default function Cards() {
   const status = useSelector(selectAllEmployeeStatus);
   const isLoading = status === "loading";
+
   return (
-    <TableWrapper>
+    <CardsWrapper>
       <WithSkeleton loading={isLoading}>
-        <Typography>Table</Typography>
+        <Typography>Cards</Typography>
       </WithSkeleton>
-    </TableWrapper>
+    </CardsWrapper>
   );
 }

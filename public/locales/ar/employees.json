@@ -1,0 +1,16 @@
+{
+  "headline": {
+    "title": "الموظفون",
+    "cardView": "عرض البطاقات",
+    "listView": "عرض القائمة",
+    "addEmployee": "إضافة موظف",
+    "import": "استيراد"
+  },
+  "table": {},
+  "cards": {},
+  "control": {
+    "prevPage": "الصفحة السابقة",
+    "nextPage": "الصفحة التالية",
+    "currentPage": "الصفحة الحالية"
+  }
+}

@@ -5,7 +5,10 @@ import EastIcon from "@mui/icons-material/East";
 import WithSkeleton from "../../shared/ui/WithSkeleton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectEmployeeLastPage } from "./allEmployeeSlice";
+import {
+  selectAllEmployeeStatus,
+  selectEmployeeLastPage,
+} from "./allEmployeeSlice";
 import { useCallback } from "react";
 
 const ControlWrapper = styled(Box)({
@@ -40,9 +43,11 @@ export default function Control() {
   const { t } = useTranslation("employees");
   const { search, pathname } = useLocation();
   const searchParams = new URLSearchParams(search);
-  const page = searchParams.get("page") ?? "1";
+  const status = useSelector(selectAllEmployeeStatus);
+  const page = Number(searchParams.get("page") ?? "1");
   const lastPage = useSelector(selectEmployeeLastPage);
   const navigate = useNavigate();
+  const isLoading = status === "loading";
 
   const movePage = useCallback(
     (dir: "next" | "prev") => {
@@ -60,21 +65,27 @@ export default function Control() {
   return (
     <ControlWrapper>
       <PrevPage
-        aria-label={t("prevPage")}
+        aria-label={t("control.prevPage")}
         onClick={() => movePage("prev")}
-        disabled={page === "1"}
+        disabled={isLoading || page === 1}
       >
         <WestIcon sx={{ fontSize: "1rem" }} />
       </PrevPage>
-      <WithSkeleton loading={false} sx={{ height: "27px", maxWidth: "27px" }}>
-        <Page aria-label={`${t("currentPage")}:${page}`} aria-live="polite">
+      <WithSkeleton
+        loading={isLoading}
+        sx={{ height: "27px", maxWidth: "27px" }}
+      >
+        <Page
+          aria-label={`${t("control.currentPage")}:${page}`}
+          aria-live="polite"
+        >
           {page}
         </Page>
       </WithSkeleton>
       <NextPage
-        aria-label={t("nextPage")}
+        aria-label={t("control.nextPage")}
         onClick={() => movePage("next")}
-        disabled={page === String(lastPage ?? "7")}
+        disabled={isLoading || page === lastPage}
       >
         <EastIcon sx={{ fontSize: "1rem" }} />
       </NextPage>

@@ -1,0 +1,16 @@
+{
+  "headline": {
+    "title": "Employés",
+    "cardView": "Vue par cartes",
+    "listView": "Vue en liste",
+    "addEmployee": "Ajouter un employé",
+    "import": "Importer"
+  },
+  "table": {},
+  "cards": {},
+  "control": {
+    "prevPage": "Page précédente",
+    "nextPage": "Page suivante",
+    "currentPage": "Page actuelle"
+  }
+}

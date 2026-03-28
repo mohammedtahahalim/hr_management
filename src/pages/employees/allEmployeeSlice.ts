@@ -1,5 +1,6 @@
 import {
   createAsyncThunk,
+  createSelector,
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
@@ -47,7 +48,45 @@ const allEmployeeSchema = z.object({
 
 type DataFromServer = z.infer<typeof allEmployeeSchema>;
 
-type AllEmployeeData = DataFromServer["data"];
+export type AllEmployeeData = DataFromServer["data"];
+
+type Employee = AllEmployeeData[number];
+
+type SortableKeys = {
+  [K in keyof Employee]: Employee[K] extends string ? K : never;
+}[keyof Employee];
+
+const sorters: Record<
+  SortableKeys,
+  (a: Employee, b: Employee, dir: "asc" | "desc") => number
+> = {
+  name: (a, b, dir) =>
+    dir === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+  position: (a, b, dir) =>
+    dir === "asc"
+      ? a.position.localeCompare(b.position)
+      : b.position.localeCompare(a.position),
+  department: (a, b, dir) =>
+    dir === "asc"
+      ? a.department.localeCompare(b.department)
+      : b.department.localeCompare(a.department),
+  status: (a, b, dir) =>
+    dir === "asc"
+      ? a.status.localeCompare(b.status)
+      : b.status.localeCompare(a.status),
+  joinDate: (a, b, dir) =>
+    dir === "asc"
+      ? new Date(a.joinDate).getTime() - new Date(b.joinDate).getTime()
+      : new Date(b.joinDate).getTime() - new Date(a.joinDate).getTime(),
+  email: (a, b, dir) =>
+    dir === "asc"
+      ? a.email.localeCompare(b.email)
+      : b.email.localeCompare(a.email),
+  phoneNumber: (a, b, dir) =>
+    dir === "asc"
+      ? a.phoneNumber.localeCompare(b.phoneNumber)
+      : b.phoneNumber.localeCompare(a.phoneNumber),
+};
 
 interface FetchAllEmployeesArgs {
   page?: string;
@@ -62,7 +101,7 @@ export const fetchAllEmployees = createAsyncThunk<
     const { page = "1" } = _args ?? {};
     const base: string = import.meta.env.VITE_API_URL;
     const fullURL: URL = new URL("/api/employees", base);
-    fullURL.searchParams.set(page, page);
+    fullURL.searchParams.set("page", page);
     const fullOptions: RequestInit = {
       method: "GET",
       signal,
@@ -90,30 +129,70 @@ interface AllEmployeeState {
   status: Status;
   error: Reject | null;
   state: DataFromServer | null;
+  viewType: "card" | "list";
+  sortBy: SortableKeys | null;
+  sortOrder: "asc" | "desc";
 }
 
 const initialState: AllEmployeeState = {
   status: "idle",
   error: null,
   state: null,
+  viewType: "list",
+  sortBy: null,
+  sortOrder: "desc",
 };
 
-export const selectAllEmpoyeeStatus = (state: RootState) =>
+export const selectAllEmployeeStatus = (state: RootState) =>
   state.employee.allEmployees.status;
 
-export const selectAllEmpoyeeError = (state: RootState) =>
+export const selectAllEmployeeError = (state: RootState) =>
   state.employee.allEmployees.error;
 
-export const selectAllEmpoyeeData = (state: RootState) =>
+export const selectAllEmployeeData = (state: RootState) =>
   state.employee.allEmployees.state?.data;
 
 export const selectEmployeeLastPage = (state: RootState) =>
   state.employee.allEmployees.state?.lastPage;
 
+export const selectAllEmployeeViewType = (state: RootState) =>
+  state.employee.allEmployees.viewType;
+
+export const selectAllEmployeeSortBy = (state: RootState) =>
+  state.employee.allEmployees.sortBy;
+
+export const selectAllEmployeeSortOrder = (state: RootState) =>
+  state.employee.allEmployees.sortOrder;
+
+export const displayData = createSelector(
+  [selectAllEmployeeData, selectAllEmployeeSortBy, selectAllEmployeeSortOrder],
+  (data, sortBy, sortOrder) => {
+    if (!data) return [];
+    if (!sortBy) return data;
+    const temp = [...data];
+    const activeSorter = sorters[sortBy];
+    temp.sort((a, b) => activeSorter(a, b, sortOrder));
+    return temp;
+  },
+);
+
 const allEmployeeSlice = createSlice({
   name: "allEmployees",
   initialState,
-  reducers: {},
+  reducers: {
+    changeViewType: (state) => {
+      state.viewType = state.viewType === "card" ? "list" : "card";
+    },
+    sortData: (state, action: PayloadAction<SortableKeys>) => {
+      const sort = action.payload;
+      if (state.sortBy === sort) {
+        state.sortOrder = state.sortOrder === "asc" ? "desc" : "asc";
+        return;
+      }
+      state.sortBy = sort;
+      state.sortOrder = "desc";
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(fetchAllEmployees.pending, (state) => {
@@ -137,3 +216,4 @@ const allEmployeeSlice = createSlice({
 });
 
 export default allEmployeeSlice.reducer;
+export const { changeViewType, sortData } = allEmployeeSlice.actions;
