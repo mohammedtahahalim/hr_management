@@ -4,7 +4,17 @@
     "cardView": "カード表示",
     "listView": "リスト表示",
     "addEmployee": "従業員を追加",
-    "import": "インポート"
+    "import": "インポート",
+    "sortBy": {
+      "default": "並び替え",
+      "name": "名前",
+      "status": "ステータス",
+      "email": "メール",
+      "position": "役職",
+      "department": "部署",
+      "joinDate": "入社日",
+      "phoneNumber": "電話番号"
+    }
   },
   "table": {
     "headCells": [
@@ -39,17 +49,17 @@
     ],
     "bodyCells": {
       "positions": {
-        "backend": "バックエンドエンジニア",
-        "devOps": "DevOpsエンジニア",
-        "fullStack": "フルスタックエンジニア",
+        "backend": "バックエンド",
+        "devOps": "DevOps",
+        "fullStack": "フルスタック",
         "django": "Django開発者",
         "cloud": "クラウドエンジニア",
         "c++": "C++開発者",
-        "front": "フロントエンドエンジニア",
+        "front": "フロントエンド",
         "php": "PHP開発者",
         "data": "データアナリスト",
         "design": "UI/UXデザイナー",
-        "project": "プロジェクトマネージャー"
+        "project": "プロジェクト管理"
       },
       "departments": {
         "development": "開発",
@@ -68,7 +78,11 @@
       }
     }
   },
-  "cards": {},
+  "cards": {
+    "department": "部署",
+    "joinDate": "入社日",
+    "view": "表示"
+  },
   "control": {
     "prevPage": "前のページ",
     "nextPage": "次のページ",

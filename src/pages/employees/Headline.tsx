@@ -1,4 +1,4 @@
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button, MenuItem, Select, styled } from "@mui/material";
 import Title from "../../shared/ui/Title";
 import GridViewIcon from "@mui/icons-material/GridView";
 import ViewListIcon from "@mui/icons-material/ViewList";
@@ -7,12 +7,29 @@ import ImportExportIcon from "@mui/icons-material/ImportExport";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeViewType,
+  selectAllEmployeeSortBy,
   selectAllEmployeeStatus,
   selectAllEmployeeViewType,
+  sortAllEmployeeData,
+  type SortableKeys,
 } from "./allEmployeeSlice";
 import type { AppDispatch } from "../../config/store";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+
+const sorters: SortableKeys[] = [
+  "department",
+  "email",
+  "joinDate",
+  "name",
+  "phoneNumber",
+  "position",
+  "status",
+];
+
+function isSortableKey(value: unknown): value is SortableKeys {
+  return typeof value === "string" && sorters.includes(value as SortableKeys);
+}
 
 const HeadlineWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -54,6 +71,18 @@ const NewEmployee = styled(Button)({
   textTransform: "capitalize",
   fontSize: "0.85rem",
   fontFamily: "system-ui",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  maxWidth: "125px",
+});
+
+const SortBy = styled(Select)({
+  fontFamily: "system-ui",
+  fontSize: "0.9rem",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
 });
 
 export default function Headline() {
@@ -63,6 +92,7 @@ export default function Headline() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const isLoading = status === "loading";
+  const sortBy = useSelector(selectAllEmployeeSortBy);
 
   return (
     <HeadlineWrapper>
@@ -88,6 +118,34 @@ export default function Headline() {
         </ListType>
       </Visuals>
       <Add>
+        {listType === "card" && (
+          <SortBy
+            variant="outlined"
+            size="small"
+            displayEmpty
+            value={sortBy ?? ""}
+            onChange={(e) =>
+              dispatch(sortAllEmployeeData(e.target.value as SortableKeys))
+            }
+            renderValue={(value: unknown) => {
+              if (!isSortableKey(value)) return t("headline.sortBy.default");
+              if (sorters.includes(value))
+                return t(`headline.sortBy.${value}`) as SortableKeys;
+            }}
+          >
+            {sorters.map((s) => {
+              return (
+                <MenuItem
+                  key={s}
+                  value={s}
+                  sx={{ fontFamily: "system-ui", fontSize: "0.9rem" }}
+                >
+                  {t(`headline.sortBy.${s}`)}
+                </MenuItem>
+              );
+            })}
+          </SortBy>
+        )}
         <NewEmployee
           variant="outlined"
           startIcon={<ImportExportIcon fontSize="inherit" />}

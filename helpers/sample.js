@@ -1890,11 +1890,14 @@ export const generateMockApplicant = (id) => {
 export const generateEmployee = (id) => {
   const formattedId = String(id ?? Math.floor(Math.random() * 100000000));
   const imageSeed = `https://api.dicebear.com/9.x/avataaars/svg?seed=`;
+  const name = randomFrom(NAMES);
+  const boolean = Math.round(Math.random());
+  const random = boolean ? Math.floor(Math.random() * 100) : "";
 
   return {
     id: Number(formattedId),
-    name: randomFrom(NAMES),
-    profilePicture: imageSeed + randomFrom(NAMES)["en"].split(" ")[0],
+    name: name,
+    profilePicture: imageSeed + name["en"].split(" ")[0],
     position: randomFrom(POSITIONS),
     department: randomFrom(DEPARTMENTS),
     status: randomFrom(["active", "remote", "onleave", "terminated"]),
@@ -1902,7 +1905,8 @@ export const generateEmployee = (id) => {
       Date.now() - Math.random() * 5 * 31536000000,
     ).toISOString(),
     email:
-      randomFrom(NAMES)["en"].replace(/\s/g, ".") +
+      name["en"].replace(/\s/g, randomFrom([".", "-", "_"])) +
+      random +
       `@${randomFrom(["gmail", "hotmail", "yahoo"])}.${randomFrom(["com", "co.jp", "fr", "net"])}`,
     phoneNumber: randomFrom(
       PHONENUMBERS[randomFrom(["us", "fr", "ma", "ja", "uk", "sp"])],

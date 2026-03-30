@@ -34,7 +34,7 @@ const MainContent = styled(Box)({
   flex: 1,
   display: "flex",
   flexDirection: "column",
-  gap: "2px",
+  gap: "5px",
 });
 
 export default function Employees() {

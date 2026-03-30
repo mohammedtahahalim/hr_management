@@ -4,7 +4,17 @@
     "cardView": "Vue par cartes",
     "listView": "Vue en liste",
     "addEmployee": "Ajouter un employé",
-    "import": "Importer"
+    "import": "Importer",
+    "sortBy": {
+      "default": "Trier par",
+      "name": "Nom",
+      "status": "Statut",
+      "email": "Email",
+      "position": "Poste",
+      "department": "Département",
+      "joinDate": "Date d'embauche",
+      "phoneNumber": "Numéro de téléphone"
+    }
   },
   "table": {
     "headCells": [
@@ -68,7 +78,11 @@
       }
     }
   },
-  "cards": {},
+  "cards": {
+    "department": "Département",
+    "joinDate": "Date d’adhésion",
+    "view": "Voir"
+  },
   "control": {
     "prevPage": "Page précédente",
     "nextPage": "Page suivante",
