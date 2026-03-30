@@ -81,7 +81,8 @@
   "cards": {
     "department": "القسم",
     "joinDate": "تاريخ الانضمام",
-    "view": "عرض"
+    "view": "عرض",
+    "edit": "يحرر"
   },
   "control": {
     "prevPage": "الصفحة السابقة",

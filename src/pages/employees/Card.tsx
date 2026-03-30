@@ -182,7 +182,14 @@ const ContactBox = styled(Box, {
   },
 }));
 
-const View = styled(Button)({
+const ButtonBoxes = styled(Box)({
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  gap: "10px",
+});
+
+const CustomButton = styled(Button)({
   width: "40%",
   borderRadius: "50px",
   alignSelf: "center",
@@ -249,13 +256,22 @@ export default function Card({
               </Typography>
             </ContactBox>
           </Contact>
-          <View
-            onClick={() => navigate(`/employees/${id}`)}
-            variant="contained"
-            color={"primary"}
-          >
-            {t("cards.view")}
-          </View>
+          <ButtonBoxes>
+            <CustomButton
+              onClick={() => navigate(`/employees/${id}`)}
+              variant="contained"
+              sx={{ backgroundColor: "gray" }}
+            >
+              {t("cards.edit")}
+            </CustomButton>
+            <CustomButton
+              onClick={() => navigate(`/employees/${id}`)}
+              variant="contained"
+              color={"primary"}
+            >
+              {t("cards.view")}
+            </CustomButton>
+          </ButtonBoxes>
         </RealBox>
       </FakeBox>
     </CardWrapper>

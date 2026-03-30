@@ -81,7 +81,8 @@
   "cards": {
     "department": "Département",
     "joinDate": "Date d’adhésion",
-    "view": "Voir"
+    "view": "Voir",
+    "edit": "Modifier"
   },
   "control": {
     "prevPage": "Page précédente",
