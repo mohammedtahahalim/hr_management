@@ -7,22 +7,73 @@ import { positionColor } from "../../../shared/lib/constants";
 import { formatDate, generateRandomImage } from "../../../shared/lib/helpers";
 import { useNavigate } from "react-router-dom";
 
-const CardWrapper = styled(Box)(({ theme }) => ({
+const CardWrapper = styled(Box)({
   minWidth: "325px",
   aspectRatio: 5 / 3,
+  overflow: "hidden",
+  padding: "2px",
+  cursor: "pointer",
+  "&:hover .rainbow-border::before": {
+    opacity: 1,
+    animation: "rainbowShift 4s linear infinite",
+    transition: "all 0.1s ease-in-out",
+  },
+  "@keyframes rainbowShift": {
+    "0%": {
+      backgroundPosition: "0% 50%",
+    },
+    "50%": {
+      backgroundPosition: "100% 50%",
+    },
+    "100%": {
+      backgroundPosition: "0% 50%",
+    },
+  },
+});
+
+const FakeBox = styled(Box)({
+  width: "100%",
+  height: "100%",
+  position: "relative",
+  padding: "2px",
+  borderRadius: "12px",
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    inset: 0,
+    borderRadius: "inherit",
+    background: `conic-gradient(
+      red,
+      orange,
+      yellow,
+      green,
+      cyan,
+      blue,
+      violet,
+      red
+    )`,
+    opacity: 0,
+    zIndex: 0,
+    backgroundSize: "200% 200%",
+  },
+  "& > *": {
+    position: "relative",
+    zIndex: 1,
+  },
+});
+
+const RealBox = styled(Box)(({ theme }) => ({
+  width: "100%",
+  height: "100%",
+  borderRadius: "12px",
   border: `1px solid ${theme.palette.divider}`,
-  borderRadius: "18px",
+  backgroundColor: theme.palette.background.default,
   overflow: "hidden",
   padding: "8px",
   display: "flex",
   flexDirection: "column",
   gap: "5px",
   alignItems: "center",
-  transition: "all 0.25s ease-in-out",
-  "&:hover,&:focus": {
-    backgroundColor: theme.palette.background.paper,
-    cursor: "pointer",
-  },
 }));
 
 const Top = styled(Box)({
@@ -178,48 +229,54 @@ export default function Card({
       onClick={() => navigate(`/vacancies/${id}`)}
       onKeyDown={(e) => handleEnter(e, id)}
     >
-      <Top>
-        <Position>
-          <Icon posColor={positionColor[status]} />
-          <PositionTypo variant="h6" id={`position-title-${id}`}>
-            {title[lang]}
-          </PositionTypo>
-        </Position>
-        <MetaInfo>
-          <LocationAndDate>
-            <Location>
-              {location === "R" ? t("dashboard:recent.remote") : location}
-            </Location>
-            <Date>{formatDate(publication, i18n.language as TLanguage)}</Date>
-          </LocationAndDate>
-          <Status>
-            <StatusWrapper
-              posColor={positionColor[status]}
-              id={`position-status-${id}`}
-            >
-              {t(`vacancies:${status}`)}
-            </StatusWrapper>
-          </Status>
-        </MetaInfo>
-      </Top>
-      <Divider />
-      <Bottom>
-        <Apps id={`position-applicant-${id}`}>
-          <AppsCount variant="body1">
-            <span>{applicants}</span> {t("vacancies:table.apps")}
-          </AppsCount>
-        </Apps>
-        <Profiles>
-          {Array.from({ length: Math.min(newApps, 3) }).map((_, idx) => {
-            return <Picture key={idx} src={generateRandomImage()} />;
-          })}
-          {!!newApps && (
-            <New posColor={positionColor[status]}>
-              +{newApps} {t("dashboard:departments.new")}
-            </New>
-          )}
-        </Profiles>
-      </Bottom>
+      <FakeBox className="rainbow-border">
+        <RealBox>
+          <Top>
+            <Position>
+              <Icon posColor={positionColor[status]} />
+              <PositionTypo variant="h6" id={`position-title-${id}`}>
+                {title[lang]}
+              </PositionTypo>
+            </Position>
+            <MetaInfo>
+              <LocationAndDate>
+                <Location>
+                  {location === "R" ? t("dashboard:recent.remote") : location}
+                </Location>
+                <Date>
+                  {formatDate(publication, i18n.language as TLanguage)}
+                </Date>
+              </LocationAndDate>
+              <Status>
+                <StatusWrapper
+                  posColor={positionColor[status]}
+                  id={`position-status-${id}`}
+                >
+                  {t(`vacancies:${status}`)}
+                </StatusWrapper>
+              </Status>
+            </MetaInfo>
+          </Top>
+          <Divider />
+          <Bottom>
+            <Apps id={`position-applicant-${id}`}>
+              <AppsCount variant="body1">
+                <span>{applicants}</span> {t("vacancies:table.apps")}
+              </AppsCount>
+            </Apps>
+            <Profiles>
+              {Array.from({ length: Math.min(newApps, 3) }).map((_, idx) => {
+                return <Picture key={idx} src={generateRandomImage()} />;
+              })}
+              {!!newApps && (
+                <New posColor={positionColor[status]}>
+                  +{newApps} {t("dashboard:departments.new")}
+                </New>
+              )}
+            </Profiles>
+          </Bottom>
+        </RealBox>
+      </FakeBox>
     </CardWrapper>
   );
 }

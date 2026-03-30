@@ -59,11 +59,8 @@ const FakeBox = styled(Box)({
     )`,
     opacity: 0,
     zIndex: 0,
-
-    /* key part */
     backgroundSize: "200% 200%",
   },
-
   "& > *": {
     position: "relative",
     zIndex: 1,
