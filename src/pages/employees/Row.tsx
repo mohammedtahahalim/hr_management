@@ -30,6 +30,7 @@ const statusColors: Record<Employee["status"], PositionColor> = {
 const RowWrapper = styled("tr")(({ theme }) => ({
   cursor: "pointer",
   borderBottom: `1px solid ${theme.palette.divider}`,
+  height: "50px",
   "&:hover": {
     backgroundColor: theme.palette.background.paper,
     transition: "all 0.1s ease-in-out",

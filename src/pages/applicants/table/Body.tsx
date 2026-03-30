@@ -20,7 +20,7 @@ const DetailsWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   maxWidth: "650px",
   zIndex: 9999,
-  backgroundColor: alpha(theme.palette.background.paper, 0.9),
+  backgroundColor: alpha(theme.palette.background.paper, 0.99),
   border: `1px solid ${theme.palette.divider}`,
   borderTopLeftRadius: "18px",
   borderBottomLeftRadius: "18px",
