@@ -39,17 +39,17 @@
     ],
     "bodyCells": {
       "positions": {
-        "backend": "バックエンドエンジニア",
-        "devOps": "DevOpsエンジニア",
-        "fullStack": "フルスタックエンジニア",
+        "backend": "バックエンド",
+        "devOps": "DevOps",
+        "fullStack": "フルスタック",
         "django": "Django開発者",
         "cloud": "クラウドエンジニア",
         "c++": "C++開発者",
-        "front": "フロントエンドエンジニア",
+        "front": "フロントエンド",
         "php": "PHP開発者",
         "data": "データアナリスト",
         "design": "UI/UXデザイナー",
-        "project": "プロジェクトマネージャー"
+        "project": "プロジェクト管理"
       },
       "departments": {
         "development": "開発",
