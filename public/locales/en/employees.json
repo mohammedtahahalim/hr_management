@@ -81,7 +81,8 @@
   "cards": {
     "department": "Department",
     "joinDate": "Date of Joining",
-    "view": "View"
+    "view": "View",
+    "edit": "Edit"
   },
   "control": {
     "prevPage": "Previous Page",
