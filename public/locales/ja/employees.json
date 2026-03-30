@@ -4,7 +4,17 @@
     "cardView": "カード表示",
     "listView": "リスト表示",
     "addEmployee": "従業員を追加",
-    "import": "インポート"
+    "import": "インポート",
+    "sortBy": {
+      "default": "並び替え",
+      "name": "名前",
+      "status": "ステータス",
+      "email": "メール",
+      "position": "役職",
+      "department": "部署",
+      "joinDate": "入社日",
+      "phoneNumber": "電話番号"
+    }
   },
   "table": {
     "headCells": [

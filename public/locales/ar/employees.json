@@ -4,7 +4,17 @@
     "cardView": "عرض البطاقات",
     "listView": "عرض القائمة",
     "addEmployee": "إضافة موظف",
-    "import": "استيراد"
+    "import": "استيراد",
+    "sortBy": {
+      "default": "الترتيب حسب",
+      "name": "الاسم",
+      "status": "الحالة",
+      "email": "البريد الإلكتروني",
+      "position": "المنصب",
+      "department": "القسم",
+      "joinDate": "تاريخ الانضمام",
+      "phoneNumber": "رقم الهاتف"
+    }
   },
   "table": {
     "headCells": [

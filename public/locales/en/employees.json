@@ -4,7 +4,17 @@
     "cardView": "Card View",
     "listView": "List View",
     "addEmployee": "Add Employee",
-    "import": "Import"
+    "import": "Import",
+    "sortBy": {
+      "default": "Sort By",
+      "name": "Name",
+      "status": "Status",
+      "email": "Email",
+      "position": "Position",
+      "department": "Department",
+      "joinDate": "Join Date",
+      "phoneNumber": "Phone Number"
+    }
   },
   "table": {
     "headCells": [

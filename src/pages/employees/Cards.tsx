@@ -8,6 +8,7 @@ const CardsWrapper = styled(Box)({
   flex: 1,
   overflow: "hidden",
   borderRadius: "10px",
+  border: "1px solid white",
 });
 
 export default function Cards() {
