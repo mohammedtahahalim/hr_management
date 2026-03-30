@@ -15,6 +15,7 @@ const allEmployeeSchema = z.object({
   lastPage: z.number().min(1),
   data: z.array(
     z.object({
+      id: z.number().min(1),
       name: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().nonempty()),
       profilePicture: z.string().or(z.null()),
       position: z.enum([
@@ -41,7 +42,9 @@ const allEmployeeSchema = z.object({
       ]),
       status: z.enum(["active", "remote", "onleave", "terminated"]),
       joinDate: z.iso.datetime(),
-      email: z.email(),
+      email: z
+        .string()
+        .regex(/^[\p{L}\d.+_-]+@(?:[a-zA-Z-]+)(?:\.[a-zA-Z]{2,})+$/u),
       phoneNumber: z.string().regex(/^\+?[\d\s()-]+$/),
     }),
   ),
@@ -51,9 +54,9 @@ type DataFromServer = z.infer<typeof allEmployeeSchema>;
 
 export type AllEmployeeData = DataFromServer["data"];
 
-type Employee = AllEmployeeData[number];
+export type Employee = AllEmployeeData[number];
 
-type SortableKeys = {
+export type SortableKeys = {
   [K in keyof Employee]: Employee[K] extends string | Record<TLanguage, string>
     ? K
     : never;
@@ -94,7 +97,7 @@ const sorters: Record<
 };
 
 interface FetchAllEmployeesArgs {
-  page?: string;
+  page?: number | string;
 }
 
 export const fetchAllEmployees = createAsyncThunk<
@@ -103,10 +106,10 @@ export const fetchAllEmployees = createAsyncThunk<
   { rejectValue: Reject }
 >("fetch/allEmployees", async (_args, { signal, rejectWithValue }) => {
   try {
-    const { page = "1" } = _args ?? {};
+    const { page = 1 } = _args ?? {};
     const base: string = import.meta.env.VITE_API_URL;
     const fullURL: URL = new URL("/api/employees", base);
-    fullURL.searchParams.set("page", page);
+    fullURL.searchParams.set("page", String(page));
     const fullOptions: RequestInit = {
       method: "GET",
       signal,
@@ -169,7 +172,7 @@ export const selectAllEmployeeSortBy = (state: RootState) =>
 export const selectAllEmployeeSortOrder = (state: RootState) =>
   state.employee.allEmployees.sortOrder;
 
-export const displayData = createSelector(
+export const allEmployeesDisplayData = createSelector(
   [selectAllEmployeeData, selectAllEmployeeSortBy, selectAllEmployeeSortOrder],
   (data, sortBy, sortOrder) => {
     if (!data) return [];
@@ -188,7 +191,7 @@ const allEmployeeSlice = createSlice({
     changeViewType: (state) => {
       state.viewType = state.viewType === "card" ? "list" : "card";
     },
-    sortData: (state, action: PayloadAction<SortableKeys>) => {
+    sortAllEmployeeData: (state, action: PayloadAction<SortableKeys>) => {
       const sort = action.payload;
       if (state.sortBy === sort) {
         state.sortOrder = state.sortOrder === "asc" ? "desc" : "asc";
@@ -221,4 +224,4 @@ const allEmployeeSlice = createSlice({
 });
 
 export default allEmployeeSlice.reducer;
-export const { changeViewType, sortData } = allEmployeeSlice.actions;
+export const { changeViewType, sortAllEmployeeData } = allEmployeeSlice.actions;

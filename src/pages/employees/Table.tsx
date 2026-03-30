@@ -9,17 +9,20 @@ const TableWrapper = styled(Box)({
   width: "100%",
   flex: 1,
   overflow: "hidden",
-  borderRadius: "10px",
 });
 
-const EmployeeTable = styled("table")({});
+const EmployeeTable = styled("table")({
+  width: "100%",
+  height: "100%",
+  borderCollapse: "collapse",
+});
 
 export default function Table() {
   const status = useSelector(selectAllEmployeeStatus);
   const isLoading = status === "loading";
   return (
     <TableWrapper>
-      <WithSkeleton loading={isLoading}>
+      <WithSkeleton loading={isLoading} sx={{ borderRadius: "12px" }}>
         <EmployeeTable>
           <THead />
           <TBody />

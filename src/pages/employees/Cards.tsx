@@ -16,7 +16,7 @@ export default function Cards() {
 
   return (
     <CardsWrapper>
-      <WithSkeleton loading={isLoading}>
+      <WithSkeleton loading={isLoading} sx={{ borderRadius: "12px" }}>
         <Typography>Cards</Typography>
       </WithSkeleton>
     </CardsWrapper>

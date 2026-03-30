@@ -6,7 +6,68 @@
     "addEmployee": "إضافة موظف",
     "import": "استيراد"
   },
-  "table": {},
+  "table": {
+    "headCells": [
+      {
+        "key": "name",
+        "value": "الاسم"
+      },
+      {
+        "key": "position",
+        "value": "المنصب"
+      },
+      {
+        "key": "department",
+        "value": "القسم"
+      },
+      {
+        "key": "status",
+        "value": "الحالة"
+      },
+      {
+        "key": "joinDate",
+        "value": "تاريخ الانضمام"
+      },
+      {
+        "key": "phone",
+        "value": "رقم الهاتف"
+      },
+      {
+        "key": "email",
+        "value": "البريد"
+      }
+    ],
+    "bodyCells": {
+      "positions": {
+        "backend": "مهندس الواجهة الخلفية",
+        "devOps": "مهندس DevOps",
+        "fullStack": "مهندس FullStack",
+        "django": "مطور Django",
+        "cloud": "مهندس السحابة",
+        "c++": "مطور C++",
+        "front": "مهندس الواجهة الأمامية",
+        "php": "مطور PHP",
+        "data": "محلل بيانات",
+        "design": "مصمم UI/UX",
+        "project": "مدير مشروع"
+      },
+      "departments": {
+        "development": "التطوير",
+        "sales": "المبيعات",
+        "management": "الإدارة",
+        "analytics": "التحليلات",
+        "finance": "المالية",
+        "hr": "الموارد البشرية",
+        "data": "البيانات"
+      },
+      "statuses": {
+        "terminated": "منهي الخدمة",
+        "onleave": "في إجازة",
+        "active": "نشط",
+        "remote": "عن بُعد"
+      }
+    }
+  },
   "cards": {},
   "control": {
     "prevPage": "الصفحة السابقة",

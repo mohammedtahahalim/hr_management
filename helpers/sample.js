@@ -1892,7 +1892,7 @@ export const generateEmployee = (id) => {
   const imageSeed = `https://api.dicebear.com/9.x/avataaars/svg?seed=`;
 
   return {
-    id: formattedId,
+    id: Number(formattedId),
     name: randomFrom(NAMES),
     profilePicture: imageSeed + randomFrom(NAMES)["en"].split(" ")[0],
     position: randomFrom(POSITIONS),

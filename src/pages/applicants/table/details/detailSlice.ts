@@ -34,7 +34,9 @@ const applicantDetailSchema = z.object({
     ]),
   }),
   personal: z.object({
-    email: z.email(),
+    email: z
+      .string()
+      .regex(/^[\p{L}\d.+_-]+@(?:[a-zA-Z-]+)(?:\.[a-zA-Z]{2,})+$/u),
     phone: z.string().or(z.null()),
     linkedin: z.string().or(z.null()),
     appliedDate: z.iso.datetime(),

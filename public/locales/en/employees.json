@@ -6,7 +6,68 @@
     "addEmployee": "Add Employee",
     "import": "Import"
   },
-  "table": {},
+  "table": {
+    "headCells": [
+      {
+        "key": "name",
+        "value": "Name"
+      },
+      {
+        "key": "position",
+        "value": "Position"
+      },
+      {
+        "key": "department",
+        "value": "Department"
+      },
+      {
+        "key": "status",
+        "value": "Status"
+      },
+      {
+        "key": "joinDate",
+        "value": "Join Date"
+      },
+      {
+        "key": "phone",
+        "value": "Phone"
+      },
+      {
+        "key": "email",
+        "value": "Email"
+      }
+    ],
+    "bodyCells": {
+      "positions": {
+        "backend": "Backend Engineer",
+        "devOps": "DevOps Engineer",
+        "fullStack": "FullStack Engineer",
+        "django": "Django Developer",
+        "cloud": "Cloud Engineer",
+        "c++": "C++ Developer",
+        "front": "Frontend Engineer",
+        "php": "PHP Developer",
+        "data": "Data Analyst",
+        "design": "UI/UX Designer",
+        "project": "Project Manager"
+      },
+      "departments": {
+        "development": "Developement",
+        "sales": "Sales",
+        "management": "Management",
+        "analytics": "Analytics",
+        "finance": "Finance",
+        "hr": "HR",
+        "data": "Data"
+      },
+      "statuses": {
+        "terminated": "Terminated",
+        "onleave": "On Leave",
+        "active": "Active",
+        "remote": "Remote"
+      }
+    }
+  },
   "cards": {},
   "control": {
     "prevPage": "Previous Page",

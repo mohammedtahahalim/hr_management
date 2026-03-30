@@ -20,11 +20,14 @@ const EmployeesWrapper = styled(Box)({
   gap: "10px",
 });
 
-const HeadlineWrapper = styled(Box)({
+const HeadlineWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   minHeight: "75px",
   overflow: "hidden",
-});
+  [theme.breakpoints.down("sm")]: {
+    minHeight: "100px",
+  },
+}));
 
 const MainContent = styled(Box)({
   width: "100%",
@@ -44,7 +47,7 @@ export default function Employees() {
   useEffect(() => {
     const allEmployeesRequest = dispatch(fetchAllEmployees({ page }));
     return () => allEmployeesRequest.abort();
-  }, [page]);
+  }, [page, dispatch]);
 
   return (
     <EmployeesWrapper>

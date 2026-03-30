@@ -6,7 +6,68 @@
     "addEmployee": "従業員を追加",
     "import": "インポート"
   },
-  "table": {},
+  "table": {
+    "headCells": [
+      {
+        "key": "name",
+        "value": "名前"
+      },
+      {
+        "key": "position",
+        "value": "役職"
+      },
+      {
+        "key": "department",
+        "value": "部門"
+      },
+      {
+        "key": "status",
+        "value": "状態"
+      },
+      {
+        "key": "joinDate",
+        "value": "入社日"
+      },
+      {
+        "key": "phone",
+        "value": "電話番号"
+      },
+      {
+        "key": "email",
+        "value": "メール"
+      }
+    ],
+    "bodyCells": {
+      "positions": {
+        "backend": "バックエンドエンジニア",
+        "devOps": "DevOpsエンジニア",
+        "fullStack": "フルスタックエンジニア",
+        "django": "Django開発者",
+        "cloud": "クラウドエンジニア",
+        "c++": "C++開発者",
+        "front": "フロントエンドエンジニア",
+        "php": "PHP開発者",
+        "data": "データアナリスト",
+        "design": "UI/UXデザイナー",
+        "project": "プロジェクトマネージャー"
+      },
+      "departments": {
+        "development": "開発",
+        "sales": "営業",
+        "management": "管理",
+        "analytics": "分析",
+        "finance": "財務",
+        "hr": "人事",
+        "data": "データ"
+      },
+      "statuses": {
+        "terminated": "解雇",
+        "onleave": "休暇中",
+        "active": "在職中",
+        "remote": "リモート"
+      }
+    }
+  },
   "cards": {},
   "control": {
     "prevPage": "前のページ",

@@ -6,7 +6,68 @@
     "addEmployee": "Ajouter un employé",
     "import": "Importer"
   },
-  "table": {},
+  "table": {
+    "headCells": [
+      {
+        "key": "name",
+        "value": "Nom"
+      },
+      {
+        "key": "position",
+        "value": "Poste"
+      },
+      {
+        "key": "department",
+        "value": "Département"
+      },
+      {
+        "key": "status",
+        "value": "Statut"
+      },
+      {
+        "key": "joinDate",
+        "value": "Date d'adhésion"
+      },
+      {
+        "key": "phone",
+        "value": "Téléphone"
+      },
+      {
+        "key": "email",
+        "value": "Email"
+      }
+    ],
+    "bodyCells": {
+      "positions": {
+        "backend": "Ingénieur Backend",
+        "devOps": "Ingénieur DevOps",
+        "fullStack": "Ingénieur Full Stack",
+        "django": "Développeur Django",
+        "cloud": "Ingénieur Cloud",
+        "c++": "Développeur C++",
+        "front": "Ingénieur Frontend",
+        "php": "Développeur PHP",
+        "data": "Analyste de données",
+        "design": "Designer UI/UX",
+        "project": "Chef de projet"
+      },
+      "departments": {
+        "development": "Développement",
+        "sales": "Ventes",
+        "management": "Gestion",
+        "analytics": "Analytique",
+        "finance": "Finance",
+        "hr": "Ressources humaines",
+        "data": "Données"
+      },
+      "statuses": {
+        "terminated": "Licencié",
+        "onleave": "En congé",
+        "active": "Actif",
+        "remote": "À distance"
+      }
+    }
+  },
   "cards": {},
   "control": {
     "prevPage": "Page précédente",

@@ -5,14 +5,15 @@ export default async function handler(req, res) {
   if (req.method !== "GET")
     return res.status(405).json({ message: "Internal Server Error ..." });
   try {
-    await auth(req, res);
+    // TODO: enforce auth
+    // await auth(req, res);
     if (res.headersSent || res.writableEnded) return;
-    const { page = "1" } = req.query;
+    const { page = 1, pageSize = 10, ...rest } = req.query;
     return res.status(200).json({
       page: Number(page),
-      pageSize: 8,
-      lastPage: 8,
-      data: Array.from({ length: 8 }, () => generateEmployee()),
+      pageSize: Number(pageSize),
+      lastPage: 7,
+      data: Array.from({ length: Number(pageSize) }, () => generateEmployee()),
     });
   } catch (err) {
     console.log(err);
