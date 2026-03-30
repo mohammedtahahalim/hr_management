@@ -78,7 +78,11 @@
       }
     }
   },
-  "cards": {},
+  "cards": {
+    "department": "部署",
+    "joinDate": "入社日",
+    "view": "表示"
+  },
   "control": {
     "prevPage": "前のページ",
     "nextPage": "次のページ",

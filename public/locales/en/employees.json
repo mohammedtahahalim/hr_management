@@ -78,7 +78,11 @@
       }
     }
   },
-  "cards": {},
+  "cards": {
+    "department": "Department",
+    "joinDate": "Date of Joining",
+    "view": "View"
+  },
   "control": {
     "prevPage": "Previous Page",
     "nextPage": "Next Page",

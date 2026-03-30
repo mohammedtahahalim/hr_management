@@ -78,7 +78,11 @@
       }
     }
   },
-  "cards": {},
+  "cards": {
+    "department": "القسم",
+    "joinDate": "تاريخ الانضمام",
+    "view": "عرض"
+  },
   "control": {
     "prevPage": "الصفحة السابقة",
     "nextPage": "الصفحة التالية",

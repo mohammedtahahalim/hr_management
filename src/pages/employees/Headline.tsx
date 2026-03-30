@@ -71,9 +71,19 @@ const NewEmployee = styled(Button)({
   textTransform: "capitalize",
   fontSize: "0.85rem",
   fontFamily: "system-ui",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  maxWidth: "125px",
 });
 
-const SortBy = styled(Select)({});
+const SortBy = styled(Select)({
+  fontFamily: "system-ui",
+  fontSize: "0.9rem",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+});
 
 export default function Headline() {
   const { t } = useTranslation("employees");
@@ -125,7 +135,11 @@ export default function Headline() {
           >
             {sorters.map((s) => {
               return (
-                <MenuItem key={s} value={s}>
+                <MenuItem
+                  key={s}
+                  value={s}
+                  sx={{ fontFamily: "system-ui", fontSize: "0.9rem" }}
+                >
                   {t(`headline.sortBy.${s}`)}
                 </MenuItem>
               );
