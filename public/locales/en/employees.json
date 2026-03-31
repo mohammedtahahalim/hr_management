@@ -88,5 +88,8 @@
     "prevPage": "Previous Page",
     "nextPage": "Next Page",
     "currentPage": "Current Page"
+  },
+  "details": {
+    "headline": {}
   }
 }

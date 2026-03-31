@@ -1,5 +1,7 @@
 import { generateSharpRandomSeries } from "./constants.js";
 import {
+  ACTIVEPROJECTS,
+  ALPHABETS,
   COMPANIES,
   DEGREES,
   DEPARTMENTS,
@@ -1911,5 +1913,132 @@ export const generateEmployee = (id) => {
     phoneNumber: randomFrom(
       PHONENUMBERS[randomFrom(["us", "fr", "ma", "ja", "uk", "sp"])],
     ),
+  };
+};
+
+function generateRandomSalary(salaryBasis) {
+  let salary = 0;
+  switch (salaryBasis) {
+    case "hour":
+      salary = Math.round((10 + Math.random() * 90) * 100) / 100;
+      break;
+    case "day":
+      salary = Math.round((80 + Math.random() * 720) * 100) / 100;
+      break;
+    case "week":
+      salary = Math.round((400 + Math.random() * 3600) * 100) / 100;
+      break;
+    case "month":
+      salary = Math.round((1600 + Math.random() * 14400) * 100) / 100;
+      break;
+    case "year":
+      salary = Math.round((20000 + Math.random() * 180000) * 100) / 100;
+      break;
+    default:
+      throw new Error("Invalid salary basis");
+  }
+  return salary;
+}
+
+export const generateFullEmployee = (id) => {
+  const name = randomFrom(NAMES);
+  const position = randomFrom(POSITIONS);
+  const department = randomFrom(DEPARTMENTS);
+  const joinDate = new Date(
+    Date.now() - Math.random() * 5 * 31536000000,
+  ).toISOString();
+  const email = (
+    name["en"].replace(/\s/g, randomFrom([".", "-", "_"])) +
+    `@${randomFrom(["gmail", "hotmail", "yahoo"])}.${randomFrom(["com", "co.jp", "fr", "net"])}`
+  ).toLowerCase();
+  const phoneNumber = randomFrom(
+    PHONENUMBERS[randomFrom(["us", "fr", "ma", "ja", "uk", "sp"])],
+  );
+  const passport = Array.from(
+    { length: Math.floor(Math.random() * 3) + 7 },
+    (_, idx) =>
+      idx < 2
+        ? randomFrom(ALPHABETS.split(""))
+        : Math.floor(Math.random() * 10),
+  ).join("");
+  const passportExp = new Date(
+    Date.now() + Math.random() * 7 * 31536000000,
+  ).toISOString();
+  const birthDate = new Date(
+    Date.now() - (Math.random() * 30 + 20) * 31536000000,
+  ).toISOString();
+  const martial = randomFrom(["single", "married", "divorced", "widowed"]);
+  const randomDelit = randomFrom(["-", " ", ""]);
+  const bankAcc = Array.from({ length: 4 }, () =>
+    Math.floor(Math.random() * 8999 + 1000),
+  ).join(randomDelit);
+  const ifscCode = Array.from(
+    { length: Math.floor(Math.random() * 4) + 9 },
+    (_, idx) =>
+      idx < 2
+        ? randomFrom(ALPHABETS.split(""))
+        : Math.floor(Math.random() * 10),
+  ).join("");
+  const panNb =
+    "00" +
+    Array.from({ length: 14 }, () => Math.floor(Math.random() * 100)).join("");
+  const salaryBasis = randomFrom(["hour", "day", "week", "month", "year"]);
+  const salaryAmount = generateRandomSalary(salaryBasis);
+  const lastPayout = new Date(
+    Date.now() - Math.floor(Math.random() * 8) * 2678400000,
+  ).toISOString();
+  const payoutType = randomFrom(["transfer", "wire", "cash", "check"]);
+  const billRate = Math.floor(Math.random() * 100) + 1;
+  const eduCount = 2 + Math.floor(Math.random() * 2);
+  const expCount = 2 + Math.floor(Math.random() * 2);
+  const education = Array.from({ length: eduCount }, () => ({
+    school: randomFrom(COMPANIES),
+    degree: randomFrom(DEGREES),
+    graduated: (2015 + Math.floor(Math.random() * 8)).toString(),
+  })).sort((a, b) => new Date(a.graduated) > new Date(b.graduated));
+  const experiences = Array.from({ length: expCount }, () => ({
+    position: randomFrom(POSITIONS),
+    company: randomFrom(COMPANIES),
+    tasks: Array.from({ length: 1 + Math.floor(Math.random() * 3) }, () =>
+      randomFrom(TASKS),
+    ),
+    location: randomFrom(LOCATIONS),
+    startDate: new Date(
+      Date.now() - Math.random() * 5 * 31536000000,
+    ).toISOString(),
+    endDate:
+      Math.random() > 0.5
+        ? new Date(Date.now() - Math.random() * 2 * 31536000000).toISOString()
+        : null,
+  })).sort((a, b) => new Date(a.startDate) > new Date(b.startDate));
+  const skills = SKILLSPOOL.sort(() => 0.5 - Math.random()).slice(0, 5);
+  const activeProjects = Array.from(
+    { length: Math.floor(Math.random() * 3) },
+    () => randomFrom(ACTIVEPROJECTS),
+  );
+  return {
+    id,
+    name,
+    position,
+    department,
+    joinDate,
+    email,
+    phoneNumber,
+    passport,
+    passportExp,
+    birthDate,
+    martial,
+    bankAcc,
+    ifscCode,
+    panNb,
+    salaryBasis,
+    salaryAmount,
+    lastPayout,
+    payoutType,
+    billRate,
+    education,
+    experiences,
+    skills,
+    activeProjects,
   };
 };

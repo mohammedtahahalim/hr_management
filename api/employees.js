@@ -1,13 +1,20 @@
 import auth from "../helpers/auth.js";
-import { generateEmployee } from "../helpers/sample.js";
+import { generateEmployee, generateFullEmployee } from "../helpers/sample.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET")
     return res.status(405).json({ message: "Internal Server Error ..." });
   try {
-    await auth(req, res);
+    // await auth(req, res);
     if (res.headersSent || res.writableEnded) return;
-    const { page = 1, pageSize = 10, ...rest } = req.query;
+    const { page = 1, pageSize = 10, id, ...rest } = req.query;
+    if (id) {
+      if (typeof id !== "string" || isNaN(Number(id)))
+        return res.status(400).json({ message: "Bad Request" });
+      return res.status(200).json({
+        data: generateFullEmployee(id),
+      });
+    }
     return res.status(200).json({
       page: Number(page),
       pageSize: Number(pageSize),
