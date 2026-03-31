@@ -1,10 +1,14 @@
 import { Box, styled } from "@mui/material";
 import Headline from "./Headline";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../config/store";
 import { useEffect } from "react";
-import { fetchEmployee, selectEmployeeStatus } from "./employeeSlice";
+import {
+  fetchEmployee,
+  selectEmployeeError,
+  selectEmployeeStatus,
+} from "./employeeSlice";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 
 const EmployeeWrapper = styled(Box)({
@@ -22,7 +26,6 @@ const HeadlineWrapper = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     minHeight: "100px",
   },
-  border: "1px solid white",
 }));
 
 const MainContent = styled(Box)({
@@ -39,6 +42,7 @@ export default function Employee() {
   const dispatch = useDispatch<AppDispatch>();
   const status = useSelector(selectEmployeeStatus);
   const isLoading = status === "loading";
+  const error = useSelector(selectEmployeeError);
 
   useEffect(() => {
     if (!id) return;
@@ -48,14 +52,16 @@ export default function Employee() {
     };
   }, [dispatch, id]);
 
+  if (error === "BAD") return <Navigate to={"/employees"} replace />;
+
   return (
     <EmployeeWrapper>
       <HeadlineWrapper>
-        <Headline />
+        <WithSkeleton loading={isLoading}>
+          <Headline />
+        </WithSkeleton>
       </HeadlineWrapper>
-      <MainContent>
-        <WithSkeleton loading={isLoading}>test</WithSkeleton>
-      </MainContent>
+      <MainContent></MainContent>
     </EmployeeWrapper>
   );
 }
