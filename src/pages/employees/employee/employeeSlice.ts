@@ -181,27 +181,27 @@ export const selectEmployeeName = (state: RootState) => {
   return data.name;
 };
 
-export const employeePersonalInfo = (state: RootState) => {
+export const selectEmployeePersonalInfo = (state: RootState) => {
   const data = state.employee.employee.data;
   if (!data) return null;
   const { name, position, department, joinDate, email, phoneNumber } = data;
   return { name, position, department, joinDate, email, phoneNumber };
 };
 
-export const employeePrivateInfo = (state: RootState) => {
+export const selectEmployeePrivateInfo = (state: RootState) => {
   const data = state.employee.employee.data;
   if (!data) return null;
   const { passport, passportExp, phoneNumber, birthDate, martial } = data;
   return { passport, passportExp, phoneNumber, birthDate, martial };
 };
 
-export const employeeSkills = (state: RootState) =>
+export const selectEmployeeSkills = (state: RootState) =>
   state.employee.employee.data?.skills;
 
-export const employeeActiveProjects = (state: RootState) =>
+export const selectEmployeeActiveProjects = (state: RootState) =>
   state.employee.employee.data?.activeProjects;
 
-export const employeePayRollInfo = (state: RootState) => {
+export const selectEmployeePayRollInfo = (state: RootState) => {
   const data = state.employee.employee.data;
   if (!data) return null;
   const {
@@ -226,10 +226,10 @@ export const employeePayRollInfo = (state: RootState) => {
   };
 };
 
-export const employeeExerience = (state: RootState) =>
+export const selectEmployeeExerience = (state: RootState) =>
   state.employee.employee.data?.experiences;
 
-export const employeeEducation = (state: RootState) =>
+export const selectEmployeeEducation = (state: RootState) =>
   state.employee.employee.data?.education;
 
 const employeeSlice = createSlice({

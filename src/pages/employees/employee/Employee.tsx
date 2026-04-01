@@ -10,6 +10,15 @@ import {
   selectEmployeeStatus,
 } from "./employeeSlice";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
+import Snippet from "./profile/Snippet";
+import Personal from "./profile/Personal";
+import Skills from "./profile/Skills";
+import Project from "./projects/Project";
+import Bank from "./compensation/Bank";
+import Salary from "./compensation/Salary";
+import Education from "./career/Education";
+import Experience from "./career/Experience";
+import Document from "./career/Document";
 
 const EmployeeWrapper = styled(Box)({
   width: "100%",
@@ -62,6 +71,7 @@ const LBottom = styled(Box)({
   display: "flex",
   gap: "5px",
   flexWrap: "wrap",
+  overflow: "hidden",
 });
 
 const RightSection = styled(Box)({
@@ -86,17 +96,13 @@ const RRightColumn = styled(Box)({
 });
 
 const Block = styled(Box)({
-  minWidth: "300px",
-  border: "1px solid crimson",
+  minWidth: "325px",
   flex: "1",
-  minHeight: "250px",
-  borderRadius: "12px",
-  padding: "5px",
   overflow: "hidden",
 });
 
 const Tall = styled(Box)({
-  minWidth: "300px",
+  minWidth: "325px",
   border: "1px solid crimson",
   flex: "2",
   borderRadius: "12px",
@@ -131,26 +137,41 @@ export default function Employee() {
       <MainContent>
         <LeftSection>
           <LTop>
-            <Block>Name</Block>
-            <Block>Personal</Block>
+            <Block>
+              <Snippet />
+            </Block>
+            <Block>
+              <Personal />
+            </Block>
           </LTop>
           <LMiddle>
-            <Block>Skills</Block>
+            <Block>
+              <Skills />
+            </Block>
           </LMiddle>
           <LBottom>
-            <Block>Project 1</Block>
-            <Block>Project 2</Block>
+            <Project />
           </LBottom>
         </LeftSection>
         <RightSection>
           <RLeftColumn>
-            <Block>Bank</Block>
-            <Block>Salary</Block>
-            <Block>Education</Block>
+            <Block>
+              <Bank />
+            </Block>
+            <Block>
+              <Salary />
+            </Block>
+            <Block>
+              <Education />
+            </Block>
           </RLeftColumn>
           <RRightColumn>
-            <Tall>Experience</Tall>
-            <Block>Documents</Block>
+            <Tall>
+              <Experience />
+            </Tall>
+            <Block>
+              <Document />
+            </Block>
           </RRightColumn>
         </RightSection>
       </MainContent>
