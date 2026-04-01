@@ -115,7 +115,9 @@ interface FetchArgs {
 }
 
 // TODO: Implement submitEmployee edit request, form schema, with react hook form
-export const editEmployee = createAsyncThunk("edit/employee", async () => {});
+export const editEmployee = createAsyncThunk("edit/employee", async () => {
+  console.log("Saving");
+});
 
 export const fetchEmployee = createAsyncThunk<
   EmployeeData,
@@ -173,8 +175,62 @@ export const selectEmployeeStatus = (state: RootState) =>
 export const selectEmployeeError = (state: RootState) =>
   state.employee.employee.error;
 
-export const selectEmployeeData = (state: RootState) =>
-  state.employee.employee.data;
+export const selectEmployeeName = (state: RootState) => {
+  const data = state.employee.employee.data;
+  if (!data) return null;
+  return data.name;
+};
+
+export const employeePersonalInfo = (state: RootState) => {
+  const data = state.employee.employee.data;
+  if (!data) return null;
+  const { name, position, department, joinDate, email, phoneNumber } = data;
+  return { name, position, department, joinDate, email, phoneNumber };
+};
+
+export const employeePrivateInfo = (state: RootState) => {
+  const data = state.employee.employee.data;
+  if (!data) return null;
+  const { passport, passportExp, phoneNumber, birthDate, martial } = data;
+  return { passport, passportExp, phoneNumber, birthDate, martial };
+};
+
+export const employeeSkills = (state: RootState) =>
+  state.employee.employee.data?.skills;
+
+export const employeeActiveProjects = (state: RootState) =>
+  state.employee.employee.data?.activeProjects;
+
+export const employeePayRollInfo = (state: RootState) => {
+  const data = state.employee.employee.data;
+  if (!data) return null;
+  const {
+    bankAcc,
+    ifscCode,
+    panNb,
+    salaryBasis,
+    salaryAmount,
+    lastPayout,
+    payoutType,
+    billRate,
+  } = data;
+  return {
+    bankAcc,
+    ifscCode,
+    panNb,
+    salaryBasis,
+    salaryAmount,
+    lastPayout,
+    payoutType,
+    billRate,
+  };
+};
+
+export const employeeExerience = (state: RootState) =>
+  state.employee.employee.data?.experiences;
+
+export const employeeEducation = (state: RootState) =>
+  state.employee.employee.data?.education;
 
 const employeeSlice = createSlice({
   name: "employee/slice",
