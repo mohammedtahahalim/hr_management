@@ -3,5 +3,27 @@
     "edit": "Edit",
     "cancel": "Cancel",
     "save": "Save"
+  },
+  "positions": {
+    "backend": "Backend Engineer",
+    "devOps": "DevOps Engineer",
+    "fullStack": "FullStack Engineer",
+    "django": "Django Developer",
+    "cloud": "Cloud Engineer",
+    "c++": "C++ Developer",
+    "front": "Frontend Engineer",
+    "php": "PHP Developer",
+    "data": "Data Analyst",
+    "design": "UI/UX Designer",
+    "project": "Project Manager"
+  },
+  "departments": {
+    "development": "Developement",
+    "sales": "Sales",
+    "management": "Management",
+    "analytics": "Analytics",
+    "finance": "Finance",
+    "hr": "HR",
+    "data": "Data"
   }
 }
