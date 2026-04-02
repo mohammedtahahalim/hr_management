@@ -2,6 +2,46 @@
   "headline": {
     "edit": "Modifier",
     "cancel": "Annuler",
-    "save": "Sauvegarder"
+    "save": "Enregistrer"
+  },
+  "positions": {
+    "backend": "Ingénieur Backend",
+    "devOps": "Ingénieur DevOps",
+    "fullStack": "Ingénieur Full Stack",
+    "django": "Développeur Django",
+    "cloud": "Ingénieur Cloud",
+    "c++": "Développeur C++",
+    "front": "Ingénieur Frontend",
+    "php": "Développeur PHP",
+    "data": "Analyste de Données",
+    "design": "Designer UI/UX",
+    "project": "Chef de Projet"
+  },
+  "departments": {
+    "title": "Département",
+    "development": "Développement",
+    "sales": "Ventes",
+    "management": "Management",
+    "analytics": "Analytique",
+    "finance": "Finance",
+    "hr": "RH",
+    "data": "Données"
+  },
+  "joinDate": "Date d'Embauche",
+  "personal": {
+    "title": "Informations Personnelles",
+    "inputs": {
+      "passport": "Passeport",
+      "passportExp": "Expiration",
+      "phoneNumber": "Téléphone",
+      "birthDate": "Date de Naissance",
+      "marital": {
+        "title": "État Civil",
+        "single": "Célibataire",
+        "married": "Marié",
+        "divorced": "Divorcé",
+        "widowed": "Veuf/Veuve"
+      }
+    }
   }
 }

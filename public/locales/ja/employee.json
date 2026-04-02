@@ -3,5 +3,45 @@
     "edit": "編集",
     "cancel": "キャンセル",
     "save": "保存"
+  },
+  "positions": {
+    "backend": "バックエンドエンジニア",
+    "devOps": "DevOpsエンジニア",
+    "fullStack": "フルスタックエンジニア",
+    "django": "Django開発者",
+    "cloud": "クラウドエンジニア",
+    "c++": "C++開発者",
+    "front": "フロントエンドエンジニア",
+    "php": "PHP開発者",
+    "data": "データアナリスト",
+    "design": "UI/UXデザイナー",
+    "project": "プロジェクトマネージャー"
+  },
+  "departments": {
+    "title": "部署",
+    "development": "開発",
+    "sales": "営業",
+    "management": "管理",
+    "analytics": "分析",
+    "finance": "財務",
+    "hr": "人事",
+    "data": "データ"
+  },
+  "joinDate": "入社日",
+  "personal": {
+    "title": "個人情報",
+    "inputs": {
+      "passport": "パスポート",
+      "passportExp": "パスポート有効期限",
+      "phoneNumber": "電話番号",
+      "birthDate": "生年月日",
+      "marital": {
+        "title": "配偶者の有無",
+        "single": "独身",
+        "married": "既婚",
+        "divorced": "離婚",
+        "widowed": "死別"
+      }
+    }
   }
 }

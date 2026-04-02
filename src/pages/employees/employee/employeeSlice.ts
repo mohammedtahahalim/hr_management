@@ -41,7 +41,7 @@ const employeeSchema = z.object({
     passport: z.string().regex(/^[a-zA-z0-9\s]+$/),
     passportExp: z.iso.datetime(),
     birthDate: z.string(),
-    martial: z.enum(["single", "married", "divorced", "widowed"]),
+    marital: z.enum(["single", "married", "divorced", "widowed"]),
     bankAcc: z.string().regex(/\d{4}(-|\s|)\d{4}\1\d{4}\1\d{4}/),
     ifscCode: z.string().regex(/[A-Z\d]+/),
     panNb: z.string().nonempty(),
@@ -206,8 +206,8 @@ export const selectEmployeePersonalInfo = (state: RootState) => {
 export const selectEmployeePrivateInfo = (state: RootState) => {
   const data = state.employee.employee.data;
   if (!data) return null;
-  const { passport, passportExp, phoneNumber, birthDate, martial } = data;
-  return { passport, passportExp, phoneNumber, birthDate, martial };
+  const { passport, passportExp, phoneNumber, birthDate, marital } = data;
+  return { passport, passportExp, phoneNumber, birthDate, marital };
 };
 
 export const selectEmployeeSkills = (state: RootState) =>

@@ -1967,7 +1967,7 @@ export const generateFullEmployee = (id) => {
   const birthDate = new Date(
     Date.now() - (Math.random() * 30 + 20) * 31536000000,
   ).toISOString();
-  const martial = randomFrom(["single", "married", "divorced", "widowed"]);
+  const marital = randomFrom(["single", "married", "divorced", "widowed"]);
   const randomDelit = randomFrom(["-", " ", ""]);
   const bankAcc = Array.from({ length: 4 }, () =>
     Math.floor(Math.random() * 8999 + 1000),
@@ -2027,7 +2027,7 @@ export const generateFullEmployee = (id) => {
     passport,
     passportExp,
     birthDate,
-    martial,
+    marital,
     bankAcc,
     ifscCode,
     panNb,
