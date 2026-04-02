@@ -12,7 +12,7 @@ export const permissions: Partial<Record<`${TRole}:${Operation}`, Resource[]>> =
     "candidate:READ": ["dashboard", "vacancy", "applicant"],
     "candidate:UPDATE": ["applicant"],
 
-    "employee:READ": ["dashboard", "employee", "calendar"],
+    "employee:READ": ["dashboard", "employee", "calendar", "vacancy"],
     "employee:UPDATE": ["employee", "calendar"],
 
     "hr:CREATE": ["employee", "applicant", "vacancy", "calendar"],
@@ -28,8 +28,8 @@ export const permissions: Partial<Record<`${TRole}:${Operation}`, Resource[]>> =
     "hr:DELETE": ["employee", "applicant", "vacancy"],
 
     "manager:CREATE": ["calendar"],
-    "manager:READ": ["dashboard", "employee", "calendar"],
-    "manager:UPDATE": ["employee", "calendar"],
+    "manager:READ": ["dashboard", "employee", "calendar", "vacancy"],
+    "manager:UPDATE": ["employee", "calendar", "vacancy"],
   };
 
 export const canAccess = (

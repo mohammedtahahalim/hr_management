@@ -16,5 +16,6 @@
   "hidePassword": "Hide Password",
   "showPassword": "Show Password",
   "or": "Or",
-  "logout": "Logout"
+  "logout": "Logout",
+  "change": "Please change the domain to any of the following values to see different access control: [hr, employee, manager, candidate]"
 }
