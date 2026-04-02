@@ -42,7 +42,7 @@ const responseSchema = z.object({
       id: z.number(),
       firstName: z.string(),
       lastName: z.string(),
-      role: z.enum(["admin", "manager", "hr", "employee", "candidat"]),
+      role: z.enum(["admin", "manager", "hr", "employee", "candidate"]),
       email: z.string(),
     })
     .or(z.null()),

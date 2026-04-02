@@ -43,5 +43,25 @@
         "widowed": "死別"
       }
     }
+  },
+  "skills": {
+    "title": "スキル",
+    "javascript": "JavaScript",
+    "typescript": "TypeScript",
+    "html": "HTML",
+    "css": "CSS",
+    "sql": "SQL",
+    "react": "React",
+    "vue": "Vue",
+    "angular": "Angular",
+    "redux": "Redux",
+    "next.js": "Next.js",
+    "tailwind": "Tailwind",
+    "node.js": "Node.js",
+    "express": "Express",
+    "nestjs": "Nest.js",
+    "mongodb": "MongoDB",
+    "postgresql": "PostgreSQL",
+    "mysql": "MySQL"
   }
 }
