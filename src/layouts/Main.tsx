@@ -50,7 +50,8 @@ export default function Main() {
   const role = whoIs?.role ?? "candidate";
   const { pathname } = useLocation();
   const firstSegment = pathname.split("?")[0].split("#")[0];
-  const resource = firstSegment.split("/").filter(Boolean)[0] as Resource;
+  const resource =
+    (firstSegment.split("/").filter(Boolean)[0] as Resource) ?? "dashboard";
   const outletRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

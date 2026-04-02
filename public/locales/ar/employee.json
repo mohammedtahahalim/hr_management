@@ -1,7 +1,47 @@
 {
   "headline": {
-    "edit": "صحح",
+    "edit": "تعديل",
     "cancel": "إلغاء",
     "save": "حفظ"
+  },
+  "positions": {
+    "backend": "مهندس باك إند",
+    "devOps": "مهندس ديف أوبس",
+    "fullStack": "مهندس فول ستاك",
+    "django": "مطور جانغو",
+    "cloud": "مهندس سحابة",
+    "c++": "مطور C++",
+    "front": "مهندس فرونت إند",
+    "php": "مطور PHP",
+    "data": "محلل بيانات",
+    "design": "مصمم واجهة مستخدم / تجربة مستخدم",
+    "project": "مدير مشروع"
+  },
+  "departments": {
+    "title": "القسم",
+    "development": "التطوير",
+    "sales": "المبيعات",
+    "management": "الإدارة",
+    "analytics": "التحليلات",
+    "finance": "المالية",
+    "hr": "الموارد البشرية",
+    "data": "البيانات"
+  },
+  "joinDate": "تاريخ الالتحاق",
+  "personal": {
+    "title": "المعلومات الشخصية",
+    "inputs": {
+      "passport": "جواز السفر",
+      "passportExp": "انتهاء صلاحية جواز",
+      "phoneNumber": "رقم الهاتف",
+      "birthDate": "تاريخ الميلاد",
+      "marital": {
+        "title": "الحالة الاجتماعية",
+        "single": "أعزب",
+        "married": "متزوج",
+        "divorced": "مطلق",
+        "widowed": "أرمل"
+      }
+    }
   }
 }

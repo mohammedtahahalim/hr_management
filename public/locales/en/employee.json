@@ -27,5 +27,21 @@
     "hr": "HR",
     "data": "Data"
   },
-  "joinDate": "Date of Joining"
+  "joinDate": "Date of Joining",
+  "personal": {
+    "title": "Personal Info",
+    "inputs": {
+      "passport": "Passport",
+      "passportExp": "Passport EXP",
+      "phoneNumber": "Phone Number",
+      "birthDate": "Birth Date",
+      "marital": {
+        "title": "Marital",
+        "single": "Single",
+        "married": "Married",
+        "divorced": "Divorced",
+        "widowed": "Widowed"
+      }
+    }
+  }
 }
