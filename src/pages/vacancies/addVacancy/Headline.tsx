@@ -50,7 +50,7 @@ const Headline = memo(({ onSave }: HeadlineProps) => {
           variant="outlined"
           color="primary"
           startIcon={<CloseIcon fontSize="small" />}
-          onClick={() => navigate("/vacancies")}
+          onClick={() => navigate("/vacancy")}
         >
           {t("cancel")}
         </ControlButton>

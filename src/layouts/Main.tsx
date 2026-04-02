@@ -4,8 +4,9 @@ import Sidebar from "./sidebar/Sidebar";
 import Header from "./header/Header";
 import { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../features/auth/AuthContext";
-import { canAccessRoute } from "../shared/lib/helpers";
 import Forbidden from "../shared/ui/Forbidden";
+import type { Resource } from "../shared/lib/types";
+import { canAccess } from "../shared/lib/permissions";
 
 const MainWrapper = styled(Box)({
   width: "100%",
@@ -46,7 +47,10 @@ const OutletWrapper = styled(Container)({
 
 export default function Main() {
   const { whoIs } = useContext(AuthContext);
+  const role = whoIs?.role ?? "candidat";
   const { pathname } = useLocation();
+  const firstSegment = pathname.split("?")[0].split("#")[0];
+  const resource = firstSegment.split("/").filter(Boolean)[0] as Resource;
   const outletRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -65,7 +69,7 @@ export default function Main() {
           <Header />
         </HeaderWrapper>
         <OutletWrapper maxWidth="xl" ref={outletRef}>
-          {whoIs && canAccessRoute(pathname, whoIs) ? (
+          {whoIs && canAccess(role, "READ", resource) ? (
             <Outlet />
           ) : (
             <Forbidden />

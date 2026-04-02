@@ -1,11 +1,14 @@
 import { Box, Button, styled } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { editEmployee, selectEmployeeName } from "./employeeSlice";
+import { selectEmployeeName } from "./employeeSlice";
 import Title from "../../../shared/ui/Title";
 import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../config/i18n";
-import type { AppDispatch } from "../../../config/store";
+
+interface HeadlineProps {
+  handleEdit: () => void;
+}
 
 const HeadlineWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -32,7 +35,7 @@ const CustomButton = styled(Button)({
   textTransform: "capitalize",
 });
 
-export default function Headline() {
+export default function Headline({ handleEdit }: HeadlineProps) {
   const { t, i18n } = useTranslation("employee");
   const lang = i18n.language as TLanguage;
   const { search, pathname } = useLocation();
@@ -40,7 +43,6 @@ export default function Headline() {
   const mode = params.get("mode") ?? "view";
   const navigate = useNavigate();
   const name = useSelector(selectEmployeeName);
-  const dispatch = useDispatch<AppDispatch>();
 
   const onNavigate = (mode: "edit" | "view") => {
     params.set("mode", mode);
@@ -68,7 +70,7 @@ export default function Headline() {
             <CustomButton
               variant="contained"
               color="primary"
-              onClick={() => dispatch(editEmployee())}
+              onClick={() => handleEdit()}
             >
               {t("headline.save")}
             </CustomButton>

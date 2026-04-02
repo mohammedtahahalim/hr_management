@@ -6,15 +6,15 @@
     },
     {
       "item": "Vacancies",
-      "link": "/vacancies"
+      "link": "/vacancy"
     },
     {
       "item": "applicants",
-      "link": "/applicants"
+      "link": "/applicant"
     },
     {
       "item": "employees",
-      "link": "/employees"
+      "link": "/employee"
     },
     {
       "item": "payroll",

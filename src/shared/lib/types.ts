@@ -13,7 +13,7 @@ export type DeptColor = keyof Pick<
 
 export type Status = "idle" | "loading" | "failure" | "success";
 export type Offer = "OFFER" | "SHORTLIST" | "REJECT" | "PENDING";
-export type TRole = "admin" | "manager" | "hr" | "employee" | "candidat";
+export type TRole = "admin" | "manager" | "hr" | "employee" | "candidate";
 export type Reject =
   | "UNAUTHENTICATED"
   | "FORBIDDEN"
@@ -31,3 +31,15 @@ export type PositionColor = keyof Pick<
   Theme["palette"],
   "first" | "success" | "error" | "second" | "third" | "fourth"
 >;
+
+export type Mode = "view" | "edit";
+
+export type Operation = "CREATE" | "READ" | "UPDATE" | "DELETE";
+
+export type Resource =
+  | "dashboard"
+  | "vacancy"
+  | "employee"
+  | "applicant"
+  | "payroll"
+  | "calendar";

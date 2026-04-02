@@ -258,14 +258,14 @@ export default function Card({
           </Contact>
           <ButtonBoxes>
             <CustomButton
-              onClick={() => navigate(`/employees/${id}?mode=edit`)}
+              onClick={() => navigate(`/employee/${id}?mode=edit`)}
               variant="contained"
               sx={{ backgroundColor: "gray" }}
             >
               {t("cards.edit")}
             </CustomButton>
             <CustomButton
-              onClick={() => navigate(`/employees/${id}?mode=view`)}
+              onClick={() => navigate(`/employee/${id}?mode=view`)}
               variant="contained"
               color={"primary"}
             >

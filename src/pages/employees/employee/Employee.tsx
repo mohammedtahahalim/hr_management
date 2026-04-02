@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../../config/store";
 import { useEffect } from "react";
 import {
+  editEmployee,
   fetchEmployee,
   selectEmployeeError,
   selectEmployeeStatus,
+  type EmployeeEditableFields,
 } from "./employeeSlice";
 import WithSkeleton from "../../../shared/ui/WithSkeleton";
 import Snippet from "./profile/Snippet";
@@ -19,6 +21,8 @@ import Salary from "./compensation/Salary";
 import Education from "./career/Education";
 import Experience from "./career/Experience";
 import Document from "./career/Document";
+import { useForm } from "react-hook-form";
+import { EmployeeFormContext } from "./EmployeeFormContext";
 
 const EmployeeWrapper = styled(Box)({
   width: "100%",
@@ -37,7 +41,7 @@ const HeadlineWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const MainContent = styled(Box)({
+const MainContent = styled("form")({
   width: "100%",
   flex: 1,
   display: "flex",
@@ -116,6 +120,12 @@ export default function Employee() {
   const status = useSelector(selectEmployeeStatus);
   const isLoading = status === "loading";
   const error = useSelector(selectEmployeeError);
+  const { register, handleSubmit } = useForm<EmployeeEditableFields>();
+
+  const EditEmployee = handleSubmit((formValues: EmployeeEditableFields) => {
+    console.log(formValues);
+    dispatch(editEmployee(formValues));
+  });
 
   useEffect(() => {
     if (!id) return;
@@ -131,49 +141,51 @@ export default function Employee() {
     <EmployeeWrapper>
       <HeadlineWrapper>
         <WithSkeleton loading={isLoading}>
-          <Headline />
+          <Headline handleEdit={EditEmployee} />
         </WithSkeleton>
       </HeadlineWrapper>
-      <MainContent>
-        <LeftSection>
-          <LTop>
-            <Block>
-              <Snippet />
-            </Block>
-            <Block>
-              <Personal />
-            </Block>
-          </LTop>
-          <LMiddle>
-            <Block>
-              <Skills />
-            </Block>
-          </LMiddle>
-          <LBottom>
-            <Project />
-          </LBottom>
-        </LeftSection>
-        <RightSection>
-          <RLeftColumn>
-            <Block>
-              <Bank />
-            </Block>
-            <Block>
-              <Salary />
-            </Block>
-            <Block>
-              <Education />
-            </Block>
-          </RLeftColumn>
-          <RRightColumn>
-            <Tall>
-              <Experience />
-            </Tall>
-            <Block>
-              <Document />
-            </Block>
-          </RRightColumn>
-        </RightSection>
+      <MainContent id="employee-details" name="employee-details">
+        <EmployeeFormContext.Provider value={register}>
+          <LeftSection>
+            <LTop>
+              <Block>
+                <Snippet />
+              </Block>
+              <Block>
+                <Personal />
+              </Block>
+            </LTop>
+            <LMiddle>
+              <Block>
+                <Skills />
+              </Block>
+            </LMiddle>
+            <LBottom>
+              <Project />
+            </LBottom>
+          </LeftSection>
+          <RightSection>
+            <RLeftColumn>
+              <Block>
+                <Bank />
+              </Block>
+              <Block>
+                <Salary />
+              </Block>
+              <Block>
+                <Education />
+              </Block>
+            </RLeftColumn>
+            <RRightColumn>
+              <Tall>
+                <Experience />
+              </Tall>
+              <Block>
+                <Document />
+              </Block>
+            </RRightColumn>
+          </RightSection>
+        </EmployeeFormContext.Provider>
       </MainContent>
     </EmployeeWrapper>
   );

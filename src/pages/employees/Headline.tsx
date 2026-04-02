@@ -155,7 +155,7 @@ export default function Headline() {
         <NewEmployee
           variant="contained"
           startIcon={<AddIcon fontSize="inherit" />}
-          onClick={() => navigate("/employees/add-employee")}
+          onClick={() => navigate("/employee/add-employee")}
         >
           {t("headline.addEmployee")}
         </NewEmployee>

@@ -16,6 +16,7 @@ const AddEmployee = lazy(
   () => import("../pages/employees/addEmployee/AddEmployee"),
 );
 const Payroll = lazy(() => import("../pages/payroll/Payroll"));
+const Calendar = lazy(() => import("../pages/calendar/Calendar"));
 const NotFound = lazy(() => import("../shared/ui/NotFound"));
 
 interface IRoute {
@@ -48,36 +49,40 @@ export const mainRoutes: IRoute[] = [
     component: Dashboard,
   },
   {
-    path: "/vacancies",
+    path: "/vacancy",
     component: Vacancies,
   },
   {
-    path: "/vacancies/:id",
+    path: "/vacancy/:id",
     component: Vacancy,
   },
   {
-    path: "/vacancies/add-vacancy",
+    path: "/vacancy/add-vacancy",
     component: AddVacancy,
   },
   {
-    path: "/employees/add-employee",
+    path: "/employee/add-employee",
     component: AddEmployee,
   },
   {
-    path: "/applicants",
+    path: "/applicant",
     component: Applicants,
   },
   {
-    path: "/employees",
+    path: "/employee",
     component: Employees,
   },
   {
-    path: "/employees/:id",
+    path: "/employee/:id",
     component: Employee,
   },
   {
     path: "/payroll",
     component: Payroll,
+  },
+  {
+    path: "/calendar",
+    component: Calendar,
   },
   {
     path: "*",
