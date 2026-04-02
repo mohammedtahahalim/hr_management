@@ -1,10 +1,4 @@
 import { Box, styled } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { useEmployeeForm } from "../EmployeeFormContext";
-import { useLocation } from "react-router-dom";
-import type { Mode } from "../../../../shared/lib/types";
-import { useContext } from "react";
-import { AuthContext } from "../../../../features/auth/AuthContext";
 
 const PersonalWrapper = styled(Box)({
   width: "100%",
@@ -16,12 +10,5 @@ const PersonalWrapper = styled(Box)({
 });
 
 export default function Personal() {
-  const { t } = useTranslation("employee");
-  const register = useEmployeeForm();
-  const { search } = useLocation();
-  const params = new URLSearchParams(search);
-  const mode = (params.get("mode") ?? "view") as Mode;
-  const whoIs = useContext(AuthContext);
-
   return <PersonalWrapper>Personal</PersonalWrapper>;
 }

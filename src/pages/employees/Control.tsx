@@ -9,7 +9,6 @@ import {
   selectAllEmployeeStatus,
   selectEmployeeLastPage,
 } from "./allEmployeeSlice";
-import { useCallback } from "react";
 
 const ControlWrapper = styled(Box)({
   width: "100%",
@@ -49,18 +48,15 @@ export default function Control() {
   const navigate = useNavigate();
   const isLoading = status === "loading";
 
-  const movePage = useCallback(
-    (dir: "next" | "prev") => {
-      const next = Math.min(Number(page) + 1, lastPage ?? Number(page) + 1);
-      const prev = Math.max(1, Number(page) - 1);
-      searchParams.set("page", dir === "next" ? String(next) : String(prev));
-      navigate({
-        pathname,
-        search: searchParams.toString(),
-      });
-    },
-    [search, pathname, navigate],
-  );
+  const movePage = (dir: "next" | "prev") => {
+    const next = Math.min(Number(page) + 1, lastPage ?? Number(page) + 1);
+    const prev = Math.max(1, Number(page) - 1);
+    searchParams.set("page", dir === "next" ? String(next) : String(prev));
+    navigate({
+      pathname,
+      search: searchParams.toString(),
+    });
+  };
 
   return (
     <ControlWrapper>

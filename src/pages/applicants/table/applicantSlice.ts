@@ -111,7 +111,10 @@ export const selectApplicantSortBy = (state: RootState) =>
 export const selectApplicantSortOrder = (state: RootState) =>
   state.applicants.applicants.sortOrder;
 
-const sorters: Record<Sorters, (a: any, b: any) => number> = {
+const sorters: Record<
+  Sorters,
+  (a: ApplicantDataSample, b: ApplicantDataSample) => number
+> = {
   name: (a, b) => a.name.localeCompare(b.name),
   pos: (a, b) => a.position.localeCompare(b.position),
   date: (a, b) => a.date.localeCompare(b.date),
