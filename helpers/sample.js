@@ -2011,7 +2011,10 @@ export const generateFullEmployee = (id) => {
         ? new Date(Date.now() - Math.random() * 2 * 31536000000).toISOString()
         : null,
   })).sort((a, b) => new Date(a.startDate) > new Date(b.startDate));
-  const skills = SKILLSPOOL.sort(() => 0.5 - Math.random()).slice(0, 5);
+  const skills = SKILLSPOOL.sort(() => 0.5 - Math.random()).slice(
+    0,
+    Math.floor(Math.random() * SKILLSPOOL.length),
+  );
   const activeProjects = Array.from(
     { length: Math.floor(Math.random() * 3) },
     () => randomFrom(ACTIVEPROJECTS),

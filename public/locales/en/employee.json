@@ -43,5 +43,25 @@
         "widowed": "Widowed"
       }
     }
+  },
+  "skills": {
+    "title": "Skills",
+    "javascript": "Javascript",
+    "typescript": "Typescript",
+    "html": "HTML",
+    "css": "CSS",
+    "sql": "SQL",
+    "react": "React",
+    "vue": "Vue",
+    "angular": "Angular",
+    "redux": "Redux",
+    "next.js": "Next.js",
+    "tailwind": "Tailwind",
+    "node.js": "Node.js",
+    "express": "Express",
+    "nestjs": "Nest.Js",
+    "mongodb": "MongoDB",
+    "postgresql": "PostgreSQL",
+    "mysql": "MySQL"
   }
 }
