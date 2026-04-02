@@ -16,5 +16,6 @@
   "hidePassword": "パスワードを非表示",
   "showPassword": "パスワードを表示",
   "or": "または",
-  "logout": "ログアウト"
+  "logout": "ログアウト",
+  "change": "アクセス制御の違いを確認するには、ドメインを以下のいずれかの値に変更してください：[hr,employee,manager,candidate]"
 }

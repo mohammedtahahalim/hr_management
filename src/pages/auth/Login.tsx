@@ -95,6 +95,12 @@ const Subtitle = styled(Typography)({
   alignSelf: "center",
 });
 
+const Suggestions = styled(Typography)({
+  fontStyle: "italic",
+  fontFamily: "system-ui",
+  alignSelf: "center",
+});
+
 const ThemeWrapper = styled(Box)({
   position: "absolute",
   top: "10px",
@@ -278,6 +284,7 @@ export default function Login() {
         >
           <Title variant="h4">{t("signIn")}</Title>
           <Subtitle variant="subtitle2">{t("subSignIn")}</Subtitle>
+          <Suggestions>{t("change")}</Suggestions>
           <FieldInput>
             <Label htmlFor="email">{t("email")}</Label>
             <Input
@@ -294,7 +301,7 @@ export default function Login() {
                 },
               })}
               autoComplete="email"
-              defaultValue={"test@test.com"}
+              defaultValue={"test@hr.com"}
             />
             {errors.email && (
               <ErrorMessage color="error" role="alert" aria-live="assertive">

@@ -16,5 +16,6 @@
   "hidePassword": "Masquer le mot de passe",
   "showPassword": "Afficher le mot de passe",
   "or": "Ou",
-  "logout": "Déconnexion"
+  "logout": "Déconnexion",
+  "change": "Veuillez modifier le domaine en l'une des valeurs suivantes pour voir différents contrôles d'accès : [hr, employee, manager, candidate]"
 }

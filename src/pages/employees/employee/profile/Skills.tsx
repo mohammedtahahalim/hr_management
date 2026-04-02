@@ -1,8 +1,18 @@
 import { Box, styled, Typography } from "@mui/material";
 import Title from "../../../../shared/ui/Title";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { selectEmployeeSkills } from "../employeeSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchEmployee,
+  selectEmployeeError,
+  selectEmployeeSkills,
+  selectEmployeeStatus,
+} from "../employeeSlice";
+import WithSkeleton from "../../../../shared/ui/WithSkeleton";
+import Reload from "../../../../shared/ui/Reload";
+import type { AppDispatch } from "../../../../config/store";
+import { useCallback } from "react";
+import { useParams } from "react-router-dom";
 
 const SkillsWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -39,23 +49,43 @@ const SkillContent = styled(Typography)({
 
 export default function Skills() {
   const { t } = useTranslation("employee");
+  const status = useSelector(selectEmployeeStatus);
+  const isLoading = status === "loading";
+  const error = useSelector(selectEmployeeError);
+  const dispatch = useDispatch<AppDispatch>();
   const employeeSkills = useSelector(selectEmployeeSkills);
+  const { id } = useParams();
+
+  const dispatchThunk = useCallback(() => {
+    dispatch(fetchEmployee({ id: id ?? "1" }));
+  }, [dispatch, id]);
 
   return (
     <SkillsWrapper>
-      <Title variant="h6" ender={false}>
-        {t("skills.title")}
-      </Title>
-      <SkillContainer>
-        {Array.isArray(employeeSkills) &&
-          employeeSkills.map((s) => {
-            return (
-              <SkillBox key={s}>
-                <SkillContent variant="body1">{t(`skills.${s}`)}</SkillContent>
-              </SkillBox>
-            );
-          })}
-      </SkillContainer>
+      <WithSkeleton loading={isLoading}>
+        {status === "success" && (
+          <>
+            <Title variant="h6" ender={false}>
+              {t("skills.title")}
+            </Title>
+            <SkillContainer>
+              {Array.isArray(employeeSkills) &&
+                employeeSkills.map((s) => {
+                  return (
+                    <SkillBox key={s}>
+                      <SkillContent variant="body1">
+                        {t(`skills.${s}`)}
+                      </SkillContent>
+                    </SkillBox>
+                  );
+                })}
+            </SkillContainer>
+          </>
+        )}
+        {status === "failure" && (
+          <Reload error={error} dispatchThunk={dispatchThunk} />
+        )}
+      </WithSkeleton>
     </SkillsWrapper>
   );
 }
