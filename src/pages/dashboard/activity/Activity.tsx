@@ -41,6 +41,7 @@ const EventsWrapper = styled(Box)({
 export default function Activity() {
   const { t, i18n } = useTranslation("dashboard");
   const status = useSelector(selectActivityStatus);
+  const isLoading = status === "loading";
   const error = useSelector(selectActivityError);
   const data = useSelector(selectActivityData);
   const dispatch = useDispatch<AppDispatch>();
@@ -53,7 +54,7 @@ export default function Activity() {
   }, [dispatch]);
 
   return (
-    <WithSkeleton loading={status === "loading"}>
+    <WithSkeleton loading={isLoading}>
       {status === "success" && (
         <ActivityWrapper>
           <Title isColorDiff="whitesmoke">{t("activity.title")}</Title>

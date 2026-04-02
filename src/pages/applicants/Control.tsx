@@ -9,7 +9,6 @@ import {
   selectApplicantStatus,
 } from "./table/applicantSlice";
 import WithSkeleton from "../../shared/ui/WithSkeleton";
-import { useCallback } from "react";
 
 const ControlWrapper = styled(Box)({
   width: "100%",
@@ -49,22 +48,19 @@ export default function Control() {
   const lastPage = useSelector(selectApplicantLastPage);
   const isLoading = status === "loading";
 
-  const navigatePage = useCallback(
-    (dir: "prev" | "next") => {
-      const params = new URLSearchParams(search);
-      const currentPage = Number(params.get("page") ?? "1");
+  const navigatePage = (dir: "prev" | "next") => {
+    const params = new URLSearchParams(search);
+    const currentPage = Number(params.get("page") ?? "1");
 
-      params.set(
-        "page",
-        dir === "prev"
-          ? String(Math.max(currentPage - 1, 1))
-          : String(Math.min(currentPage + 1, lastPage ?? currentPage + 1)),
-      );
+    params.set(
+      "page",
+      dir === "prev"
+        ? String(Math.max(currentPage - 1, 1))
+        : String(Math.min(currentPage + 1, lastPage ?? currentPage + 1)),
+    );
 
-      navigate({ pathname, search: params.toString() });
-    },
-    [search, pathname, navigate],
-  );
+    navigate({ pathname, search: params.toString() });
+  };
 
   return (
     <ControlWrapper>

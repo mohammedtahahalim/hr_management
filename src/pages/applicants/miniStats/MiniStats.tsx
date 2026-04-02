@@ -25,7 +25,7 @@ export default function MiniStats() {
     return () => {
       applicantsOverview.abort();
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <MiniStatsWrapper>

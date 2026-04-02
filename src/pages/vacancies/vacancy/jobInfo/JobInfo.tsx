@@ -52,7 +52,7 @@ export default function JobInfo() {
   const { register } = useForm<{ id: string }>();
   const { t } = useTranslation("vacancy");
   const { whoIs } = useContext(AuthContext);
-  const role = whoIs?.role ?? "candidat";
+  const role = whoIs?.role ?? "candidate";
 
   return (
     <JobInfoWrapper>

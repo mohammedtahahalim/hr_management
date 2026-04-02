@@ -47,7 +47,7 @@ const OutletWrapper = styled(Container)({
 
 export default function Main() {
   const { whoIs } = useContext(AuthContext);
-  const role = whoIs?.role ?? "candidat";
+  const role = whoIs?.role ?? "candidate";
   const { pathname } = useLocation();
   const firstSegment = pathname.split("?")[0].split("#")[0];
   const resource = firstSegment.split("/").filter(Boolean)[0] as Resource;
