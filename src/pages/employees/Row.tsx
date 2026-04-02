@@ -132,7 +132,7 @@ export default function Row({
   const navigate = useNavigate();
   const lang = i18n.language as TLanguage;
   return (
-    <RowWrapper onClick={() => navigate(`/employees/${id}`)}>
+    <RowWrapper onClick={() => navigate(`/employee/${id}`)}>
       <Col>
         <MainInfo>
           <Picture>

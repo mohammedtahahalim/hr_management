@@ -6,15 +6,15 @@
     },
     {
       "item": "Offres",
-      "link": "/vacancies"
+      "link": "/vacancy"
     },
     {
       "item": "candidates",
-      "link": "/applicants"
+      "link": "/applicant"
     },
     {
       "item": "employées",
-      "link": "/employees"
+      "link": "/employee"
     },
     {
       "item": "paie",

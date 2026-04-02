@@ -110,14 +110,29 @@ type ServerData = z.infer<typeof employeeSchema>;
 
 export type EmployeeData = ServerData["data"];
 
+export type EmployeeEditableFields = Omit<
+  EmployeeData,
+  | "name"
+  | "position"
+  | "department"
+  | "skills"
+  | "email"
+  | "activeProjects"
+  | "education"
+  | "experiences"
+  | "id"
+  | "joinDate"
+>;
+
 interface FetchArgs {
   id: string;
 }
 
 // TODO: Implement submitEmployee edit request, form schema, with react hook form
-export const editEmployee = createAsyncThunk("edit/employee", async () => {
-  console.log("Saving");
-});
+export const editEmployee = createAsyncThunk<void, EmployeeEditableFields>(
+  "edit/employee",
+  async () => {},
+);
 
 export const fetchEmployee = createAsyncThunk<
   EmployeeData,

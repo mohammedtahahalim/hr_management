@@ -7,8 +7,8 @@ import EditAttributesIcon from "@mui/icons-material/EditAttributes";
 import SaveIcon from "@mui/icons-material/Save";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { canAccessRoute } from "../../../../shared/lib/helpers";
 import { AuthContext } from "../../../../features/auth/AuthContext";
+import { canAccess } from "../../../../shared/lib/permissions";
 
 const JobInfoWrapper = styled(Box)({
   width: "100%",
@@ -52,6 +52,7 @@ export default function JobInfo() {
   const { register } = useForm<{ id: string }>();
   const { t } = useTranslation("vacancy");
   const { whoIs } = useContext(AuthContext);
+  const role = whoIs?.role ?? "candidat";
 
   return (
     <JobInfoWrapper>
@@ -69,7 +70,7 @@ export default function JobInfo() {
               )
             }
             onClick={() => setOnEditMode((onEditMode) => !onEditMode)}
-            disabled={!!whoIs && !canAccessRoute("editVacancy", whoIs)}
+            disabled={!canAccess(role, "UPDATE", "vacancy")}
           >
             {onEditMode ? t("saveChanges") : t("editVacancy")}
           </Enable>

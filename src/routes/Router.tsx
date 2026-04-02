@@ -10,7 +10,7 @@ export default function Router() {
 
   useEffect(() => {
     document.title = t("title");
-  }, [i18n.language]);
+  }, [i18n.language, t]);
 
   return (
     <BrowserRouter>

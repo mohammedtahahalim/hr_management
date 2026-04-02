@@ -118,11 +118,11 @@ export default function Snippet() {
         </Top>
         <Middle>
           <CustomB>
-            <CustomT>Department</CustomT>
+            <CustomT>{t("departments.title")}</CustomT>
             <Content>{t(`departments.${department}`)}</Content>
           </CustomB>
           <CustomB>
-            <CustomT>Date Of Joining</CustomT>
+            <CustomT>{t("joinDate")}</CustomT>
             <Content>{joinDate && formatDate(joinDate, lang)}</Content>
           </CustomB>
         </Middle>

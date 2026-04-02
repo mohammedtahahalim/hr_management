@@ -219,14 +219,14 @@ export default function Card({
 
   const handleEnter = (e: React.KeyboardEvent, id: number) => {
     if (e.key !== "Enter") return;
-    navigate(`/vacancies/${id}`);
+    navigate(`/vacancy/${id}`);
   };
 
   return (
     <CardWrapper
       tabIndex={0}
       aria-labelledby={`position-title-${id} position-status-${id} position-applicant-${id}`}
-      onClick={() => navigate(`/vacancies/${id}`)}
+      onClick={() => navigate(`/vacancy/${id}`)}
       onKeyDown={(e) => handleEnter(e, id)}
     >
       <FakeBox className="rainbow-border">

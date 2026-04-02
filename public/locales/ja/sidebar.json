@@ -6,15 +6,15 @@
     },
     {
       "item": "求人情報",
-      "link": "/vacancies"
+      "link": "/vacancy"
     },
     {
       "item": "応募者",
-      "link": "/applicants"
+      "link": "/applicant"
     },
     {
       "item": "従業員",
-      "link": "/employees"
+      "link": "/employee"
     },
     {
       "item": "給与計算",

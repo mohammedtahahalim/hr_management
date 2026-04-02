@@ -86,12 +86,12 @@ export default function Line({
 
   const handleKeyClick = (e: React.KeyboardEvent, id: number) => {
     if (e.key !== "Enter") return;
-    navigate(`/vacancies/${id}`);
+    navigate(`/vacancy/${id}`);
   };
 
   return (
     <Row
-      onClick={() => navigate(`/vacancies/${id}`)}
+      onClick={() => navigate(`/vacancy/${id}`)}
       tabIndex={0}
       onKeyDown={(e) => handleKeyClick(e, id)}
     >

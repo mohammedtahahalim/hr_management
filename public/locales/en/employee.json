@@ -18,6 +18,7 @@
     "project": "Project Manager"
   },
   "departments": {
+    "title": "Department",
     "development": "Developement",
     "sales": "Sales",
     "management": "Management",
@@ -25,5 +26,6 @@
     "finance": "Finance",
     "hr": "HR",
     "data": "Data"
-  }
+  },
+  "joinDate": "Date of Joining"
 }

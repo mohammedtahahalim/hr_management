@@ -114,9 +114,9 @@ export const routesWithPermissions: Record<string, TRole[]> = {
 
 export const navIcons: Record<string, MuiIcon> = {
   "/dashboard": DashboardIcon,
-  "/vacancies": BusinessCenterIcon,
-  "/applicants": PersonIcon,
-  "/employees": GroupsIcon,
+  "/vacancy": BusinessCenterIcon,
+  "/applicant": PersonIcon,
+  "/employee": GroupsIcon,
   "/payroll": ReceiptIcon,
   "/calendar": CalendarMonthIcon,
 };
