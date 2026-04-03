@@ -190,6 +190,8 @@ export const selectEmployeeStatus = (state: RootState) =>
 export const selectEmployeeError = (state: RootState) =>
   state.employee.employee.error;
 
+// TODO: memoize via createSelector
+
 export const selectEmployeeName = (state: RootState) => {
   const data = state.employee.employee.data;
   if (!data) return null;

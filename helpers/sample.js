@@ -2015,9 +2015,9 @@ export const generateFullEmployee = (id) => {
     0,
     Math.floor(Math.random() * SKILLSPOOL.length),
   );
-  const activeProjects = Array.from(
-    { length: Math.floor(Math.random() * 3) },
-    () => randomFrom(ACTIVEPROJECTS),
+  const activeProjects = ACTIVEPROJECTS.sort(() => 0.5 - Math.random()).slice(
+    0,
+    2,
   );
   return {
     id,

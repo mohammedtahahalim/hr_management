@@ -62,7 +62,10 @@ export default function Skills() {
 
   return (
     <SkillsWrapper>
-      <WithSkeleton loading={isLoading}>
+      <WithSkeleton
+        loading={isLoading}
+        sx={{ height: "250px", borderRadius: "12px" }}
+      >
         {status === "success" && (
           <>
             <Title variant="h6" ender={false}>
@@ -83,7 +86,11 @@ export default function Skills() {
           </>
         )}
         {status === "failure" && (
-          <Reload error={error} dispatchThunk={dispatchThunk} />
+          <Reload
+            error={error}
+            dispatchThunk={dispatchThunk}
+            sx={{ height: "225px" }}
+          />
         )}
       </WithSkeleton>
     </SkillsWrapper>
