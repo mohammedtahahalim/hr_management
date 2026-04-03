@@ -105,7 +105,6 @@ const Block = styled(Box)({
   minWidth: "325px",
   flex: "1",
   overflow: "hidden",
-  border: "1px solid white",
   minHeight: "250px",
 });
 
@@ -116,7 +115,6 @@ const Tall = styled(Box)({
   padding: "5px",
   overflow: "hidden",
   minHeight: "450px",
-  border: "1px solid white",
 });
 
 export default function Employee() {

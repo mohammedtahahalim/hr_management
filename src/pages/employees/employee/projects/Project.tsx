@@ -15,7 +15,7 @@ import ProjectBox from "./ProjectBox";
 
 const ProjectWrapper = styled(Box)({
   width: "100%",
-  height: "fit-content",
+  height: "100%",
   overflow: "hidden",
   display: "flex",
   justifyContent: "space-between",
@@ -41,7 +41,7 @@ export default function Project() {
         {status === "success" &&
           Array.isArray(activeProjects) &&
           activeProjects.map((p) => {
-            return <ProjectBox key={p.en.projTitle} />;
+            return <ProjectBox key={p.en.projTitle} p={p} />;
           })}
         {status === "failure" && (
           <Reload error={error} dispatchThunk={dispatchThunk} />
