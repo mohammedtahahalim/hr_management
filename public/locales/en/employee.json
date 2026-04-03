@@ -68,5 +68,11 @@
     "deadline": "Deadline",
     "leader": "Project Leader",
     "progress": "Progress"
+  },
+  "bank": {
+    "title": "Bank Informations",
+    "bankAcc": "Bank Account",
+    "ifscCode": "IFSC Code",
+    "panNb": "PAN No."
   }
 }

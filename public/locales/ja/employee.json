@@ -68,5 +68,11 @@
     "deadline": "締め切り",
     "leader": "リーダー",
     "progress": "進捗"
+  },
+  "bank": {
+    "title": "銀行情報",
+    "bankAcc": "銀行口座",
+    "ifscCode": "IFSCコード",
+    "panNb": "PAN番号"
   }
 }

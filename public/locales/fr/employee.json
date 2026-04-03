@@ -68,5 +68,11 @@
     "deadline": "Date limite",
     "leader": "Chef de projet",
     "progress": "Progrès"
+  },
+  "bank": {
+    "title": "Informations bancaires",
+    "bankAcc": "Compte bancaire",
+    "ifscCode": "Code IFSC",
+    "panNb": "N° PAN"
   }
 }
