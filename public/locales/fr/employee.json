@@ -74,5 +74,20 @@
     "bankAcc": "Compte bancaire",
     "ifscCode": "Code IFSC",
     "panNb": "N° PAN"
+  },
+  "salary": {
+    "title": "Informations sur le salaire",
+    "basis": {
+      "title": "Base du salaire",
+      "hour": "heure",
+      "day": "jour",
+      "week": "semaine",
+      "month": "mois",
+      "year": "an"
+    },
+    "salaryAmount": "Montant du salaire",
+    "lastPayout": "Dernier paiement",
+    "payoutType": "Type de paiement",
+    "billRate": "Taux de facturation"
   }
 }

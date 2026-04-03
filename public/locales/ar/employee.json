@@ -74,5 +74,20 @@
     "bankAcc": "الحساب المصرفي",
     "ifscCode": "رمز IFSC",
     "panNb": "الحساب المصرفي"
+  },
+  "salary": {
+    "title": "معلومات الراتب",
+    "basis": {
+      "title": "أساس الراتب",
+      "hour": "ساعة",
+      "day": "يوم",
+      "week": "أسبوع",
+      "month": "شهر",
+      "year": "سنة"
+    },
+    "salaryAmount": "قيمة الراتب",
+    "lastPayout": "آخر دفعة",
+    "payoutType": "نوع الدفع",
+    "billRate": "معدل الفوترة"
   }
 }
