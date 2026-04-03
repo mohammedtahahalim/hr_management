@@ -68,5 +68,26 @@
     "deadline": "Deadline",
     "leader": "Project Leader",
     "progress": "Progress"
+  },
+  "bank": {
+    "title": "Bank Informations",
+    "bankAcc": "Bank Account",
+    "ifscCode": "IFSC Code",
+    "panNb": "PAN No."
+  },
+  "salary": {
+    "title": "Salary Info",
+    "basis": {
+      "title": "Salary Basis",
+      "hour": "hour",
+      "day": "day",
+      "week": "week",
+      "month": "month",
+      "year": "year"
+    },
+    "salaryAmount": "Salary Amount",
+    "lastPayout": "Last Payout",
+    "payoutType": "Payout Type",
+    "billRate": "Bill Rate"
   }
 }

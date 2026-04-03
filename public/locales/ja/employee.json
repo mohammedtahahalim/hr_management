@@ -68,5 +68,26 @@
     "deadline": "締め切り",
     "leader": "リーダー",
     "progress": "進捗"
+  },
+  "bank": {
+    "title": "銀行情報",
+    "bankAcc": "銀行口座",
+    "ifscCode": "IFSCコード",
+    "panNb": "PAN番号"
+  },
+  "salary": {
+    "title": "給与情報",
+    "basis": {
+      "title": "給与の基準",
+      "hour": "時間",
+      "day": "日",
+      "week": "週",
+      "month": "月",
+      "year": "年"
+    },
+    "salaryAmount": "給与額",
+    "lastPayout": "最終支払",
+    "payoutType": "支払タイプ",
+    "billRate": "請求率"
   }
 }
