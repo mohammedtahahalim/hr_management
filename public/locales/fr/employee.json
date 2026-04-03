@@ -63,5 +63,10 @@
     "mongodb": "MongoDB",
     "postgresql": "PostgreSQL",
     "mysql": "MySQL"
+  },
+  "projects": {
+    "deadline": "Date limite",
+    "leader": "Chef de projet",
+    "progress": "Progrès"
   }
 }

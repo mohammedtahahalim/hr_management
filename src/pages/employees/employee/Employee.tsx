@@ -26,18 +26,19 @@ import { EmployeeFormContext } from "./EmployeeFormContext";
 
 const EmployeeWrapper = styled(Box)({
   width: "100%",
-  height: "100%",
+  minHeight: "100%",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
+  height: "fit-content",
 });
 
 const HeadlineWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
-  minHeight: "75px",
+  height: "75px",
   overflow: "hidden",
   [theme.breakpoints.down("sm")]: {
-    minHeight: "100px",
+    height: "100px",
   },
 }));
 
@@ -47,6 +48,7 @@ const MainContent = styled("form")({
   display: "flex",
   gap: "5px",
   flexWrap: "wrap",
+  height: "fit-content",
 });
 
 const LeftSection = styled(Box)({
@@ -67,6 +69,7 @@ const LTop = styled(Box)({
 const LMiddle = styled(Box)({
   flex: 1,
   width: "100%",
+  maxHeight: "250px",
 });
 
 const LBottom = styled(Box)({
@@ -75,7 +78,6 @@ const LBottom = styled(Box)({
   display: "flex",
   gap: "5px",
   flexWrap: "wrap",
-  overflow: "hidden",
 });
 
 const RightSection = styled(Box)({
@@ -103,15 +105,16 @@ const Block = styled(Box)({
   minWidth: "325px",
   flex: "1",
   overflow: "hidden",
+  minHeight: "250px",
 });
 
 const Tall = styled(Box)({
   minWidth: "325px",
-  border: "1px solid crimson",
   flex: "2",
   borderRadius: "12px",
   padding: "5px",
   overflow: "hidden",
+  minHeight: "450px",
 });
 
 export default function Employee() {

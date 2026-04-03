@@ -63,5 +63,10 @@
     "mongodb": "MongoDB",
     "postgresql": "PostgreSQL",
     "mysql": "MySQL"
+  },
+  "projects": {
+    "deadline": "締め切り",
+    "leader": "リーダー",
+    "progress": "進捗"
   }
 }

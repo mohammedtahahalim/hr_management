@@ -1,10 +1,11 @@
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, Button, styled, Typography, type SxProps } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import type { Reject } from "../lib/types";
 
 interface ReloadProps {
   dispatchThunk: (_args: unknown) => void;
   error: Reject | null;
+  sx?: SxProps;
 }
 
 const ReloadWrapper = styled(Box)(({ theme }) => ({
@@ -28,12 +29,16 @@ const Refetch = styled(Button)({
   textTransform: "capitalize",
 });
 
-const Reload = ({ dispatchThunk, error }: ReloadProps) => {
+const Reload = ({ dispatchThunk, error, sx = {} }: ReloadProps) => {
   const { t } = useTranslation("dashboard");
   const errorMessage = t(`errors.${error}`);
 
   return (
-    <ReloadWrapper aria-live="polite" aria-describedby="error-message">
+    <ReloadWrapper
+      aria-live="polite"
+      aria-describedby="error-message"
+      sx={{ ...sx }}
+    >
       <Error id="error-message" color="error">
         {errorMessage}
       </Error>
