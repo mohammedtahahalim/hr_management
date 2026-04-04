@@ -89,5 +89,22 @@
     "lastPayout": "Last Payout",
     "payoutType": "Payout Type",
     "billRate": "Bill Rate"
+  },
+  "experience": {
+    "title": "Experiences",
+    "positions": {
+      "backend": "Backend Engineer",
+      "devOps": "DevOps Engineer",
+      "fullStack": "FullStack Engineer",
+      "django": "Django Developer",
+      "cloud": "Cloud Engineer",
+      "c++": "C++ Developer",
+      "front": "Frontend Engineer",
+      "php": "PHP Developer",
+      "data": "Data Analyst",
+      "design": "UI/UX Designer",
+      "project": "Project Manager"
+    },
+    "present": "Present"
   }
 }

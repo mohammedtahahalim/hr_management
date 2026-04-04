@@ -113,8 +113,11 @@ const Tall = styled(Box)({
   flex: "2",
   borderRadius: "12px",
   padding: "5px",
-  overflow: "hidden",
+  overflowX: "hidden",
+  overflowY: "scroll",
+  scrollbarWidth: "none",
   minHeight: "450px",
+  maxHeight: "750px",
 });
 
 export default function Employee() {
