@@ -106,5 +106,14 @@
       "project": "Project Manager"
     },
     "present": "Present"
+  },
+  "education": {
+    "title": "Education"
+  },
+  "document": {
+    "title": "Documents",
+    "contract": "Employment Contract",
+    "resume": "Resume",
+    "personal": "Personal Informations"
   }
 }

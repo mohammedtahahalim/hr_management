@@ -106,5 +106,14 @@
       "project": "مدير المشاريع"
     },
     "present": "الحاضر"
+  },
+  "education": {
+    "title": "تعليم"
+  },
+  "document": {
+    "title": "وثائق",
+    "contract": "عقد عمل",
+    "resume": "سيرة ذاتية",
+    "personal": "المعلومات الشخصية"
   }
 }

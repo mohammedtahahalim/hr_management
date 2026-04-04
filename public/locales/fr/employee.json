@@ -106,5 +106,14 @@
       "project": "Chef de Projet"
     },
     "present": "Présent"
+  },
+  "education": {
+    "title": "Éducation"
+  },
+  "document": {
+    "title": "Documents",
+    "contract": "contrat de travail",
+    "resume": "CV",
+    "personal": "Informations personnelles"
   }
 }
