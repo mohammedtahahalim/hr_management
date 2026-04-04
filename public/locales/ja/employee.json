@@ -106,5 +106,14 @@
       "project": "プロジェクトマネージャー"
     },
     "present": "現在"
+  },
+  "education": {
+    "title": "教育"
+  },
+  "document": {
+    "title": "文書",
+    "contract": "雇用契約書",
+    "resume": "再開する",
+    "personal": "個人情報"
   }
 }

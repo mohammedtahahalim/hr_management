@@ -26,10 +26,12 @@ export default function WaitEmployeeMode({ children }: WaitEmployeeMode) {
 
   return (
     <WithSkeleton loading={isLoading} sx={{ borderRadius: "12px" }}>
-      {status === "success" && children}
-      {status === "failure" && (
-        <Reload error={error} dispatchThunk={dispatchThunk} />
-      )}
+      <>
+        {status === "success" && children}
+        {status === "failure" && (
+          <Reload error={error} dispatchThunk={dispatchThunk} />
+        )}
+      </>
     </WithSkeleton>
   );
 }
