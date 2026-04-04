@@ -89,5 +89,22 @@
     "lastPayout": "最終支払",
     "payoutType": "支払タイプ",
     "billRate": "請求率"
+  },
+  "experience": {
+    "title": "経験",
+    "positions": {
+      "backend": "バックエンドエンジニア",
+      "devOps": "DevOpsエンジニア",
+      "fullStack": "フルスタックエンジニア",
+      "django": "Django開発者",
+      "cloud": "クラウドエンジニア",
+      "c++": "C++開発者",
+      "front": "フロントエンドエンジニア",
+      "php": "PHP開発者",
+      "data": "データアナリスト",
+      "design": "UI/UXデザイナー",
+      "project": "プロジェクトマネージャー"
+    },
+    "present": "現在"
   }
 }

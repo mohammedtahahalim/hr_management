@@ -2,6 +2,8 @@ import { Box, styled } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import NavItem from "../../shared/ui/NavItem";
 
+// TODO: prefetch pages on hover of navitem
+
 export interface INavItem {
   item: string;
   link: string;

@@ -89,5 +89,22 @@
     "lastPayout": "Dernier paiement",
     "payoutType": "Type de paiement",
     "billRate": "Taux de facturation"
+  },
+  "experience": {
+    "title": "Expériences",
+    "positions": {
+      "backend": "Ingénieur Backend",
+      "devOps": "Ingénieur DevOps",
+      "fullStack": "Ingénieur FullStack",
+      "django": "Développeur Django",
+      "cloud": "Ingénieur Cloud",
+      "c++": "Développeur C++",
+      "front": "Ingénieur Frontend",
+      "php": "Développeur PHP",
+      "data": "Analyste de Données",
+      "design": "Designer UI/UX",
+      "project": "Chef de Projet"
+    },
+    "present": "Présent"
   }
 }
