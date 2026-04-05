@@ -122,14 +122,15 @@ export default function Salary() {
             />
           </SalaryBox>
           <SalaryBox>
-            <Label>{t("salary.payoutType")}</Label>
+            {/*TODO: add payout type to translation files*/}
+            <Label>{t("salary.payoutType.title")}</Label>
             <Input
               type="text"
               variant="standard"
               size="small"
               disabled={!canEdit}
               {...register("payoutType")}
-              defaultValue={payoutType}
+              defaultValue={t(`salary.payoutType.${payoutType}`)}
             />
           </SalaryBox>
           <SalaryBox>

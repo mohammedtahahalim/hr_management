@@ -87,7 +87,13 @@
     },
     "salaryAmount": "قيمة الراتب",
     "lastPayout": "آخر دفعة",
-    "payoutType": "نوع الدفع",
+    "payoutType": {
+      "title": "نوع الدفع",
+      "transfer": "تحويل",
+      "wire": "سلك",
+      "cash": "نقدي",
+      "check": "شيك"
+    },
     "billRate": "معدل الفوترة"
   },
   "experience": {

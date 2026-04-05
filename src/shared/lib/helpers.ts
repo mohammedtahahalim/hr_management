@@ -1,6 +1,6 @@
 import type { TLanguage } from "../../config/i18n";
 import type { User } from "../../features/auth/authSlice";
-import { names, routesWithPermissions } from "./constants";
+import { names, pagesMap, routesWithPermissions } from "./constants";
 import type { DistributionWeek, PositionColor, Status } from "./types";
 
 export const canAccessRoute = (route: string, whoIs: User): boolean => {
@@ -102,4 +102,9 @@ export const generateRandomPosColor = (): PositionColor => {
     "third",
   ];
   return colors[Math.floor(Math.random() * colors.length)];
+};
+
+export const preFetch = (path: string) => {
+  if (!(path in pagesMap)) return;
+  pagesMap[path]();
 };
