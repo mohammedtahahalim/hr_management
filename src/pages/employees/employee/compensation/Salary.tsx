@@ -103,7 +103,7 @@ export default function Salary() {
             size="small"
             disabled={!canEdit}
             {...register("lastPayout")}
-            defaultValue={formatDate(lastPayout ?? "", lang)}
+            defaultValue={lastPayout && formatDate(lastPayout, lang)}
             id="lastPayout"
           />
         </SalaryBox>

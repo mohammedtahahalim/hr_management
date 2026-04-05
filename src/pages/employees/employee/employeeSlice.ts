@@ -137,9 +137,9 @@ export const editEmployee = createAsyncThunk<
   try {
     const base = import.meta.env.VITE_API_URL;
     const fullURL = new URL("/api/edit", base);
-    fullURL.searchParams.set("request", "employee");
+    fullURL.searchParams.set("block", "employee");
     const fullOptions: RequestInit = {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
