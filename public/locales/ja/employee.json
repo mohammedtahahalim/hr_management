@@ -87,7 +87,13 @@
     },
     "salaryAmount": "給与額",
     "lastPayout": "最終支払",
-    "payoutType": "支払タイプ",
+    "payoutType": {
+      "title": "支払いタイプ",
+      "transfer": "移行",
+      "wire": "ワイヤー",
+      "cash": "現金",
+      "check": "小切手"
+    },
     "billRate": "請求率"
   },
   "experience": {

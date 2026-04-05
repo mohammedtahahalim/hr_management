@@ -87,7 +87,13 @@
     },
     "salaryAmount": "Salary Amount",
     "lastPayout": "Last Payout",
-    "payoutType": "Payout Type",
+    "payoutType": {
+      "title": "Payout Type",
+      "transfer": "Transfer",
+      "wire": "Wire",
+      "cash": "Cash",
+      "check": "Check"
+    },
     "billRate": "Bill Rate"
   },
   "experience": {

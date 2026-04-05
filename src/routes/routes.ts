@@ -61,10 +61,6 @@ export const mainRoutes: IRoute[] = [
     component: AddVacancy,
   },
   {
-    path: "/employee/add-employee",
-    component: AddEmployee,
-  },
-  {
     path: "/applicant",
     component: Applicants,
   },
@@ -75,6 +71,10 @@ export const mainRoutes: IRoute[] = [
   {
     path: "/employee/:id",
     component: Employee,
+  },
+  {
+    path: "/employee/add-employee",
+    component: AddEmployee,
   },
   {
     path: "/payroll",

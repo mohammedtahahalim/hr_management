@@ -87,7 +87,13 @@
     },
     "salaryAmount": "Montant du salaire",
     "lastPayout": "Dernier paiement",
-    "payoutType": "Type de paiement",
+    "payoutType": {
+      "title": "Type de paiement",
+      "transfer": "Transfert",
+      "wire": "Fil",
+      "cash": "Espèces",
+      "check": "Chèque"
+    },
     "billRate": "Taux de facturation"
   },
   "experience": {
