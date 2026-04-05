@@ -130,11 +130,10 @@ export default function Employee() {
   const error = useSelector(selectEmployeeError);
   const editError = useSelector(selectEditEmployeeError);
   const { register, handleSubmit } = useForm<EmployeeEditableFields>();
-  console.log(editError);
 
   useEffect(() => {
     if (!editError) return;
-    dispatch(addToast({ message: editError, type: "error", expireAt: 1500 }));
+    dispatch(addToast({ message: editError, type: "error", expireAt: 5000 }));
   }, [editError, dispatch]);
 
   const EditEmployee = handleSubmit((formValues: EmployeeEditableFields) => {

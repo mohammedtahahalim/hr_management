@@ -6,23 +6,16 @@ import {
   styled,
   TextField,
 } from "@mui/material";
-import WithSkeleton from "../../../../shared/ui/WithSkeleton";
+
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchEmployee,
-  selectEmployeeError,
-  selectEmployeePayRollInfo,
-  selectEmployeeStatus,
-} from "../employeeSlice";
+import { useSelector } from "react-redux";
+import { selectEmployeePayRollInfo } from "../employeeSlice";
 import Title from "../../../../shared/ui/Title";
-import type { AppDispatch } from "../../../../config/store";
 import { useEmployeeForm } from "../EmployeeFormContext";
 import useCanEdit from "../useCanEdit";
 import { formatDate } from "../../../../shared/lib/helpers";
 import type { TLanguage } from "../../../../config/i18n";
-import { useParams } from "react-router-dom";
-import Reload from "../../../../shared/ui/Reload";
+import WaitEmployeeMode from "../WaitEmployeeMode";
 
 const SalaryWrapper = styled(Box)({
   width: "100%",
@@ -59,95 +52,86 @@ const Input = styled(TextField)({
 export default function Salary() {
   const { t, i18n } = useTranslation("employee");
   const lang = i18n.language as TLanguage;
-  const status = useSelector(selectEmployeeStatus);
-  const isLoading = status === "loading";
-  const error = useSelector(selectEmployeeError);
-  const dispatch = useDispatch<AppDispatch>();
-  const { id } = useParams();
   const { salaryBasis, salaryAmount, lastPayout, payoutType, billRate } =
     useSelector(selectEmployeePayRollInfo) ?? {};
   const register = useEmployeeForm();
   const { canEdit } = useCanEdit();
 
-  const dispatchFunc = () => {
-    dispatch(fetchEmployee({ id: id ?? "1" }));
-  };
-
   return (
-    <WithSkeleton loading={isLoading} sx={{ borderRadius: "12px" }}>
-      {status === "success" && (
-        <SalaryWrapper>
-          <Title ender={false}>{t("salary.title")}</Title>
-          <SalaryBox>
-            <Label>{t("salary.basis.title")}</Label>
-            <Select
-              type="text"
-              variant="standard"
-              size="small"
-              disabled={!canEdit}
-              {...register("salaryBasis")}
-              defaultValue={salaryBasis}
-              sx={{ textTransform: "capitalize" }}
-              renderValue={(value: string) => {
-                return t(`salary.basis.${value}`);
-              }}
-            >
-              <MenuItem value="hour">hour</MenuItem>
-              <MenuItem value="day">day</MenuItem>
-              <MenuItem value="week">week</MenuItem>
-              <MenuItem value="month">month</MenuItem>
-              <MenuItem value="year">year</MenuItem>
-            </Select>
-          </SalaryBox>
-          <SalaryBox>
-            <Label>{t("salary.salaryAmount")}</Label>
-            <Input
-              type="text"
-              variant="standard"
-              size="small"
-              disabled={!canEdit}
-              {...register("salaryAmount")}
-              defaultValue={salaryAmount + "$"}
-            />
-          </SalaryBox>
-          <SalaryBox>
-            <Label>{t("salary.lastPayout")}</Label>
-            <Input
-              type="text"
-              variant="standard"
-              size="small"
-              disabled={!canEdit}
-              {...register("lastPayout")}
-              defaultValue={formatDate(lastPayout ?? "", lang)}
-            />
-          </SalaryBox>
-          <SalaryBox>
-            <Label>{t("salary.payoutType.title")}</Label>
-            <Input
-              type="text"
-              variant="standard"
-              size="small"
-              disabled={!canEdit}
-              {...register("payoutType")}
-              defaultValue={t(`salary.payoutType.${payoutType}`)}
-            />
-          </SalaryBox>
-          <SalaryBox>
-            <Label>{t("salary.billRate")}</Label>
-            <Input
-              type="text"
-              variant="standard"
-              size="small"
-              disabled={!canEdit}
-              {...register("billRate")}
-              defaultValue={billRate + "%"}
-            />
-          </SalaryBox>
-        </SalaryWrapper>
-      )}
-      {status === "failure" && (
-        <Reload error={error} dispatchThunk={dispatchFunc} />
-      )}
-    </WithSkeleton>
+    <WaitEmployeeMode>
+      <SalaryWrapper>
+        <Title ender={false}>{t("salary.title")}</Title>
+        <SalaryBox>
+          <Label htmlFor="salaryBasis">{t("salary.basis.title")}</Label>
+          <Select
+            type="text"
+            variant="standard"
+            size="small"
+            disabled={!canEdit}
+            {...register("salaryBasis")}
+            defaultValue={salaryBasis}
+            sx={{ textTransform: "capitalize" }}
+            renderValue={(value: string) => {
+              return t(`salary.basis.${value}`);
+            }}
+            id="salaryBasis"
+          >
+            <MenuItem value="hour">hour</MenuItem>
+            <MenuItem value="day">day</MenuItem>
+            <MenuItem value="week">week</MenuItem>
+            <MenuItem value="month">month</MenuItem>
+            <MenuItem value="year">year</MenuItem>
+          </Select>
+        </SalaryBox>
+        <SalaryBox>
+          <Label htmlFor="salaryAmount">{t("salary.salaryAmount")}</Label>
+          <Input
+            type="text"
+            variant="standard"
+            size="small"
+            disabled={!canEdit}
+            {...register("salaryAmount")}
+            defaultValue={salaryAmount + "$"}
+            id="salaryAmount"
+          />
+        </SalaryBox>
+        <SalaryBox>
+          <Label htmlFor="lastPayout">{t("salary.lastPayout")}</Label>
+          <Input
+            type="text"
+            variant="standard"
+            size="small"
+            disabled={!canEdit}
+            {...register("lastPayout")}
+            defaultValue={formatDate(lastPayout ?? "", lang)}
+            id="lastPayout"
+          />
+        </SalaryBox>
+        <SalaryBox>
+          <Label htmlFor="payoutType">{t("salary.payoutType.title")}</Label>
+          <Input
+            type="text"
+            variant="standard"
+            size="small"
+            disabled={!canEdit}
+            {...register("payoutType")}
+            defaultValue={t(`salary.payoutType.${payoutType}`)}
+            id="payoutType"
+          />
+        </SalaryBox>
+        <SalaryBox>
+          <Label htmlFor="billRate">{t("salary.billRate")}</Label>
+          <Input
+            type="text"
+            variant="standard"
+            size="small"
+            disabled={!canEdit}
+            {...register("billRate")}
+            defaultValue={billRate + "%"}
+            id="billRate"
+          />
+        </SalaryBox>
+      </SalaryWrapper>
+    </WaitEmployeeMode>
   );
 }

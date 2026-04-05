@@ -2,18 +2,10 @@ import { Box, FormLabel, styled, TextField } from "@mui/material";
 import Title from "../../../../shared/ui/Title";
 import { useTranslation } from "react-i18next";
 import { useEmployeeForm } from "../EmployeeFormContext";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchEmployee,
-  selectEmployeeError,
-  selectEmployeePayRollInfo,
-  selectEmployeeStatus,
-} from "../employeeSlice";
-import { useParams } from "react-router-dom";
-import WithSkeleton from "../../../../shared/ui/WithSkeleton";
-import type { AppDispatch } from "../../../../config/store";
-import Reload from "../../../../shared/ui/Reload";
+import { useSelector } from "react-redux";
+import { selectEmployeePayRollInfo } from "../employeeSlice";
 import useCanEdit from "../useCanEdit";
+import WaitEmployeeMode from "../WaitEmployeeMode";
 
 const BankWrapper = styled(Box)({
   width: "100%",
@@ -39,7 +31,6 @@ const BankBox = styled(Box)(({ theme }) => ({
 const Label = styled(FormLabel)({
   fontFamily: "system-ui",
   fontSize: "0.9rem",
-
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
@@ -51,65 +42,54 @@ const Input = styled(TextField)({
 
 export default function Bank() {
   const { t } = useTranslation("employee");
-  const status = useSelector(selectEmployeeStatus);
-  const isLoading = status === "loading";
-  const error = useSelector(selectEmployeeError);
-  const dispatch = useDispatch<AppDispatch>();
   const register = useEmployeeForm();
-  const { id } = useParams();
   const { canEdit } = useCanEdit();
   const { bankAcc, ifscCode, panNb } =
     useSelector(selectEmployeePayRollInfo) ?? {};
 
-  const dispatchThunk = () => {
-    dispatch(fetchEmployee({ id: id ?? "1" }));
-  };
-
   return (
     <BankWrapper>
-      <WithSkeleton loading={isLoading} sx={{ borderRadius: "12px" }}>
-        {status === "success" && (
-          <>
-            <Title ender={false}>{t("bank.title")}</Title>
-            <BankBox>
-              <Label>{t("bank.bankAcc")}</Label>
-              <Input
-                type="text"
-                variant="standard"
-                size="small"
-                disabled={!canEdit}
-                {...register("bankAcc")}
-                defaultValue={bankAcc}
-              />
-            </BankBox>
-            <BankBox>
-              <Label>{t("bank.ifscCode")}</Label>
-              <Input
-                type="text"
-                variant="standard"
-                size="small"
-                disabled={!canEdit}
-                {...register("ifscCode")}
-                defaultValue={ifscCode}
-              />
-            </BankBox>
-            <BankBox>
-              <Label>{t("bank.panNb")}</Label>
-              <Input
-                type="text"
-                variant="standard"
-                size="small"
-                disabled={!canEdit}
-                {...register("panNb")}
-                defaultValue={panNb}
-              />
-            </BankBox>
-          </>
-        )}
-        {status === "failure" && (
-          <Reload error={error} dispatchThunk={dispatchThunk} />
-        )}
-      </WithSkeleton>
+      <WaitEmployeeMode>
+        <>
+          <Title ender={false}>{t("bank.title")}</Title>
+          <BankBox>
+            <Label htmlFor="bankAcc">{t("bank.bankAcc")}</Label>
+            <Input
+              type="text"
+              variant="standard"
+              size="small"
+              disabled={!canEdit}
+              {...register("bankAcc")}
+              defaultValue={bankAcc}
+              id="bankAcc"
+            />
+          </BankBox>
+          <BankBox>
+            <Label htmlFor="ifscCode">{t("bank.ifscCode")}</Label>
+            <Input
+              type="text"
+              variant="standard"
+              size="small"
+              disabled={!canEdit}
+              {...register("ifscCode")}
+              defaultValue={ifscCode}
+              id="ifscCode"
+            />
+          </BankBox>
+          <BankBox>
+            <Label htmlFor="panNb">{t("bank.panNb")}</Label>
+            <Input
+              type="text"
+              variant="standard"
+              size="small"
+              disabled={!canEdit}
+              {...register("panNb")}
+              defaultValue={panNb}
+              id="panNb"
+            />
+          </BankBox>
+        </>
+      </WaitEmployeeMode>
     </BankWrapper>
   );
 }

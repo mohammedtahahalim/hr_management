@@ -113,6 +113,7 @@ export default function ProjectBox({ p }: ProjectProps) {
           fontFamily={"inherit"}
           fontWeight={"inherit"}
           fontSize={"inherit"}
+          id="deadline"
         >
           {t("projects.deadline")}
         </Typography>
@@ -120,6 +121,7 @@ export default function ProjectBox({ p }: ProjectProps) {
           variant="subtitle1"
           fontFamily={"inherit"}
           fontSize={"inherit"}
+          aria-describedby="deadline"
         >
           {formatDate(p[lang].deadline, lang)}
         </Typography>
@@ -130,6 +132,7 @@ export default function ProjectBox({ p }: ProjectProps) {
           fontFamily={"inherit"}
           fontWeight={"inherit"}
           fontSize={"inherit"}
+          id="projectLeader"
         >
           {t("projects.leader")}
         </Typography>
@@ -137,6 +140,7 @@ export default function ProjectBox({ p }: ProjectProps) {
           variant="subtitle1"
           fontFamily={"inherit"}
           fontSize={"inherit"}
+          aria-describedby="projectLeader"
         >
           {p[lang].projLeader}
         </Typography>
@@ -148,6 +152,7 @@ export default function ProjectBox({ p }: ProjectProps) {
             fontFamily={"inherit"}
             fontWeight={"inherit"}
             fontSize={"inherit"}
+            id="progress"
           >
             {t("projects.progress")}
           </Typography>
@@ -155,6 +160,7 @@ export default function ProjectBox({ p }: ProjectProps) {
             variant="subtitle1"
             fontFamily={"inherit"}
             fontSize={"inherit"}
+            aria-describedby="progress"
           >
             {p[lang].progress}%
           </Typography>
