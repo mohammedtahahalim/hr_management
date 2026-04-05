@@ -1,7 +1,7 @@
 import { Box, Button, styled } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { selectEmployeeName } from "./employeeSlice";
+import { selectEditEmployeeStatus, selectEmployeeName } from "./employeeSlice";
 import Title from "../../../shared/ui/Title";
 import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../config/i18n";
@@ -43,6 +43,8 @@ export default function Headline({ handleEdit }: HeadlineProps) {
   const mode = params.get("mode") ?? "view";
   const navigate = useNavigate();
   const name = useSelector(selectEmployeeName);
+  const editStatus = useSelector(selectEditEmployeeStatus);
+  const isEditLoading = editStatus === "loading";
 
   const onNavigate = (mode: "edit" | "view") => {
     params.set("mode", mode);
@@ -64,6 +66,7 @@ export default function Headline({ handleEdit }: HeadlineProps) {
               variant="outlined"
               color="primary"
               onClick={() => onNavigate("view")}
+              disabled={isEditLoading}
             >
               {t("headline.cancel")}
             </CustomButton>
@@ -71,6 +74,7 @@ export default function Headline({ handleEdit }: HeadlineProps) {
               variant="contained"
               color="primary"
               onClick={() => handleEdit()}
+              disabled={isEditLoading}
             >
               {t("headline.save")}
             </CustomButton>
@@ -80,6 +84,7 @@ export default function Headline({ handleEdit }: HeadlineProps) {
             variant="contained"
             color="primary"
             onClick={() => onNavigate("edit")}
+            disabled={isEditLoading}
           >
             {t("headline.edit")}
           </CustomButton>

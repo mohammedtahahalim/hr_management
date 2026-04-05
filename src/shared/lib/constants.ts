@@ -483,12 +483,3 @@ export const positionsColor: Record<Positions, PositionColor> = {
   devOps: "fourth",
   cloud: "error",
 };
-
-export const pagesMap: Record<string, () => void> = {
-  "/dashboard": () => import("../../pages/dashboard/Dashboard.tsx"),
-  "/vacancy": () => import("../../pages/vacancies/Vacancies.tsx"),
-  "/applicant": () => import("../../pages/applicants/Applicants.tsx"),
-  "/employee": () => import("../../pages/employees/Employees.tsx"),
-  "/payroll": () => import("../../pages/payroll/Payroll.tsx"),
-  "/calendar": () => import("../../pages/calendar/Calendar.tsx"),
-};

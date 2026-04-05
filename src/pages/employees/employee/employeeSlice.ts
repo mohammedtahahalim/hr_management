@@ -1,5 +1,6 @@
 import {
   createAsyncThunk,
+  createSelector,
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
@@ -128,11 +129,37 @@ interface FetchArgs {
   id: string;
 }
 
-// TODO: Implement submitEmployee edit request, form schema, with react hook form
-export const editEmployee = createAsyncThunk<void, EmployeeEditableFields>(
-  "edit/employee",
-  async () => {},
-);
+export const editEmployee = createAsyncThunk<
+  void,
+  EmployeeEditableFields,
+  { rejectValue: Reject }
+>("edit/employee", async (_args, { signal, rejectWithValue }) => {
+  try {
+    const base = import.meta.env.VITE_API_URL;
+    const fullURL = new URL("/api/edit", base);
+    fullURL.searchParams.set("request", "employee");
+    const fullOptions: RequestInit = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      signal,
+      body: JSON.stringify(_args),
+    };
+    const response = await fetch(fullURL, fullOptions);
+    if (!response.ok) {
+      if (response.status === 401) return rejectWithValue("UNAUTHENTICATED");
+      if (response.status === 403) return rejectWithValue("FORBIDDEN");
+      if (response.status >= 500) return rejectWithValue("DOWN");
+      return rejectWithValue("SYSTEM");
+    }
+  } catch (err) {
+    if (err instanceof DOMException && err.name === "AbortError")
+      return rejectWithValue("ABORT");
+    return rejectWithValue("SYSTEM");
+  }
+});
 
 export const fetchEmployee = createAsyncThunk<
   EmployeeData,
@@ -174,80 +201,116 @@ export const fetchEmployee = createAsyncThunk<
 
 interface EmployeeState {
   status: Status;
+  editStatus: Status;
   error: Reject | null;
+  editError: Reject | null;
   data: EmployeeData | null;
 }
 
 const initialState: EmployeeState = {
   status: "idle",
+  editStatus: "idle",
   error: null,
+  editError: null,
   data: null,
 };
 
 export const selectEmployeeStatus = (state: RootState) =>
   state.employee.employee.status;
 
+export const selectEditEmployeeStatus = (state: RootState) =>
+  state.employee.employee.editStatus;
+
 export const selectEmployeeError = (state: RootState) =>
   state.employee.employee.error;
 
-// TODO: memoize via createSelector
+export const selectEditEmployeeError = (state: RootState) =>
+  state.employee.employee.editError;
 
-export const selectEmployeeName = (state: RootState) => {
-  const data = state.employee.employee.data;
-  if (!data) return null;
-  return data.name;
-};
+export const selectEmployeeName = createSelector(
+  [(state: RootState) => state.employee.employee.data],
+  (data) => {
+    if (!data) return null;
+    return data.name;
+  },
+);
 
-export const selectEmployeePersonalInfo = (state: RootState) => {
-  const data = state.employee.employee.data;
-  if (!data) return null;
-  const { name, position, department, joinDate, email, phoneNumber } = data;
-  return { name, position, department, joinDate, email, phoneNumber };
-};
+export const selectEmployeePersonalInfo = createSelector(
+  [(state: RootState) => state.employee.employee.data],
+  (data) => {
+    if (!data) return null;
+    const { name, position, department, joinDate, email, phoneNumber } = data;
+    return { name, position, department, joinDate, email, phoneNumber };
+  },
+);
 
-export const selectEmployeePrivateInfo = (state: RootState) => {
-  const data = state.employee.employee.data;
-  if (!data) return null;
-  const { passport, passportExp, phoneNumber, birthDate, marital } = data;
-  return { passport, passportExp, phoneNumber, birthDate, marital };
-};
+export const selectEmployeePrivateInfo = createSelector(
+  [(state: RootState) => state.employee.employee.data],
+  (data) => {
+    if (!data) return null;
+    const { passport, passportExp, phoneNumber, birthDate, marital } = data;
+    return { passport, passportExp, phoneNumber, birthDate, marital };
+  },
+);
 
-export const selectEmployeeSkills = (state: RootState) =>
-  state.employee.employee.data?.skills;
+export const selectEmployeeSkills = createSelector(
+  [(state: RootState) => state.employee.employee.data],
+  (data) => {
+    if (!data) return null;
+    return data.skills;
+  },
+);
 
-export const selectEmployeeActiveProjects = (state: RootState) =>
-  state.employee.employee.data?.activeProjects;
+export const selectEmployeeActiveProjects = createSelector(
+  [(state: RootState) => state.employee.employee.data],
+  (data) => {
+    if (!data) return null;
+    return data.activeProjects;
+  },
+);
 
-export const selectEmployeePayRollInfo = (state: RootState) => {
-  const data = state.employee.employee.data;
-  if (!data) return null;
-  const {
-    bankAcc,
-    ifscCode,
-    panNb,
-    salaryBasis,
-    salaryAmount,
-    lastPayout,
-    payoutType,
-    billRate,
-  } = data;
-  return {
-    bankAcc,
-    ifscCode,
-    panNb,
-    salaryBasis,
-    salaryAmount,
-    lastPayout,
-    payoutType,
-    billRate,
-  };
-};
+export const selectEmployeePayRollInfo = createSelector(
+  [(state: RootState) => state.employee.employee.data],
+  (data) => {
+    if (!data) return null;
+    const {
+      bankAcc,
+      ifscCode,
+      panNb,
+      salaryBasis,
+      salaryAmount,
+      lastPayout,
+      payoutType,
+      billRate,
+    } = data;
+    return {
+      bankAcc,
+      ifscCode,
+      panNb,
+      salaryBasis,
+      salaryAmount,
+      lastPayout,
+      payoutType,
+      billRate,
+    };
+  },
+);
 
-export const selectEmployeeExerience = (state: RootState) =>
-  state.employee.employee.data?.experiences;
+export const selectEmployeeExerience = createSelector(
+  [(state: RootState) => state.employee.employee.data],
+  (data) => {
+    if (!data) return null;
+    return data.experiences;
+  },
+);
 
-export const selectEmployeeEducation = (state: RootState) =>
-  state.employee.employee.data?.education;
+export const selectEmployeeEducation = createSelector(
+  [(state: RootState) => state.employee.employee.data],
+  (data) => {
+    if (!data) return null;
+    return data.education;
+  },
+);
 
 const employeeSlice = createSlice({
   name: "employee/slice",
@@ -272,7 +335,21 @@ const employeeSlice = createSlice({
           state.status = "success";
           state.data = action.payload;
         },
-      ),
+      )
+      .addCase(editEmployee.pending, (state) => {
+        state.editStatus = "loading";
+        state.editError = null;
+      })
+      .addCase(
+        editEmployee.rejected,
+        (state, action: PayloadAction<Reject | undefined>) => {
+          state.editStatus = "failure";
+          state.editError = action.payload ?? "SYSTEM";
+        },
+      )
+      .addCase(editEmployee.fulfilled, (state) => {
+        state.editStatus = "success";
+      }),
 });
 
 export default employeeSlice.reducer;

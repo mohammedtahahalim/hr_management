@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import {
   editEmployee,
   fetchEmployee,
+  selectEditEmployeeError,
   selectEmployeeError,
   selectEmployeeStatus,
   type EmployeeEditableFields,
@@ -23,6 +24,7 @@ import Experience from "./career/Experience";
 import Document from "./career/Document";
 import { useForm } from "react-hook-form";
 import { EmployeeFormContext } from "./EmployeeFormContext";
+import { addToast } from "../../../features/toast/toastSlice";
 
 const EmployeeWrapper = styled(Box)({
   width: "100%",
@@ -126,10 +128,16 @@ export default function Employee() {
   const status = useSelector(selectEmployeeStatus);
   const isLoading = status === "loading";
   const error = useSelector(selectEmployeeError);
+  const editError = useSelector(selectEditEmployeeError);
   const { register, handleSubmit } = useForm<EmployeeEditableFields>();
+  console.log(editError);
+
+  useEffect(() => {
+    if (!editError) return;
+    dispatch(addToast({ message: editError, type: "error", expireAt: 1500 }));
+  }, [editError, dispatch]);
 
   const EditEmployee = handleSubmit((formValues: EmployeeEditableFields) => {
-    console.log(formValues);
     dispatch(editEmployee(formValues));
   });
 
