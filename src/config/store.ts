@@ -6,6 +6,7 @@ import { dashboardReducer } from "../pages/dashboard/dashboardReducer";
 import { vacancyReducer } from "../pages/vacancies/vacancyReducer";
 import { applicantReducer } from "../pages/applicants/applicantReducer";
 import { employeeReducer } from "../pages/employees/employeeReducer";
+import payrollSlice from "../pages/payroll/payrollSlice";
 
 export const HRStore = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const HRStore = configureStore({
     vacancies: vacancyReducer,
     applicants: applicantReducer,
     employee: employeeReducer,
+    payroll: payrollSlice,
   },
 });
 

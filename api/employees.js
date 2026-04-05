@@ -7,13 +7,16 @@ export default async function handler(req, res) {
   try {
     await auth(req, res);
     if (res.headersSent || res.writableEnded) return;
-    const { page = 1, pageSize = 10, id, ...rest } = req.query;
+    const { page = 1, pageSize = 10, id, mode, ...rest } = req.query;
     if (id) {
       if (typeof id !== "string" || isNaN(Number(id)))
         return res.status(400).json({ message: "Bad Request" });
       return res.status(200).json({
         data: generateFullEmployee(id),
       });
+    }
+    if (mode) {
+      return res.status(403).json({ message: "Forbidden" });
     }
     return res.status(200).json({
       page: Number(page),
