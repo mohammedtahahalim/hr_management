@@ -31,7 +31,11 @@ const Meta = styled(Box)({
   flexDirection: "column",
 });
 
-const Position = styled(Typography)({});
+const Position = styled(Typography)({
+  fontFamily: "system-ui",
+  fontStyle: "italic",
+  fontSize: "1.1rem",
+});
 
 const JoinDate = styled(Typography)({
   fontFamily: "system-ui",
@@ -41,7 +45,7 @@ const JoinDate = styled(Typography)({
 const Company = styled(Typography)({
   fontFamily: "system-ui",
   fontWeight: "bold",
-  fontSize: "1rem",
+  fontSize: "0.95rem",
 });
 
 const Tasks = styled("ul", {

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import type { PositionColor } from "../../../../shared/lib/types";
 import ArticleIcon from "@mui/icons-material/Article";
+import WaitEmployeeMode from "../WaitEmployeeMode";
 
 const DocumentWrapper = styled(Box)(({ theme }) => ({
   minWidth: "325px",
@@ -46,26 +47,28 @@ export default function Document() {
   const { t } = useTranslation("employee");
 
   return (
-    <DocumentWrapper>
-      <Title ender={false}>{t("document.title")}</Title>
-      <DocumentBox posColor="first">
-        <PictureAsPdfIcon fontSize="small" />
-        <Typography fontFamily={"inherit"} fontSize={"inherit"}>
-          {t("document.contract")}
-        </Typography>
-      </DocumentBox>
-      <DocumentBox posColor="fourth">
-        <ArticleIcon fontSize="small" />
-        <Typography fontFamily={"inherit"} fontSize={"inherit"}>
-          {t("document.resume")}
-        </Typography>
-      </DocumentBox>
-      <DocumentBox posColor="third">
-        <PictureAsPdfIcon fontSize="small" />
-        <Typography fontFamily={"inherit"} fontSize={"inherit"}>
-          {t("document.personal")}
-        </Typography>
-      </DocumentBox>
-    </DocumentWrapper>
+    <WaitEmployeeMode>
+      <DocumentWrapper>
+        <Title ender={false}>{t("document.title")}</Title>
+        <DocumentBox posColor="first">
+          <PictureAsPdfIcon fontSize="small" />
+          <Typography fontFamily={"inherit"} fontSize={"inherit"}>
+            {t("document.contract")}
+          </Typography>
+        </DocumentBox>
+        <DocumentBox posColor="fourth">
+          <ArticleIcon fontSize="small" />
+          <Typography fontFamily={"inherit"} fontSize={"inherit"}>
+            {t("document.resume")}
+          </Typography>
+        </DocumentBox>
+        <DocumentBox posColor="third">
+          <PictureAsPdfIcon fontSize="small" />
+          <Typography fontFamily={"inherit"} fontSize={"inherit"}>
+            {t("document.personal")}
+          </Typography>
+        </DocumentBox>
+      </DocumentWrapper>
+    </WaitEmployeeMode>
   );
 }
