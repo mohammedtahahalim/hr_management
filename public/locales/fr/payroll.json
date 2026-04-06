@@ -1,49 +1,49 @@
 {
   "headline": {
-    "title": "Payroll",
-    "addSalary": "Add Salary"
+    "title": "Paie",
+    "addSalary": "Ajouter un salaire"
   },
   "table": {
     "head": {
       "cols": [
         {
           "key": "name",
-          "value": "Name"
+          "value": "Nom"
         },
         {
           "key": "position",
-          "value": "Position"
+          "value": "Poste"
         },
         {
           "key": "rateType",
-          "value": "Rate"
+          "value": "Taux"
         },
         {
           "key": "period",
-          "value": "Period"
+          "value": "Période"
         },
         {
           "key": "jobType",
-          "value": "Employment"
+          "value": "Type d'emploi"
         },
         {
           "key": "salary",
-          "value": "Salary"
+          "value": "Salaire"
         },
         {
           "key": "status",
-          "value": "Status"
+          "value": "Statut"
         }
       ]
     }
   },
   "control": {
     "pagination": {
-      "nextPage": "Next Page",
-      "prevPage": "Previous Page"
+      "nextPage": "Page suivante",
+      "prevPage": "Page précédente"
     },
     "pageSize": {
-      "show": "Show"
+      "show": "Afficher"
     }
   }
 }

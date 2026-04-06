@@ -1,6 +1,6 @@
 import type { TLanguage } from "../../config/i18n";
 import type { User } from "../../features/auth/authSlice";
-import { names, routesWithPermissions } from "./constants";
+import { FOCUSABLE_SELECTORS, names, routesWithPermissions } from "./constants";
 import type { DistributionWeek, PositionColor, Status } from "./types";
 
 export const canAccessRoute = (route: string, whoIs: User): boolean => {
@@ -102,4 +102,12 @@ export const generateRandomPosColor = (): PositionColor => {
     "third",
   ];
   return colors[Math.floor(Math.random() * colors.length)];
+};
+
+export const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS),
+  ).filter(
+    (el) => !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden"),
+  );
 };

@@ -1,49 +1,49 @@
 {
   "headline": {
-    "title": "Payroll",
-    "addSalary": "Add Salary"
+    "title": "給与",
+    "addSalary": "給与を追加"
   },
   "table": {
     "head": {
       "cols": [
         {
           "key": "name",
-          "value": "Name"
+          "value": "名前"
         },
         {
           "key": "position",
-          "value": "Position"
+          "value": "役職"
         },
         {
           "key": "rateType",
-          "value": "Rate"
+          "value": "レート"
         },
         {
           "key": "period",
-          "value": "Period"
+          "value": "期間"
         },
         {
           "key": "jobType",
-          "value": "Employment"
+          "value": "雇用形態"
         },
         {
           "key": "salary",
-          "value": "Salary"
+          "value": "給与"
         },
         {
           "key": "status",
-          "value": "Status"
+          "value": "ステータス"
         }
       ]
     }
   },
   "control": {
     "pagination": {
-      "nextPage": "Next Page",
-      "prevPage": "Previous Page"
+      "nextPage": "次のページ",
+      "prevPage": "前のページ"
     },
     "pageSize": {
-      "show": "Show"
+      "show": "表示"
     }
   }
 }
