@@ -2,10 +2,10 @@ import { Box, Button, styled } from "@mui/material";
 import Title from "../../shared/ui/Title";
 import { useTranslation } from "react-i18next";
 import AddIcon from "@mui/icons-material/Add";
-import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import AddSalary from "./AddSalary";
+import useModalOverlay from "./useModalOverlay";
 
 const HeadlineWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -41,34 +41,8 @@ const AddSalaryMotion = motion.create(AddSalaryWrapper);
 
 export default function Headline() {
   const { t } = useTranslation("payroll");
-  const [addMode, setAddMode] = useState<boolean>(false);
-  const addSalaryRef = useRef<HTMLDivElement | null>(null);
-  const addSalaryButtonRef = useRef<HTMLButtonElement | null>(null);
-
-  useEffect(() => {
-    const addSalaryDiv = addSalaryRef.current;
-    const buttonRef = addSalaryButtonRef.current;
-    if (!addSalaryDiv || !buttonRef) return;
-    const detectClickOutside = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (
-        !addSalaryDiv.contains(target as Node) &&
-        !buttonRef.contains(target as Node)
-      )
-        setAddMode(false);
-    };
-    const onEscapeKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setAddMode(false);
-      }
-    };
-    window.addEventListener("click", detectClickOutside);
-    window.addEventListener("keydown", onEscapeKey);
-    return () => {
-      window.removeEventListener("click", detectClickOutside);
-      window.removeEventListener("keydown", onEscapeKey);
-    };
-  }, [addMode]);
+  const { addMode, setAddMode, addSalaryRef, addSalaryButtonRef } =
+    useModalOverlay();
 
   return (
     <HeadlineWrapper>

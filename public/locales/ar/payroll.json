@@ -1,49 +1,49 @@
 {
   "headline": {
-    "title": "Payroll",
-    "addSalary": "Add Salary"
+    "title": "الرواتب",
+    "addSalary": "إضافة راتب"
   },
   "table": {
     "head": {
       "cols": [
         {
           "key": "name",
-          "value": "Name"
+          "value": "الاسم"
         },
         {
           "key": "position",
-          "value": "Position"
+          "value": "المنصب"
         },
         {
           "key": "rateType",
-          "value": "Rate"
+          "value": "المعدل"
         },
         {
           "key": "period",
-          "value": "Period"
+          "value": "الفترة"
         },
         {
           "key": "jobType",
-          "value": "Employment"
+          "value": "نوع التوظيف"
         },
         {
           "key": "salary",
-          "value": "Salary"
+          "value": "الراتب"
         },
         {
           "key": "status",
-          "value": "Status"
+          "value": "الحالة"
         }
       ]
     }
   },
   "control": {
     "pagination": {
-      "nextPage": "Next Page",
-      "prevPage": "Previous Page"
+      "nextPage": "الصفحة التالية",
+      "prevPage": "الصفحة السابقة"
     },
     "pageSize": {
-      "show": "Show"
+      "show": "إظهار"
     }
   }
 }

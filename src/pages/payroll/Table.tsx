@@ -3,8 +3,9 @@ import Head from "./Head";
 import Body from "./Body";
 
 const TableWrapper = styled("table")({
+  borderCollapse: "collapse",
+  width: "100%",
   flex: 1,
-  border: "1px solid white",
 });
 
 export default function Table() {
