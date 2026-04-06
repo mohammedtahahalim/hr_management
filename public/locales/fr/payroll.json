@@ -35,6 +35,40 @@
           "value": "Statut"
         }
       ]
+    },
+    "body": {
+      "positions": {
+        "backend": "Ingénieur Backend",
+        "devOps": "Ingénieur DevOps",
+        "fullStack": "Ingénieur FullStack",
+        "django": "Développeur Django",
+        "cloud": "Ingénieur Cloud",
+        "c++": "Développeur C++",
+        "front": "Ingénieur Frontend",
+        "php": "Développeur PHP",
+        "data": "Analyste de Données",
+        "design": "Concepteur UI/UX",
+        "project": "Chef de Projet"
+      },
+      "rate": {
+        "f": "Fixe",
+        "h": "Horaire",
+        "d": "Journalier",
+        "w": "Hebdomadaire",
+        "m": "Mensuel",
+        "y": "Annuel"
+      },
+      "jobType": {
+        "full": "Temps Plein",
+        "part": "Temps Partiel",
+        "contract": "Contrat"
+      },
+      "status": {
+        "progress": "En Cours",
+        "pending": "En Attente",
+        "completed": "Terminé",
+        "rejected": "Rejeté"
+      }
     }
   },
   "control": {

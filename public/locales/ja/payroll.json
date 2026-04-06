@@ -35,6 +35,40 @@
           "value": "ステータス"
         }
       ]
+    },
+    "body": {
+      "positions": {
+        "backend": "バックエンドエンジニア",
+        "devOps": "DevOpsエンジニア",
+        "fullStack": "フルスタックエンジニア",
+        "django": "Django開発者",
+        "cloud": "クラウドエンジニア",
+        "c++": "C++開発者",
+        "front": "フロントエンドエンジニア",
+        "php": "PHP開発者",
+        "data": "データアナリスト",
+        "design": "UI/UXデザイナー",
+        "project": "プロジェクトマネージャー"
+      },
+      "rate": {
+        "f": "固定",
+        "h": "時間単位",
+        "d": "日単位",
+        "w": "週単位",
+        "m": "月単位",
+        "y": "年単位"
+      },
+      "jobType": {
+        "full": "フルタイム",
+        "part": "パートタイム",
+        "contract": "契約"
+      },
+      "status": {
+        "progress": "進行中",
+        "pending": "保留中",
+        "completed": "完了",
+        "rejected": "拒否"
+      }
     }
   },
   "control": {

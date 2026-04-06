@@ -2045,3 +2045,35 @@ export const generateFullEmployee = (id) => {
     activeProjects,
   };
 };
+
+export const generatePayroll = () => {
+  const imageSeed = `https://api.dicebear.com/9.x/avataaars/svg?seed=`;
+  const id = Math.floor(Math.random() * 100000000);
+  const name = randomFrom(NAMES);
+  const email = (
+    name["en"].replace(/\s/g, randomFrom([".", "-", "_"])) +
+    `@${randomFrom(["gmail", "hotmail", "yahoo"])}.${randomFrom(["com", "co.jp", "fr", "net"])}`
+  ).toLowerCase();
+  const profilePic = imageSeed + name["en"].split(" ")[0];
+  const position = randomFrom(POSITIONS);
+  const rateType = randomFrom(["f", "h", "d", "w", "m", "y"]);
+  const period = [
+    new Date(Date.now() - Math.random() * 4 * 2592000000).toISOString(),
+    new Date(Date.now() - Math.random() * 2 * 2592000000).toISOString(),
+  ];
+  const jobType = randomFrom(["full", "part", "contract"]);
+  const salary = Math.floor(generateRandomSalary("month"));
+  const status = randomFrom(["progress", "pending", "completed", "rejected"]);
+  return {
+    id,
+    name,
+    email,
+    profilePic,
+    position,
+    rateType,
+    period,
+    jobType,
+    salary,
+    status,
+  };
+};

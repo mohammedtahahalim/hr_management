@@ -29,7 +29,7 @@ export type DistributionWeek = "01-07" | "07-14" | "14-21" | "21-28";
 
 export type PositionColor = keyof Pick<
   Theme["palette"],
-  "first" | "success" | "error" | "second" | "third" | "fourth"
+  "first" | "success" | "error" | "second" | "third" | "fourth" | "success"
 >;
 
 export type Mode = "view" | "edit";
