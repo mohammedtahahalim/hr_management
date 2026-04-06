@@ -1,13 +1,13 @@
 import { Box, styled } from "@mui/material";
-import Headline from "./Headline";
-import Table from "./Table";
-import Pagination from "./Pagination";
-import Pagesize from "./Pagesize";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../config/store";
 import { useEffect } from "react";
 import { fetchPayrolls } from "./payrollSlice";
+import Headline from "./Headline";
+import Table from "./Table";
+import Pagination from "./Pagination";
+import Pagesize from "./Pagesize";
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 8;
@@ -26,7 +26,7 @@ const PayrollWrapper = styled(Box)({
 
 const Control = styled(Box)({
   width: "100%",
-  height: "50px",
+  minHeight: "50px",
   display: "flex",
   justifyContent: "space-between",
 });

@@ -14,8 +14,9 @@ const payrollSchema = z.object({
   pageSize: z.enum(["8", "12", "16", "20"]),
   data: z.array(
     z.object({
+      id: z.number().nonnegative(),
       name: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().nonempty()),
-      email: z.email(),
+      email: z.string().nonempty(),
       profilePic: z.string().or(z.null()),
       position: z.enum([
         "front",
@@ -41,9 +42,12 @@ const payrollSchema = z.object({
 
 type FetchPayrollReturn = z.infer<typeof payrollSchema>;
 
-type PayrollData = FetchPayrollReturn["data"][number];
+export type PayrollData = FetchPayrollReturn["data"][number];
 
-export type PayrollSorters = keyof Omit<PayrollData, "profilePic" | "email">;
+export type PayrollSorters = keyof Omit<
+  PayrollData,
+  "profilePic" | "email" | "id"
+>;
 
 const sortersFunc: Record<
   PayrollSorters,

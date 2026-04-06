@@ -34,7 +34,8 @@ const Page = styled(Box)(({ theme }) => ({
 }));
 
 export default function Pagination() {
-  const { t } = useTranslation("payroll");
+  const { t, i18n } = useTranslation("payroll");
+  const isArabic = i18n.language === "ar";
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get("page") ?? DEFAULT_PAGE);
   const lastPage = useSelector(selectPayrollLastPage) ?? DEFAULT_LAST_PAGE;
@@ -60,7 +61,11 @@ export default function Pagination() {
         onClick={() => updatePage("prev")}
         aria-label={t("control.pagination.prevPage")}
       >
-        <WestIcon fontSize="inherit" />
+        {isArabic ? (
+          <EastIcon fontSize="inherit" />
+        ) : (
+          <WestIcon fontSize="inherit" />
+        )}
       </ArrowWrapper>
       <Page>
         <WithSkeleton loading={isLoading} sx={{ borderRadius: "5px" }}>
@@ -74,7 +79,11 @@ export default function Pagination() {
         onClick={() => updatePage("next")}
         aria-label={t("control.pagination.nextPage")}
       >
-        <EastIcon fontSize="inherit" />
+        {isArabic ? (
+          <WestIcon fontSize="inherit" />
+        ) : (
+          <EastIcon fontSize="inherit" />
+        )}
       </ArrowWrapper>
     </PaginationWrapper>
   );

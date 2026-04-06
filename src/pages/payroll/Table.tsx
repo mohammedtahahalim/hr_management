@@ -1,6 +1,7 @@
 import { styled } from "@mui/material";
 import Head from "./Head";
 import Body from "./Body";
+import WaitPayroll from "./WaitPayroll";
 
 const TableWrapper = styled("table")({
   borderCollapse: "collapse",
@@ -10,9 +11,11 @@ const TableWrapper = styled("table")({
 
 export default function Table() {
   return (
-    <TableWrapper>
-      <Head />
-      <Body />
-    </TableWrapper>
+    <WaitPayroll>
+      <TableWrapper>
+        <Head />
+        <Body />
+      </TableWrapper>
+    </WaitPayroll>
   );
 }
