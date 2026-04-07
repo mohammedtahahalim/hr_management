@@ -111,3 +111,29 @@ export const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
     (el) => !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden"),
   );
 };
+
+export const getMonthYearFromWeek = (
+  week: number | string,
+  lang: TLanguage,
+) => {
+  const now = new Date();
+  const year = now.getFullYear();
+
+  const jan4 = new Date(year, 0, 4);
+
+  const dayOfWeek = jan4.getDay() || 7;
+  const mondayWeek1 = new Date(jan4);
+  mondayWeek1.setDate(jan4.getDate() - dayOfWeek + 1);
+
+  // Step 3: compute target week date
+  const targetDate = new Date(mondayWeek1);
+  targetDate.setDate(mondayWeek1.getDate() + (Number(week) - 1) * 7);
+
+  // Step 4: format month - year
+  const formatted = new Intl.DateTimeFormat(lang, {
+    month: "long",
+    year: "numeric",
+  }).format(targetDate);
+
+  return formatted;
+};
