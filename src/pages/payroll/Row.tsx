@@ -107,6 +107,29 @@ const Email = styled(Typography)(({ theme }) => ({
   },
 }));
 
+const Period = styled(Box)({
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const Time = styled(Typography)({
+  fontFamily: "system-ui",
+  fontSize: "0.85rem",
+});
+
+const Delimiter = styled("span")({
+  maxHeight: "10px",
+  width: "fit-content",
+  overflow: "hidden",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
 const Status = styled(Box, {
   shouldForwardProp: (prop) => prop !== "posColor",
 })<{ posColor: PositionColor }>(({ theme, posColor }) => ({
@@ -145,7 +168,13 @@ export default function Row({
       </Col>
       <Col>{t(`table.body.positions.${position}`)}</Col>
       <Col>{t(`table.body.rate.${rateType}`)}</Col>
-      <Col>{formatDate(period[0], lang)}</Col>
+      <Col>
+        <Period>
+          <Time>{formatDate(period[0], lang)}</Time>
+          <Delimiter tabIndex={0}>-</Delimiter>
+          <Time>{formatDate(period[1], lang)}</Time>
+        </Period>
+      </Col>
       <Col>{t(`table.body.jobType.${jobType}`)}</Col>
       <Col>
         {CURRENCIES[lang]}

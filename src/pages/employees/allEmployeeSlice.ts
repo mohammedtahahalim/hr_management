@@ -146,7 +146,7 @@ const initialState: AllEmployeeState = {
   status: "idle",
   error: null,
   state: null,
-  viewType: "list",
+  viewType: "card",
   sortBy: null,
   sortOrder: "desc",
 };

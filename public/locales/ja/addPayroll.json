@@ -1,0 +1,44 @@
+{
+  "title": "給与の追加",
+  "cancel": "キャンセル",
+  "Save": "保存",
+  "staff": "スタッフを選択",
+  "positions": {
+    "title": "従業員の役職",
+    "backend": "バックエンドエンジニア",
+    "devOps": "DevOpsエンジニア",
+    "fullStack": "フルスタックエンジニア",
+    "django": "Django開発者",
+    "cloud": "クラウドエンジニア",
+    "c++": "C++開発者",
+    "front": "フロントエンドエンジニア",
+    "php": "PHP開発者",
+    "data": "データアナリスト",
+    "design": "UI/UXデザイナー",
+    "project": "プロジェクトマネージャー"
+  },
+  "payPeriod": {
+    "title": "給与期間",
+    "hourly": "時間給",
+    "daily": "日給",
+    "weekly": "週給",
+    "monthly": "月給",
+    "yearly": "年給",
+    "fixed": "固定給"
+  },
+  "payType": {
+    "title": "支払い方法",
+    "cash": "現金",
+    "wire": "ワイヤー送金",
+    "bank": "銀行",
+    "transfer": "振込"
+  },
+  "payRate": {
+    "title": "給与レート",
+    "eur": "€",
+    "usd": "$",
+    "jpy": "¥",
+    "gbp": "£",
+    "aed": "د.إ"
+  }
+}
