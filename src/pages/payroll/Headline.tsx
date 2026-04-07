@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import AddSalary from "./AddSalary";
 import useModalOverlay from "./useModalOverlay";
+import { useCallback } from "react";
 
 const HeadlineWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -29,8 +30,8 @@ const AddSalaryButton = styled(Button)({
 });
 
 const AddSalaryWrapper = styled(Box)({
-  width: "fit-content",
-  minWidth: "50vw",
+  width: "100%",
+  maxWidth: "750px",
   height: "100vh",
   position: "fixed",
   top: 0,
@@ -43,6 +44,10 @@ export default function Headline() {
   const { t } = useTranslation("payroll");
   const { addMode, setAddMode, addSalaryRef, addSalaryButtonRef } =
     useModalOverlay();
+
+  const closeModal = useCallback(() => {
+    setAddMode(false);
+  }, [setAddMode]);
 
   return (
     <HeadlineWrapper>
@@ -65,7 +70,7 @@ export default function Headline() {
               transition={{ duration: 0.5, ease: "easeInOut" }}
               ref={addSalaryRef}
             >
-              <AddSalary />
+              <AddSalary closeModal={closeModal} />
             </AddSalaryMotion>
           )}
         </AnimatePresence>,

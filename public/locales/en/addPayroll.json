@@ -1,0 +1,44 @@
+{
+  "title": "Add Payroll",
+  "cancel": "Cancel",
+  "Save": "Save",
+  "staff": "Select Staff",
+  "positions": {
+    "title": "Employee Position",
+    "backend": "Backend Engineer",
+    "devOps": "DevOps Engineer",
+    "fullStack": "FullStack Engineer",
+    "django": "Django Developer",
+    "cloud": "Cloud Engineer",
+    "c++": "C++ Developer",
+    "front": "Frontend Engineer",
+    "php": "PHP Developer",
+    "data": "Data Analyst",
+    "design": "UI/UX Designer",
+    "project": "Project Manager"
+  },
+  "payPeriod": {
+    "title": "Pay Period",
+    "hourly": "Hourly",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "fixed": "Fixed"
+  },
+  "payType": {
+    "title": "Pay Type",
+    "cash": "Cash",
+    "wire": "Wire",
+    "bank": "Bank",
+    "transfer": "Transfer"
+  },
+  "payRate": {
+    "title": "Pay Rate",
+    "eur": "€",
+    "usd": "$",
+    "jpy": "¥",
+    "gbp": "£",
+    "aed": "د.إ"
+  }
+}

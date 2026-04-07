@@ -497,3 +497,30 @@ export const FOCUSABLE_SELECTORS = [
   "[contenteditable]",
   '[tabindex]:not([tabindex="-1"])',
 ].join(",");
+
+export const POSITIONS = [
+  "front",
+  "backend",
+  "design",
+  "fullStack",
+  "data",
+  "c++",
+  "php",
+  "django",
+  "project",
+  "devOps",
+  "cloud",
+];
+
+export const PAYRATE = [
+  "hourly",
+  "daily",
+  "weekly",
+  "monthly",
+  "yearly",
+  "fixed",
+];
+
+export const PAY_TYPE = ["cash", "wire", "bank", "transfer"];
+
+export const CURRENCIES = ["eur", "usd", "jpy", "gbp", "aed"];

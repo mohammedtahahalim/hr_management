@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   try {
     await auth(req, res);
     if (res.headersSent || res.writableEnded) return;
-    const { page = 1, pageSize = 10, id, mode, ...rest } = req.query;
+    const { page = 1, pageSize = 8, id, mode, ...rest } = req.query;
     if (id) {
       if (typeof id !== "string" || isNaN(Number(id)))
         return res.status(400).json({ message: "Bad Request" });

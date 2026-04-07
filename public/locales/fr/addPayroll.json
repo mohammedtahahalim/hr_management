@@ -1,0 +1,44 @@
+{
+  "title": "Ajouter la Paie",
+  "cancel": "Annuler",
+  "Save": "Enregistrer",
+  "staff": "Sélectionner le Personnel",
+  "positions": {
+    "title": "Poste de l'Employé",
+    "backend": "Ingénieur Backend",
+    "devOps": "Ingénieur DevOps",
+    "fullStack": "Ingénieur FullStack",
+    "django": "Développeur Django",
+    "cloud": "Ingénieur Cloud",
+    "c++": "Développeur C++",
+    "front": "Ingénieur Frontend",
+    "php": "Développeur PHP",
+    "data": "Analyste de Données",
+    "design": "Designer UI/UX",
+    "project": "Chef de Projet"
+  },
+  "payPeriod": {
+    "title": "Période de Paiement",
+    "hourly": "Horaire",
+    "daily": "Journalier",
+    "weekly": "Hebdomadaire",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "fixed": "Fixe"
+  },
+  "payType": {
+    "title": "Type de Paiement",
+    "cash": "Espèces",
+    "wire": "Virement Bancaire",
+    "bank": "Banque",
+    "transfer": "Transfert"
+  },
+  "payRate": {
+    "title": "Taux de Paiement",
+    "eur": "€",
+    "usd": "$",
+    "jpy": "¥",
+    "gbp": "£",
+    "aed": "د.إ"
+  }
+}
