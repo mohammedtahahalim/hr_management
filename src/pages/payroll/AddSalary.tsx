@@ -115,9 +115,7 @@ const Divider = styled(Box)(({ theme }) => ({
 
 const AddSalary = memo(({ closeModal }: AddSalaryProps) => {
   const { t } = useTranslation("addPayroll");
-  const { register, getValues } = useForm<AddPayrollFormState>();
-
-  console.log(getValues());
+  const { register } = useForm<AddPayrollFormState>();
 
   return (
     <AddSalaryWrapper>
