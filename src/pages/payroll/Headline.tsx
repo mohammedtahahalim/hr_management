@@ -1,12 +1,6 @@
-import { Box, Button, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import Title from "../../shared/ui/Title";
 import { useTranslation } from "react-i18next";
-import AddIcon from "@mui/icons-material/Add";
-import { createPortal } from "react-dom";
-import { AnimatePresence, motion } from "motion/react";
-import AddSalary from "./AddSalary";
-import useModalOverlay from "./useModalOverlay";
-import { useCallback } from "react";
 
 const HeadlineWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -23,59 +17,14 @@ const HeadlineWrapper = styled(Box)(({ theme }) => ({
   },
 }));
 
-const AddSalaryButton = styled(Button)({
-  borderRadius: "50px",
-  textTransform: "capitalize",
-  fontFamily: "system-ui",
-});
-
-const AddSalaryWrapper = styled(Box)({
-  width: "100%",
-  maxWidth: "750px",
-  height: "100vh",
-  position: "fixed",
-  top: 0,
-  right: 0,
-});
-
-const AddSalaryMotion = motion.create(AddSalaryWrapper);
-
-export default function Headline() {
+const Headline = () => {
   const { t } = useTranslation("payroll");
-  const { addMode, setAddMode, addSalaryRef, addSalaryButtonRef } =
-    useModalOverlay();
-
-  const closeModal = useCallback(() => {
-    setAddMode(false);
-  }, [setAddMode]);
 
   return (
     <HeadlineWrapper>
       <Title ender={false}>{t("headline.title")}</Title>
-      <AddSalaryButton
-        variant="contained"
-        startIcon={<AddIcon fontSize="small" />}
-        onClick={() => setAddMode(true)}
-        ref={addSalaryButtonRef}
-      >
-        {t("headline.addSalary")}
-      </AddSalaryButton>
-      {createPortal(
-        <AnimatePresence>
-          {addMode && (
-            <AddSalaryMotion
-              initial={{ right: "-50vw", opacity: 0 }}
-              animate={{ right: 0, opacity: 1 }}
-              exit={{ right: "-50vw", opacity: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              ref={addSalaryRef}
-            >
-              <AddSalary closeModal={closeModal} />
-            </AddSalaryMotion>
-          )}
-        </AnimatePresence>,
-        document.body,
-      )}
     </HeadlineWrapper>
   );
-}
+};
+
+export default Headline;

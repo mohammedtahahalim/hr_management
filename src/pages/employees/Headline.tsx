@@ -60,7 +60,7 @@ const ListType = styled(Button)({
 
 const Add = styled(Box)(({ theme }) => ({
   display: "flex",
-  gap: "10px",
+  gap: "20px",
   [theme.breakpoints.down("sm")]: {
     alignSelf: "flex-end",
   },
@@ -74,7 +74,6 @@ const NewEmployee = styled(Button)({
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
-  maxWidth: "125px",
 });
 
 const SortBy = styled(Select)({

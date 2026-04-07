@@ -1,19 +1,20 @@
 import { lazy } from "react";
+import Dashboard from "../pages/dashboard/Dashboard";
+import Vacancies from "../pages/vacancies/Vacancies";
+import Applicants from "../pages/applicants/Applicants";
+import Employees from "../pages/employees/Employees";
+import Payroll from "../pages/payroll/Payroll";
+import Vacancy from "../pages/vacancies/vacancy/Vacancy";
+import AddVacancy from "../pages/vacancies/addVacancy/AddVacancy";
+import Employee from "../pages/employees/employee/Employee";
 const Login = lazy(() => import("../pages/auth/Login"));
 const Signup = lazy(() => import("../pages/auth/Signup"));
 const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
-const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 const Redirect = lazy(() => import("../shared/ui/Redirect"));
-const Vacancies = lazy(() => import("../pages/vacancies/Vacancies"));
-const Vacancy = lazy(() => import("../pages/vacancies/vacancy/Vacancy"));
-const AddVacancy = lazy(
-  () => import("../pages/vacancies/addVacancy/AddVacancy"),
-);
-const Applicants = lazy(() => import("../pages/applicants/Applicants"));
-const Employees = lazy(() => import("../pages/employees/Employees"));
-const Employee = lazy(() => import("../pages/employees/employee/Employee"));
-const Payroll = lazy(() => import("../pages/payroll/Payroll"));
 const Calendar = lazy(() => import("../pages/calendar/Calendar"));
+const AddEmployee = lazy(
+  () => import("../pages/employees/addEmployee/AddEmployee"),
+);
 const NotFound = lazy(() => import("../shared/ui/NotFound"));
 
 interface IRoute {
@@ -68,6 +69,10 @@ export const mainRoutes: IRoute[] = [
   {
     path: "/employee/:id",
     component: Employee,
+  },
+  {
+    path: "/employee/add-employee",
+    component: AddEmployee,
   },
   {
     path: "/payroll",
