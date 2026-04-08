@@ -14,10 +14,12 @@ const OverviewWrapper = styled(Box)({
   display: "flex",
   gap: "10px",
   flexWrap: "wrap",
+  overflowY: "auto",
+  scrollbarWidth: "none",
 });
 
 const WestSide = styled(Box)({
-  flex: 1,
+  flex: 3,
   display: "flex",
   flexDirection: "column",
   gap: "10px",
@@ -29,11 +31,12 @@ const EastSide = styled(Box)({
   gap: "10px",
   minWidth: "300px",
   height: "100%",
+  flex: 1,
 });
 
 const Top = styled(Box)({
   width: "100%",
-  minHeight: "250px",
+  height: "fit-content",
 });
 
 const Middle = styled(Box)({

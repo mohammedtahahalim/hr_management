@@ -7,6 +7,7 @@ import { vacancyReducer } from "../pages/vacancies/vacancyReducer";
 import { applicantReducer } from "../pages/applicants/applicantReducer";
 import { employeeReducer } from "../pages/employees/employeeReducer";
 import payrollSlice from "../pages/payroll/payrollSlice";
+import overviewSlice from "../pages/overview/overviewSlice";
 
 export const HRStore = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const HRStore = configureStore({
     applicants: applicantReducer,
     employee: employeeReducer,
     payroll: payrollSlice,
+    overview: overviewSlice,
   },
 });
 

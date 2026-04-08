@@ -1,7 +1,7 @@
 import { Box, styled } from "@mui/material";
 
 const ApplicationWrapper = styled(Box)({
-  flex: 1,
+  flex: 2,
   border: "1px solid white",
   minWidth: "350px",
 });
