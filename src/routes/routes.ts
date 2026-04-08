@@ -7,6 +7,7 @@ import Payroll from "../pages/payroll/Payroll";
 import Vacancy from "../pages/vacancies/vacancy/Vacancy";
 import AddVacancy from "../pages/vacancies/addVacancy/AddVacancy";
 import Employee from "../pages/employees/employee/Employee";
+import Overview from "../pages/overview/Overview";
 const Login = lazy(() => import("../pages/auth/Login"));
 const Signup = lazy(() => import("../pages/auth/Signup"));
 const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
@@ -44,6 +45,10 @@ export const mainRoutes: IRoute[] = [
   {
     path: "/dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/overview",
+    component: Overview,
   },
   {
     path: "/vacancy",

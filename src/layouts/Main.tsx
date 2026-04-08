@@ -6,7 +6,8 @@ import { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../features/auth/AuthContext";
 import Forbidden from "../shared/ui/Forbidden";
 import type { Resource } from "../shared/lib/types";
-import { canAccess } from "../shared/lib/permissions";
+import { canAccess, isValidResource } from "../shared/lib/permissions";
+import NotFound from "../shared/ui/NotFound";
 
 const MainWrapper = styled(Box)({
   width: "100%",
@@ -72,8 +73,10 @@ export default function Main() {
         <OutletWrapper maxWidth="xl" ref={outletRef}>
           {whoIs && canAccess(role, "READ", resource) ? (
             <Outlet />
-          ) : (
+          ) : isValidResource(resource) ? (
             <Forbidden />
+          ) : (
+            <NotFound />
           )}
         </OutletWrapper>
       </BodyWrapper>

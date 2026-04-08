@@ -5,6 +5,10 @@
       "link": "/dashboard"
     },
     {
+      "item": "Aperçu",
+      "link": "/overview"
+    },
+    {
       "item": "Offres",
       "link": "/vacancy"
     },

@@ -5,6 +5,10 @@
       "link": "/dashboard"
     },
     {
+      "item": "ملخص",
+      "link": "/overview"
+    },
+    {
       "item": "الوظائف",
       "link": "/vacancy"
     },

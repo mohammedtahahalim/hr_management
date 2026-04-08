@@ -38,8 +38,8 @@ export type Operation = "CREATE" | "READ" | "UPDATE" | "DELETE";
 
 export type Resource =
   | "dashboard"
+  | "overview"
   | "vacancy"
   | "employee"
   | "applicant"
-  | "payroll"
-  | "calendar";
+  | "payroll";

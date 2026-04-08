@@ -9,28 +9,40 @@ export const permissions: Partial<Record<`${TRole}:${Operation}`, Resource[]>> =
     "admin:DELETE": [],
 
     "candidate:CREATE": ["applicant"],
-    "candidate:READ": ["dashboard", "vacancy", "applicant"],
+    "candidate:READ": ["dashboard", "vacancy", "applicant", "overview"],
     "candidate:UPDATE": ["applicant"],
 
-    "employee:READ": ["dashboard", "employee", "calendar", "vacancy"],
-    "employee:UPDATE": ["employee", "calendar"],
+    "employee:READ": ["dashboard", "employee", "vacancy", "overview"],
+    "employee:UPDATE": ["employee"],
 
-    "hr:CREATE": ["employee", "applicant", "vacancy", "calendar"],
+    "hr:CREATE": ["employee", "applicant", "vacancy"],
     "hr:READ": [
       "dashboard",
       "employee",
       "applicant",
       "payroll",
       "vacancy",
-      "calendar",
+      "overview",
     ],
-    "hr:UPDATE": ["employee", "applicant", "payroll", "vacancy", "calendar"],
+    "hr:UPDATE": ["employee", "applicant", "payroll", "vacancy"],
     "hr:DELETE": ["employee", "applicant", "vacancy"],
 
-    "manager:CREATE": ["calendar"],
-    "manager:READ": ["dashboard", "employee", "calendar", "vacancy"],
-    "manager:UPDATE": ["employee", "calendar", "vacancy"],
+    "manager:READ": ["dashboard", "employee", "vacancy", "overview"],
+    "manager:UPDATE": ["employee", "vacancy"],
   };
+
+export const isValidResource = (resource: unknown): resource is Resource => {
+  if (typeof resource !== "string") return false;
+  const operations: Resource[] = [
+    "applicant",
+    "dashboard",
+    "employee",
+    "overview",
+    "payroll",
+    "vacancy",
+  ];
+  return operations.includes(resource as Resource);
+};
 
 export const canAccess = (
   role: TRole,

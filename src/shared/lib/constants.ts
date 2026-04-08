@@ -20,6 +20,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import SecurityIcon from "@mui/icons-material/Security";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import ExtensionIcon from "@mui/icons-material/Extension";
+import GridViewIcon from "@mui/icons-material/GridView";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import type { DeptName } from "../../pages/dashboard/departments/departmentSlice";
 import type {
@@ -114,6 +115,7 @@ export const routesWithPermissions: Record<string, TRole[]> = {
 
 export const navIcons: Record<string, MuiIcon> = {
   "/dashboard": DashboardIcon,
+  "/overview": GridViewIcon,
   "/vacancy": BusinessCenterIcon,
   "/applicant": PersonIcon,
   "/employee": GroupsIcon,

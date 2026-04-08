@@ -5,6 +5,10 @@
       "link": "/dashboard"
     },
     {
+      "item": "概要",
+      "link": "/overview"
+    },
+    {
       "item": "求人情報",
       "link": "/vacancy"
     },
