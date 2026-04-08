@@ -19,10 +19,6 @@
     {
       "item": "payroll",
       "link": "/payroll"
-    },
-    {
-      "item": "calendar",
-      "link": "/calendar"
     }
   ],
   "logout": "Logout"

@@ -23,6 +23,7 @@ const ReloadWrapper = styled(Box)(({ theme }) => ({
 const Error = styled(Typography)({
   fontFamily: "system-ui",
   fontWeight: "bold",
+  fontSize: "0.85rem",
 });
 
 const Refetch = styled(Button)({

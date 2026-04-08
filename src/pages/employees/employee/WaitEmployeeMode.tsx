@@ -25,7 +25,12 @@ export default function WaitEmployeeMode({ children }: WaitEmployeeMode) {
   };
 
   return (
-    <WithSkeleton loading={isLoading} sx={{ borderRadius: "12px" }}>
+    <WithSkeleton
+      loading={isLoading}
+      sx={{
+        borderRadius: "12px",
+      }}
+    >
       <>
         {status === "success" && children}
         {status === "failure" && (

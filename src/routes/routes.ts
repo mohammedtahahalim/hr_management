@@ -11,7 +11,6 @@ const Login = lazy(() => import("../pages/auth/Login"));
 const Signup = lazy(() => import("../pages/auth/Signup"));
 const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
 const Redirect = lazy(() => import("../shared/ui/Redirect"));
-const Calendar = lazy(() => import("../pages/calendar/Calendar"));
 const AddEmployee = lazy(
   () => import("../pages/employees/addEmployee/AddEmployee"),
 );
@@ -77,10 +76,6 @@ export const mainRoutes: IRoute[] = [
   {
     path: "/payroll",
     component: Payroll,
-  },
-  {
-    path: "/calendar",
-    component: Calendar,
   },
   {
     path: "*",

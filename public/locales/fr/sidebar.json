@@ -19,10 +19,6 @@
     {
       "item": "paie",
       "link": "/payroll"
-    },
-    {
-      "item": "calendrier",
-      "link": "/calendar"
     }
   ],
   "logout": "Déconnexion"
