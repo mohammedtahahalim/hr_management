@@ -19,10 +19,6 @@
     {
       "item": "給与計算",
       "link": "/payroll"
-    },
-    {
-      "item": "カレンダー",
-      "link": "/calendar"
     }
   ],
   "logout": "ログアウト"

@@ -19,10 +19,6 @@
     {
       "item": "جدول الرواتب",
       "link": "/payroll"
-    },
-    {
-      "item": "تقويم",
-      "link": "/calendar"
     }
   ],
   "logout": "تسجيل الخروج"

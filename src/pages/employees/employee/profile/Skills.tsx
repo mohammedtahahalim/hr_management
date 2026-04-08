@@ -7,7 +7,7 @@ import WaitEmployeeMode from "../WaitEmployeeMode";
 
 const SkillsWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
-  height: "100%",
+  height: "250px",
   minHeight: "250px",
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: "12px",
