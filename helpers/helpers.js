@@ -11,8 +11,18 @@ const randomInt = (min, max) => min + Math.floor(Math.random() * (max - min));
 
 const randomFrom = (arr) => arr[randomInt(0, arr.length)];
 
-const randomDate = (start, end, rand) =>
-  new Date(start.getTime() + rand() * (end.getTime() - start.getTime()));
+const randomDate = (
+  start = new Date(),
+  end = new Date(Date.now() + randomInt(1, 5) * 31536000000),
+  rand = () => 0,
+) => new Date(start.getTime() + rand() * (end.getTime() - start.getTime()));
+
+const generateEmail = (name) =>
+  name.replace(/\s/g, randomFrom(["-", "_", "."])) +
+  "@" +
+  randomFrom(["hotmail", "gmail", "yahoo", "outlook"]) +
+  "." +
+  randomFrom(["com", "co.jp", "fr", "ma", "net"]);
 
 const formatDate = (date) => date.toISOString();
 
@@ -261,6 +271,24 @@ export const generateVacancies = (
           : ["open", "completed", "inprogress"][Math.floor(Math.random() * 3)],
       publication: `2026-0${Math.floor(Math.random() * 8) + 1}-${String((Math.floor(Math.random() * 400) % 28) + 1).padStart(2, "0")}T10:00:00Z`,
       trend: generateSharpRandom(),
+    };
+  });
+};
+
+export const generateApplicants = (pageSize) => {
+  return Array.from({ length: pageSize }, () => {
+    const name = randomFrom(NAMES);
+    return {
+      id: randomInt(1, 100000),
+      name,
+      position: randomFrom(POSITIONS),
+      date: randomDate(
+        new Date(new Date().getTime() - randomInt(1, 12) * 2592000000),
+        new Date(),
+      ),
+      status: randomInt(1, 7),
+      email: generateEmail(name["en"]),
+      rating: randomInt(0, 6),
     };
   });
 };

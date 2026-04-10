@@ -1,5 +1,4 @@
 import { Box, styled, Typography } from "@mui/material";
-import type { ApplicantDataSample } from "./applicantSlice";
 import { useTranslation } from "react-i18next";
 import type { PositionColor } from "../../../shared/lib/types";
 import { formatDate } from "../../../shared/lib/helpers";
@@ -7,6 +6,7 @@ import type { TLanguage } from "../../../config/i18n";
 import { positionsColor, statusStages } from "../../../shared/lib/constants";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+import type { ApplicantData } from "./applicantSlice";
 
 const RowWrapper = styled("tr")(({ theme }) => ({
   height: "45px",
@@ -118,11 +118,12 @@ export default function Row({
   email,
   rating,
   setActiveApplicant,
-}: ApplicantDataSample & {
+}: ApplicantData & {
   setActiveApplicant: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const { t, i18n } = useTranslation("applicants");
-  const statusText = statusStages[status - 1][i18n.language as TLanguage];
+  const lang = i18n.language as TLanguage;
+  const statusText = statusStages[status - 1][lang];
 
   const onKeyDown = (e: React.KeyboardEvent, id: number) => {
     if (e.key !== "Enter") return;
@@ -138,7 +139,7 @@ export default function Row({
       onKeyDown={(e) => onKeyDown(e, id)}
     >
       <Col>
-        <Name variant="subtitle1">{name}</Name>
+        <Name variant="subtitle1">{name[lang]}</Name>
       </Col>
       <Col>
         <Position posColor={positionsColor[position]}>
