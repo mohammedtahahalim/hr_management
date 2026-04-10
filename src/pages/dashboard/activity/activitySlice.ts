@@ -8,13 +8,22 @@ import z from "zod";
 import type { RootState } from "../../../config/store";
 
 const activitySchema = z.object({
-  id: z.number().nonnegative(),
-  date: z.string().regex(/\d{2}-\d{2}/), // 12 Mar
-  title: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string().nonempty()),
-  content: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string().nonempty()),
+  data: z.array(
+    z.object({
+      id: z.number().nonnegative(),
+      date: z.string().regex(/\d{2}-\d{2}/), // 12 Mar
+      title: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string().nonempty()),
+      content: z.record(
+        z.enum(["en", "ar", "ja", "fr"]),
+        z.string().nonempty(),
+      ),
+    }),
+  ),
 });
 
-export type ActivitiyData = z.infer<typeof activitySchema>;
+export type ActivitiyBackend = z.infer<typeof activitySchema>;
+
+export type ActivitiyData = ActivitiyBackend["data"][number];
 
 interface ActivityState {
   status: Status;
@@ -44,16 +53,10 @@ export const fetchActivities = createAsyncThunk<
       return rejectWithValue("SYSTEM");
     }
     const dataFromServer = (await response.json()) as unknown;
-    if (
-      !dataFromServer ||
-      typeof dataFromServer !== "object" ||
-      !("data" in dataFromServer)
-    )
-      return rejectWithValue("MISMATCH");
-    const { data } = dataFromServer;
-    if (!Array.isArray(data)) return rejectWithValue("MISMATCH");
-    const validData = data.filter((d) => activitySchema.safeParse(d).success);
-    return validData as ActivitiyData[];
+    const isValidData = activitySchema.safeParse(dataFromServer);
+    if (!isValidData.success) return rejectWithValue("MISMATCH");
+    const { data } = isValidData.data;
+    return data;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError")
       return rejectWithValue("ABORT");

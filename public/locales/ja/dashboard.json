@@ -6,6 +6,19 @@
       "total": "募集中",
       "shortlisted": "最終選考通過",
       "rejected": "不採用"
+    },
+    "position": {
+      "backend": "バックエンドエンジニア",
+      "devOps": "DevOpsエンジニア",
+      "fullStack": "フルスタックエンジニア",
+      "django": "Django開発者",
+      "cloud": "クラウドエンジニア",
+      "c++": "C++開発者",
+      "front": "フロントエンドエンジニア",
+      "php": "PHP開発者",
+      "data": "データアナリスト",
+      "design": "UI/UXデザイナー",
+      "project": "プロジェクトマネージャー"
     }
   },
   "departments": {
@@ -33,7 +46,15 @@
     "location": "位置",
     "appNum": "アプリ",
     "chart": "図表",
-    "remote": "リモート"
+    "remote": "リモート",
+    "locations": {
+      "us": "アメリカ",
+      "fr": "フランス",
+      "ma": "モロッコ",
+      "uk": "イギリス",
+      "sp": "スペイン",
+      "ja": "日本"
+    }
   },
   "activity": {
     "title": "ニュースとイベント"

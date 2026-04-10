@@ -1,6 +1,6 @@
 import { Box, Button, styled, Typography } from "@mui/material";
 import type { FilterShape } from "./Filters";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const FilterWrapper = styled(Box)({
   display: "flex",
@@ -32,16 +32,13 @@ const FilterButton = styled(Button)({
 });
 
 export default function Filter({ title, data, filterKey }: FilterShape) {
-  const { search, pathname } = useLocation();
-  const navigate = useNavigate();
-  const params = new URLSearchParams(search);
-  const active = params.get(filterKey) ?? "all";
+  const [searchParams, setSearchParams] = useSearchParams();
+  const active = searchParams.get(filterKey) ?? "all";
 
-  const changeFilter = (val: string) => {
-    params.set(filterKey, val);
-    navigate({
-      pathname,
-      search: `${params.toString()}`,
+  const changeFilter = (key: string, val: string) => {
+    setSearchParams((searchParams) => {
+      searchParams.set(key, val);
+      return searchParams;
     });
   };
 
@@ -54,7 +51,7 @@ export default function Filter({ title, data, filterKey }: FilterShape) {
             <FilterButton
               key={d.key}
               variant={active === d.key ? "contained" : "outlined"}
-              onClick={() => changeFilter(d.key)}
+              onClick={() => changeFilter(filterKey, d.key)}
             >
               {d.value}
             </FilterButton>

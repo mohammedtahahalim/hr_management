@@ -8,14 +8,23 @@ import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 
 const recentJobsSchema = z.object({
-  id: z.number().nonnegative(),
-  jobTitle: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().nonempty()),
-  location: z.string().min(1).max(2),
-  totalApps: z.number().nonnegative(),
-  trend: z.array(z.number()),
+  data: z.array(
+    z.object({
+      id: z.number().nonnegative(),
+      jobTitle: z.record(
+        z.enum(["en", "ja", "ar", "fr"]),
+        z.string().nonempty(),
+      ),
+      location: z.string().min(1).max(2),
+      totalApps: z.number().nonnegative(),
+      trend: z.array(z.number()),
+    }),
+  ),
 });
 
-export type RecentJobs = z.infer<typeof recentJobsSchema>;
+export type RecentBackend = z.infer<typeof recentJobsSchema>;
+
+export type RecentJobs = RecentBackend["data"][number];
 
 interface RecentJobsState {
   status: Status;
@@ -44,18 +53,10 @@ export const fetchRecentJobs = createAsyncThunk<
       if (response.status >= 500) return rejectWithValue("DOWN");
     }
     const dataFromServer = (await response.json()) as unknown;
-    if (
-      !dataFromServer ||
-      typeof dataFromServer !== "object" ||
-      !("data" in dataFromServer)
-    )
-      return rejectWithValue("MISMATCH");
-    const { data } = dataFromServer;
-    if (!Array.isArray(data)) return rejectWithValue("MISMATCH");
-    const validEntries = data.filter(
-      (d) => recentJobsSchema.safeParse(d).success,
-    );
-    return validEntries as RecentJobs[];
+    const isValidData = recentJobsSchema.safeParse(dataFromServer);
+    if (!isValidData.success) return rejectWithValue("MISMATCH");
+    const { data } = isValidData.data;
+    return data;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError")
       return rejectWithValue("ABORT");

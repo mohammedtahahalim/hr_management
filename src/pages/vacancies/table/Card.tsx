@@ -241,7 +241,7 @@ export default function Card({
             <MetaInfo>
               <LocationAndDate>
                 <Location>
-                  {location === "R" ? t("dashboard:recent.remote") : location}
+                  {t(`dashboard:recent.locations.${location}`)}
                 </Location>
                 <Date>
                   {formatDate(publication, i18n.language as TLanguage)}

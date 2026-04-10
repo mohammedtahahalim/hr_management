@@ -9,18 +9,31 @@ import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 
 const candidateSchema = z.object({
-  id: z.number().nonnegative(),
-  name: z.string(),
-  position: z.object({
-    en: z.string(),
-    ja: z.string(),
-    ar: z.string(),
-    fr: z.string(),
-  }),
-  offerState: z.enum(["OFFER", "SHORTLIST", "REJECT", "PENDING"]),
+  data: z.array(
+    z.object({
+      id: z.number().nonnegative(),
+      name: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string().nonempty()),
+      position: z.enum([
+        "front",
+        "backend",
+        "design",
+        "fullStack",
+        "data",
+        "c++",
+        "php",
+        "django",
+        "project",
+        "devOps",
+        "cloud",
+      ]),
+      offerState: z.enum(["OFFER", "SHORTLIST", "REJECT", "PENDING"]),
+    }),
+  ),
 });
 
-export type ICandidat = z.infer<typeof candidateSchema>;
+export type CandidateBackend = z.infer<typeof candidateSchema>;
+
+export type ICandidat = CandidateBackend["data"][number];
 
 interface CandidateState {
   status: Status;
@@ -47,12 +60,11 @@ export const fetchCandidates = createAsyncThunk<
       if (response.status >= 500) return rejectWithValue("DOWN");
       return rejectWithValue("SYSTEM");
     }
-    const data = await response.json();
-    const { candidates } = data;
-    if (!Array.isArray(candidates)) return rejectWithValue("SYSTEM");
-    return candidates.filter(
-      (c) => candidateSchema.safeParse(c).success,
-    ) as ICandidat[];
+    const dataFromBackend = await response.json();
+    const isValidData = candidateSchema.safeParse(dataFromBackend);
+    if (!isValidData.success) return rejectWithValue("MISMATCH");
+    const { data } = isValidData.data;
+    return data;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") {
       return rejectWithValue("ABORT");

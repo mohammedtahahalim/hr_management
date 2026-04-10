@@ -8,7 +8,68 @@ import type { Reject, Status } from "../../shared/lib/types";
 import type { RootState } from "../../config/store";
 
 const overviewSchema = z.object({
-  data: z.object({}),
+  data: z.object({
+    overview: z.array(
+      z.object({
+        name: z.string().nonempty(),
+        total: z.number().nonnegative(),
+        change: z.number().nonnegative(),
+        percentage: z.number().nonnegative(),
+      }),
+    ),
+    application: z.object({
+      direct: z.array(z.number().nonnegative()),
+      social: z.array(z.number().nonnegative()),
+      referral: z.array(z.number().nonnegative()),
+    }),
+    employment: z.object({
+      total: z.number().nonnegative(),
+      fullTime: z.number().min(0).max(100),
+      partTime: z.number().min(0).max(100),
+    }),
+    project: z.array(
+      z.object({
+        name: z.string().nonempty(),
+        total: z.number().nonnegative(),
+        percentage: z.number().min(1).max(100),
+        indicator: z.string(),
+      }),
+    ),
+    birthday: z.array(
+      z.object({
+        name: z.string().nonempty(),
+        profilePicture: z.string().nonempty(),
+        position: z.enum([
+          "front",
+          "backend",
+          "design",
+          "fullStack",
+          "data",
+          "c++",
+          "php",
+          "django",
+          "project",
+          "devOps",
+          "cloud",
+        ]),
+        year: z.number().min(18),
+      }),
+    ),
+    activity: z.array(
+      z.object({
+        time: z.string().regex(/^([0-1]\d|2[0-3]):([0-5]\d)$/),
+        location: z.enum([
+          "roomA",
+          "roomB",
+          "roomC",
+          "online",
+          "training",
+          "outdoor",
+        ]),
+        event: z.string().nonempty(),
+      }),
+    ),
+  }),
 });
 
 type FetchOverviewReturn = z.infer<typeof overviewSchema>;

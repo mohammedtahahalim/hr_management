@@ -1,8 +1,7 @@
-import { styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import type { RecentJobs } from "./recentSlice";
 import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../config/i18n";
-import LanguageIcon from "@mui/icons-material/Language";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Graph from "../../../shared/ui/Graph";
 
@@ -20,12 +19,15 @@ const Col = styled("td")(({ theme }) => ({
   fontStyle: "italic",
   fontFamily: "system-ui",
   verticalAlign: "middle",
+  textAlign: "center",
   "&:nth-of-type(2)": {
     display: "flex",
     gap: "2px",
     alignItems: "center",
+    justifyContent: "center",
     height: "100%",
     minHeight: "45px",
+    margin: "0 auto",
   },
   [theme.breakpoints.down("md")]: {
     "&:nth-of-type(2)": {
@@ -33,6 +35,11 @@ const Col = styled("td")(({ theme }) => ({
     },
   },
 }));
+
+const GraphBox = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+});
 
 export default function JobRow({
   jobTitle,
@@ -46,16 +53,14 @@ export default function JobRow({
     <JobRowWrapper>
       <Col>{jobTitle[i18n.language as TLanguage]}</Col>
       <Col>
-        {location === "R" ? (
-          <LanguageIcon fontSize="small" color="warning" />
-        ) : (
-          <LocationOnIcon fontSize="small" color="success" />
-        )}
-        {location === "R" ? t("recent.remote") : location}
+        <LocationOnIcon fontSize="small" color="success" />{" "}
+        {t(`recent.locations.${location}`)}
       </Col>
       <Col>{totalApps}</Col>
       <Col>
-        <Graph trend={trend} />
+        <GraphBox>
+          <Graph trend={trend} />
+        </GraphBox>
       </Col>
     </JobRowWrapper>
   );

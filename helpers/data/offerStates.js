@@ -1,0 +1,1 @@
+export const OFFER_STATES = ["OFFER", "SHORTLIST", "REJECT", "PENDING"];

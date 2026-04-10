@@ -1,43 +1,38 @@
 import {
   createAsyncThunk,
+  createSelector,
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import z from "zod";
-import type { TLanguage } from "../../config/i18n";
-
-type Status = "idle" | "loading" | "failure" | "succeeded";
-
-export type NError =
-  | "SYSTEM"
-  | "NETWORK"
-  | "DOWN"
-  | "FORBIDDEN"
-  | "UNAUTHENTICATED"
-  | "";
+import type { Reject, Status } from "../../shared/lib/types";
+import type { RootState } from "../../config/store";
 
 const notificationSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  read: z.boolean(),
-  readAt: z.string().or(z.null()),
+  data: z.array(
+    z.object({
+      id: z.number(),
+      title: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string()),
+      read: z.boolean(),
+      readAt: z.string().or(z.null()),
+    }),
+  ),
 });
 
-export type NotificationItem = z.infer<typeof notificationSchema>;
+export type NotificationBackend = z.infer<typeof notificationSchema>;
 
-export type NotificationSample = Record<TLanguage, NotificationItem[]>;
+export type NotificationData = NotificationBackend["data"][number];
 
 interface NotificationState {
   status: Status;
-  error: NError;
-  unreadCount: number;
-  notifications: NotificationSample | null;
+  error: Reject | null;
+  data: NotificationData[];
 }
 
 export const fetchNotifications = createAsyncThunk<
-  NotificationSample,
+  NotificationData[],
   void,
-  { rejectValue: NError }
+  { rejectValue: Reject }
 >("notifications/thunk", async (_, { rejectWithValue, signal }) => {
   try {
     const fullURL: string = `${import.meta.env.VITE_API_URL}/api/notifications`;
@@ -47,68 +42,46 @@ export const fetchNotifications = createAsyncThunk<
       signal,
     };
     const response = await fetch(fullURL, fullOptions);
-    if (!response.ok) throw new Error(response.status.toString());
-    const data = await response.json();
-    const { notifications } = data;
-    const derivedNotifications = Object.entries(notifications).reduce(
-      (acc: NotificationSample, val: [string, unknown]) => {
-        const [language, sample] = [
-          val[0] as TLanguage,
-          val[1] as NotificationItem[],
-        ];
-        acc[language] = sample.filter(
-          (n) => notificationSchema.safeParse(n).success,
-        );
-        return acc;
-      },
-      {} as NotificationSample,
-    );
-    return derivedNotifications as NotificationSample;
+    if (!response.ok) {
+      if (response.status === 401) return rejectWithValue("UNAUTHENTICATED");
+      if (response.status === 403) return rejectWithValue("FORBIDDEN");
+      if (response.status >= 500) return rejectWithValue("BAD");
+      return rejectWithValue("SYSTEM");
+    }
+    const dataFromBackend = await response.json();
+    const isValidData = notificationSchema.safeParse(dataFromBackend);
+    if (!isValidData.success) return rejectWithValue("MISMATCH");
+    const { data } = isValidData.data;
+    return data;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") {
-      return rejectWithValue("NETWORK");
-    }
-    if (err instanceof Error) {
-      if (err.message === "401") return rejectWithValue("UNAUTHENTICATED");
-      if (err.message === "403") return rejectWithValue("FORBIDDEN");
-      if (err.message === "522") return rejectWithValue("DOWN");
+      return rejectWithValue("ABORT");
     }
     return rejectWithValue("SYSTEM");
   }
 });
 
-export const fetchNotificationsUnreadCount = createAsyncThunk<
-  number,
-  void,
-  { rejectValue: string }
->("unreadCount/thunk", async (_, { signal, rejectWithValue }) => {
-  try {
-    const fullURL: string = `${import.meta.env.VITE_API_URL}/api/notifications?unread=true`;
-    const fullOptions: RequestInit = {
-      method: "GET",
-      credentials: "include",
-      signal,
-    };
-    const response = await fetch(fullURL, fullOptions);
-    if (!response.ok) throw new Error(response.status.toString());
-    const data = await response.json();
-    const { unreadCount } = data;
-    return unreadCount as number;
-  } catch (err) {
-    console.log(err);
-    if (err instanceof Error) {
-      return rejectWithValue(err.message);
-    }
-    return rejectWithValue("UNKNOWN");
-  }
-});
-
 const initialState: NotificationState = {
   status: "idle",
-  error: "",
-  unreadCount: 0,
-  notifications: null,
+  error: null,
+  data: [],
 };
+
+export const selectNotificationStatus = (state: RootState) =>
+  state.notifications.status;
+
+export const selectNotificationError = (state: RootState) =>
+  state.notifications.error;
+
+export const selectNotifications = (state: RootState) =>
+  state.notifications.data;
+
+export const selectNotificationUnread = createSelector(
+  [selectNotifications],
+  (notifications) => {
+    return notifications.filter((n) => n.read).length;
+  },
+);
 
 const notificationSlice = createSlice({
   name: "notifications",
@@ -118,26 +91,20 @@ const notificationSlice = createSlice({
     builder
       .addCase(fetchNotifications.pending, (state) => {
         state.status = "loading";
-        state.error = "";
+        state.error = null;
       })
       .addCase(
         fetchNotifications.rejected,
-        (state, action: PayloadAction<NError | undefined>) => {
+        (state, action: PayloadAction<Reject | undefined>) => {
           state.status = "failure";
           state.error = action.payload ?? "SYSTEM";
         },
       )
       .addCase(
         fetchNotifications.fulfilled,
-        (state, action: PayloadAction<NotificationSample>) => {
-          state.status = "succeeded";
-          state.notifications = action.payload;
-        },
-      )
-      .addCase(
-        fetchNotificationsUnreadCount.fulfilled,
-        (state, action: PayloadAction<number>) => {
-          state.unreadCount = action.payload;
+        (state, action: PayloadAction<NotificationData[]>) => {
+          state.status = "success";
+          state.data = action.payload;
         },
       ),
 });

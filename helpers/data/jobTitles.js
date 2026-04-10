@@ -1,0 +1,80 @@
+export const JOB_TITLES = [
+  {
+    en: "UX Designer",
+    ja: "UXデザイナー",
+    ar: "مصمم تجربة",
+    fr: "Concepteur UX",
+  },
+  {
+    en: "iOS App Developer",
+    ja: "iOS開発者",
+    ar: "مطور iOS",
+    fr: "Développeur iOS",
+  },
+  {
+    en: "Network Administrator",
+    ja: "ネットワーク管理者",
+    ar: "مسؤول الشبكة",
+    fr: "Administrateur réseau",
+  },
+  {
+    en: "React Developer",
+    ja: "React開発者",
+    ar: "مطور React",
+    fr: "Développeur React",
+  },
+  {
+    en: "Node Developer",
+    ja: "ノード開発者",
+    ar: "مطور Node",
+    fr: "Développeur Node",
+  },
+  {
+    en: "Graphic Designer",
+    ja: "グラフィックデザイナー",
+    ar: "مصمم جرافيك",
+    fr: "graphiste",
+  },
+  {
+    en: "Python Developer",
+    ja: "Python開発者",
+    ar: "مطور بايثون",
+    fr: "Développeur Python",
+  },
+  {
+    en: "Frontend Developer",
+    ja: "フロントエンド開発者",
+    ar: "مطور واجهات",
+    fr: "Développeur Frontend",
+  },
+  {
+    en: "Backend Engineer",
+    ja: "バックエンドエンジニア",
+    ar: "مهندس خلفية",
+    fr: "Ingénieur Backend",
+  },
+  {
+    en: "DevOps Engineer",
+    ja: "DevOpsエンジニア",
+    ar: "مهندس ديف أوبس",
+    fr: "Ingénieur DevOps",
+  },
+  {
+    en: "Data Analyst",
+    ja: "データアナリスト",
+    ar: "محلل بيانات",
+    fr: "Analyste de données",
+  },
+  {
+    en: "UI/UX Designer",
+    ja: "UI/UXデザイナー",
+    ar: "مصمم واجهات",
+    fr: "Designer UI/UX",
+  },
+  {
+    en: "Mobile Developer",
+    ja: "モバイル開発者",
+    ar: "مطور الهاتف",
+    fr: "Développeur Mobile",
+  },
+];

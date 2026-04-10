@@ -51,7 +51,7 @@ const HeadRow = styled("tr", {
   minHeight: "32px",
   position: "sticky",
   top: 0,
-  "&>td": {
+  "&>th": {
     position: "sticky",
     top: 0,
     padding: "10px 12px",
@@ -105,10 +105,10 @@ export default function Recent() {
             <Content>
               <thead>
                 <HeadRow isArabic={isArabic}>
-                  <Col>{t("recent.jobTitle")}</Col>
-                  <Col>{t("recent.location")}</Col>
-                  <Col>{t("recent.appNum")}</Col>
-                  <Col>{t("recent.chart")}</Col>
+                  <Col scope="col">{t("recent.jobTitle")}</Col>
+                  <Col scope="col">{t("recent.location")}</Col>
+                  <Col scope="col">{t("recent.appNum")}</Col>
+                  <Col scope="col">{t("recent.chart")}</Col>
                 </HeadRow>
               </thead>
               <tbody>
