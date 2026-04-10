@@ -12,11 +12,12 @@
     "success": "Success"
   },
   "notifications": {
-    "NETWORK": "Unable to load notifications. Please check your connection and try again.",
+    "ABORT": "Unable to load notifications. Please check your connection and try again.",
     "SYSTEM": "Something went wrong while loading your notifications.",
     "DOWN": "Notifications are temporarily unavailable.",
     "EMPTY": "You're all caught up.",
     "UNAUTHENTICATED": "You must be signed in to access notifications.",
-    "FORBIDDEN": "You do not have access to this resource."
+    "FORBIDDEN": "You do not have access to this resource.",
+    "empty": "All caught up! No new notifications 🎉"
   }
 }

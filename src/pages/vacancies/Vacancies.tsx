@@ -4,14 +4,13 @@ import Table from "./table/Table";
 import Control from "./table/Control";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../config/store";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useCallback, useEffect } from "react";
 import {
   fetchVacancies,
   selectVacancieStatus,
   selectVacancieViewType,
   selectVacanieError,
-  type Filters as TFilters,
 } from "./vacancieSlice";
 import Cards from "./table/Cards";
 import Reload from "../../shared/ui/Reload";
@@ -71,7 +70,7 @@ const Content = styled(Box)({
 });
 
 export default function Vacancies() {
-  const { search } = useLocation();
+  const [searchParams, _] = useSearchParams();
   const dispatch = useDispatch<AppDispatch>();
   const status = useSelector(selectVacancieStatus);
   const error = useSelector(selectVacanieError);
@@ -80,24 +79,22 @@ export default function Vacancies() {
   const isList = viewType === "list";
 
   const handleRetry = useCallback(() => {
-    const urlSearchParams = new URLSearchParams(search);
-    const page = urlSearchParams.get("page") ?? "1";
-    const filter = (urlSearchParams.get("filter") ?? "all") as TFilters;
-    const vacanciesRequest = dispatch(fetchVacancies({ page, filter }));
+    const vacanciesRequest = dispatch(
+      fetchVacancies({ queries: searchParams.toString() }),
+    );
     return () => {
       vacanciesRequest.abort();
     };
-  }, [search, dispatch]);
+  }, [searchParams, dispatch]);
 
   useEffect(() => {
-    const urlSearchParams = new URLSearchParams(search);
-    const page = urlSearchParams.get("page") ?? "1";
-    const filter = (urlSearchParams.get("filter") ?? "all") as TFilters;
-    const vacanciesRequest = dispatch(fetchVacancies({ page, filter }));
+    const vacanciesRequest = dispatch(
+      fetchVacancies({ queries: searchParams.toString() }),
+    );
     return () => {
       vacanciesRequest.abort();
     };
-  }, [search, dispatch]);
+  }, [searchParams, dispatch]);
 
   return (
     <VacanciesWrapper>

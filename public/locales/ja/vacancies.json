@@ -64,8 +64,8 @@
       "data": [
         { "key": "all", "value": "勤務地不問" },
         { "key": "us", "value": "アメリカ合衆国" },
-        { "key": "jp", "value": "日本" },
-        { "key": "ar", "value": "モロッコ" },
+        { "key": "ja", "value": "日本" },
+        { "key": "ma", "value": "モロッコ" },
         { "key": "fr", "value": "フランス" },
         { "key": "uk", "value": "イギリス" }
       ]

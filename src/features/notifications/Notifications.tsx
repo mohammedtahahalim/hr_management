@@ -1,12 +1,17 @@
 import { Box, styled, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import type { RootState } from "../../config/store";
 import { LinearProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useContext } from "react";
 import { ThemeContext } from "../themes/ThemeContext";
 import type { TLanguage } from "../../config/i18n";
+import {
+  selectNotificationError,
+  selectNotifications,
+  selectNotificationStatus,
+  selectNotificationUnread,
+} from "./notificationSlice";
 
 const NotificatioWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -80,16 +85,21 @@ const Failure = styled(Typography)({
   minWidth: "250px",
 });
 
-export default function Notifications() {
-  const { status, notifications, error } = useSelector(
-    (state: RootState) => state.notifications,
-  );
-  const { t, i18n } = useTranslation();
-  const { currentTheme } = useContext(ThemeContext);
+const Empty = styled(Typography)({
+  padding: "10px 20px",
+  fontFamily: "system-ui",
+  fontStyle: "italic",
+  minWidth: "250px",
+});
 
-  const langNotifitcations = notifications
-    ? (notifications[i18n.language as TLanguage] ?? [])
-    : [];
+export default function Notifications() {
+  const { t, i18n } = useTranslation("");
+  const lang = i18n.language as TLanguage;
+  const status = useSelector(selectNotificationStatus);
+  const error = useSelector(selectNotificationError);
+  const notifications = useSelector(selectNotifications);
+  const unread = useSelector(selectNotificationUnread);
+  const { currentTheme } = useContext(ThemeContext);
 
   return (
     <NotificatioWrapper>
@@ -101,9 +111,8 @@ export default function Notifications() {
       {status === "failure" && (
         <Failure variant="body1">{t(`notifications.${error}`)}</Failure>
       )}
-      {status === "succeeded" &&
-        notifications &&
-        langNotifitcations.map((n) => {
+      {status === "success" &&
+        notifications.map((n) => {
           return (
             <NotificationNavElement
               to={`/notifications/${n.id}`}
@@ -111,12 +120,12 @@ export default function Notifications() {
               isRead={n.read}
               isLight={currentTheme === "light"}
             >
-              <NotificationText>{n.title}</NotificationText>
+              <NotificationText>{n.title[lang]}</NotificationText>
             </NotificationNavElement>
           );
         })}
-      {status === "succeeded" && langNotifitcations.length === 0 && (
-        <div>nothing to show</div>
+      {status === "success" && unread === 0 && (
+        <Empty variant="body1">{t("notifications.empty")}</Empty>
       )}
     </NotificatioWrapper>
   );

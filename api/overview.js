@@ -1,7 +1,5 @@
 export default async function handler(req, res) {
-  // TODO: unify all non get request
   try {
-    return res.status(403).json({ message: "Forbidden" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Internal Server Error ..." });

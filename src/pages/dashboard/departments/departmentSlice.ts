@@ -17,7 +17,7 @@ export const departmentSchema = z.object({
     "data",
     "hr",
   ]),
-  data: z.array(z.string()),
+  pictures: z.array(z.string()),
   newApps: z.number().nonnegative(),
 });
 

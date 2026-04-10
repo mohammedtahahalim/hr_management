@@ -36,8 +36,7 @@ interface VacancieState {
 export type Filters = VacancieData["status"] | "all";
 
 interface FetchProps {
-  page: string;
-  filter: Filters;
+  queries: string;
 }
 
 type FetchReturns = z.infer<typeof fetchReturnSchema>;
@@ -50,11 +49,9 @@ export const fetchVacancies = createAsyncThunk<
   { rejectValue: Reject }
 >("fetch/vacancies", async (_args, { signal, rejectWithValue }) => {
   try {
-    const { page, filter } = _args;
+    const { queries } = _args;
     const base = import.meta.env.VITE_API_URL;
-    const fullURL: URL = new URL("/api/vacancies", base);
-    fullURL.searchParams.set("page", page);
-    fullURL.searchParams.set("filter", filter);
+    const fullURL: URL = new URL(`/api/vacancies?${queries}`, base);
     const fullOptions: RequestInit = {
       method: "GET",
       signal,

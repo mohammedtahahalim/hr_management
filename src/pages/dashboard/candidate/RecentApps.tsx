@@ -85,7 +85,8 @@ const Offer = styled(Box, {
 
 const RecentApps = memo(() => {
   const data = useSelector(selectAllCandidates);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation("dashboard");
+  const lang = i18n.language as TLanguage;
 
   return (
     <RecentWrapper>
@@ -105,11 +106,11 @@ const RecentApps = memo(() => {
                   loading="lazy"
                 />
                 <Name variant="body1" id="applicant-name">
-                  {c.name}
+                  {c.name[lang]}
                 </Name>
               </Profile>
               <Position variant="body1" id="applied-position">
-                {c.position[i18n.language as keyof typeof c.position]}
+                {t(`candidate.position.${c.position}`)}
               </Position>
               <Offer
                 isColor={offerColors(c.offerState)}

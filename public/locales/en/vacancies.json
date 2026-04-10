@@ -64,8 +64,8 @@
       "data": [
         { "key": "all", "value": "Any Location" },
         { "key": "us", "value": "United States" },
-        { "key": "jp", "value": "Japan" },
-        { "key": "ar", "value": "Morocco" },
+        { "key": "ja", "value": "Japan" },
+        { "key": "ma", "value": "Morocco" },
         { "key": "fr", "value": "France" },
         { "key": "uk", "value": "United Kingdom" }
       ]

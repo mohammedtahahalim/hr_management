@@ -96,7 +96,7 @@ export default function Line({
       onKeyDown={(e) => handleKeyClick(e, id)}
     >
       <Cell>{title[lang]}</Cell>
-      <Cell>{location === "R" ? t("dashboard:recent.remote") : location}</Cell>
+      <Cell>{t(`dashboard:recent.locations.${location}`)}</Cell>
       <Cell>{applicants}</Cell>
       <Cell>
         <StatusWrapper posColor={positionColor[status]}>

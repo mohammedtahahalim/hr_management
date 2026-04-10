@@ -1,0 +1,145 @@
+export const RECENT_JOBS = [
+  {
+    id: 1,
+    jobTitle: {
+      en: "UX Designer",
+      ja: "UXデザイナー",
+      ar: "مصمم تجربة",
+      fr: "Concepteur UX",
+    },
+    location: "DT",
+    totalApps: 122,
+  },
+  {
+    id: 2,
+    jobTitle: {
+      en: "iOS App Developer",
+      ja: "iOS開発者",
+      ar: "مطور iOS",
+      fr: "Développeur iOS",
+    },
+    location: "R",
+    totalApps: 34,
+  },
+  {
+    id: 3,
+    jobTitle: {
+      en: "Network Administrator",
+      ja: "ネットワーク管理者",
+      ar: "مسؤول الشبكة",
+      fr: "Administrateur réseau",
+    },
+    location: "PH",
+    totalApps: 45,
+  },
+  {
+    id: 4,
+    jobTitle: {
+      en: "React Developer",
+      ja: "React開発者",
+      ar: "مطور React",
+      fr: "Développeur React",
+    },
+    location: "R",
+    totalApps: 57,
+  },
+  {
+    id: 5,
+    jobTitle: {
+      en: "Node Developer",
+      ja: "ノード開発者",
+      ar: "مطور Node",
+      fr: "Développeur Node",
+    },
+    location: "JP",
+    totalApps: 38,
+  },
+  {
+    id: 6,
+    jobTitle: {
+      en: "Graphic Designer",
+      ja: "グラフィックデザイナー",
+      ar: "مصمم جرافيك",
+      fr: "graphiste",
+    },
+    location: "GB",
+    totalApps: 74,
+  },
+  {
+    id: 7,
+    jobTitle: {
+      en: "Python Developer",
+      ja: "Python開発者",
+      ar: "مطور بايثون",
+      fr: "Développeur Python",
+    },
+    location: "R",
+    totalApps: 44,
+  },
+  {
+    id: 8,
+    jobTitle: {
+      en: "Frontend Developer",
+      ja: "フロントエンド開発者",
+      ar: "مطور واجهات",
+      fr: "Développeur Frontend",
+    },
+    location: "H",
+    totalApps: 52,
+  },
+  {
+    id: 9,
+    jobTitle: {
+      en: "Backend Engineer",
+      ja: "バックエンドエンジニア",
+      ar: "مهندس خلفية",
+      fr: "Ingénieur Backend",
+    },
+    location: "R",
+    totalApps: 38,
+  },
+  {
+    id: 10,
+    jobTitle: {
+      en: "DevOps Engineer",
+      ja: "DevOpsエンジニア",
+      ar: "مهندس ديف أوبس",
+      fr: "Ingénieur DevOps",
+    },
+    location: "H",
+    totalApps: 27,
+  },
+  {
+    id: 11,
+    jobTitle: {
+      en: "Data Analyst",
+      ja: "データアナリスト",
+      ar: "محلل بيانات",
+      fr: "Analyste de données",
+    },
+    location: "R",
+    totalApps: 31,
+  },
+  {
+    id: 12,
+    jobTitle: {
+      en: "UI/UX Designer",
+      ja: "UI/UXデザイナー",
+      ar: "مصمم واجهات",
+      fr: "Designer UI/UX",
+    },
+    location: "H",
+    totalApps: 19,
+  },
+  {
+    id: 13,
+    jobTitle: {
+      en: "Mobile Developer",
+      ja: "モバイル開発者",
+      ar: "مطور الهاتف",
+      fr: "Développeur Mobile",
+    },
+    location: "R",
+    totalApps: 23,
+  },
+];

@@ -6,6 +6,19 @@
       "total": "Open",
       "shortlisted": "Shortlisted",
       "rejected": "rejected"
+    },
+    "position": {
+      "backend": "Backend Engineer",
+      "devOps": "DevOps Engineer",
+      "fullStack": "FullStack Engineer",
+      "django": "Django Developer",
+      "cloud": "Cloud Engineer",
+      "c++": "C++ Developer",
+      "front": "Frontend Engineer",
+      "php": "PHP Developer",
+      "data": "Data Analyst",
+      "design": "UI/UX Designer",
+      "project": "Project Manager"
     }
   },
   "departments": {
@@ -33,7 +46,15 @@
     "location": "Location",
     "appNum": "Applications",
     "chart": "Chart",
-    "remote": "Remote"
+    "remote": "Remote",
+    "locations": {
+      "us": "US",
+      "fr": "FR",
+      "ma": "MA",
+      "uk": "UK",
+      "sp": "SP",
+      "ja": "JA"
+    }
   },
   "activity": {
     "title": "News & Events"

@@ -9,24 +9,28 @@ import { extractCurrentWeek } from "../../../shared/lib/helpers";
 import type { RootState } from "../../../config/store";
 
 const distributionSchema = z.object({
-  total: z.number().nonnegative(),
-  distributions: z.array(
-    z.object({
-      deptName: z.enum([
-        "development",
-        "sales",
-        "management",
-        "analytics",
-        "finance",
-        "data",
-        "hr",
-      ]),
-      percentage: z.number().nonnegative().max(100),
-    }),
-  ),
+  data: z.object({
+    total: z.number().nonnegative(),
+    distributions: z.array(
+      z.object({
+        deptName: z.enum([
+          "development",
+          "sales",
+          "management",
+          "analytics",
+          "finance",
+          "data",
+          "hr",
+        ]),
+        percentage: z.number().nonnegative().max(100),
+      }),
+    ),
+  }),
 });
 
-export type DistrubtionData = z.infer<typeof distributionSchema>;
+export type DistributionBackend = z.infer<typeof distributionSchema>;
+
+export type DistrubtionData = DistributionBackend["data"];
 
 interface DistributionState {
   status: Status;
@@ -58,17 +62,11 @@ export const fetchDistributions = createAsyncThunk<
     if (response.status === 401) return rejectWithValue("UNAUTHENTICATED");
     if (response.status === 403) return rejectWithValue("FORBIDDEN");
     if (response.status >= 500) return rejectWithValue("DOWN");
-    const dataFromServer = (await response.json()) as unknown;
-    if (
-      !dataFromServer ||
-      typeof dataFromServer !== "object" ||
-      !("data" in dataFromServer)
-    )
-      return rejectWithValue("MISMATCH");
-    const { data } = dataFromServer;
-    const isValidData = distributionSchema.safeParse(data).success;
-    if (!isValidData) return rejectWithValue("MISMATCH");
-    return data as DistrubtionData;
+    const dataFromServer = await response.json();
+    const isValidData = distributionSchema.safeParse(dataFromServer);
+    if (!isValidData.success) return rejectWithValue("MISMATCH");
+    const { data } = isValidData.data;
+    return data;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError")
       return rejectWithValue("ABORT");

@@ -6,6 +6,19 @@
       "total": "ouvert",
       "shortlisted": "présélectionné",
       "rejected": "rejetée"
+    },
+    "position": {
+      "backend": "Ingénieur Backend",
+      "devOps": "Ingénieur DevOps",
+      "fullStack": "Ingénieur Full Stack",
+      "django": "Développeur Django",
+      "cloud": "Ingénieur Cloud",
+      "c++": "Développeur C++",
+      "front": "Ingénieur Frontend",
+      "php": "Développeur PHP",
+      "data": "Analyste de données",
+      "design": "Designer UI/UX",
+      "project": "Chef de projet"
     }
   },
   "departments": {
@@ -33,7 +46,15 @@
     "location": "Emplacement",
     "appNum": "Applications",
     "chart": "Carte",
-    "remote": "télé"
+    "remote": "télé",
+    "locations": {
+      "us": "États",
+      "fr": "France",
+      "ma": "Maroc",
+      "uk": "Royaume",
+      "sp": "Espagne",
+      "ja": "Japon"
+    }
   },
   "activity": {
     "title": "Actualités et événements"

@@ -1,11 +1,11 @@
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Box, styled } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../../config/store";
-import { useEffect, useRef } from "react";
+import type { AppDispatch } from "../../config/store";
+import { useEffect } from "react";
 import {
   fetchNotifications,
-  fetchNotificationsUnreadCount,
+  selectNotificationUnread,
 } from "./notificationSlice";
 
 const NotificationsWrapper = styled(Box)(({ theme }) => ({
@@ -38,28 +38,20 @@ const UnReadCount = styled(Box)(({ theme }) => ({
 }));
 
 export default function NotificationsTrigger() {
-  const { unreadCount } = useSelector(
-    (state: RootState) => state.notifications,
-  );
+  const unread = useSelector(selectNotificationUnread);
   const dispatch = useDispatch<AppDispatch>();
-  const hasFetched = useRef<boolean>(false);
 
   useEffect(() => {
-    dispatch(fetchNotificationsUnreadCount());
+    const notificationRequest = dispatch(fetchNotifications());
+    return () => {
+      notificationRequest.abort();
+    };
   }, [dispatch]);
 
   return (
     <NotificationsWrapper tabIndex={0}>
-      {unreadCount !== 0 && <UnReadCount>{unreadCount}</UnReadCount>}
-      <NotificationsIcon
-        fontSize="medium"
-        color="inherit"
-        onClick={() => {
-          if (hasFetched.current) return;
-          dispatch(fetchNotifications());
-          hasFetched.current = true;
-        }}
-      />
+      {unread !== 0 && <UnReadCount>{unread}</UnReadCount>}
+      <NotificationsIcon fontSize="medium" color="inherit" />
     </NotificationsWrapper>
   );
 }

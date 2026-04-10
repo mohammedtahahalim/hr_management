@@ -1,11 +1,12 @@
 import auth from "../helpers/auth.js";
+import { ALLOWED_QUERIES } from "../helpers/constants.js";
 import {
-  allowedQueries,
   generateCandidates,
   generateDepartments,
   generateDistributions,
-} from "../helpers/constants.js";
-import { activities, collections, recentJobs } from "../helpers/sample.js";
+  generateRecentJobs,
+  generateDashboardActivities,
+} from "../helpers/helpers.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET")
@@ -16,20 +17,20 @@ export default async function handler(req, res) {
       return;
     }
     const { block, ...rest } = req.query;
-    if (!allowedQueries["dashboard"].includes(block))
+    if (!ALLOWED_QUERIES["dashboard"].includes(block))
       return res.status(400).json({ message: "Bad format ..." });
     switch (block) {
       case "candidate":
-        return res.status(200).json({ candidates: generateCandidates() });
+        return res.status(200).json({ data: generateCandidates() });
       case "departments":
         return res.status(200).json({ data: generateDepartments() });
       case "distribution":
         const { week } = rest;
         return res.status(200).json({ data: generateDistributions() });
       case "recent":
-        return res.status(200).json({ data: recentJobs });
+        return res.status(200).json({ data: generateRecentJobs() });
       case "activity":
-        return res.status(200).json({ data: activities });
+        return res.status(200).json({ data: generateDashboardActivities() });
       default:
         return res.status(400).json({ message: "Bad format ..." });
     }

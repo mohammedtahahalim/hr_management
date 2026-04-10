@@ -48,26 +48,15 @@ const ProfileSnippet = styled(Box)({
 });
 
 const Profile = styled(Box, {
-  shouldForwardProp: (prop) => prop !== "isArabic",
-})<{ isArabic: boolean }>(({ isArabic }) => ({
+  shouldForwardProp: (prop) => prop !== "isArabic" && prop !== "index",
+})<{ isArabic: boolean; index: number }>(({ isArabic, index }) => ({
   height: "35px",
   aspectRatio: "1",
   borderRadius: "50%",
-  zIndex: 4,
   backgroundColor: "#d8d8d8",
   overflow: "hidden",
-  "&:first-of-type": {
-    translate: `${isArabic ? "-" : ""}150% 0%`,
-    zIndex: 1,
-  },
-  "&:nth-of-type(2)": {
-    translate: `${isArabic ? "-" : ""}100% 0%`,
-    zIndex: 2,
-  },
-  "&:nth-of-type(3)": {
-    translate: `${isArabic ? "-" : ""}50% 0%`,
-    zIndex: 3,
-  },
+  translate: `${isArabic ? "-" : ""}${(index - 1) * 40}% 0%`,
+  zIndex: index,
 }));
 
 const Image = styled("img")({
@@ -88,7 +77,7 @@ const New = styled(Box)(({ theme }) => ({
 
 export default function Line(props: DepartmentData) {
   const { t, i18n } = useTranslation("dashboard");
-  const { data, departmentName, newApps } = props;
+  const { pictures, departmentName, newApps } = props;
   const isArabic = i18n.language === "ar";
 
   return (
@@ -102,9 +91,13 @@ export default function Line(props: DepartmentData) {
       </Title>
       <Applications>
         <ProfileSnippet>
-          {data.map((p, idx) => {
+          {pictures.map((p, idx) => {
             return (
-              <Profile key={`${p}.${idx}`} isArabic={isArabic}>
+              <Profile
+                key={`${p}.${idx}`}
+                isArabic={isArabic}
+                index={pictures.length - idx}
+              >
                 <Image src={p} />
               </Profile>
             );
