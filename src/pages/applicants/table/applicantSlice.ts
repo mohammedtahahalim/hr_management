@@ -11,13 +11,13 @@ import type { RootState } from "../../../config/store";
 export type Sorters = "name" | "pos" | "date" | "status" | "contact" | "rating";
 
 const applicantSchema = z.object({
-  page: z.number().nonnegative(),
-  pageSize: z.number().nonnegative(),
-  lastPage: z.number().nonnegative(),
+  page: z.number().min(1),
+  lastPage: z.number().min(1),
+  pageSize: z.number().min(8),
   data: z.array(
     z.object({
       id: z.number().nonnegative(),
-      name: z.string().min(2).max(25),
+      name: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string().nonempty()),
       position: z.enum([
         "front",
         "backend",
@@ -31,7 +31,7 @@ const applicantSchema = z.object({
         "devOps",
         "cloud",
       ]),
-      date: z.string().datetime(),
+      date: z.iso.datetime(),
       status: z.number().min(1).max(6),
       email: z.string(),
       rating: z.number().min(0).max(5),
@@ -39,12 +39,14 @@ const applicantSchema = z.object({
   ),
 });
 
-type ApplicantData = z.infer<typeof applicantSchema>;
+type ApplicantBackend = z.infer<typeof applicantSchema>;
 
-export type ApplicantDataSample = ApplicantData["data"][number];
+export type ApplicantData = ApplicantBackend["data"][number];
+
+type FetchApplicantsReturn = Pick<ApplicantBackend, "data" | "lastPage">;
 
 export const fetchApplicants = createAsyncThunk<
-  ApplicantData,
+  FetchApplicantsReturn,
   Record<string, number | string>,
   { rejectValue: Reject }
 >("fetchApplicants", async (_args, { signal, rejectWithValue }) => {
@@ -67,9 +69,10 @@ export const fetchApplicants = createAsyncThunk<
       return rejectWithValue("SYSTEM");
     }
     const dataFromServer = (await response.json()) as unknown;
-    const isValid = applicantSchema.safeParse(dataFromServer);
-    if (!isValid) return rejectWithValue("MISMATCH");
-    return isValid.data as ApplicantData;
+    const isValidData = applicantSchema.safeParse(dataFromServer);
+    if (!isValidData.success) return rejectWithValue("MISMATCH");
+    const { data, lastPage } = isValidData.data;
+    return { data, lastPage };
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError")
       return rejectWithValue("ABORT");
@@ -80,7 +83,8 @@ export const fetchApplicants = createAsyncThunk<
 type ApplicantState = {
   status: Status;
   error: Reject | null;
-  data: ApplicantData | null;
+  lastPage: number;
+  data: ApplicantData[];
   sortBy: Sorters | null;
   sortOrder: "asc" | "desc" | null;
 };
@@ -88,7 +92,8 @@ type ApplicantState = {
 const initialState: ApplicantState = {
   status: "idle",
   error: null,
-  data: null,
+  data: [],
+  lastPage: 1,
   sortBy: null,
   sortOrder: null,
 };
@@ -100,10 +105,10 @@ export const selectApplicantError = (state: RootState) =>
   state.applicants.applicants.error;
 
 export const selectApplicantLastPage = (state: RootState) =>
-  state.applicants.applicants.data?.lastPage;
+  state.applicants.applicants.lastPage;
 
 export const selectApplicantData = (state: RootState) =>
-  state.applicants.applicants.data?.data;
+  state.applicants.applicants.data;
 
 export const selectApplicantSortBy = (state: RootState) =>
   state.applicants.applicants.sortBy;
@@ -111,17 +116,15 @@ export const selectApplicantSortBy = (state: RootState) =>
 export const selectApplicantSortOrder = (state: RootState) =>
   state.applicants.applicants.sortOrder;
 
-const sorters: Record<
-  Sorters,
-  (a: ApplicantDataSample, b: ApplicantDataSample) => number
-> = {
-  name: (a, b) => a.name.localeCompare(b.name),
-  pos: (a, b) => a.position.localeCompare(b.position),
-  date: (a, b) => a.date.localeCompare(b.date),
-  status: (a, b) => a.status - b.status,
-  contact: (a, b) => a.email.localeCompare(b.email),
-  rating: (a, b) => a.rating - b.rating,
-};
+const sorters: Record<Sorters, (a: ApplicantData, b: ApplicantData) => number> =
+  {
+    name: (a, b) => a.name["en"].localeCompare(b.name["en"]),
+    pos: (a, b) => a.position.localeCompare(b.position),
+    date: (a, b) => a.date.localeCompare(b.date),
+    status: (a, b) => a.status - b.status,
+    contact: (a, b) => a.email.localeCompare(b.email),
+    rating: (a, b) => a.rating - b.rating,
+  };
 
 export const selectDisplayData = createSelector(
   [selectApplicantData, selectApplicantSortBy, selectApplicantSortOrder],
@@ -169,9 +172,11 @@ const applicantSlice = createSlice({
       )
       .addCase(
         fetchApplicants.fulfilled,
-        (state, action: PayloadAction<ApplicantData>) => {
+        (state, action: PayloadAction<FetchApplicantsReturn>) => {
+          const { data, lastPage } = action.payload;
           state.status = "success";
-          state.data = action.payload;
+          state.data = data;
+          state.lastPage = lastPage;
         },
       ),
 });
