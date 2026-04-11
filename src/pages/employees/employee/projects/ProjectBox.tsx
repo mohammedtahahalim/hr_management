@@ -103,7 +103,6 @@ const ProgressBar = styled(Box, {
 export default function ProjectBox({ p }: ProjectProps) {
   const { t, i18n } = useTranslation("employee");
   const lang = i18n.language as TLanguage;
-  console.log(p);
   return (
     <Project>
       <Title variant="body2">{p[lang].projTitle}</Title>

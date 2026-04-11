@@ -32,6 +32,7 @@ export default function Logout() {
   const controller = useRef<AbortController | null>(new AbortController());
   const { t } = useTranslation("login");
 
+  // TODO: refactor
   const handleLogout = async () => {
     setSubmitStatus("submitting");
     try {

@@ -77,7 +77,6 @@ export const getLast7DaysISO = (): string[] => {
 export const YAxis = (trend: number[] | undefined) => {
   let min = Math.min(...(trend ?? []));
   const max = Math.max(...(trend ?? []));
-  console.log(min, max);
   for (let i = 0; i < 10; i++) {
     if ((min - i) % 10 === 0) {
       min -= i;
@@ -90,7 +89,6 @@ export const YAxis = (trend: number[] | undefined) => {
       break;
     }
   }
-  console.log(min, max);
   return [min, max];
 };
 
