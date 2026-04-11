@@ -1,5 +1,10 @@
 import auth from "../helpers/auth.js";
-import { generateApplicants } from "../helpers/helpers.js";
+import { ALLOWED_QUERIES } from "../helpers/constants.js";
+import {
+  generateApplicants,
+  generateSingleApplicant,
+  generateApplicantsOverview,
+} from "../helpers/helpers.js";
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LAST_PAGE = 7;
@@ -14,10 +19,14 @@ export default async function handler(req, res) {
     }
     const { block, id } = req.query;
     if (id) {
-      // return res.status(200).json({ data: generateMockApplicant(id) });
+      if (isNaN(Number(id)))
+        return res.status(400).json({ message: "Bad Format ..." });
+      return res.status(200).json({ data: generateSingleApplicant(id) });
     }
-    if (block === "overview") {
-      // return res.status(200).json({ data: generateApplicantsOverview() });
+    if (block) {
+      if (!ALLOWED_QUERIES["applicants"].includes(block))
+        return res.status(400).json({ message: "Bad Format ..." });
+      return res.status(200).json({ data: generateApplicantsOverview() });
     }
     let { page = DEFAULT_PAGE, pageSize = 10 } = req.query ?? {};
     pageSize = Math.min(pageSize, 10);

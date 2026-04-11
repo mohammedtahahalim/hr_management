@@ -28,6 +28,9 @@ export const ALLOWED_QUERIES = {
     exp: ["all", "junior", "juniorPlus", "mid", "midPlus", "senior"],
     loc: ["all", "us", "ja", "ar", "fr", "uk", "ma"],
   },
+  applicants: ["overview"],
 };
 
 export const LANGS = ["en", "fr", "ar", "ja"];
+
+export const EMPLOYEE_STATUS = ["active", "remote", "onleave", "terminated"];

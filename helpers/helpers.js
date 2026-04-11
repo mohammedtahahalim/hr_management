@@ -5,7 +5,15 @@ import { DEPARTMENTS } from "../helpers/data/departments.js";
 import { JOB_TITLES } from "../helpers/data/jobTitles.js";
 import { LOCATIONS } from "../helpers/data/countries.js";
 import { ACTIVITIES } from "../helpers/data/activities.js";
-import { IMAGE_SEED, LANGS } from "./constants.js";
+import { IMAGE_SEED, LANGS, EMPLOYEE_STATUS, ALPHABETS } from "./constants.js";
+import { SKILLSPOOL } from "../helpers/data/skills.js";
+import { INTERVIEWSTEPS } from "../helpers/data/interviewSteps.js";
+import { PHONENUMBERS } from "../helpers/data/phoneNumbers.js";
+import { DEGREES } from "../helpers/data/degrees.js";
+import { SCHOOLS } from "../helpers/data/schools.js";
+import { COMPANIES } from "../helpers/data/companies.js";
+import { TASKS } from "../helpers/data/tasks.js";
+import { ACTIVEPROJECTS } from "../helpers/data/activeProjects.js";
 
 const randomInt = (min, max) => min + Math.floor(Math.random() * (max - min));
 
@@ -17,14 +25,49 @@ const randomDate = (
   rand = () => 0,
 ) => new Date(start.getTime() + rand() * (end.getTime() - start.getTime()));
 
-const generateEmail = (name) =>
+const randomEmail = (name) =>
   name.replace(/\s/g, randomFrom(["-", "_", "."])) +
   "@" +
   randomFrom(["hotmail", "gmail", "yahoo", "outlook"]) +
   "." +
   randomFrom(["com", "co.jp", "fr", "ma", "net"]);
 
+const randomPicture = () => {
+  return IMAGE_SEED + randomFrom(NAMES)["en"];
+};
+
 const formatDate = (date) => date.toISOString();
+
+const generateFakePassport = () => {
+  return Array.from({ length: 8 }, () => Math.random().toString(36)[2])
+    .join("")
+    .toUpperCase();
+};
+
+const generateFakeBankAcc = () => {
+  const num = () => Math.floor(1000 + Math.random() * 9000);
+  return `${num()}-${num()}-${num()}-${num()}`;
+};
+
+const generateFakeIFSC = () => {
+  return (
+    Array.from(
+      { length: 4 },
+      () => ALPHABETS[Math.floor(Math.random() * 26)],
+    ).join("") +
+    Array.from({ length: 7 }, () => Math.floor(Math.random() * 10)).join("")
+  );
+};
+
+const generateFakePAN = () => {
+  return (
+    ALPHABETS[Math.floor(Math.random() * 26)] +
+    ALPHABETS[Math.floor(Math.random() * 26)] +
+    Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join("") +
+    ALPHABETS[Math.floor(Math.random() * 26)] +
+    ALPHABETS[Math.floor(Math.random() * 26)]
+  );
+};
 
 const hashString = (str) => {
   let h = 1779033703 ^ str.length;
@@ -287,8 +330,134 @@ export const generateApplicants = (pageSize) => {
         new Date(),
       ),
       status: randomInt(1, 7),
-      email: generateEmail(name["en"]),
+      email: randomEmail(name["en"]),
       rating: randomInt(0, 6),
     };
   });
+};
+
+export const generateSingleApplicant = (id) => {
+  const name = randomFrom(NAMES);
+  return {
+    id,
+    general: {
+      name,
+      status: randomFrom(INTERVIEWSTEPS),
+      position: randomFrom(POSITIONS),
+    },
+    personal: {
+      email: randomEmail(name["en"]),
+      phone: randomFrom(PHONENUMBERS[randomFrom(LOCATIONS)]),
+      linkedin: `/in/${name["en"].replace(/\s/g, "")}`,
+      appliedDate: randomDate(undefined, undefined, () => -1),
+    },
+    educations: Array.from({ length: randomInt(1, 4) }, () => {
+      return {
+        school: randomFrom(SCHOOLS),
+        degree: randomFrom(DEGREES),
+        graduated: randomDate(undefined, undefined, () => -1),
+      };
+    }),
+    experiences: Array.from({ length: randomInt(1, 4) }, () => {
+      const startDate = randomDate(undefined, undefined, () => -1);
+      return {
+        position: randomFrom(POSITIONS), // Position at job
+        company: randomFrom(COMPANIES), // company name
+        tasks: Array.from({ length: randomInt(1, 5) }, () => randomFrom(TASKS)), // Tasks done at this job,
+        location: randomFrom(LOCATIONS),
+        startDate, // start date
+        endDate: randomDate(startDate, undefined, () => 1), // if null, currently still working
+      };
+    }),
+    skills: SKILLSPOOL.sort(() => Math.random() - 0.5).slice(
+      0,
+      randomInt(5, SKILLSPOOL.length),
+    ),
+  };
+};
+
+export const generateApplicantsOverview = () => {
+  return {
+    open: {
+      total: randomInt(100, 200),
+      trend: Array.from({ length: 7 }, () => randomInt(1, 20)),
+      new: randomInt(1, 10),
+    },
+    active: {
+      total: randomInt(50, 100),
+      trend: Array.from({ length: 7 }, () => randomInt(1, 20)),
+      new: randomInt(1, 10),
+    },
+    hiring: {
+      average: randomInt(10, 50),
+      trend: Array.from({ length: 7 }, () => randomInt(1, 20)),
+      stages: randomInt(1, 10),
+    },
+    candidate: {
+      average: randomInt(10, 50),
+      trend: Array.from({ length: 7 }, () => randomInt(1, 20)),
+      percentage: randomInt(1, 100),
+    },
+  };
+};
+
+export const generateEmployees = (pageSize) => {
+  return Array.from({ length: pageSize }, () => {
+    return {
+      id: randomInt(1, 100000),
+      name: randomFrom(NAMES),
+      profilePicture: randomPicture(),
+      position: randomFrom(POSITIONS),
+      department: randomFrom(DEPARTMENTS),
+      status: randomFrom(EMPLOYEE_STATUS),
+      joinDate: randomDate(undefined, undefined, () => -1),
+      email: randomEmail(randomFrom(NAMES)["en"]),
+      phoneNumber: randomFrom(PHONENUMBERS[randomFrom(LOCATIONS)]),
+    };
+  });
+};
+
+export const generateSingleEmployee = (id) => {
+  return {
+    id,
+    name: randomFrom(NAMES),
+    position: randomFrom(POSITIONS),
+    department: randomFrom(DEPARTMENTS),
+    joinDate: randomDate(undefined, undefined, () => -1),
+    email: randomEmail(randomFrom(NAMES)["en"]),
+    phoneNumber: randomFrom(PHONENUMBERS[randomFrom(LOCATIONS)]),
+    passport: generateFakePassport(),
+    passportExp: randomDate(undefined, undefined, () => 2),
+    birthDate: randomDate(undefined, undefined, () => 5),
+    marital: randomFrom(["single", "married", "divorced", "widowed"]),
+    bankAcc: generateFakeBankAcc(),
+    ifscCode: generateFakeIFSC(),
+    panNb: generateFakePAN(),
+    salaryBasis: randomFrom(["hour", "day", "week", "month", "year"]),
+    salaryAmount: randomInt(100, 100000),
+    lastPayout: randomDate(undefined, undefined, () => -1),
+    payoutType: randomFrom(["transfer", "wire", "cash", "check"]),
+    billRate: randomInt(1, 100),
+    experiences: Array.from({ length: randomInt(1, 4) }, () => {
+      return {
+        position: randomFrom(POSITIONS),
+        company: randomFrom(COMPANIES),
+        tasks: Array.from({ length: randomInt(1, 5) }, () => randomFrom(TASKS)),
+        location: randomFrom(LOCATIONS),
+        startDate: randomDate(undefined, undefined, () => -1),
+        endDate: randomDate(undefined, undefined, () => 1),
+      };
+    }),
+    education: Array.from({ length: randomInt(1, 3) }, () => {
+      return {
+        school: randomFrom(SCHOOLS),
+        degree: randomFrom(DEGREES),
+        graduated: "20" + randomInt(1, 2) + randomInt(1, 9),
+      };
+    }),
+    skills: SKILLSPOOL.sort(() => Math.random() - 0.5).slice(
+      randomInt(5, SKILLSPOOL.length),
+    ),
+    activeProjects: [randomFrom(ACTIVEPROJECTS), randomFrom(ACTIVEPROJECTS)],
+  };
 };

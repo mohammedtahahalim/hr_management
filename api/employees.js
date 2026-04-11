@@ -1,18 +1,21 @@
 import auth from "../helpers/auth.js";
-import { generateEmployee, generateFullEmployee } from "../helpers/sample.js";
+import {
+  generateSingleEmployee,
+  generateEmployees,
+} from "../helpers/helpers.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET")
     return res.status(405).json({ message: "Internal Server Error ..." });
   try {
-    await auth(req, res);
+    // await auth(req, res);
     if (res.headersSent || res.writableEnded) return;
     const { page = 1, pageSize = 8, id, mode, ...rest } = req.query;
     if (id) {
       if (typeof id !== "string" || isNaN(Number(id)))
         return res.status(400).json({ message: "Bad Request" });
       return res.status(200).json({
-        data: generateFullEmployee(id),
+        data: generateSingleEmployee(id),
       });
     }
     if (mode) {
@@ -22,7 +25,7 @@ export default async function handler(req, res) {
       page: Number(page),
       pageSize: Number(pageSize),
       lastPage: 7,
-      data: Array.from({ length: Number(pageSize) }, () => generateEmployee()),
+      data: generateEmployees(pageSize),
     });
   } catch (err) {
     console.log(err);

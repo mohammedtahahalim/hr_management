@@ -124,6 +124,7 @@ export const fetchAllEmployees = createAsyncThunk<
     }
     const dataFromServer = (await response.json()) as unknown;
     const isValidData = allEmployeeSchema.safeParse(dataFromServer);
+    console.log(isValidData);
     if (!isValidData.success) return rejectWithValue("MISMATCH");
     return isValidData.data;
   } catch (err) {
