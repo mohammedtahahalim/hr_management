@@ -186,7 +186,6 @@ export const fetchEmployee = createAsyncThunk<
     }
     const dataFromServer = (await response.json()) as unknown;
     const isValidData = employeeSchema.safeParse(dataFromServer);
-    console.log(isValidData);
     if (!isValidData.success) return rejectWithValue("MISMATCH");
     const { data } = isValidData.data;
     return data;
