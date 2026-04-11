@@ -35,9 +35,7 @@ const employeeSchema = z.object({
       "data",
     ]),
     joinDate: z.iso.datetime(),
-    email: z
-      .string()
-      .regex(/^[\p{L}\d.+_-]+@(?:[a-zA-Z-]+)(?:\.[a-zA-Z]{2,})+$/u),
+    email: z.string(),
     phoneNumber: z.string().regex(/^\+?[\d\s()-]+$/),
     passport: z.string().regex(/^[a-zA-z0-9\s]+$/),
     passportExp: z.iso.datetime(),
@@ -188,6 +186,7 @@ export const fetchEmployee = createAsyncThunk<
     }
     const dataFromServer = (await response.json()) as unknown;
     const isValidData = employeeSchema.safeParse(dataFromServer);
+    console.log(isValidData);
     if (!isValidData.success) return rejectWithValue("MISMATCH");
     const { data } = isValidData.data;
     return data;

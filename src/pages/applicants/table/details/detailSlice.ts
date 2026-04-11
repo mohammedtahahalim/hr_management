@@ -8,80 +8,84 @@ import type { Reject, Status } from "../../../../shared/lib/types";
 import type { RootState } from "../../../../config/store";
 
 const applicantDetailSchema = z.object({
-  id: z.string().nonempty(),
-  general: z.object({
-    name: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string().nonempty()),
-    status: z.enum([
-      "hr",
-      "interview1",
-      "interview2",
-      "systemDesign",
-      "culturalFit",
-      "ceo",
-    ]),
-    position: z.enum([
-      "front",
-      "backend",
-      "design",
-      "fullStack",
-      "data",
-      "c++",
-      "php",
-      "django",
-      "project",
-      "devOps",
-      "cloud",
-    ]),
-  }),
-  personal: z.object({
-    email: z
-      .string()
-      .regex(/^[\p{L}\d.+_-]+@(?:[a-zA-Z-]+)(?:\.[a-zA-Z]{2,})+$/u),
-    phone: z.string().or(z.null()),
-    linkedin: z.string().or(z.null()),
-    appliedDate: z.iso.datetime(),
-  }),
-  educations: z.array(
-    z.object({
-      school: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string()), // School name
-      degree: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string()), // Degree
-      graduated: z.string().regex(/\d{4}/), // Year obtained
+  data: z.object({
+    id: z.string().nonempty(),
+    general: z.object({
+      name: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string().nonempty()),
+      status: z.enum([
+        "hr",
+        "interview1",
+        "interview2",
+        "systemDesign",
+        "culturalFit",
+        "ceo",
+      ]),
+      position: z.enum([
+        "front",
+        "backend",
+        "design",
+        "fullStack",
+        "data",
+        "c++",
+        "php",
+        "django",
+        "project",
+        "devOps",
+        "cloud",
+      ]),
     }),
-  ),
-  experiences: z.array(
-    z.object({
-      position: z.string(), // Position at job
-      company: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string()), // company name
-      tasks: z.array(z.record(z.enum(["en", "ar", "ja", "fr"]), z.string())), // Tasks done at this job
-      location: z.string().min(1).max(2), // geocode for country
-      startDate: z.iso.datetime(), // start date
-      endDate: z.iso.datetime().or(z.null()), // if null, currently still working
+    personal: z.object({
+      email: z
+        .string()
+        .regex(/^[\p{L}\d.+_-]+@(?:[a-zA-Z-]+)(?:\.[a-zA-Z]{2,})+$/u),
+      phone: z.string().or(z.null()),
+      linkedin: z.string().or(z.null()),
+      appliedDate: z.iso.datetime(),
     }),
-  ),
-  skills: z.array(
-    z.enum([
-      "javascript",
-      "typescript",
-      "html",
-      "css",
-      "sql",
-      "react",
-      "vue",
-      "angular",
-      "redux",
-      "next.js",
-      "tailwind",
-      "node.js",
-      "express",
-      "nestjs",
-      "mongodb",
-      "postgresql",
-      "mysql",
-    ]),
-  ),
+    educations: z.array(
+      z.object({
+        school: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string()), // School name
+        degree: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string()), // Degree
+        graduated: z.string().regex(/\d{4}/), // Year obtained
+      }),
+    ),
+    experiences: z.array(
+      z.object({
+        position: z.string(), // Position at job
+        company: z.record(z.enum(["en", "ar", "ja", "fr"]), z.string()), // company name
+        tasks: z.array(z.record(z.enum(["en", "ar", "ja", "fr"]), z.string())), // Tasks done at this job
+        location: z.string().min(1).max(2), // geocode for country
+        startDate: z.iso.datetime(), // start date
+        endDate: z.iso.datetime().or(z.null()), // if null, currently still working
+      }),
+    ),
+    skills: z.array(
+      z.enum([
+        "javascript",
+        "typescript",
+        "html",
+        "css",
+        "sql",
+        "react",
+        "vue",
+        "angular",
+        "redux",
+        "next.js",
+        "tailwind",
+        "node.js",
+        "express",
+        "nestjs",
+        "mongodb",
+        "postgresql",
+        "mysql",
+      ]),
+    ),
+  }),
 });
 
-type ApplicationDetail = z.infer<typeof applicantDetailSchema>;
+type ApplicationDetailBackend = z.infer<typeof applicantDetailSchema>;
+
+export type ApplicationDetail = ApplicationDetailBackend["data"];
 
 export type Positions = ApplicationDetail["general"]["position"];
 
@@ -113,16 +117,10 @@ export const fetchDetails = createAsyncThunk<
       return rejectWithValue("SYSTEM");
     }
     const dataFromServer = (await response.json()) as unknown;
-    if (
-      !dataFromServer ||
-      typeof dataFromServer !== "object" ||
-      !("data" in dataFromServer)
-    )
-      return rejectWithValue("MISMATCH");
-    const { data } = dataFromServer;
-    const isValidData = applicantDetailSchema.safeParse(data);
+    const isValidData = applicantDetailSchema.safeParse(dataFromServer);
     if (!isValidData.success) return rejectWithValue("MISMATCH");
-    return isValidData.data;
+    const { data } = isValidData.data;
+    return data;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError")
       return rejectWithValue("ABORT");

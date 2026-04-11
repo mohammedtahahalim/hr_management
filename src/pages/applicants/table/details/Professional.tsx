@@ -29,8 +29,8 @@ export default function Professional() {
         <Title variant="body1" ender={false}>
           {t("details.experience.title")}
         </Title>
-        {professionalExperience?.map((p) => {
-          return <Experience key={`${p.startDate}-${p.endDate}`} {...p} />;
+        {professionalExperience?.map((p, index) => {
+          return <Experience key={index} {...p} />;
         })}
       </WithSkeleton>
     </ProfessionalWrapper>
