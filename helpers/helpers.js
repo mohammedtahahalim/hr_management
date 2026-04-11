@@ -461,3 +461,24 @@ export const generateSingleEmployee = (id) => {
     activeProjects: [randomFrom(ACTIVEPROJECTS), randomFrom(ACTIVEPROJECTS)],
   };
 };
+
+export const generatePayrolls = (pageSize) => {
+  return Array.from({ length: pageSize }, () => {
+    const name = randomFrom(NAMES);
+    return {
+      id: randomInt(1, 100000),
+      name,
+      email: randomEmail(name["en"]),
+      profilePic: randomPicture(),
+      position: randomFrom(POSITIONS),
+      rateType: randomFrom(["f", "h", "d", "w", "m", "y"]),
+      period: [
+        randomDate(undefined, undefined, () => -1),
+        randomDate(undefined, undefined, () => -0.5),
+      ],
+      jobType: randomFrom(["full", "part", "contract"]),
+      salary: randomInt(10000, 1000000),
+      status: randomFrom(["progress", "pending", "completed", "rejected"]),
+    };
+  });
+};

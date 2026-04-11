@@ -1,5 +1,5 @@
 import auth from "../helpers/auth.js";
-import { generatePayroll } from "../helpers/sample.js";
+import { generatePayrolls } from "../helpers/helpers.js";
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 8;
@@ -19,12 +19,11 @@ export default async function handler(req, res) {
     } = req.query;
     page = Math.min(page, Math.floor(91 / pageSize));
     if (!allowedPageSize.includes(pageSize)) pageSize = 8;
-    const fakeData = Array.from({ length: pageSize }, () => generatePayroll());
     return res.status(200).json({
       page,
       pageSize,
       lastPage: Math.floor(91 / pageSize),
-      data: fakeData,
+      data: generatePayrolls(pageSize),
     });
   } catch (err) {
     console.log(err);
