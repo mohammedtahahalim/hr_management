@@ -1,12 +1,15 @@
 import { Box, Button, styled } from "@mui/material";
-import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../config/store";
-import { checkAuth } from "../../features/auth/authSlice";
 import { Navigate } from "react-router-dom";
-
-type Status = "idle" | "submitting" | "failure" | "success";
+import {
+  selectLogoutError,
+  selectLogoutStatus,
+  sendLogoutRequest,
+} from "../../features/auth/logoutSlice";
+import { useEffect } from "react";
+import { addToast } from "../../features/toast/toastSlice";
 
 const LogoutWrapper = styled(Box)({
   width: "100%",
@@ -27,38 +30,24 @@ const LogoutButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function Logout() {
-  const [submitStatus, setSubmitStatus] = useState<Status>("idle");
   const dispatch = useDispatch<AppDispatch>();
-  const controller = useRef<AbortController | null>(new AbortController());
+  const status = useSelector(selectLogoutStatus);
+  const error = useSelector(selectLogoutError);
   const { t } = useTranslation("login");
 
-  // TODO: refactor
-  const handleLogout = async () => {
-    setSubmitStatus("submitting");
-    try {
-      const fullURL: string = `${import.meta.env.VITE_API_URL}/api/logout`;
-      const fullOptions: RequestInit = {
-        method: "POST",
-        credentials: "include",
-        signal: controller.current?.signal,
-      };
-      const response = await fetch(fullURL, fullOptions);
-      if (!response.ok) throw new Error(response.status.toString());
-      dispatch(checkAuth());
-      <Navigate to={"/login"} />;
-      setSubmitStatus("success");
-    } catch (err) {
-      console.log(err);
-      setSubmitStatus("failure");
-    }
-  };
+  useEffect(() => {
+    if (!error) return;
+    dispatch(addToast({ type: "error", message: error }));
+  }, [error, dispatch]);
+
+  if (status === "success") return <Navigate to={"/login"} replace />;
 
   return (
     <LogoutWrapper>
       <LogoutButton
         variant="contained"
-        disabled={submitStatus === "submitting"}
-        onClick={handleLogout}
+        disabled={status === "loading"}
+        onClick={() => dispatch(sendLogoutRequest())}
       >
         {t("logout")}
       </LogoutButton>

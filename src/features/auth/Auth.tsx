@@ -15,7 +15,7 @@ interface AuthProps {
 
 export default function Auth({ guard }: AuthProps) {
   const { status, authState, systemState, whoIs, networkState } = useSelector(
-    (state: RootState) => state.auth,
+    (state: RootState) => state.auth.auth,
   );
   const dispatch = useDispatch<AppDispatch>();
 
