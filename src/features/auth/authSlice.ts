@@ -26,28 +26,29 @@ export const checkAuth = createAsyncThunk<User, void, { rejectValue: Reject }>(
   "check/auth",
   async (_, { rejectWithValue, signal }) => {
     try {
-      const fullURL: string = `${import.meta.env.VITE_API_URL}/api/auth`;
+      const base = import.meta.env.VITE_API_URL;
+      const fullURL: URL = new URL("/api/me", base);
+      fullURL.searchParams.set("type", "check");
       const fullOptions: RequestInit = {
         method: "GET",
         credentials: "include",
         signal,
       };
       const response = await fetch(fullURL, fullOptions);
-      if (!response.ok) throw new Error(response.status.toString());
+      if (!response.ok) {
+        if (response.status === 401) return rejectWithValue("UNAUTHENTICATED");
+        if (response.status === 403) return rejectWithValue("FORBIDDEN");
+        if (response.status >= 500) return rejectWithValue("DOWN");
+        return rejectWithValue("SYSTEM");
+      }
       const data = await response.json();
       const { isAuthenticated, whoIs, isAllowed } = data;
-      if (!isAuthenticated) throw new Error("401");
-      if (!isAllowed) throw new Error("403");
+      if (!isAuthenticated) return rejectWithValue("UNAUTHENTICATED");
+      if (!isAllowed) return rejectWithValue("FORBIDDEN");
       return whoIs as User;
     } catch (err) {
-      if (err instanceof DOMException && err.name === "AbortError") {
+      if (err instanceof DOMException && err.name === "AbortError")
         return rejectWithValue("ABORT");
-      }
-      if (err instanceof Error) {
-        if (err.message === "401") return rejectWithValue("UNAUTHENTICATED");
-        if (err.message === "403") return rejectWithValue("FORBIDDEN");
-        if (err.message === "500") return rejectWithValue("SYSTEM");
-      }
       return rejectWithValue("DOWN");
     }
   },
@@ -77,12 +78,12 @@ const authSlice = createSlice({
         checkAuth.rejected,
         (state, action: PayloadAction<Reject | undefined>) => {
           state.status = "failure";
-          state.whoIs = null;
           switch (action.payload) {
             case "UNAUTHENTICATED":
               state.authState = "notAuthenticated";
               state.systemState = "ok";
               state.networkState = "";
+              state.whoIs = null;
               break;
             case "FORBIDDEN":
               state.authState = "forbidden";
@@ -98,6 +99,7 @@ const authSlice = createSlice({
               state.systemState = "error";
               state.networkState = "";
               state.authState = "unknown";
+              state.whoIs = null;
               break;
             case "DOWN":
               state.systemState = "down";

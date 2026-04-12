@@ -12,43 +12,27 @@ import {
 } from "@mui/material";
 import Theme from "../../features/themes/Theme";
 import Language from "../../features/languages/Language";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router-dom";
 import Line from "../../shared/ui/Line";
-import { useRef, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useTranslation } from "react-i18next";
 import { addToast } from "../../features/toast/toastSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../config/store";
-import z from "zod";
-import { flushSync } from "react-dom";
-import { checkAuth } from "../../features/auth/authSlice";
-
-type TSubmitState = "idle" | "submitting" | "error" | "success";
+import {
+  selectLoginError,
+  selectLoginStatus,
+  sendLoginRequest,
+} from "../../features/auth/loginSlice";
 
 interface ILoginForm {
   email: string;
   password: string;
   rememberMe: boolean;
 }
-
-const responseSchema = z.object({
-  isAuthenticated: z.boolean(),
-  isBanned: z.boolean(),
-  whoIs: z
-    .object({
-      id: z.number(),
-      firstName: z.string(),
-      lastName: z.string(),
-      role: z.enum(["admin", "manager", "hr", "employee", "candidate"]),
-      email: z.string(),
-    })
-    .or(z.null()),
-});
-
-type ResponseData = z.infer<typeof responseSchema>;
 
 const LoginWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
@@ -214,58 +198,26 @@ const SignUpLink = styled(Link)(({ theme }) => ({
 
 export default function Login() {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
-  const [submitState, handleSubmitState] = useState<TSubmitState>("idle");
+  const status = useSelector(selectLoginStatus);
+  const error = useSelector(selectLoginError);
+  const dispatch = useDispatch<AppDispatch>();
   const {
     register,
-    handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<ILoginForm>();
-  const dispatch = useDispatch<AppDispatch>();
   const { t, i18n } = useTranslation("login");
-  const controller = useRef<AbortController | null>(null);
 
-  if (submitState === "success") return <Navigate to={"/dashboard"} replace />;
+  useEffect(() => {
+    if (!error) return;
+    dispatch(addToast({ type: "error", message: error }));
+  }, [error, dispatch]);
 
-  const submitLogin: SubmitHandler<ILoginForm> = async (data) => {
-    try {
-      if (!controller.current) controller.current = new AbortController();
-      flushSync(() => handleSubmitState("submitting"));
+  if (status === "success") return <Navigate to={"/"} replace />;
 
-      const fullURL: string = `${import.meta.env.VITE_API_URL}/api/login`;
-      const fullOptions: RequestInit = {
-        method: "POST",
-        body: JSON.stringify(data),
-        signal: controller.current?.signal,
-      };
-      const response = await fetch(fullURL, fullOptions);
-      if (!response.ok) throw new Error(response.status.toString());
-      const responseData = (await response.json()) as ResponseData;
-      if (!responseSchema.safeParse(responseData).success) {
-        throw new Error("400");
-      }
-      const { isAuthenticated, isBanned, whoIs } = responseData;
-      if (!isAuthenticated) throw new Error("401");
-      if (isBanned) throw new Error("403");
-      if (!whoIs) throw new Error("400");
-      dispatch(checkAuth());
-      handleSubmitState("success");
-    } catch (err) {
-      if (err instanceof Error) {
-        if (err.message === "403" || err.message === "400") {
-          dispatch(addToast({ type: "warning", message: err.message }));
-          return;
-        }
-        if (err.message === "522" || err.message === "500") {
-          dispatch(addToast({ type: "info", message: err.message }));
-          return;
-        }
-        dispatch(addToast({ type: "error", message: err.message }));
-      }
-      handleSubmitState("error");
-    }
-    return () => {
-      controller.current?.abort();
-    };
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(sendLoginRequest(getValues()));
   };
 
   return (
@@ -277,11 +229,7 @@ export default function Login() {
         <Language isFree={true} />
       </LanguageWrapper>
       <FormWrapper>
-        <LoginForm
-          onSubmit={handleSubmit(submitLogin)}
-          id="loginForm"
-          autoComplete="on"
-        >
+        <LoginForm onSubmit={handleSubmit} id="loginForm" autoComplete="on">
           <Title variant="h4">{t("signIn")}</Title>
           <Subtitle variant="subtitle2">{t("subSignIn")}</Subtitle>
           <Suggestions>{t("change")}</Suggestions>
@@ -366,7 +314,7 @@ export default function Login() {
             variant="contained"
             size="large"
             type="submit"
-            disabled={submitState === "submitting"}
+            disabled={status === "loading"}
           >
             {t("signIn")}
           </SignIn>

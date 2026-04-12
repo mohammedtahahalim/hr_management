@@ -29,6 +29,7 @@ export const ALLOWED_QUERIES = {
     loc: ["all", "us", "ja", "ar", "fr", "uk", "ma"],
   },
   applicants: ["overview"],
+  auth: ["check", "login", "logout"],
 };
 
 export const LANGS = ["en", "fr", "ar", "ja"];

@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authSlice from "../features/auth/authSlice";
 import toastSlice from "../features/toast/toastSlice";
 import notificationSlice from "../features/notifications/notificationSlice";
 import { dashboardReducer } from "../pages/dashboard/dashboardReducer";
@@ -8,10 +7,11 @@ import { applicantReducer } from "../pages/applicants/applicantReducer";
 import { employeeReducer } from "../pages/employees/employeeReducer";
 import payrollSlice from "../pages/payroll/payrollSlice";
 import overviewSlice from "../pages/overview/overviewSlice";
+import { authReducer } from "../features/auth/authReducer";
 
 export const HRStore = configureStore({
   reducer: {
-    auth: authSlice,
+    auth: authReducer,
     toast: toastSlice,
     notifications: notificationSlice,
     dashboard: dashboardReducer,

@@ -9,8 +9,6 @@ import AddVacancy from "../pages/vacancies/addVacancy/AddVacancy";
 import Employee from "../pages/employees/employee/Employee";
 import Overview from "../pages/overview/Overview";
 const Login = lazy(() => import("../pages/auth/Login"));
-const Signup = lazy(() => import("../pages/auth/Signup"));
-const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
 const Redirect = lazy(() => import("../shared/ui/Redirect"));
 const AddEmployee = lazy(
   () => import("../pages/employees/addEmployee/AddEmployee"),
@@ -26,14 +24,6 @@ export const authRoutes: IRoute[] = [
   {
     path: "/login",
     component: Login,
-  },
-  {
-    path: "signup",
-    component: Signup,
-  },
-  {
-    path: "/forgotPassword",
-    component: ForgotPassword,
   },
 ];
 
