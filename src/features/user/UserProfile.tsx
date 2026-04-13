@@ -56,7 +56,7 @@ const Email = styled(Typography)({
 
 export default function UserProfile() {
   const { firstName, lastName, email, profilePic } = useContext(AuthContext)
-    .whoIs ?? {
+    .user ?? {
     firstName: "John",
     lastName: "Doe",
     email: "john.doe@email.com",
@@ -67,7 +67,7 @@ export default function UserProfile() {
   return (
     <UserProfileWrapper>
       <PictureWrapper>
-        <Picture src={profilePic} alt={`${t("profile_label")}`} />
+        <Picture src={profilePic ?? ""} alt={`${t("profile_label")}`} />
       </PictureWrapper>
       <Info>
         <Name variant="subtitle1">{`${firstName} ${lastName}`}</Name>

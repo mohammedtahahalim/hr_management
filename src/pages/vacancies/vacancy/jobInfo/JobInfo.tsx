@@ -51,8 +51,8 @@ export default function JobInfo() {
   const [onEditMode, setOnEditMode] = useState<boolean>(false);
   const { register } = useForm<{ id: string }>();
   const { t } = useTranslation("vacancy");
-  const { whoIs } = useContext(AuthContext);
-  const role = whoIs?.role ?? "candidate";
+  const { user } = useContext(AuthContext);
+  const role = user?.role ?? "candidate";
 
   return (
     <JobInfoWrapper>

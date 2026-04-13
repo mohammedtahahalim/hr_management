@@ -11,11 +11,7 @@ export default function useCanEdit(): UseCanEditReturn {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const mode = params.get("mode") ?? "view";
-  const { whoIs } = useContext(AuthContext);
-  const permission = canAccess(
-    whoIs?.role ?? "candidate",
-    "UPDATE",
-    "employee",
-  );
+  const { user } = useContext(AuthContext);
+  const permission = canAccess(user?.role ?? "candidate", "UPDATE", "employee");
   return { canEdit: mode === "edit" && permission };
 }

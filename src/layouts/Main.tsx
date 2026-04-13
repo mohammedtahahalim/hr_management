@@ -47,8 +47,8 @@ const OutletWrapper = styled(Container)({
 });
 
 export default function Main() {
-  const { whoIs } = useContext(AuthContext);
-  const role = whoIs?.role ?? "candidate";
+  const { user } = useContext(AuthContext);
+  const role = user?.role ?? "candidate";
   const { pathname } = useLocation();
   const firstSegment = pathname.split("?")[0].split("#")[0];
   const resource =
@@ -71,7 +71,7 @@ export default function Main() {
           <Header />
         </HeaderWrapper>
         <OutletWrapper maxWidth="xl" ref={outletRef}>
-          {whoIs && canAccess(role, "READ", resource) ? (
+          {user && canAccess(role, "READ", resource) ? (
             <Outlet />
           ) : isValidResource(resource) ? (
             <Forbidden />
