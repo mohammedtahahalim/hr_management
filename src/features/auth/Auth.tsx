@@ -1,22 +1,29 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../../config/store";
+import type { AppDispatch } from "../../config/store";
 import { useEffect } from "react";
-import { checkAuth } from "./authSlice";
+import {
+  checkAuth,
+  selectAuthError,
+  selectAuthStatus,
+  selectAuthUser,
+  selectIsAuthenticated,
+  selectIsInitialized,
+} from "./authSlice";
 import Loader from "../../shared/ui/Loader";
-import Network from "../../shared/ui/Network";
-import Forbidden from "../../shared/ui/Forbidden";
-import Maintenance from "../../shared/ui/Maintenance";
+import { addToast } from "../toast/toastSlice";
 
 interface AuthProps {
   guard: "required" | "notRequired";
 }
 
 export default function Auth({ guard }: AuthProps) {
-  const { status, authState, systemState, whoIs, networkState } = useSelector(
-    (state: RootState) => state.auth.auth,
-  );
+  const status = useSelector(selectAuthStatus);
+  const error = useSelector(selectAuthError) ?? "SYSTEM";
+  const user = useSelector(selectAuthUser);
+  const isInitialized = useSelector(selectIsInitialized);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -26,25 +33,21 @@ export default function Auth({ guard }: AuthProps) {
     };
   }, [dispatch]);
 
-  if (status === "idle" || status === "loading" || authState === "unknown")
+  useEffect(() => {
+    dispatch(addToast({ expireAt: 1500, message: error, type: "error" }));
+  }, [error, dispatch]);
+
+  if (status === "idle" || status === "loading" || !isInitialized)
     return <Loader />;
 
-  if (systemState === "error") throw new Error();
-
-  if (systemState === "down") return <Maintenance />;
-
-  if (networkState === "ABORT") return <Network />;
-
-  if (authState === "forbidden") return <Forbidden />;
-
-  if (guard === "notRequired" && authState === "authenticated")
-    return <Navigate to={"/dashboard"} replace />;
-
-  if (guard === "required" && authState !== "authenticated")
+  if (guard === "required" && !isAuthenticated)
     return <Navigate to={"/login"} replace />;
 
+  if (guard === "notRequired" && isAuthenticated)
+    return <Navigate to={"/dashboard"} replace />;
+
   return (
-    <AuthContext.Provider value={{ whoIs }}>
+    <AuthContext.Provider value={{ user }}>
       <Outlet />
     </AuthContext.Provider>
   );

@@ -13,51 +13,50 @@ const { SECRET_KEY } = process.env;
 export default async function handler(req, res) {
   if (!SECRET_KEY) throw new Error("Missing Secret Key ...");
   try {
+    // Filter Queries
     const { type, ...rest } = req.query;
     if (!ALLOWED_QUERIES["auth"].includes(type))
       return res.status(400).json({ message: "Bad Request ..." });
+
     switch (type) {
+      /*--------------------  Auth Check  /*--------------------*/
       case "check": {
         if (req.method !== "GET")
           return res.status(405).json({ message: "Method Not Allowed ..." });
+
         const cookies = parse(req.headers.cookie || "");
         const token = cookies.token;
         if (!token) {
-          return res.status(200).json({
-            isAuthenticated: false,
-            isAllowed: false,
-            whoIs: null,
-          });
+          return res.status(401).json({ message: "User Not Authenticated" });
         }
+
         try {
           const isValidToken = jwt.verify(token, SECRET_KEY);
           const { id, firstName, lastName, email, role, profilePic } =
             isValidToken;
-
           return res.status(200).json({
-            isAuthenticated: true,
-            isAllowed: true,
-            whoIs: { id, firstName, lastName, email, role, profilePic },
+            user: { id, firstName, lastName, email, role, profilePic },
           });
         } catch (err) {
           res.setHeader(
             "Set-Cookie",
             serialize("token", "", {
-              maxAge: 6 * 60 * 60,
+              maxAge: 0,
               sameSite: "strict",
               httpOnly: true,
               path: "/",
               secure: true,
             }),
           );
-          return res
-            .status(200)
-            .json({ isAuthenticated: false, isAllowed: false, whoIs: null });
+          return res.status(401).json({ message: "User Not Authenticated" });
         }
       }
+
       case "login": {
+        /*--------------------  Login Request  /*--------------------*/
         if (req.method !== "POST")
           return res.status(405).json({ message: "Method Not Allowed ..." });
+
         const { email, password, rememberMe } = req.body;
         const connection = database();
         const [doesEmailExists] = await connection.query(
@@ -65,20 +64,14 @@ export default async function handler(req, res) {
           [email],
         );
         if (!doesEmailExists.length)
-          return res
-            .status(200)
-            .json({ isAuthenticated: false, isBanned: false, whoIs: null });
+          return res.status(401).json({ message: "User Not Authenticated" });
 
         const { id, hashed_pass, active } = doesEmailExists[0];
+        if (!active) return res.status(403).json({ message: "Forbidden" });
+
         const isValidPass = await bcrypt.compare(password, hashed_pass);
         if (!isValidPass)
-          return res
-            .status(200)
-            .json({ isAuthenticated: false, isBanned: false, whoIs: null });
-        if (!active)
-          return res
-            .status(200)
-            .json({ isAuthenticated: true, isBanned: true, whoIs: null });
+          return res.status(401).json({ message: "User Not Authenticated" });
 
         const detailsQuery = `select firstName, lastName, role, profilePic from infos where userId = ?`;
         const [userInfo] = await connection.query(detailsQuery, [id]);
@@ -86,6 +79,7 @@ export default async function handler(req, res) {
         const token = jwt.sign(
           { id, firstName, lastName, email, role, profilePic },
           process.env.SECRET_KEY,
+          { expiresIn: "7d" },
         );
         res.setHeader(
           "Set-Cookie",
@@ -98,14 +92,15 @@ export default async function handler(req, res) {
           }),
         );
         return res.status(200).json({
-          isAuthenticated: true,
-          isBanned: false,
-          whoIs: { id, firstName, lastName, email, role, profilePic },
+          user: { id, firstName, lastName, email, role, profilePic },
         });
       }
+
       case "logout": {
+        /*--------------------  Logout Request  /*--------------------*/
         if (req.method !== "GET")
           return res.status(405).json({ message: "Method not allowed ..." });
+
         try {
           res.setHeader(
             "Set-Cookie",

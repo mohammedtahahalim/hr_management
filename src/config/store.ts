@@ -7,11 +7,11 @@ import { applicantReducer } from "../pages/applicants/applicantReducer";
 import { employeeReducer } from "../pages/employees/employeeReducer";
 import payrollSlice from "../pages/payroll/payrollSlice";
 import overviewSlice from "../pages/overview/overviewSlice";
-import { authReducer } from "../features/auth/authReducer";
+import authSlice from "../features/auth/authSlice";
 
 export const HRStore = configureStore({
   reducer: {
-    auth: authReducer,
+    auth: authSlice,
     toast: toastSlice,
     notifications: notificationSlice,
     dashboard: dashboardReducer,

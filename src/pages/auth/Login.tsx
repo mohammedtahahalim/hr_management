@@ -13,20 +13,15 @@ import {
 import Theme from "../../features/themes/Theme";
 import Language from "../../features/languages/Language";
 import { useForm } from "react-hook-form";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Line from "../../shared/ui/Line";
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useTranslation } from "react-i18next";
-import { addToast } from "../../features/toast/toastSlice";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../../config/store";
-import {
-  selectLoginError,
-  selectLoginStatus,
-  sendLoginRequest,
-} from "../../features/auth/loginSlice";
+import { login, selectLoginStatus } from "../../features/auth/authSlice";
 
 interface ILoginForm {
   email: string;
@@ -198,8 +193,7 @@ const SignUpLink = styled(Link)(({ theme }) => ({
 
 export default function Login() {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
-  const status = useSelector(selectLoginStatus);
-  const error = useSelector(selectLoginError);
+  const loginStatus = useSelector(selectLoginStatus);
   const dispatch = useDispatch<AppDispatch>();
   const {
     register,
@@ -208,16 +202,9 @@ export default function Login() {
   } = useForm<ILoginForm>();
   const { t, i18n } = useTranslation("login");
 
-  useEffect(() => {
-    if (!error) return;
-    dispatch(addToast({ type: "error", message: error }));
-  }, [error, dispatch]);
-
-  if (status === "success") return <Navigate to={"/"} replace />;
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(sendLoginRequest(getValues()));
+    dispatch(login(getValues()));
   };
 
   return (
@@ -314,7 +301,7 @@ export default function Login() {
             variant="contained"
             size="large"
             type="submit"
-            disabled={status === "loading"}
+            disabled={loginStatus === "loading"}
           >
             {t("signIn")}
           </SignIn>
