@@ -19,9 +19,9 @@ const overviewSchema = z.object({
       }),
     ),
     application: z.object({
-      direct: z.array(z.number().nonnegative()),
-      social: z.array(z.number().nonnegative()),
-      referral: z.array(z.number().nonnegative()),
+      direct: z.array(z.number()),
+      social: z.array(z.number()),
+      referral: z.array(z.number()),
     }),
     employment: z.object({
       total: z.number().nonnegative(),
@@ -33,12 +33,11 @@ const overviewSchema = z.object({
         name: z.string().nonempty(),
         total: z.number().nonnegative(),
         percentage: z.number().min(1).max(100),
-        indicator: z.string(),
       }),
     ),
     birthday: z.array(
       z.object({
-        name: z.string().nonempty(),
+        name: z.record(z.enum(["en", "ar", "fr", "ja"]), z.string().nonempty()),
         profilePicture: z.string().nonempty(),
         position: z.enum([
           "front",
@@ -67,7 +66,10 @@ const overviewSchema = z.object({
           "training",
           "outdoor",
         ]),
-        event: z.string().nonempty(),
+        event: z.record(
+          z.enum(["en", "ar", "fr", "ja"]),
+          z.string().nonempty(),
+        ),
       }),
     ),
   }),
@@ -92,7 +94,7 @@ const initialState: OverviewState = {
 
 /* ----------------------------- Thunks ----------------------------- */
 type FetchOverviewProps = {
-  week: string;
+  date: string;
 };
 
 export const fetchOverview = createAsyncThunk<
@@ -101,10 +103,10 @@ export const fetchOverview = createAsyncThunk<
   { rejectValue: Reject }
 >("fetch/overview", async (_args, { signal, rejectWithValue }) => {
   try {
-    const { week } = _args;
+    const { date } = _args;
     const base = import.meta.env.VITE_API_URL;
     const fullURL: URL = new URL("/api/overview", base);
-    fullURL.searchParams.set("week", week);
+    fullURL.searchParams.set("date", date);
     const fullOptions: RequestInit = {
       method: "GET",
       signal,
@@ -117,11 +119,11 @@ export const fetchOverview = createAsyncThunk<
       if (response.status >= 500) return rejectWithValue("DOWN");
       return rejectWithValue("SYSTEM");
     }
-    const dataFromBackend = await response.json();
-    const isValidData = overviewSchema.safeParse(dataFromBackend);
-    if (!isValidData.success) return rejectWithValue("MISMATCH");
-    const { data } = isValidData.data;
-    return data;
+    const data = await response.json();
+    const parsed = overviewSchema.safeParse(data);
+    console.log(parsed);
+    if (!parsed.success) return rejectWithValue("MISMATCH");
+    return parsed.data.data;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError")
       return rejectWithValue("ABORT");

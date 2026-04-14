@@ -14,6 +14,8 @@ import { SCHOOLS } from "../helpers/data/schools.js";
 import { COMPANIES } from "../helpers/data/companies.js";
 import { TASKS } from "../helpers/data/tasks.js";
 import { ACTIVEPROJECTS } from "../helpers/data/activeProjects.js";
+import { EVENTS_LOCATIONS } from "../helpers/data/eventLocations.js";
+import { EVENTS } from "../helpers/data/events.js";
 
 const randomInt = (min, max) => min + Math.floor(Math.random() * (max - min));
 
@@ -92,6 +94,20 @@ const mulberry32 = (a) => {
 };
 
 const mapLang = (fn) => Object.fromEntries(LANGS.map((l) => [l, fn(l)]));
+
+const generatePercentage = (count) => {
+  let totalPercentage = 100;
+  const result = [];
+  let i = 1;
+  while (i < count) {
+    const rand = randomInt(1, totalPercentage);
+    totalPercentage -= rand;
+    result.push(rand);
+    i++;
+  }
+  result.push(totalPercentage);
+  return result;
+};
 
 const generateSharpRandom = (
   length = 12,
@@ -481,4 +497,69 @@ export const generatePayrolls = (pageSize) => {
       status: randomFrom(["progress", "pending", "completed", "rejected"]),
     };
   });
+};
+
+export const generateOverview = () => {
+  const overviewSection = ["all", "shortlist", "reject"];
+  const overviewPercentage = generatePercentage(3);
+  const employmentPercentage = generatePercentage(2);
+  return {
+    overview: overviewSection.map((s, idx) => {
+      const min = (2 - idx) * 1000;
+      const max = (3 - idx) * 1000;
+      return {
+        name: s,
+        total: randomInt(min, max),
+        change: (Math.random() < 0.5 ? 1 : -1) * randomInt(1, 100),
+        percentage: overviewPercentage[idx],
+      };
+    }),
+    application: {
+      direct: generateSharpRandom(7, 25, 0.3),
+      social: generateSharpRandom(7, 25, 0.3),
+      referral: generateSharpRandom(7, 25, 0.3),
+    },
+    employment: {
+      total: randomInt(1000, 2000),
+      fullTime: employmentPercentage[0],
+      partTime: employmentPercentage[1],
+    },
+    project: [
+      {
+        name: "total",
+        total: randomInt(100, 200),
+        percentage: randomInt(1, 100),
+      },
+      {
+        name: "participants",
+        total: randomInt(10, 50),
+        percentage: randomInt(1, 100),
+      },
+      {
+        name: "duration",
+        total: randomInt(1, 30),
+        percentage: randomInt(1, 100),
+      },
+      {
+        name: "progress",
+        total: randomInt(1, 100),
+        percentage: randomInt(1, 100),
+      },
+    ],
+    birthday: Array.from({ length: randomInt(0, 4) }, () => {
+      return {
+        name: randomFrom(NAMES),
+        profilePicture: randomPicture(),
+        position: randomFrom(POSITIONS),
+        year: randomInt(20, 60),
+      };
+    }),
+    activity: Array.from({ length: randomInt(5, 10) }, () => {
+      return {
+        time: `${randomInt(0, 2)}${randomInt(0, 10)}:${randomInt(0, 6)}0`, // z.string().regex(/^([0-1]\d|2[0-3]):([0-5]\d)$/),
+        location: randomFrom(EVENTS_LOCATIONS),
+        event: randomFrom(EVENTS),
+      };
+    }),
+  };
 };
