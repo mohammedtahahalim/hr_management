@@ -1,0 +1,8 @@
+{
+  "title": "Aperçu",
+  "stats": {
+    "all": "Candidats totaux",
+    "shortlist": "Candidats présélectionnés",
+    "reject": "Candidats rejetés"
+  }
+}
