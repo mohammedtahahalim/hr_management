@@ -7,6 +7,11 @@ import Birthday from "./Birthday";
 import Calendar from "./Calendar";
 import Activity from "./Activity";
 import Stats from "./Stats";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../config/store";
+import { useEffect } from "react";
+import { fetchOverview } from "./overviewSlice";
+import useFetchWeek from "./useFetchDate";
 
 const OverviewWrapper = styled(Box)({
   width: "100%",
@@ -55,6 +60,16 @@ const Bottom = styled(Box)({
 });
 
 export default function Overview() {
+  const dispatch = useDispatch<AppDispatch>();
+  const date = useFetchWeek();
+
+  useEffect(() => {
+    const overviewRequest = dispatch(fetchOverview({ date }));
+    return () => {
+      overviewRequest.abort();
+    };
+  }, [dispatch, date]);
+
   return (
     <OverviewWrapper>
       <WestSide>
