@@ -19,7 +19,7 @@ const CalendarWrapper = styled(Box)({
 });
 
 export default function Calendar() {
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation("common");
   const lang = i18n.language as TLanguage;
   const [searchParams, setSearchParams] = useSearchParams();
   const rawDate = searchParams.get("date") ?? new Date().toISOString();

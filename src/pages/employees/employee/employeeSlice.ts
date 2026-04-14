@@ -8,6 +8,7 @@ import z from "zod";
 import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const employeeSchema = z.object({
   data: z.object({
     id: z.string(),
@@ -105,6 +106,7 @@ const employeeSchema = z.object({
   }),
 });
 
+/* ----------------------------- State ----------------------------- */
 type ServerData = z.infer<typeof employeeSchema>;
 
 export type EmployeeData = ServerData["data"];
@@ -123,6 +125,23 @@ export type EmployeeEditableFields = Omit<
   | "joinDate"
 >;
 
+interface EmployeeState {
+  status: Status;
+  editStatus: Status;
+  error: Reject | null;
+  editError: Reject | null;
+  data: EmployeeData | null;
+}
+
+const initialState: EmployeeState = {
+  status: "idle",
+  editStatus: "idle",
+  error: null,
+  editError: null,
+  data: null,
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 interface FetchArgs {
   id: string;
 }
@@ -197,22 +216,48 @@ export const fetchEmployee = createAsyncThunk<
   }
 });
 
-interface EmployeeState {
-  status: Status;
-  editStatus: Status;
-  error: Reject | null;
-  editError: Reject | null;
-  data: EmployeeData | null;
-}
+/* ----------------------------- Slice ----------------------------- */
+const employeeSlice = createSlice({
+  name: "employee/slice",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) =>
+    builder
+      .addCase(fetchEmployee.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(
+        fetchEmployee.rejected,
+        (state, action: PayloadAction<Reject | undefined>) => {
+          state.status = "failure";
+          state.error = action.payload ?? "SYSTEM";
+        },
+      )
+      .addCase(
+        fetchEmployee.fulfilled,
+        (state, action: PayloadAction<EmployeeData>) => {
+          state.status = "success";
+          state.data = action.payload;
+        },
+      )
+      .addCase(editEmployee.pending, (state) => {
+        state.editStatus = "loading";
+        state.editError = null;
+      })
+      .addCase(
+        editEmployee.rejected,
+        (state, action: PayloadAction<Reject | undefined>) => {
+          state.editStatus = "failure";
+          state.editError = action.payload ?? "SYSTEM";
+        },
+      )
+      .addCase(editEmployee.fulfilled, (state) => {
+        state.editStatus = "success";
+      }),
+});
 
-const initialState: EmployeeState = {
-  status: "idle",
-  editStatus: "idle",
-  error: null,
-  editError: null,
-  data: null,
-};
-
+/* ----------------------------- Selectors ----------------------------- */
 export const selectEmployeeStatus = (state: RootState) =>
   state.employee.employee.status;
 
@@ -310,44 +355,5 @@ export const selectEmployeeEducation = createSelector(
   },
 );
 
-const employeeSlice = createSlice({
-  name: "employee/slice",
-  initialState,
-  reducers: {},
-  extraReducers: (builder) =>
-    builder
-      .addCase(fetchEmployee.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
-      })
-      .addCase(
-        fetchEmployee.rejected,
-        (state, action: PayloadAction<Reject | undefined>) => {
-          state.status = "failure";
-          state.error = action.payload ?? "SYSTEM";
-        },
-      )
-      .addCase(
-        fetchEmployee.fulfilled,
-        (state, action: PayloadAction<EmployeeData>) => {
-          state.status = "success";
-          state.data = action.payload;
-        },
-      )
-      .addCase(editEmployee.pending, (state) => {
-        state.editStatus = "loading";
-        state.editError = null;
-      })
-      .addCase(
-        editEmployee.rejected,
-        (state, action: PayloadAction<Reject | undefined>) => {
-          state.editStatus = "failure";
-          state.editError = action.payload ?? "SYSTEM";
-        },
-      )
-      .addCase(editEmployee.fulfilled, (state) => {
-        state.editStatus = "success";
-      }),
-});
-
+/* ----------------------------- Exports ----------------------------- */
 export default employeeSlice.reducer;

@@ -8,6 +8,7 @@ import z from "zod";
 import type { Reject, Status } from "../../shared/lib/types";
 import type { RootState } from "../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const notificationSchema = z.object({
   data: z.array(
     z.object({
@@ -23,12 +24,20 @@ export type NotificationBackend = z.infer<typeof notificationSchema>;
 
 export type NotificationData = NotificationBackend["data"][number];
 
+/* ----------------------------- State ----------------------------- */
 interface NotificationState {
   status: Status;
   error: Reject | null;
   data: NotificationData[];
 }
 
+const initialState: NotificationState = {
+  status: "idle",
+  error: null,
+  data: [],
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 export const fetchNotifications = createAsyncThunk<
   NotificationData[],
   void,
@@ -48,11 +57,10 @@ export const fetchNotifications = createAsyncThunk<
       if (response.status >= 500) return rejectWithValue("BAD");
       return rejectWithValue("SYSTEM");
     }
-    const dataFromBackend = await response.json();
-    const isValidData = notificationSchema.safeParse(dataFromBackend);
-    if (!isValidData.success) return rejectWithValue("MISMATCH");
-    const { data } = isValidData.data;
-    return data;
+    const data = await response.json();
+    const parsed = notificationSchema.safeParse(data);
+    if (!parsed.success) return rejectWithValue("MISMATCH");
+    return parsed.data.data;
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") {
       return rejectWithValue("ABORT");
@@ -61,28 +69,7 @@ export const fetchNotifications = createAsyncThunk<
   }
 });
 
-const initialState: NotificationState = {
-  status: "idle",
-  error: null,
-  data: [],
-};
-
-export const selectNotificationStatus = (state: RootState) =>
-  state.notifications.status;
-
-export const selectNotificationError = (state: RootState) =>
-  state.notifications.error;
-
-export const selectNotifications = (state: RootState) =>
-  state.notifications.data;
-
-export const selectNotificationUnread = createSelector(
-  [selectNotifications],
-  (notifications) => {
-    return notifications.filter((n) => n.read).length;
-  },
-);
-
+/* ----------------------------- Slice ----------------------------- */
 const notificationSlice = createSlice({
   name: "notifications",
   initialState,
@@ -108,5 +95,22 @@ const notificationSlice = createSlice({
         },
       ),
 });
+
+/* ----------------------------- Selectors ----------------------------- */
+export const selectNotificationStatus = (state: RootState) =>
+  state.notifications.status;
+
+export const selectNotificationError = (state: RootState) =>
+  state.notifications.error;
+
+export const selectNotifications = (state: RootState) =>
+  state.notifications.data;
+
+export const selectNotificationUnread = createSelector(
+  [selectNotifications],
+  (notifications) => {
+    return notifications.filter((n) => n.read).length;
+  },
+);
 
 export default notificationSlice.reducer;

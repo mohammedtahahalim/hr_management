@@ -6,6 +6,7 @@ import {
   type RefObject,
 } from "react";
 
+/* ----------------------------- Focusable elements ----------------------------- */
 const FOCUSABLE_SELECTOR = [
   "a[href]",
   "button:not([disabled])",
@@ -49,17 +50,25 @@ export default function useModal<T extends HTMLElement, M extends HTMLElement>(
       if (e.key !== "Escape") return;
       closeModal();
     };
+
+    /* ----------------------------- Saving previous overflow to prevent scrolling when modal open ----------------------------- */
     const previousOverflow = document.body.style.overflow;
     if (preventScroll) {
       document.body.style.overflow = "hidden";
     }
+
+    /* ----------------------------- Saving last active element ----------------------------- */
     lastActiveElement.current = document.activeElement;
     const focusables = Array.from(
       modal.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
     ).filter(
       (el) => !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden"),
     );
+
+    /* ----------------------------- First element focus ----------------------------- */
     focusables[0]?.focus();
+
+    /* ----------------------------- Focus trap ----------------------------- */
     const handleFocusTrap = (e: KeyboardEvent) => {
       if (e.key !== "Tab" || !trapFocus) return;
       if (focusables.length < 2) return;
@@ -82,9 +91,12 @@ export default function useModal<T extends HTMLElement, M extends HTMLElement>(
         return;
       }
     };
+
+    /* ----------------------------- Events ----------------------------- */
     modal.addEventListener("keydown", handleFocusTrap);
     window.addEventListener("keydown", handleEscapeKey);
     return () => {
+      /* ----------------------------- Cleanup ----------------------------- */
       modal.removeEventListener("keydown", handleFocusTrap);
       window.removeEventListener("keydown", handleEscapeKey);
       document.body.style.overflow = previousOverflow;

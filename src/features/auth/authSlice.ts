@@ -8,7 +8,6 @@ import type { Status, Reject } from "../../shared/lib/types";
 import z from "zod";
 
 /* ----------------------------- Schema ----------------------------- */
-
 const authSchema = z.object({
   user: z.object({
     id: z.number().nonnegative(),
@@ -24,7 +23,6 @@ export type AuthType = z.infer<typeof authSchema>;
 export type User = AuthType["user"];
 
 /* ----------------------------- State ----------------------------- */
-
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
@@ -46,7 +44,6 @@ const initialState: AuthState = {
 };
 
 /* ----------------------------- Thunks ----------------------------- */
-
 export const checkAuth = createAsyncThunk<User, void, { rejectValue: Reject }>(
   "auth/check",
   async (_, { rejectWithValue, signal }) => {
@@ -151,7 +148,6 @@ export const logout = createAsyncThunk<void, void, { rejectValue: Reject }>(
 );
 
 /* ----------------------------- Slice ----------------------------- */
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -164,18 +160,17 @@ const authSlice = createSlice({
       .addCase(checkAuth.pending, (state) => {
         state.status = "loading";
         state.error = null;
+        state.isInitialized = true;
       })
       .addCase(checkAuth.fulfilled, (state, action: PayloadAction<User>) => {
         state.status = "success";
         state.user = action.payload;
         state.isAuthenticated = true;
-        state.isInitialized = true;
       })
       .addCase(
         checkAuth.rejected,
         (state, action: PayloadAction<Reject | undefined>) => {
           state.status = "failure";
-          state.isInitialized = true;
           const error = action.payload ?? "SYSTEM";
           if (error === "UNAUTHENTICATED" || error === "FORBIDDEN") {
             state.user = null;
@@ -219,7 +214,6 @@ const authSlice = createSlice({
 });
 
 /* ----------------------------- Selectors ----------------------------- */
-
 export const selectAuthUser = (state: RootState) => state.auth.user;
 export const selectIsAuthenticated = (state: RootState) =>
   state.auth.isAuthenticated;
@@ -233,6 +227,5 @@ export const selectLoginStatus = (state: RootState) => state.auth.loginStatus;
 export const selectLogoutStatus = (state: RootState) => state.auth.logoutStatus;
 
 /* ----------------------------- Export ----------------------------- */
-
 export const { resetAuthState } = authSlice.actions;
 export default authSlice.reducer;

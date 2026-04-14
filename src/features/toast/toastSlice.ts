@@ -1,6 +1,7 @@
 import type { AlertProps } from "@mui/material";
 import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 
+/* ----------------------------- State ----------------------------- */
 interface ToastItem {
   id: string;
   message: string;
@@ -14,6 +15,7 @@ interface ToastShape {
 
 const initialState: ToastShape = { items: [] };
 
+/* ----------------------------- Slice ----------------------------- */
 export const toastSlice = createSlice({
   name: "toast/slice",
   initialState,
@@ -40,5 +42,6 @@ export const toastSlice = createSlice({
   },
 });
 
+/* ----------------------------- Export ----------------------------- */
 export const { addToast, removeToast } = toastSlice.actions;
 export default toastSlice.reducer;

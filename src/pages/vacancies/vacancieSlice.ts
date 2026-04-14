@@ -3,6 +3,7 @@ import z from "zod";
 import type { Reject, Status } from "../../shared/lib/types";
 import type { RootState } from "../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 export const vacancieSchema = z.object({
   id: z.number().nonnegative(),
   title: z.record(z.enum(["en", "ja", "ar", "fr"]), z.string().min(1)),
@@ -21,6 +22,7 @@ const fetchReturnSchema = z.object({
   data: z.array(vacancieSchema),
 });
 
+/* ----------------------------- State ----------------------------- */
 export type VacancieData = z.infer<typeof vacancieSchema>;
 
 export type ViewType = "list" | "card";
@@ -33,16 +35,24 @@ interface VacancieState {
   viewType: ViewType;
 }
 
-export type Filters = VacancieData["status"] | "all";
+const initialState: VacancieState = {
+  status: "idle",
+  error: null,
+  data: [],
+  lastPage: null,
+  viewType: "list",
+};
 
-interface FetchProps {
-  queries: string;
-}
+export type Filters = VacancieData["status"] | "all";
 
 type FetchReturns = z.infer<typeof fetchReturnSchema>;
 
 type FetchData = Pick<FetchReturns, "lastPage" | "data">;
 
+/* ----------------------------- Thunks ----------------------------- */
+interface FetchProps {
+  queries: string;
+}
 export const fetchVacancies = createAsyncThunk<
   FetchData,
   FetchProps,
@@ -77,29 +87,7 @@ export const fetchVacancies = createAsyncThunk<
   }
 });
 
-const initialState: VacancieState = {
-  status: "idle",
-  error: null,
-  data: [],
-  lastPage: null,
-  viewType: "list",
-};
-
-export const selectVacancieStatus = (state: RootState) =>
-  state.vacancies.vacancie.status;
-
-export const selectVacanieError = (state: RootState) =>
-  state.vacancies.vacancie.error;
-
-export const selectVacancieData = (state: RootState) =>
-  state.vacancies.vacancie.data;
-
-export const selectVacancieLastPage = (state: RootState) =>
-  state.vacancies.vacancie.lastPage;
-
-export const selectVacancieViewType = (state: RootState) =>
-  state.vacancies.vacancie.viewType;
-
+/* ----------------------------- Slice ----------------------------- */
 const vacancieSlice = createSlice({
   name: "vacancies",
   initialState,
@@ -132,5 +120,22 @@ const vacancieSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectVacancieStatus = (state: RootState) =>
+  state.vacancies.vacancie.status;
+
+export const selectVacanieError = (state: RootState) =>
+  state.vacancies.vacancie.error;
+
+export const selectVacancieData = (state: RootState) =>
+  state.vacancies.vacancie.data;
+
+export const selectVacancieLastPage = (state: RootState) =>
+  state.vacancies.vacancie.lastPage;
+
+export const selectVacancieViewType = (state: RootState) =>
+  state.vacancies.vacancie.viewType;
+
+/* ----------------------------- Exports ----------------------------- */
 export default vacancieSlice.reducer;
 export const { toggleViewType } = vacancieSlice.actions;

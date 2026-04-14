@@ -7,6 +7,7 @@ import z from "zod";
 import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const recentJobsSchema = z.object({
   data: z.array(
     z.object({
@@ -22,6 +23,7 @@ const recentJobsSchema = z.object({
   ),
 });
 
+/* ----------------------------- State ----------------------------- */
 export type RecentBackend = z.infer<typeof recentJobsSchema>;
 
 export type RecentJobs = RecentBackend["data"][number];
@@ -32,6 +34,13 @@ interface RecentJobsState {
   data: RecentJobs[];
 }
 
+const initialState: RecentJobsState = {
+  status: "idle",
+  error: null,
+  data: [],
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 export const fetchRecentJobs = createAsyncThunk<
   RecentJobs[],
   void,
@@ -64,21 +73,7 @@ export const fetchRecentJobs = createAsyncThunk<
   }
 });
 
-const initialState: RecentJobsState = {
-  status: "idle",
-  error: null,
-  data: [],
-};
-
-export const selectRecentStatus = (state: RootState) =>
-  state.dashboard.recent.status;
-
-export const selectRecentError = (state: RootState) =>
-  state.dashboard.recent.error;
-
-export const selectRecentData = (state: RootState) =>
-  state.dashboard.recent.data;
-
+/* ----------------------------- Slice ----------------------------- */
 const recentSlice = createSlice({
   name: "recent/slice",
   initialState,
@@ -105,4 +100,15 @@ const recentSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectRecentStatus = (state: RootState) =>
+  state.dashboard.recent.status;
+
+export const selectRecentError = (state: RootState) =>
+  state.dashboard.recent.error;
+
+export const selectRecentData = (state: RootState) =>
+  state.dashboard.recent.data;
+
+/* ----------------------------- Exports ----------------------------- */
 export default recentSlice.reducer;

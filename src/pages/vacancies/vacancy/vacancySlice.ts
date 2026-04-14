@@ -7,10 +7,7 @@ import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 import { z } from "zod";
 
-interface FetchVacancyProps {
-  id: string;
-}
-
+/* ----------------------------- Schema ----------------------------- */
 const vacancySchema = z.object({
   id: z.string().nonempty(),
   overviews: z.array(
@@ -51,8 +48,25 @@ const vacancySchema = z.object({
   }),
 });
 
+/* ----------------------------- State ----------------------------- */
 export type VacancyData = z.infer<typeof vacancySchema>;
 
+interface VacancyState {
+  status: Status;
+  error: Reject | null;
+  data: VacancyData | null;
+}
+
+const initialState: VacancyState = {
+  status: "idle",
+  error: null,
+  data: null,
+};
+
+/* ----------------------------- Thunks ----------------------------- */
+interface FetchVacancyProps {
+  id: string;
+}
 export const fetchVacancy = createAsyncThunk<
   VacancyData,
   FetchVacancyProps,
@@ -94,42 +108,7 @@ export const fetchVacancy = createAsyncThunk<
   }
 });
 
-interface VacancyState {
-  status: Status;
-  error: Reject | null;
-  data: VacancyData | null;
-}
-
-const initialState: VacancyState = {
-  status: "idle",
-  error: null,
-  data: null,
-};
-
-export const selectVacancyStatus = (state: RootState) =>
-  state.vacancies.vacancy.status;
-
-export const selectVacancyError = (state: RootState) =>
-  state.vacancies.vacancy.error;
-
-export const selectVacancyData = (state: RootState) =>
-  state.vacancies.vacancy.data;
-
-export const selectVacancyTitle = (state: RootState) =>
-  state.vacancies.vacancy.data?.details.title;
-
-export const selectOverviews = (state: RootState) =>
-  state.vacancies.vacancy.data?.overviews;
-
-export const selectApplicantOverTime = (state: RootState) =>
-  state.vacancies.vacancy.data?.trend;
-
-export const selectDistributions = (state: RootState) =>
-  state.vacancies.vacancy.data?.distribution;
-
-export const selectVacancyDetails = (state: RootState) =>
-  state.vacancies.vacancy.data?.details;
-
+/* ----------------------------- Slice ----------------------------- */
 const vacancySlice = createSlice({
   name: "vacancy/fetchById",
   initialState,
@@ -156,4 +135,30 @@ const vacancySlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectVacancyStatus = (state: RootState) =>
+  state.vacancies.vacancy.status;
+
+export const selectVacancyError = (state: RootState) =>
+  state.vacancies.vacancy.error;
+
+export const selectVacancyData = (state: RootState) =>
+  state.vacancies.vacancy.data;
+
+export const selectVacancyTitle = (state: RootState) =>
+  state.vacancies.vacancy.data?.details.title;
+
+export const selectOverviews = (state: RootState) =>
+  state.vacancies.vacancy.data?.overviews;
+
+export const selectApplicantOverTime = (state: RootState) =>
+  state.vacancies.vacancy.data?.trend;
+
+export const selectDistributions = (state: RootState) =>
+  state.vacancies.vacancy.data?.distribution;
+
+export const selectVacancyDetails = (state: RootState) =>
+  state.vacancies.vacancy.data?.details;
+
+/* ----------------------------- Exports ----------------------------- */
 export default vacancySlice.reducer;

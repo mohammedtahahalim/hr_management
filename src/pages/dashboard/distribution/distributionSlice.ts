@@ -8,6 +8,7 @@ import z from "zod";
 import { extractCurrentWeek } from "../../../shared/lib/helpers";
 import type { RootState } from "../../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const distributionSchema = z.object({
   data: z.object({
     total: z.number().nonnegative(),
@@ -28,6 +29,7 @@ const distributionSchema = z.object({
   }),
 });
 
+/* ----------------------------- State ----------------------------- */
 export type DistributionBackend = z.infer<typeof distributionSchema>;
 
 export type DistrubtionData = DistributionBackend["data"];
@@ -38,6 +40,13 @@ interface DistributionState {
   data: DistrubtionData | null;
 }
 
+const initialState: DistributionState = {
+  status: "idle",
+  error: null,
+  data: null,
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 interface DistributionProps {
   week: string;
 }
@@ -74,12 +83,7 @@ export const fetchDistributions = createAsyncThunk<
   }
 });
 
-const initialState: DistributionState = {
-  status: "idle",
-  error: null,
-  data: null,
-};
-
+/* ----------------------------- Slice ----------------------------- */
 const distributionSlice = createSlice({
   name: "dashboard/distribution",
   initialState,
@@ -106,6 +110,7 @@ const distributionSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
 export const selectDistributionStatus = (state: RootState) =>
   state.dashboard.distribution.status;
 
@@ -121,4 +126,5 @@ export const selectTotal = (state: RootState) =>
 export const selectDistributions = (state: RootState) =>
   state.dashboard.distribution.data?.distributions;
 
+/* ----------------------------- Exports ----------------------------- */
 export default distributionSlice.reducer;

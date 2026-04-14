@@ -20,7 +20,7 @@ interface AuthProps {
 
 export default function Auth({ guard }: AuthProps) {
   const status = useSelector(selectAuthStatus);
-  const error = useSelector(selectAuthError) ?? "SYSTEM";
+  const error = useSelector(selectAuthError);
   const user = useSelector(selectAuthUser);
   const isInitialized = useSelector(selectIsInitialized);
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -34,7 +34,8 @@ export default function Auth({ guard }: AuthProps) {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(addToast({ expireAt: 1500, message: error, type: "error" }));
+    if (!error) return;
+    dispatch(addToast({ expireAt: 2000, message: error, type: "error" }));
   }, [error, dispatch]);
 
   if (status === "idle" || status === "loading" || !isInitialized)

@@ -7,6 +7,7 @@ import type { Reject, Status } from "../../../shared/lib/types";
 import z from "zod";
 import type { RootState } from "../../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const activitySchema = z.object({
   data: z.array(
     z.object({
@@ -21,6 +22,7 @@ const activitySchema = z.object({
   ),
 });
 
+/* ----------------------------- State ----------------------------- */
 export type ActivitiyBackend = z.infer<typeof activitySchema>;
 
 export type ActivitiyData = ActivitiyBackend["data"][number];
@@ -31,6 +33,13 @@ interface ActivityState {
   data: ActivitiyData[];
 }
 
+const initialState: ActivityState = {
+  status: "idle",
+  error: null,
+  data: [],
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 export const fetchActivities = createAsyncThunk<
   ActivitiyData[],
   void,
@@ -65,21 +74,7 @@ export const fetchActivities = createAsyncThunk<
   }
 });
 
-const initialState: ActivityState = {
-  status: "idle",
-  error: null,
-  data: [],
-};
-
-export const selectActivityStatus = (state: RootState) =>
-  state.dashboard.activity.status;
-
-export const selectActivityError = (state: RootState) =>
-  state.dashboard.activity.error;
-
-export const selectActivityData = (state: RootState) =>
-  state.dashboard.activity.data;
-
+/* ----------------------------- Slice ----------------------------- */
 const activitySlice = createSlice({
   name: "activity",
   initialState,
@@ -106,4 +101,15 @@ const activitySlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectActivityStatus = (state: RootState) =>
+  state.dashboard.activity.status;
+
+export const selectActivityError = (state: RootState) =>
+  state.dashboard.activity.error;
+
+export const selectActivityData = (state: RootState) =>
+  state.dashboard.activity.data;
+
+/* ----------------------------- Exports ----------------------------- */
 export default activitySlice.reducer;

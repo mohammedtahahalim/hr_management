@@ -14,7 +14,7 @@ const TimeContainer = styled(Box)(({ theme }) => ({
 
 export default function Time() {
   const [currentTime, setCurrentTime] = useState<string>("");
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation("common");
   const lastInterval = useRef<ReturnType<typeof setInterval> | null>(null);
   const matches = useMediaQuery("(min-width:1100px)");
 

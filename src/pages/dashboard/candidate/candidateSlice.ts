@@ -8,6 +8,7 @@ import z from "zod";
 import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const candidateSchema = z.object({
   data: z.array(
     z.object({
@@ -31,6 +32,7 @@ const candidateSchema = z.object({
   ),
 });
 
+/* ----------------------------- State ----------------------------- */
 export type CandidateBackend = z.infer<typeof candidateSchema>;
 
 export type ICandidat = CandidateBackend["data"][number];
@@ -41,6 +43,13 @@ interface CandidateState {
   data: ICandidat[];
 }
 
+const initialState: CandidateState = {
+  status: "idle",
+  error: null,
+  data: [],
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 export const fetchCandidates = createAsyncThunk<
   ICandidat[],
   void,
@@ -73,12 +82,34 @@ export const fetchCandidates = createAsyncThunk<
   }
 });
 
-const initialState: CandidateState = {
-  status: "idle",
-  error: null,
-  data: [],
-};
+/* ----------------------------- Slice ----------------------------- */
+const candidateSlice = createSlice({
+  name: "candidate/slice",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) =>
+    builder
+      .addCase(fetchCandidates.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(
+        fetchCandidates.rejected,
+        (state, action: PayloadAction<Reject | undefined>) => {
+          state.status = "failure";
+          state.error = action.payload ?? "SYSTEM";
+        },
+      )
+      .addCase(
+        fetchCandidates.fulfilled,
+        (state, action: PayloadAction<ICandidat[]>) => {
+          state.status = "success";
+          state.data = action.payload;
+        },
+      ),
+});
 
+/* ----------------------------- Selectors ----------------------------- */
 export const selectAllCandidates = (state: RootState) =>
   state.dashboard.candidate.data;
 
@@ -108,30 +139,5 @@ export const selectPendingCandidates = createSelector(
   (data) => data.filter((c) => c.offerState === "PENDING"),
 );
 
-const candidateSlice = createSlice({
-  name: "candidate/slice",
-  initialState,
-  reducers: {},
-  extraReducers: (builder) =>
-    builder
-      .addCase(fetchCandidates.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
-      })
-      .addCase(
-        fetchCandidates.rejected,
-        (state, action: PayloadAction<Reject | undefined>) => {
-          state.status = "failure";
-          state.error = action.payload ?? "SYSTEM";
-        },
-      )
-      .addCase(
-        fetchCandidates.fulfilled,
-        (state, action: PayloadAction<ICandidat[]>) => {
-          state.status = "success";
-          state.data = action.payload;
-        },
-      ),
-});
-
+/* ----------------------------- Exports ----------------------------- */
 export default candidateSlice.reducer;

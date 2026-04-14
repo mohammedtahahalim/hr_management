@@ -71,7 +71,7 @@ const EventContent = styled(Typography)({
 });
 
 export default function Event({ date, title, content, id }: EventProps) {
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation("common");
   const [day, month] = date.split("-");
   const formattedDate = fetchMonth(Number(month), i18n.language as TLanguage);
   return (

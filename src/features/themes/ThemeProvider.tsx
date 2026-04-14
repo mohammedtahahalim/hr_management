@@ -8,6 +8,8 @@ interface ThemeProviderProps {
 
 export default function ThemeProvider({ children }: ThemeProviderProps) {
   const { currentTheme, changeTheme, HRTheme } = useTheme();
+
+  /* ----------------------------- Theme injection ----------------------------- */
   return (
     <MuiThemeProvider theme={HRTheme}>
       <CssBaseline />

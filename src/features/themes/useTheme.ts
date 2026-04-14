@@ -14,6 +14,7 @@ interface UseThemeReturns {
   HRTheme: Theme;
 }
 
+/* ----------------------------- Initialization ----------------------------- */
 const fetchInitialTheme = (): TTheme => {
   try {
     const localTheme = localStorage.getItem("theme");
@@ -33,6 +34,7 @@ export default function useTheme(props?: UseThemeProps): UseThemeReturns {
   const [currentTheme, setCurrentTheme] = useState<TTheme>(fetchInitialTheme);
   const isRunning = useRef<boolean>(false);
 
+  /* ----------------------------- Theme switching with throttling ----------------------------- */
   const changeTheme = useCallback(() => {
     if (isRunning.current) return;
     isRunning.current = true;
@@ -44,6 +46,7 @@ export default function useTheme(props?: UseThemeProps): UseThemeReturns {
     }, cooldown);
   }, [cooldown]);
 
+  /* ----------------------------- Local storage sync ----------------------------- */
   useEffect(() => {
     try {
       localStorage.setItem("theme", currentTheme);
@@ -52,6 +55,7 @@ export default function useTheme(props?: UseThemeProps): UseThemeReturns {
     }
   }, [currentTheme]);
 
+  /* ----------------------------- Main Theme with memoization ----------------------------- */
   const HRTheme: Theme = useMemo(
     () =>
       createTheme({

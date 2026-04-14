@@ -7,6 +7,7 @@ import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 import z from "zod";
 
+/* ----------------------------- Schema ----------------------------- */
 export const departmentSchema = z.object({
   departmentName: z.enum([
     "development",
@@ -21,6 +22,7 @@ export const departmentSchema = z.object({
   newApps: z.number().nonnegative(),
 });
 
+/* ----------------------------- Schema ----------------------------- */
 export type DepartmentData = z.infer<typeof departmentSchema>;
 
 export type DeptName = DepartmentData["departmentName"];
@@ -31,6 +33,13 @@ interface DepartmentState {
   data: DepartmentData[];
 }
 
+const initialState: DepartmentState = {
+  status: "idle",
+  error: null,
+  data: [],
+};
+
+/* ----------------------------- Schema ----------------------------- */
 export const fetchDepartments = createAsyncThunk<
   DepartmentData[],
   void,
@@ -73,21 +82,7 @@ export const fetchDepartments = createAsyncThunk<
   }
 });
 
-const initialState: DepartmentState = {
-  status: "idle",
-  error: null,
-  data: [],
-};
-
-export const selectDepartmentStatus = (state: RootState) =>
-  state.dashboard.department.status;
-
-export const selectDepartmentError = (state: RootState) =>
-  state.dashboard.department.error;
-
-export const selectDepartmentData = (state: RootState) =>
-  state.dashboard.department.data;
-
+/* ----------------------------- Slice ----------------------------- */
 const departmentSlice = createSlice({
   name: "departments",
   initialState,
@@ -114,4 +109,15 @@ const departmentSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectDepartmentStatus = (state: RootState) =>
+  state.dashboard.department.status;
+
+export const selectDepartmentError = (state: RootState) =>
+  state.dashboard.department.error;
+
+export const selectDepartmentData = (state: RootState) =>
+  state.dashboard.department.data;
+
+/* ----------------------------- Exports ----------------------------- */
 export default departmentSlice.reducer;

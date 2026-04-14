@@ -7,6 +7,7 @@ import z from "zod";
 import type { Reject, Status } from "../../../../shared/lib/types";
 import type { RootState } from "../../../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const applicantDetailSchema = z.object({
   data: z.object({
     id: z.string().nonempty(),
@@ -83,6 +84,7 @@ const applicantDetailSchema = z.object({
   }),
 });
 
+/* ----------------------------- State ----------------------------- */
 type ApplicationDetailBackend = z.infer<typeof applicantDetailSchema>;
 
 export type ApplicationDetail = ApplicationDetailBackend["data"];
@@ -91,6 +93,19 @@ export type Positions = ApplicationDetail["general"]["position"];
 
 export type Experience = ApplicationDetail["experiences"][number];
 
+type ApplicationDetailState = {
+  status: Status;
+  error: Reject | null;
+  data: ApplicationDetail | null;
+};
+
+const initialState: ApplicationDetailState = {
+  status: "idle",
+  error: null,
+  data: null,
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 type FetchDetailsProps = { id: number };
 
 export const fetchDetails = createAsyncThunk<
@@ -128,42 +143,7 @@ export const fetchDetails = createAsyncThunk<
   }
 });
 
-type ApplicationDetailState = {
-  status: Status;
-  error: Reject | null;
-  data: ApplicationDetail | null;
-};
-
-const initialState: ApplicationDetailState = {
-  status: "idle",
-  error: null,
-  data: null,
-};
-
-export const selectDetailStatus = (state: RootState) =>
-  state.applicants.details.status;
-
-export const selectDetailError = (state: RootState) =>
-  state.applicants.details.error;
-
-export const selectDetailGeneral = (state: RootState) =>
-  state.applicants.details.data?.general;
-
-export const selectDetailPersonal = (state: RootState) =>
-  state.applicants.details.data?.personal;
-
-export const selectDetailEducation = (state: RootState) =>
-  state.applicants.details.data?.educations;
-
-export const selectDetailExperience = (state: RootState) =>
-  state.applicants.details.data?.experiences;
-
-export const selectDetailSkills = (state: RootState) =>
-  state.applicants.details.data?.skills;
-
-export const selectDetailName = (state: RootState) =>
-  state.applicants.details.data?.general.name;
-
+/* ----------------------------- Slice ----------------------------- */
 const detailSlice = createSlice({
   name: "details/slice",
   initialState,
@@ -190,4 +170,30 @@ const detailSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectDetailStatus = (state: RootState) =>
+  state.applicants.details.status;
+
+export const selectDetailError = (state: RootState) =>
+  state.applicants.details.error;
+
+export const selectDetailGeneral = (state: RootState) =>
+  state.applicants.details.data?.general;
+
+export const selectDetailPersonal = (state: RootState) =>
+  state.applicants.details.data?.personal;
+
+export const selectDetailEducation = (state: RootState) =>
+  state.applicants.details.data?.educations;
+
+export const selectDetailExperience = (state: RootState) =>
+  state.applicants.details.data?.experiences;
+
+export const selectDetailSkills = (state: RootState) =>
+  state.applicants.details.data?.skills;
+
+export const selectDetailName = (state: RootState) =>
+  state.applicants.details.data?.general.name;
+
+/* ----------------------------- Exports ----------------------------- */
 export default detailSlice.reducer;

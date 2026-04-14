@@ -8,6 +8,7 @@ import z from "zod";
 import type { Reject, Status } from "../../shared/lib/types";
 import type { RootState } from "../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const payrollSchema = z.object({
   page: z.number().min(1),
   lastPage: z.number().min(1),
@@ -40,15 +41,7 @@ const payrollSchema = z.object({
   ),
 });
 
-type FetchPayrollReturn = z.infer<typeof payrollSchema>;
-
-export type PayrollData = FetchPayrollReturn["data"][number];
-
-export type PayrollSorters = keyof Omit<
-  PayrollData,
-  "profilePic" | "email" | "id"
->;
-
+/* ----------------------------- Sorters ----------------------------- */
 const sortersFunc: Record<
   PayrollSorters,
   (a: PayrollData, b: PayrollData) => number
@@ -63,6 +56,37 @@ const sortersFunc: Record<
     new Date(a.period[0]).getTime() - new Date(b.period[0]).getTime(),
 };
 
+/* ----------------------------- State ----------------------------- */
+type FetchPayrollReturn = z.infer<typeof payrollSchema>;
+
+export type PayrollData = FetchPayrollReturn["data"][number];
+
+export type PayrollSorters = keyof Omit<
+  PayrollData,
+  "profilePic" | "email" | "id"
+>;
+
+interface PayrollState {
+  status: Status;
+  error: Reject | null;
+  pageSize: number;
+  lastPage: number | null;
+  data: PayrollData[];
+  sortBy: PayrollSorters | null;
+  sortDirection: "desc" | "asc";
+}
+
+const initialState: PayrollState = {
+  status: "idle",
+  error: null,
+  pageSize: 8,
+  lastPage: null,
+  data: [],
+  sortBy: null,
+  sortDirection: "desc",
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 interface FetchPayrollProps {
   page: number;
   pageSize: number;
@@ -102,52 +126,7 @@ export const fetchPayrolls = createAsyncThunk<
   }
 });
 
-interface PayrollState {
-  status: Status;
-  error: Reject | null;
-  pageSize: number;
-  lastPage: number | null;
-  data: PayrollData[];
-  sortBy: PayrollSorters | null;
-  sortDirection: "desc" | "asc";
-}
-
-const initialState: PayrollState = {
-  status: "idle",
-  error: null,
-  pageSize: 8,
-  lastPage: null,
-  data: [],
-  sortBy: null,
-  sortDirection: "desc",
-};
-
-export const selectPayrollStatus = (state: RootState) => state.payroll.status;
-
-export const selectPayrollError = (state: RootState) => state.payroll.error;
-
-export const selectPayrollData = (state: RootState) => state.payroll.data;
-
-export const selectPayrollSortBy = (state: RootState) => state.payroll.sortBy;
-
-export const selectPayrollSortDirection = (state: RootState) =>
-  state.payroll.sortDirection;
-
-export const selectPayrollLastPage = (state: RootState) =>
-  state.payroll.lastPage;
-
-export const payrollDisplayData = createSelector(
-  [selectPayrollData, selectPayrollSortBy, selectPayrollSortDirection],
-  (data, sortBy, sortDirection) => {
-    if (!data.length) return [];
-    if (!sortBy) return data;
-    const temp = [...data];
-    const sort = sortersFunc[sortBy];
-    temp.sort((a, b) => (sortDirection === "desc" ? sort(a, b) : sort(b, a)));
-    return temp;
-  },
-);
-
+/* ----------------------------- Schema ----------------------------- */
 const payrollSlice = createSlice({
   name: "payroll",
   initialState,
@@ -187,5 +166,33 @@ const payrollSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectPayrollStatus = (state: RootState) => state.payroll.status;
+
+export const selectPayrollError = (state: RootState) => state.payroll.error;
+
+export const selectPayrollData = (state: RootState) => state.payroll.data;
+
+export const selectPayrollSortBy = (state: RootState) => state.payroll.sortBy;
+
+export const selectPayrollSortDirection = (state: RootState) =>
+  state.payroll.sortDirection;
+
+export const selectPayrollLastPage = (state: RootState) =>
+  state.payroll.lastPage;
+
+export const payrollDisplayData = createSelector(
+  [selectPayrollData, selectPayrollSortBy, selectPayrollSortDirection],
+  (data, sortBy, sortDirection) => {
+    if (!data.length) return [];
+    if (!sortBy) return data;
+    const temp = [...data];
+    const sort = sortersFunc[sortBy];
+    temp.sort((a, b) => (sortDirection === "desc" ? sort(a, b) : sort(b, a)));
+    return temp;
+  },
+);
+
+/* ----------------------------- Exports ----------------------------- */
 export default payrollSlice.reducer;
 export const { changeSorter } = payrollSlice.actions;

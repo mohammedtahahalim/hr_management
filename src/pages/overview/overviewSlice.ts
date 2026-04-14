@@ -7,6 +7,7 @@ import z from "zod";
 import type { Reject, Status } from "../../shared/lib/types";
 import type { RootState } from "../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const overviewSchema = z.object({
   data: z.object({
     overview: z.array(
@@ -72,10 +73,24 @@ const overviewSchema = z.object({
   }),
 });
 
+/* ----------------------------- State ----------------------------- */
 type FetchOverviewReturn = z.infer<typeof overviewSchema>;
 
 type OverviewData = FetchOverviewReturn["data"];
 
+type OverviewState = {
+  status: Status;
+  error: Reject | null;
+  data: OverviewData | null;
+};
+
+const initialState: OverviewState = {
+  status: "idle",
+  error: null,
+  data: null,
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 type FetchOverviewProps = {
   week: string;
 };
@@ -114,24 +129,7 @@ export const fetchOverview = createAsyncThunk<
   }
 });
 
-type OverviewState = {
-  status: Status;
-  error: Reject | null;
-  data: OverviewData | null;
-};
-
-const initialState: OverviewState = {
-  status: "idle",
-  error: null,
-  data: null,
-};
-
-export const selectOverviewStatus = (state: RootState) => state.overview.status;
-
-export const selectOverviewError = (state: RootState) => state.overview.error;
-
-export const selectOverviewData = (state: RootState) => state.overview.data;
-
+/* ----------------------------- Slice ----------------------------- */
 const overviewSlice = createSlice({
   name: "overview",
   initialState,
@@ -158,4 +156,12 @@ const overviewSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectOverviewStatus = (state: RootState) => state.overview.status;
+
+export const selectOverviewError = (state: RootState) => state.overview.error;
+
+export const selectOverviewData = (state: RootState) => state.overview.data;
+
+/* ----------------------------- Exports ----------------------------- */
 export default overviewSlice.reducer;

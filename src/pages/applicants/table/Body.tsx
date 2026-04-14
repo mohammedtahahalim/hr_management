@@ -33,7 +33,7 @@ export default function Body() {
   const [activeApplicant, setActiveApplicant] = useState<number>(-1);
   const tableBodyRef = useRef<HTMLTableSectionElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
-  const { i18n } = useTranslation();
+  const { i18n } = useTranslation("common");
   const isArabic = i18n.language === "ar";
 
   useEffect(() => {

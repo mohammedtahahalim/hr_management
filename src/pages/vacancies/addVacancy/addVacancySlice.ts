@@ -7,6 +7,7 @@ import z from "zod";
 import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const newVacancySchema = z.object({
   job: z.object({
     title: z.string().nonempty(),
@@ -45,8 +46,20 @@ const newVacancySchema = z.object({
   }),
 });
 
+/* ----------------------------- State ----------------------------- */
 export type NewVacancyData = z.infer<typeof newVacancySchema>;
 
+interface AddVacancyState {
+  status: Status;
+  error: Reject | null;
+}
+
+const initialState: AddVacancyState = {
+  status: "idle",
+  error: null,
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 export const addNewVacancy = createAsyncThunk<
   void,
   unknown,
@@ -80,22 +93,7 @@ export const addNewVacancy = createAsyncThunk<
   }
 });
 
-interface AddVacancyState {
-  status: Status;
-  error: Reject | null;
-}
-
-const initialState: AddVacancyState = {
-  status: "idle",
-  error: null,
-};
-
-export const selectAddVacancyStatus = (state: RootState) =>
-  state.vacancies.addVacancy.status;
-
-export const selectAddVacancyError = (state: RootState) =>
-  state.vacancies.addVacancy.error;
-
+/* ----------------------------- Slice ----------------------------- */
 const addVacancySlice = createSlice({
   name: "addVacancy/slice",
   initialState,
@@ -123,5 +121,13 @@ const addVacancySlice = createSlice({
       }),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectAddVacancyStatus = (state: RootState) =>
+  state.vacancies.addVacancy.status;
+
+export const selectAddVacancyError = (state: RootState) =>
+  state.vacancies.addVacancy.error;
+
+/* ----------------------------- Exports ----------------------------- */
 export default addVacancySlice.reducer;
 export const { resetFormStatus } = addVacancySlice.actions;

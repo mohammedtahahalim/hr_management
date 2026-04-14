@@ -8,6 +8,7 @@ import z from "zod";
 import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 export type Sorters = "name" | "pos" | "date" | "status" | "contact" | "rating";
 
 const applicantSchema = z.object({
@@ -38,11 +39,40 @@ const applicantSchema = z.object({
     }),
   ),
 });
+/* ----------------------------- Sorters ----------------------------- */
+const sorters: Record<Sorters, (a: ApplicantData, b: ApplicantData) => number> =
+  {
+    name: (a, b) => a.name["en"].localeCompare(b.name["en"]),
+    pos: (a, b) => a.position.localeCompare(b.position),
+    date: (a, b) => a.date.localeCompare(b.date),
+    status: (a, b) => a.status - b.status,
+    contact: (a, b) => a.email.localeCompare(b.email),
+    rating: (a, b) => a.rating - b.rating,
+  };
 
+/* ----------------------------- State ----------------------------- */
 type ApplicantBackend = z.infer<typeof applicantSchema>;
 
 export type ApplicantData = ApplicantBackend["data"][number];
 
+type ApplicantState = {
+  status: Status;
+  error: Reject | null;
+  lastPage: number;
+  data: ApplicantData[];
+  sortBy: Sorters | null;
+  sortOrder: "asc" | "desc" | null;
+};
+
+const initialState: ApplicantState = {
+  status: "idle",
+  error: null,
+  data: [],
+  lastPage: 1,
+  sortBy: null,
+  sortOrder: null,
+};
+/* ----------------------------- Thunks ----------------------------- */
 type FetchApplicantsReturn = Pick<ApplicantBackend, "data" | "lastPage">;
 
 export const fetchApplicants = createAsyncThunk<
@@ -80,70 +110,7 @@ export const fetchApplicants = createAsyncThunk<
   }
 });
 
-type ApplicantState = {
-  status: Status;
-  error: Reject | null;
-  lastPage: number;
-  data: ApplicantData[];
-  sortBy: Sorters | null;
-  sortOrder: "asc" | "desc" | null;
-};
-
-const initialState: ApplicantState = {
-  status: "idle",
-  error: null,
-  data: [],
-  lastPage: 1,
-  sortBy: null,
-  sortOrder: null,
-};
-
-export const selectApplicantStatus = (state: RootState) =>
-  state.applicants.applicants.status;
-
-export const selectApplicantError = (state: RootState) =>
-  state.applicants.applicants.error;
-
-export const selectApplicantLastPage = (state: RootState) =>
-  state.applicants.applicants.lastPage;
-
-export const selectApplicantData = (state: RootState) =>
-  state.applicants.applicants.data;
-
-export const selectApplicantSortBy = (state: RootState) =>
-  state.applicants.applicants.sortBy;
-
-export const selectApplicantSortOrder = (state: RootState) =>
-  state.applicants.applicants.sortOrder;
-
-const sorters: Record<Sorters, (a: ApplicantData, b: ApplicantData) => number> =
-  {
-    name: (a, b) => a.name["en"].localeCompare(b.name["en"]),
-    pos: (a, b) => a.position.localeCompare(b.position),
-    date: (a, b) => a.date.localeCompare(b.date),
-    status: (a, b) => a.status - b.status,
-    contact: (a, b) => a.email.localeCompare(b.email),
-    rating: (a, b) => a.rating - b.rating,
-  };
-
-export const selectDisplayData = createSelector(
-  [selectApplicantData, selectApplicantSortBy, selectApplicantSortOrder],
-  (data, sortBy, sortOrder) => {
-    if (!data || data.length === 0) return [];
-
-    const sortedData = [...data];
-
-    if (sortBy && sortOrder) {
-      const comparator = sorters[sortBy];
-      sortedData.sort((a, b) =>
-        sortOrder === "asc" ? comparator(a, b) : comparator(b, a),
-      );
-    }
-
-    return sortedData;
-  },
-);
-
+/* ----------------------------- Slice ----------------------------- */
 const applicantSlice = createSlice({
   name: "applicants",
   initialState,
@@ -181,5 +148,43 @@ const applicantSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectApplicantStatus = (state: RootState) =>
+  state.applicants.applicants.status;
+
+export const selectApplicantError = (state: RootState) =>
+  state.applicants.applicants.error;
+
+export const selectApplicantLastPage = (state: RootState) =>
+  state.applicants.applicants.lastPage;
+
+export const selectApplicantData = (state: RootState) =>
+  state.applicants.applicants.data;
+
+export const selectApplicantSortBy = (state: RootState) =>
+  state.applicants.applicants.sortBy;
+
+export const selectApplicantSortOrder = (state: RootState) =>
+  state.applicants.applicants.sortOrder;
+
+export const selectDisplayData = createSelector(
+  [selectApplicantData, selectApplicantSortBy, selectApplicantSortOrder],
+  (data, sortBy, sortOrder) => {
+    if (!data || data.length === 0) return [];
+
+    const sortedData = [...data];
+
+    if (sortBy && sortOrder) {
+      const comparator = sorters[sortBy];
+      sortedData.sort((a, b) =>
+        sortOrder === "asc" ? comparator(a, b) : comparator(b, a),
+      );
+    }
+
+    return sortedData;
+  },
+);
+
+/* ----------------------------- Exports ----------------------------- */
 export default applicantSlice.reducer;
 export const { sortData } = applicantSlice.actions;

@@ -9,6 +9,7 @@ import type { Reject, Status } from "../../shared/lib/types";
 import type { RootState } from "../../config/store";
 import type { TLanguage } from "../../config/i18n";
 
+/* ----------------------------- Schema ----------------------------- */
 const allEmployeeSchema = z.object({
   page: z.number().min(1),
   pageSize: z.number().min(1),
@@ -50,18 +51,7 @@ const allEmployeeSchema = z.object({
   ),
 });
 
-type DataFromServer = z.infer<typeof allEmployeeSchema>;
-
-export type AllEmployeeData = DataFromServer["data"];
-
-export type Employee = AllEmployeeData[number];
-
-export type SortableKeys = {
-  [K in keyof Employee]: Employee[K] extends string | Record<TLanguage, string>
-    ? K
-    : never;
-}[keyof Employee];
-
+/* ----------------------------- Sorters ----------------------------- */
 const sorters: Record<
   SortableKeys,
   (a: Employee, b: Employee, dir: "asc" | "desc") => number
@@ -96,6 +86,38 @@ const sorters: Record<
       : b.phoneNumber.localeCompare(a.phoneNumber),
 };
 
+/* ----------------------------- State ----------------------------- */
+type DataFromServer = z.infer<typeof allEmployeeSchema>;
+
+export type AllEmployeeData = DataFromServer["data"];
+
+export type Employee = AllEmployeeData[number];
+
+export type SortableKeys = {
+  [K in keyof Employee]: Employee[K] extends string | Record<TLanguage, string>
+    ? K
+    : never;
+}[keyof Employee];
+
+interface AllEmployeeState {
+  status: Status;
+  error: Reject | null;
+  state: DataFromServer | null;
+  viewType: "card" | "list";
+  sortBy: SortableKeys | null;
+  sortOrder: "asc" | "desc";
+}
+
+const initialState: AllEmployeeState = {
+  status: "idle",
+  error: null,
+  state: null,
+  viewType: "card",
+  sortBy: null,
+  sortOrder: "desc",
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 interface FetchAllEmployeesArgs {
   page?: number | string;
 }
@@ -133,57 +155,7 @@ export const fetchAllEmployees = createAsyncThunk<
   }
 });
 
-interface AllEmployeeState {
-  status: Status;
-  error: Reject | null;
-  state: DataFromServer | null;
-  viewType: "card" | "list";
-  sortBy: SortableKeys | null;
-  sortOrder: "asc" | "desc";
-}
-
-const initialState: AllEmployeeState = {
-  status: "idle",
-  error: null,
-  state: null,
-  viewType: "card",
-  sortBy: null,
-  sortOrder: "desc",
-};
-
-export const selectAllEmployeeStatus = (state: RootState) =>
-  state.employee.allEmployees.status;
-
-export const selectAllEmployeeError = (state: RootState) =>
-  state.employee.allEmployees.error;
-
-export const selectAllEmployeeData = (state: RootState) =>
-  state.employee.allEmployees.state?.data;
-
-export const selectEmployeeLastPage = (state: RootState) =>
-  state.employee.allEmployees.state?.lastPage;
-
-export const selectAllEmployeeViewType = (state: RootState) =>
-  state.employee.allEmployees.viewType;
-
-export const selectAllEmployeeSortBy = (state: RootState) =>
-  state.employee.allEmployees.sortBy;
-
-export const selectAllEmployeeSortOrder = (state: RootState) =>
-  state.employee.allEmployees.sortOrder;
-
-export const allEmployeesDisplayData = createSelector(
-  [selectAllEmployeeData, selectAllEmployeeSortBy, selectAllEmployeeSortOrder],
-  (data, sortBy, sortOrder) => {
-    if (!data) return [];
-    if (!sortBy) return data;
-    const temp = [...data];
-    const activeSorter = sorters[sortBy];
-    temp.sort((a, b) => activeSorter(a, b, sortOrder));
-    return temp;
-  },
-);
-
+/* ----------------------------- Slice ----------------------------- */
 const allEmployeeSlice = createSlice({
   name: "allEmployees",
   initialState,
@@ -223,5 +195,40 @@ const allEmployeeSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectAllEmployeeStatus = (state: RootState) =>
+  state.employee.allEmployees.status;
+
+export const selectAllEmployeeError = (state: RootState) =>
+  state.employee.allEmployees.error;
+
+export const selectAllEmployeeData = (state: RootState) =>
+  state.employee.allEmployees.state?.data;
+
+export const selectEmployeeLastPage = (state: RootState) =>
+  state.employee.allEmployees.state?.lastPage;
+
+export const selectAllEmployeeViewType = (state: RootState) =>
+  state.employee.allEmployees.viewType;
+
+export const selectAllEmployeeSortBy = (state: RootState) =>
+  state.employee.allEmployees.sortBy;
+
+export const selectAllEmployeeSortOrder = (state: RootState) =>
+  state.employee.allEmployees.sortOrder;
+
+export const allEmployeesDisplayData = createSelector(
+  [selectAllEmployeeData, selectAllEmployeeSortBy, selectAllEmployeeSortOrder],
+  (data, sortBy, sortOrder) => {
+    if (!data) return [];
+    if (!sortBy) return data;
+    const temp = [...data];
+    const activeSorter = sorters[sortBy];
+    temp.sort((a, b) => activeSorter(a, b, sortOrder));
+    return temp;
+  },
+);
+
+/* ----------------------------- Exports ----------------------------- */
 export default allEmployeeSlice.reducer;
 export const { changeViewType, sortAllEmployeeData } = allEmployeeSlice.actions;

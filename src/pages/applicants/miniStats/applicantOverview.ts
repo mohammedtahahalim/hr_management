@@ -7,6 +7,7 @@ import z from "zod";
 import type { Reject, Status } from "../../../shared/lib/types";
 import type { RootState } from "../../../config/store";
 
+/* ----------------------------- Schema ----------------------------- */
 const applicantsOverviewSchema = z.object({
   open: z.object({
     total: z.number().nonnegative(),
@@ -30,8 +31,22 @@ const applicantsOverviewSchema = z.object({
   }),
 });
 
+/* ----------------------------- State ----------------------------- */
 type ApplicantOverviewData = z.infer<typeof applicantsOverviewSchema>;
 
+type ApplicantOverviewState = {
+  status: Status;
+  error: Reject | null;
+  data: ApplicantOverviewData | null;
+};
+
+const initialState: ApplicantOverviewState = {
+  status: "idle",
+  error: null,
+  data: null,
+};
+
+/* ----------------------------- Thunks ----------------------------- */
 export const fetchApplicantsOverview = createAsyncThunk<
   ApplicantOverviewData,
   void,
@@ -71,36 +86,7 @@ export const fetchApplicantsOverview = createAsyncThunk<
   }
 });
 
-type ApplicantOverviewState = {
-  status: Status;
-  error: Reject | null;
-  data: ApplicantOverviewData | null;
-};
-
-const initialState: ApplicantOverviewState = {
-  status: "idle",
-  error: null,
-  data: null,
-};
-
-export const selectApplicantOverviewStatus = (state: RootState) =>
-  state.applicants.applicantOverview.status;
-
-export const selectApplicantOverviewError = (state: RootState) =>
-  state.applicants.applicantOverview.error;
-
-export const selectApplicantOverviewOpen = (state: RootState) =>
-  state.applicants.applicantOverview.data?.open;
-
-export const selectApplicantOverviewActive = (state: RootState) =>
-  state.applicants.applicantOverview.data?.active;
-
-export const selectApplicantOverviewHiring = (state: RootState) =>
-  state.applicants.applicantOverview.data?.hiring;
-
-export const selectApplicantOverviewCandidate = (state: RootState) =>
-  state.applicants.applicantOverview.data?.candidate;
-
+/* ----------------------------- Slice ----------------------------- */
 const applicantOverviewSlice = createSlice({
   name: "applicants",
   initialState,
@@ -127,4 +113,24 @@ const applicantOverviewSlice = createSlice({
       ),
 });
 
+/* ----------------------------- Selectors ----------------------------- */
+export const selectApplicantOverviewStatus = (state: RootState) =>
+  state.applicants.applicantOverview.status;
+
+export const selectApplicantOverviewError = (state: RootState) =>
+  state.applicants.applicantOverview.error;
+
+export const selectApplicantOverviewOpen = (state: RootState) =>
+  state.applicants.applicantOverview.data?.open;
+
+export const selectApplicantOverviewActive = (state: RootState) =>
+  state.applicants.applicantOverview.data?.active;
+
+export const selectApplicantOverviewHiring = (state: RootState) =>
+  state.applicants.applicantOverview.data?.hiring;
+
+export const selectApplicantOverviewCandidate = (state: RootState) =>
+  state.applicants.applicantOverview.data?.candidate;
+
+/* ----------------------------- Exports ----------------------------- */
 export default applicantOverviewSlice.reducer;
