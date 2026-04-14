@@ -17,17 +17,23 @@ export default async function handler(req, res) {
     if (res.headersSent || res.writableEnded) {
       return;
     }
+
     const { block, id } = req.query;
     if (id) {
+      /* ----------------------------- Single applicant request ----------------------------- */
       if (isNaN(Number(id)))
         return res.status(400).json({ message: "Bad Format ..." });
       return res.status(200).json({ data: generateSingleApplicant(id) });
     }
+
     if (block) {
+      /* ----------------------------- Response by block ----------------------------- */
       if (!ALLOWED_QUERIES["applicants"].includes(block))
         return res.status(400).json({ message: "Bad Format ..." });
       return res.status(200).json({ data: generateApplicantsOverview() });
     }
+
+    /* ----------------------------- Default: all applicant ----------------------------- */
     let { page = DEFAULT_PAGE, pageSize = 10 } = req.query ?? {};
     pageSize = Math.min(pageSize, 10);
     return res.status(200).json({

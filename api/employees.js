@@ -11,6 +11,8 @@ export default async function handler(req, res) {
     await auth(req, res);
     if (res.headersSent || res.writableEnded) return;
     const { page = 1, pageSize = 8, id, mode, ...rest } = req.query;
+
+    /* ----------------------------- Single employee request ----------------------------- */
     if (id) {
       if (typeof id !== "string" || isNaN(Number(id)))
         return res.status(400).json({ message: "Bad Request" });
@@ -18,6 +20,8 @@ export default async function handler(req, res) {
         data: generateSingleEmployee(id),
       });
     }
+
+    // TODO: implement edit mode
     if (mode) {
       return res.status(403).json({ message: "Forbidden" });
     }

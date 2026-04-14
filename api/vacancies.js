@@ -13,6 +13,7 @@ export default async function handler(req, res) {
     if (res.headersSent || res.writableEnded) {
       return;
     }
+
     let {
       page = 1,
       filter = "all",
@@ -38,6 +39,7 @@ export default async function handler(req, res) {
       !ALLOWED_QUERIES["vacancies"]["loc"].includes(loc)
     )
       return res.status(400).json({ message: "Bad request ..." });
+
     const data = generateVacancies(page, filter, dept, posType, exp, loc, id);
     return res.status(200).json({
       data,

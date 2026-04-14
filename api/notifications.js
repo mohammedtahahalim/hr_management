@@ -5,7 +5,11 @@ export default async function handler(req, res) {
   if (req.method !== "GET")
     return res.status(405).json({ message: "Method not allowed ..." });
   try {
-    auth(req, res);
+    await auth(req, res);
+    if (res.headersSent || res.writableEnded) {
+      return;
+    }
+
     return res.status(200).json({
       data: NOTIFICATIONS,
     });

@@ -12,12 +12,14 @@ export default async function handler(req, res) {
   try {
     await auth(req, res);
     if (res.sentHeaders || res.writableEnded) return;
+
     let {
       page = DEFAULT_PAGE,
       pageSize = DEFAULT_PAGE_SIZE,
       ...rest
     } = req.query;
     page = Math.min(page, Math.floor(91 / pageSize));
+
     if (!allowedPageSize.includes(pageSize)) pageSize = 8;
     return res.status(200).json({
       page,

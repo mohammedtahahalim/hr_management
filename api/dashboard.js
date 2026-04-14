@@ -19,6 +19,8 @@ export default async function handler(req, res) {
     const { block, ...rest } = req.query;
     if (!ALLOWED_QUERIES["dashboard"].includes(block))
       return res.status(400).json({ message: "Bad format ..." });
+
+    /* ----------------------------- Response by block ----------------------------- */
     switch (block) {
       case "candidate":
         return res.status(200).json({ data: generateCandidates() });
