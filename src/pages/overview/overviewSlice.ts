@@ -14,7 +14,7 @@ const overviewSchema = z.object({
       z.object({
         name: z.string().nonempty(),
         total: z.number().nonnegative(),
-        change: z.number().nonnegative(),
+        change: z.number(),
         percentage: z.number().nonnegative(),
       }),
     ),
@@ -121,7 +121,6 @@ export const fetchOverview = createAsyncThunk<
     }
     const data = await response.json();
     const parsed = overviewSchema.safeParse(data);
-    console.log(parsed);
     if (!parsed.success) return rejectWithValue("MISMATCH");
     return parsed.data.data;
   } catch (err) {
@@ -163,7 +162,23 @@ export const selectOverviewStatus = (state: RootState) => state.overview.status;
 
 export const selectOverviewError = (state: RootState) => state.overview.error;
 
-export const selectOverviewData = (state: RootState) => state.overview.data;
+export const selectOverviewMain = (state: RootState) =>
+  state.overview.data?.overview;
+
+export const selectOverviewApplication = (state: RootState) =>
+  state.overview.data?.application;
+
+export const selectOverviewActivity = (state: RootState) =>
+  state.overview.data?.activity;
+
+export const selectOverviewBirthday = (state: RootState) =>
+  state.overview.data?.birthday;
+
+export const selectOverviewEmployment = (state: RootState) =>
+  state.overview.data?.employment;
+
+export const selectOverviewProject = (state: RootState) =>
+  state.overview.data?.project;
 
 /* ----------------------------- Exports ----------------------------- */
 export default overviewSlice.reducer;
