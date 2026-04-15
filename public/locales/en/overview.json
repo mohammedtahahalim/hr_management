@@ -26,5 +26,16 @@
   },
   "map": {
     "title": "Main Office"
+  },
+  "activities": {
+    "title": "Activities",
+    "locations": {
+      "roomA": "Conference Room A",
+      "roomB": "Conference Room B",
+      "roomC": "Conference Room C",
+      "online": "Online Webinar",
+      "training": "Training Room",
+      "outdoor": "Outdoor Patio"
+    }
   }
 }
