@@ -515,9 +515,9 @@ export const generateOverview = () => {
       };
     }),
     application: {
-      direct: generateSharpRandom(7, 25, 0.3),
-      social: generateSharpRandom(7, 25, 0.3),
-      referral: generateSharpRandom(7, 25, 0.3),
+      direct: Array.from({ length: 7 }, () => randomInt(20, 35)),
+      social: Array.from({ length: 7 }, () => randomInt(10, 20)),
+      referral: Array.from({ length: 7 }, () => randomInt(5, 10)),
     },
     employment: {
       total: randomInt(1000, 2000),

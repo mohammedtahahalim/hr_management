@@ -4,5 +4,11 @@
     "all": "Total Applicants",
     "shortlist": "Shortlisted Candidates",
     "reject": "Rejected Candidates"
+  },
+  "application": {
+    "title": "Applications Received",
+    "direct": "Direct",
+    "social": "Social",
+    "referral": "Referral"
   }
 }
