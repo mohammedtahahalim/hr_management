@@ -26,5 +26,16 @@
   },
   "map": {
     "title": "Bureau principal"
+  },
+  "activities": {
+    "title": "Activités",
+    "locations": {
+      "roomA": "Salle de conférence A",
+      "roomB": "Salle de conférence B",
+      "roomC": "Salle de conférence C",
+      "online": "Webinaire en ligne",
+      "training": "Salle de formation",
+      "outdoor": "Patio extérieur"
+    }
   }
 }
