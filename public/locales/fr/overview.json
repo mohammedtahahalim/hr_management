@@ -37,5 +37,23 @@
       "training": "Salle de formation",
       "outdoor": "Patio extérieur"
     }
+  },
+  "birthday": {
+    "title": "Anniversaires",
+    "positions": {
+      "backend": "Ingénieur Backend",
+      "devOps": "Ingénieur DevOps",
+      "fullStack": "Ingénieur Full Stack",
+      "django": "Développeur Django",
+      "cloud": "Ingénieur Cloud",
+      "c++": "Développeur C++",
+      "front": "Ingénieur Frontend",
+      "php": "Développeur PHP",
+      "data": "Analyste de Données",
+      "design": "Designer UI/UX",
+      "project": "Chef de Projet"
+    },
+    "today": "Anniversaire du jour",
+    "age": "ans"
   }
 }

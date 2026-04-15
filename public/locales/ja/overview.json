@@ -37,5 +37,23 @@
       "training": "トレーニングルーム",
       "outdoor": "屋外パティオ"
     }
+  },
+  "birthday": {
+    "title": "誕生日",
+    "positions": {
+      "backend": "バックエンドエンジニア",
+      "devOps": "DevOpsエンジニア",
+      "fullStack": "フルスタックエンジニア",
+      "django": "Django開発者",
+      "cloud": "クラウドエンジニア",
+      "c++": "C++開発者",
+      "front": "フロントエンドエンジニア",
+      "php": "PHP開発者",
+      "data": "データアナリスト",
+      "design": "UI/UXデザイナー",
+      "project": "プロジェクトマネージャー"
+    },
+    "today": "今日の誕生日",
+    "age": "歳"
   }
 }

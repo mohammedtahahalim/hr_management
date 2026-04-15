@@ -37,5 +37,23 @@
       "training": "Training Room",
       "outdoor": "Outdoor Patio"
     }
+  },
+  "birthday": {
+    "title": "Birthdays",
+    "positions": {
+      "backend": "Backend Engineer",
+      "devOps": "DevOps Engineer",
+      "fullStack": "FullStack Engineer",
+      "django": "Django Developer",
+      "cloud": "Cloud Engineer",
+      "c++": "C++ Developer",
+      "front": "Frontend Engineer",
+      "php": "PHP Developer",
+      "data": "Data Analyst",
+      "design": "UI/UX Designer",
+      "project": "Project Manager"
+    },
+    "today": "Today's Birthday",
+    "age": "yo"
   }
 }
