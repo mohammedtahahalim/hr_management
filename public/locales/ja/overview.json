@@ -4,5 +4,11 @@
     "all": "総応募者数",
     "shortlist": "選考候補者",
     "reject": "不合格者"
+  },
+  "application": {
+    "title": "受信した応募",
+    "direct": "直接",
+    "social": "ソーシャル",
+    "referral": "紹介"
   }
 }

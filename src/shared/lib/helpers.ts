@@ -109,3 +109,14 @@ export const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
     (el) => !el.hasAttribute("disabled") && !el.getAttribute("aria-hidden"),
   );
 };
+
+export const generateWeekFromDay = (
+  date: string = new Date().toISOString(),
+): string[] => {
+  const today = new Date(date);
+
+  return Array.from({ length: 7 }, (_, idx) => {
+    const temp = new Date(today.getTime() + (idx - 3) * 86400000).toISOString();
+    return temp.split("T")[0];
+  });
+};

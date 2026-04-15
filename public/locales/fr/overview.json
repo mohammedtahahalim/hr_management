@@ -4,5 +4,11 @@
     "all": "Candidats totaux",
     "shortlist": "Candidats présélectionnés",
     "reject": "Candidats rejetés"
+  },
+  "application": {
+    "title": "Candidatures reçues",
+    "direct": "Direct",
+    "social": "Social",
+    "referral": "Référence"
   }
 }

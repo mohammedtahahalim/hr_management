@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../../config/store";
 import { useEffect } from "react";
 import { fetchOverview } from "./overviewSlice";
-import useFetchWeek from "./useFetchDate";
+import useFetchDate from "./useFetchDate";
 
 const OverviewWrapper = styled(Box)({
   width: "100%",
@@ -61,7 +61,7 @@ const Bottom = styled(Box)({
 
 export default function Overview() {
   const dispatch = useDispatch<AppDispatch>();
-  const date = useFetchWeek();
+  const date = useFetchDate();
 
   useEffect(() => {
     const overviewRequest = dispatch(fetchOverview({ date }));
