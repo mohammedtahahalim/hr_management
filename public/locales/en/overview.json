@@ -23,5 +23,8 @@
     "participants": "Avg Participants",
     "duration": "Total Duration",
     "progress": "Avg Progress"
+  },
+  "map": {
+    "title": "Main Office"
   }
 }
