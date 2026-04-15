@@ -23,5 +23,8 @@
     "participants": "Moy. Participants",
     "duration": "Durée Totale",
     "progress": "Moy. Progression"
+  },
+  "map": {
+    "title": "Bureau principal"
   }
 }

@@ -23,5 +23,8 @@
     "participants": "平均参加者数",
     "duration": "総期間",
     "progress": "平均進捗"
+  },
+  "map": {
+    "title": "本社"
   }
 }

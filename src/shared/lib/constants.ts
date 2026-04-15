@@ -280,8 +280,6 @@ export const darkOverviewBoxesColor: string[] = [
   "#3a2a1f", // dark orange/brown
 ];
 
-//////////
-
 type SampleData = {
   title: string;
   content: string;
@@ -526,3 +524,10 @@ export const PAYRATE = [
 export const PAY_TYPE = ["cash", "wire", "bank", "transfer"];
 
 export const CURRENCIES = ["eur", "usd", "jpy", "gbp", "aed"];
+
+export const MAP_LOCATION: Record<TLanguage, string> = {
+  en: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.6567850516303!2d139.81070039746297!3d35.710062669354436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188ed0d12f9adf%3A0x7d1d4fb31f43f72a!2sTokyo%20Skytree!5e0!3m2!1sen!2sma!4v1776264475024!5m2!1sen!2sma",
+  ar: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.656784920608!2d139.81327532353131!3d35.710062672578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188ed0d12f9adf%3A0x7d1d4fb31f43f72a!2z2LfZiNmD2YrZiCDYs9mD2KfZiiDYqtix2Yo!5e0!3m2!1sar!2sma!4v1776264607198!5m2!1sar!2sma",
+  fr: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.656784920607!2d139.80812547646872!3d35.710062672578026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188ed0d12f9adf%3A0x7d1d4fb31f43f72a!2sTokyo%20Skytree!5e0!3m2!1sfr!2sma!4v1776264566276!5m2!1sfr!2sma",
+  ja: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3239.656783806038!2d139.81070040000003!3d35.710062699999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188ed0d12f9adf%3A0x7d1d4fb31f43f72a!2z5p2x5Lqs44K544Kr44Kk44OE44Oq44O8!5e0!3m2!1sja!2sma!4v1776264643029!5m2!1sja!2sma",
+};
