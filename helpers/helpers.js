@@ -546,7 +546,7 @@ export const generateOverview = () => {
         percentage: randomInt(1, 100),
       },
     ],
-    birthday: Array.from({ length: randomInt(0, 4) }, () => {
+    birthday: Array.from({ length: randomInt(2, 5) }, () => {
       return {
         name: randomFrom(NAMES),
         profilePicture: randomPicture(),
