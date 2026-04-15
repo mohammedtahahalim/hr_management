@@ -10,9 +10,6 @@ import Employee from "../pages/employees/employee/Employee";
 import Overview from "../pages/overview/Overview";
 const Login = lazy(() => import("../pages/auth/Login"));
 const Redirect = lazy(() => import("../shared/ui/Redirect"));
-const AddEmployee = lazy(
-  () => import("../pages/employees/addEmployee/AddEmployee"),
-);
 const NotFound = lazy(() => import("../shared/ui/NotFound"));
 
 interface IRoute {
@@ -63,10 +60,6 @@ export const mainRoutes: IRoute[] = [
   {
     path: "/employee/:id",
     component: Employee,
-  },
-  {
-    path: "/employee/add-employee",
-    component: AddEmployee,
   },
   {
     path: "/payroll",

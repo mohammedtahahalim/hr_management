@@ -2,7 +2,6 @@ import { Box, Button, MenuItem, Select, styled } from "@mui/material";
 import Title from "../../shared/ui/Title";
 import GridViewIcon from "@mui/icons-material/GridView";
 import ViewListIcon from "@mui/icons-material/ViewList";
-import AddIcon from "@mui/icons-material/Add";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -15,7 +14,6 @@ import {
 } from "./allEmployeeSlice";
 import type { AppDispatch } from "../../config/store";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
 const sorters: SortableKeys[] = [
   "department",
@@ -89,7 +87,6 @@ export default function Headline() {
   const status = useSelector(selectAllEmployeeStatus);
   const listType = useSelector(selectAllEmployeeViewType);
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
   const isLoading = status === "loading";
   const sortBy = useSelector(selectAllEmployeeSortBy);
 
@@ -150,13 +147,6 @@ export default function Headline() {
           startIcon={<ImportExportIcon fontSize="inherit" />}
         >
           {t("headline.import")}
-        </NewEmployee>
-        <NewEmployee
-          variant="contained"
-          startIcon={<AddIcon fontSize="inherit" />}
-          onClick={() => navigate("/employee/add-employee")}
-        >
-          {t("headline.addEmployee")}
         </NewEmployee>
       </Add>
     </HeadlineWrapper>
