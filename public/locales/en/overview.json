@@ -16,5 +16,12 @@
     "total": "Total Employment",
     "fullTime": "Full Time",
     "partTime": "Part Time"
+  },
+  "projects": {
+    "title": "Projects Overview",
+    "total": "Total Projects",
+    "participants": "Avg Participants",
+    "duration": "Total Duration",
+    "progress": "Avg Progress"
   }
 }

@@ -16,5 +16,12 @@
     "total": "Emploi total",
     "fullTime": "Temps plein",
     "partTime": "Temps partiel"
+  },
+  "projects": {
+    "title": "Aperçu des Projets",
+    "total": "Total des Projets",
+    "participants": "Moy. Participants",
+    "duration": "Durée Totale",
+    "progress": "Moy. Progression"
   }
 }

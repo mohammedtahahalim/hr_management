@@ -16,5 +16,12 @@
     "total": "総雇用者数",
     "fullTime": "フルタイム",
     "partTime": "パートタイム"
+  },
+  "projects": {
+    "title": "プロジェクト概要",
+    "total": "総プロジェクト数",
+    "participants": "平均参加者数",
+    "duration": "総期間",
+    "progress": "平均進捗"
   }
 }
