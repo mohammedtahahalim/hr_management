@@ -10,5 +10,11 @@
     "direct": "Direct",
     "social": "Social",
     "referral": "Referral"
+  },
+  "employment": {
+    "title": "Employment By Status",
+    "total": "Total Employment",
+    "fullTime": "Full Time",
+    "partTime": "Part Time"
   }
 }

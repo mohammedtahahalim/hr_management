@@ -12,11 +12,13 @@ import "dayjs/locale/fr";
 import "dayjs/locale/ar";
 import "dayjs/locale/ja";
 
-const CalendarWrapper = styled(Box)({
+const CalendarWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
-  height: "325px",
+  height: "300px",
   alignSelf: "center",
-});
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: "12px",
+}));
 
 export default function Calendar() {
   const { i18n } = useTranslation("common");
