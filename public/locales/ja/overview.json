@@ -10,5 +10,11 @@
     "direct": "直接",
     "social": "ソーシャル",
     "referral": "紹介"
+  },
+  "employment": {
+    "title": "雇用状況別",
+    "total": "総雇用者数",
+    "fullTime": "フルタイム",
+    "partTime": "パートタイム"
   }
 }

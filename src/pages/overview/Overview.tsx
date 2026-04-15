@@ -56,7 +56,7 @@ const Bottom = styled(Box)({
   display: "flex",
   gap: "10px",
   flexWrap: "wrap",
-  minHeight: "250px",
+  minHeight: "350px",
 });
 
 export default function Overview() {

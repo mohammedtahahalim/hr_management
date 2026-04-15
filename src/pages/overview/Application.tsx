@@ -126,10 +126,12 @@ export default function Application() {
   return (
     <ApplicationWrapper>
       <WaitMode>
-        <Title ender={false}>{t("application.title")}</Title>
-        <GraphWrapper>
-          <Line data={data} options={options} />
-        </GraphWrapper>
+        <>
+          <Title ender={false}>{t("application.title")}</Title>
+          <GraphWrapper>
+            <Line data={data} options={options} />
+          </GraphWrapper>
+        </>
       </WaitMode>
     </ApplicationWrapper>
   );
