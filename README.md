@@ -1,5 +1,7 @@
 # 🧑‍💼 HR Management System
 
+Live Version: https://hr-management-taha.vercel.app/
+
 A fullstack Human Resource Management System designed to streamline employee operations, improve organization visibility, and simplify HR workflows.
 
 ---
