@@ -20,6 +20,12 @@ const BirthdayWrapper = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   gap: "10px",
   margin: "0 auto",
+  [theme.breakpoints.down("xl")]: {
+    display: "none",
+  },
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
+  },
 }));
 
 const BirthdaySwiper = styled(Swiper)({
@@ -86,31 +92,32 @@ export default function Birthday() {
   const birthdaySlides = useSelector(selectOverviewBirthday) ?? [];
   const doSlidesExists = !!birthdaySlides.length;
 
-  console.log(doSlidesExists, birthdaySlides);
-
   return (
     <BirthdayWrapper>
       <WaitMode sx={{ borderRadius: "25px" }}>
-        <Title ender={false}>{t("birthday.title")}</Title>
-        <BirthdaySwiper slidesPerView={"auto"} spaceBetween={10}>
-          {birthdaySlides.map((s) => {
-            return (
-              <Slide key={s.name["en"]}>
-                <ProfileWrapper>
-                  <Image src={s.profilePicture} alt={s.name["en"]} />
-                </ProfileWrapper>
-                <Name variant="subtitle1">{s.name[lang]}</Name>
-                <Position variant="subtitle2">
-                  {t(`birthday.positions.${s.position}`)}
-                </Position>
-                <Today>{t("birthday.today")}</Today>
-                <Age>
-                  {s.year} {t("birthday.age")}
-                </Age>
-              </Slide>
-            );
-          })}
-        </BirthdaySwiper>
+        <>
+          <Title ender={false}>{t("birthday.title")}</Title>
+          <BirthdaySwiper slidesPerView={"auto"} spaceBetween={10}>
+            {doSlidesExists &&
+              birthdaySlides.map((s) => {
+                return (
+                  <Slide key={s.name["en"]}>
+                    <ProfileWrapper>
+                      <Image src={s.profilePicture} alt={s.name["en"]} />
+                    </ProfileWrapper>
+                    <Name variant="subtitle1">{s.name[lang]}</Name>
+                    <Position variant="subtitle2">
+                      {t(`birthday.positions.${s.position}`)}
+                    </Position>
+                    <Today>{t("birthday.today")}</Today>
+                    <Age>
+                      {s.year} {t("birthday.age")}
+                    </Age>
+                  </Slide>
+                );
+              })}
+          </BirthdaySwiper>
+        </>
       </WaitMode>
     </BirthdayWrapper>
   );

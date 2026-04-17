@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       });
     }
 
-    // TODO: implement edit mode
+    // Mimic edit mode, (currently there is no stored employees, so disabled by default)
     if (mode) {
       return res.status(403).json({ message: "Forbidden" });
     }

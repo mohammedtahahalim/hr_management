@@ -2,27 +2,27 @@ import type { TRole, Operation, Resource } from "./types";
 
 export const permissions: Partial<Record<`${TRole}:${Operation}`, Resource[]>> =
   {
-    /* ----------------------------- [} = All access ----------------------------- */
+    /* ----------------------------- [] = All access ----------------------------- */
     "admin:CREATE": [],
     "admin:READ": [],
     "admin:UPDATE": [],
     "admin:DELETE": [],
 
     "candidate:CREATE": ["applicant"],
-    "candidate:READ": ["dashboard", "vacancy", "applicant", "overview"],
+    "candidate:READ": ["dashboard", "overview", "applicant"],
     "candidate:UPDATE": ["applicant"],
 
-    "employee:READ": ["dashboard", "employee", "vacancy", "overview"],
+    "employee:READ": ["dashboard", "overview", "employee"],
     "employee:UPDATE": ["employee"],
 
     "hr:CREATE": ["employee", "applicant", "vacancy"],
     "hr:READ": [
       "dashboard",
+      "overview",
       "employee",
       "applicant",
       "payroll",
       "vacancy",
-      "overview",
     ],
     "hr:UPDATE": ["employee", "applicant", "payroll", "vacancy"],
     "hr:DELETE": ["employee", "applicant", "vacancy"],

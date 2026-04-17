@@ -9,7 +9,6 @@ export default async function handler(req, res) {
       return;
     }
     const form = req.body;
-    // TODO: Transfer to a common endpoint and mimic backend
     return res.status(200).json({ message: "success" });
   } catch (err) {
     console.log(err);

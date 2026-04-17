@@ -185,7 +185,6 @@ export const generateDashboardActivities = () => {
   }));
 };
 
-// TODO: refactor
 export const generateRandomVacancy = (id) => {
   const seed = hashString(id)();
   const rand = mulberry32(seed);
@@ -306,7 +305,6 @@ export const generateRandomVacancy = (id) => {
   };
 };
 
-// TODO: refactor to account for all filters
 export const generateVacancies = (
   page,
   filter,
@@ -554,7 +552,7 @@ export const generateOverview = () => {
         year: randomInt(20, 60),
       };
     }),
-    activity: Array.from({ length: randomInt(5, 10) }, () => {
+    activity: Array.from({ length: randomInt(6, 10) }, () => {
       return {
         time: `${randomInt(0, 2)}${randomInt(0, 10)}:${randomInt(0, 6)}0`, // z.string().regex(/^([0-1]\d|2[0-3]):([0-5]\d)$/),
         location: randomFrom(EVENTS_LOCATIONS),
