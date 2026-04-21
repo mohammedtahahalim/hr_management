@@ -3,6 +3,7 @@ import Title from "../../shared/ui/Title";
 import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../config/i18n";
 import { MAP_LOCATION } from "../../shared/lib/constants";
+import WaitMode from "./WaitMode";
 
 const OfficeWrapper = styled(Box)({
   flex: 1,
@@ -28,8 +29,10 @@ export default function Office() {
 
   return (
     <OfficeWrapper>
-      <Title ender={false}>{t("map.title")}</Title>
-      <Map src={MAP_LOCATION[lang]} allowFullScreen={true} loading="lazy" />
+      <WaitMode sx={{ borderRadius: "12px" }}>
+        <Title ender={false}>{t("map.title")}</Title>
+        <Map src={MAP_LOCATION[lang]} allowFullScreen={true} loading="lazy" />
+      </WaitMode>
     </OfficeWrapper>
   );
 }

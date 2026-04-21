@@ -27,7 +27,7 @@ export const permissions: Partial<Record<`${TRole}:${Operation}`, Resource[]>> =
     "hr:UPDATE": ["employee", "applicant", "payroll", "vacancy"],
     "hr:DELETE": ["employee", "applicant", "vacancy"],
 
-    "manager:READ": ["dashboard", "employee", "vacancy", "overview"],
+    "manager:READ": ["dashboard", "overview", "employee", "vacancy"],
     "manager:UPDATE": ["employee", "vacancy"],
   };
 

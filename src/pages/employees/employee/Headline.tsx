@@ -1,10 +1,11 @@
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button, IconButton, styled } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { selectEditEmployeeStatus, selectEmployeeName } from "./employeeSlice";
 import Title from "../../../shared/ui/Title";
 import { useTranslation } from "react-i18next";
 import type { TLanguage } from "../../../config/i18n";
+import WestIcon from "@mui/icons-material/West";
 
 interface HeadlineProps {
   handleEdit: () => void;
@@ -22,6 +23,12 @@ const HeadlineWrapper = styled(Box)(({ theme }) => ({
     gap: "5px",
   },
 }));
+
+const TitleWrapper = styled(Box)({
+  display: "flex",
+  gap: "5px",
+  alignItems: "center",
+});
 
 const EditMode = styled(Box)({
   display: "flex",
@@ -56,9 +63,18 @@ export default function Headline({ handleEdit }: HeadlineProps) {
 
   return (
     <HeadlineWrapper>
-      <Title variant="h6" ender={false}>
-        {name ? name[lang] : ""}
-      </Title>
+      <TitleWrapper>
+        <IconButton aria-label={t("headline.goBack")}>
+          <WestIcon
+            fontSize="medium"
+            color="primary"
+            onClick={() => navigate(-1)}
+          />
+        </IconButton>
+        <Title variant="h6" ender={false}>
+          {name ? name[lang] : ""}
+        </Title>
+      </TitleWrapper>
       <EditMode>
         {mode === "edit" ? (
           <>

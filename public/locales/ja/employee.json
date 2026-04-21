@@ -2,7 +2,8 @@
   "headline": {
     "edit": "編集",
     "cancel": "キャンセル",
-    "save": "保存"
+    "save": "保存",
+    "goBack": "戻る"
   },
   "positions": {
     "backend": "バックエンドエンジニア",

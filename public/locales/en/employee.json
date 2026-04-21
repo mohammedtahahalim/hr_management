@@ -2,7 +2,8 @@
   "headline": {
     "edit": "Edit",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "goBack": "Go Back"
   },
   "positions": {
     "backend": "Backend Engineer",

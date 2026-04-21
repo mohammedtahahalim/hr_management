@@ -2,7 +2,8 @@
   "headline": {
     "edit": "تعديل",
     "cancel": "إلغاء",
-    "save": "حفظ"
+    "save": "حفظ",
+    "goBack": "رجع"
   },
   "positions": {
     "backend": "مهندس باك إند",
