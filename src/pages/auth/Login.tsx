@@ -32,12 +32,15 @@ interface ILoginForm {
 const LoginWrapper = styled(Box)(({ theme }) => ({
   width: "100%",
   height: "100%",
+  minHeight: "100vh",
   backgroundImage: `linear-gradient(${theme.palette.second.main}, ${alpha(theme.palette.second.main, 0.95)})`,
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   position: "relative",
   padding: "10px",
+  overflowY: "auto",
+  scrollbarWidth: "none",
 }));
 
 const FormWrapper = styled(Box)(({ theme }) => ({
